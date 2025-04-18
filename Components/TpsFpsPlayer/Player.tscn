@@ -1,0 +1,336 @@
+[gd_scene load_steps=38 format=4 uid="uid://p2wyutg0uccu"]
+
+[ext_resource type="Script" uid="uid://cfncptlgyantm" path="res://Components/TpsFpsPlayer/Player.gd" id="1_ivt6l"]
+[ext_resource type="Script" uid="uid://canw6gbkuvxa5" path="res://Components/TpsFpsPlayer/TpsCamera.gd" id="2_6vp7m"]
+[ext_resource type="Script" uid="uid://dq4i8ud83sua5" path="res://Components/TpsFpsPlayer/FpsCamera.gd" id="3_rxfgv"]
+[ext_resource type="Script" uid="uid://xp07tyvrlbga" path="res://Components/TpsFpsPlayer/PlayerBody.gd" id="4_lsk15"]
+[ext_resource type="PackedScene" uid="uid://ck3u2sxvhxvjc" path="res://Meshs/PlayerBody.gltf" id="6_br1xv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6vp7m"]
+size = Vector3(1, 2, 0.75)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_i3o6r"]
+radius = 0.2
+
+[sub_resource type="Curve" id="Curve_abm1h"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.8, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kficd"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_5yblp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ygh4"]
+resource_name = "Material_2"
+cull_mode = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_0c6xt"]
+_surfaces = [{
+"aabb": AABB(-0.125, -0.375, -0.125, 0.25, 0.75001, 0.25),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AgAEAAcAAgAFAAQABgAFAAIABgAAAAUABAABAAcABAADAAEABQADAAQABQAAAAMAAQACAAcAAQAGAAIAAwAGAAEAAwAAAAYA"),
+"name": "Material_2",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAD+/wAAAAAAAAAA//8AAP///v/+/wAAAAAAAAAAAAD+/wAAAAAAAP7//v8AAAAAAAD+////AAD//wAA/v8AAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_4v447"]
+resource_name = "PlayerArm_Mesh_4_001"
+_surfaces = [{
+"aabb": AABB(-0.125, -0.375, -0.125, 0.25, 0.75001, 0.25),
+"attribute_data": PackedByteArray("/z8AAP8//z8AAAAAAAD/v/8//z//P/+//z8AAAAAAAAAAAAA/z//v/8/AAAAAP+/AAD/vwAAAAD/P/+/AAAAAAAA/z//PwAAAAAAAP8/AAD/PwAA/z//vwAA/z8AAP+/"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("CAAOABcACAARAA4AEwAQAAcAEwABABAADQAEABYADQAKAAQADwAJAAwADwAAAAkAAwAGABUAAwASAAYACwAUAAUACwACABQA"),
+"material": SubResource("StandardMaterial3D_2ygh4"),
+"name": "Material_2",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAD+/wAA//8AAP7/AAD//wAA/v8AAP+/AAAAAP//AIAAAAAA/////wAAAAD///+////+//7/AID///7//v///////v/+//+/AAAAAAAA//8AAAAAAAD//wAAAAAAAP+//v8AAAAA///+/wAAAAD///7/AAAAAP+//v/+/wAA///+//7/AAD///7//v8AAP+/AAD+////AIAAAP7//////wAA/v////+///8AAP7/AID//wAA/v//////AAD+//+//3////9//7//f////3////9//z//f////3////9//7//fwAA/3////9//z//f////3////9//z//fwAA/3////9//7//fwAA/3////9//7//f////3////9//z//fwAA")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_0c6xt")
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_2flhk"]
+filter_enabled = true
+filters = ["origin/Skeleton3D:arm.left", "origin/Skeleton3D:arm.right", "origin/Skeleton3D:shoulders"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_vfvm5"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_uhmav"]
+filter_enabled = true
+filters = ["origin/Skeleton3D:hip", "origin/Skeleton3D:shoulders"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mf1r1"]
+animation = &"StrafeLeft"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uu5ug"]
+animation = &"StrafeRight"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3l7hy"]
+animation = &"Walking"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xc833"]
+animation = &"Walking"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s8ee0"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_onxb3"]
+animation = &"Posture_Long"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h7fnu"]
+animation = &"Posture_Short"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_j32lk"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_dkwnh"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_3b5n1"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_0rf3i"]
+graph_offset = Vector2(-323.82, -6.32646)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_h7fnu")
+nodes/Animation/position = Vector2(-213.333, 0)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_onxb3")
+"nodes/Animation 2/position" = Vector2(-213.333, 186.667)
+nodes/Blend/node = SubResource("AnimationNodeBlend2_j32lk")
+nodes/Blend/position = Vector2(266.667, 53.3333)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_3b5n1")
+nodes/TimeScale/position = Vector2(26.6667, 0)
+"nodes/TimeScale 2/node" = SubResource("AnimationNodeTimeScale_dkwnh")
+"nodes/TimeScale 2/position" = Vector2(26.6667, 186.667)
+nodes/output/position = Vector2(506.667, 133.333)
+node_connections = [&"Blend", 0, &"TimeScale", &"Blend", 1, &"TimeScale 2", &"TimeScale", 0, &"Animation", &"TimeScale 2", 0, &"Animation 2", &"output", 0, &"Blend"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i1bk3"]
+animation = &"Posture_Long"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xcn4d"]
+animation = &"Posture_Short"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_wat8f"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_54mdc"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_vcosj"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_cg3n5"]
+graph_offset = Vector2(-433.333, -25.3333)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_xcn4d")
+nodes/Animation/position = Vector2(-80, 80)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_i1bk3")
+"nodes/Animation 2/position" = Vector2(-80, 213.333)
+nodes/Blend/node = SubResource("AnimationNodeBlend2_wat8f")
+nodes/Blend/position = Vector2(346.667, 106.667)
+nodes/TS_Long/node = SubResource("AnimationNodeTimeScale_54mdc")
+nodes/TS_Long/position = Vector2(133.333, 240)
+nodes/TS_Short/node = SubResource("AnimationNodeTimeScale_vcosj")
+nodes/TS_Short/position = Vector2(133.333, 53.3333)
+nodes/output/position = Vector2(560, 160)
+node_connections = [&"Blend", 0, &"TS_Short", &"Blend", 1, &"TS_Long", &"TS_Long", 0, &"Animation 2", &"TS_Short", 0, &"Animation", &"output", 0, &"Blend"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_1bcx0"]
+
+[sub_resource type="AnimationNodeBlend3" id="AnimationNodeBlend3_5mcfd"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_pfu5j"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_178ah"]
+graph_offset = Vector2(-858.65, -12.7107)
+nodes/Add_Idle_Posture/node = SubResource("AnimationNodeAdd2_2flhk")
+nodes/Add_Idle_Posture/position = Vector2(-213.333, -133.333)
+nodes/Add_Walking_Posture/node = SubResource("AnimationNodeAdd2_vfvm5")
+nodes/Add_Walking_Posture/position = Vector2(-266.667, 373.333)
+nodes/Add_Walking_Strafes/node = SubResource("AnimationNodeAdd2_uhmav")
+nodes/Add_Walking_Strafes/position = Vector2(-560, 293.333)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_s8ee0")
+nodes/Animation/position = Vector2(-640, -266.667)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_mf1r1")
+"nodes/Animation 2/position" = Vector2(-1040, 293.333)
+"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_uu5ug")
+"nodes/Animation 3/position" = Vector2(-1040, 666.667)
+"nodes/Animation 4/node" = SubResource("AnimationNodeAnimation_3l7hy")
+"nodes/Animation 4/position" = Vector2(-826.667, 213.333)
+"nodes/Animation 5/node" = SubResource("AnimationNodeAnimation_xc833")
+"nodes/Animation 5/position" = Vector2(-1040, 480)
+nodes/BlendPostures/node = SubResource("AnimationNodeBlendTree_cg3n5")
+nodes/BlendPostures/position = Vector2(-453.333, -53.3333)
+"nodes/BlendPostures 2/node" = SubResource("AnimationNodeBlendTree_0rf3i")
+"nodes/BlendPostures 2/position" = Vector2(-533.333, 613.333)
+nodes/Blend_Idle_Walking/node = SubResource("AnimationNodeBlend2_1bcx0")
+nodes/Blend_Idle_Walking/position = Vector2(240, 53.3333)
+nodes/Blend_Strafes/node = SubResource("AnimationNodeBlend3_5mcfd")
+nodes/Blend_Strafes/position = Vector2(-826.667, 426.667)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_pfu5j")
+nodes/TimeScale/position = Vector2(-453.333, -266.667)
+nodes/output/position = Vector2(506.667, 106.667)
+node_connections = [&"Add_Idle_Posture", 0, &"TimeScale", &"Add_Idle_Posture", 1, &"BlendPostures", &"Add_Walking_Posture", 0, &"Add_Walking_Strafes", &"Add_Walking_Posture", 1, &"BlendPostures 2", &"Add_Walking_Strafes", 0, &"Animation 4", &"Add_Walking_Strafes", 1, &"Blend_Strafes", &"Blend_Idle_Walking", 0, &"Add_Idle_Posture", &"Blend_Idle_Walking", 1, &"Add_Walking_Posture", &"Blend_Strafes", 0, &"Animation 2", &"Blend_Strafes", 1, &"Animation 5", &"Blend_Strafes", 2, &"Animation 3", &"TimeScale", 0, &"Animation", &"output", 0, &"Blend_Idle_Walking"]
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 8
+collision_mask = 7
+script = ExtResource("1_ivt6l")
+
+[node name="CollShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_6vp7m")
+metadata/_edit_lock_ = true
+
+[node name="TpsCamera" type="Node3D" parent="."]
+script = ExtResource("2_6vp7m")
+pathShapeCast3D = NodePath("PivotRot/PivotShake/PivotBob/PivotPosDamp/ShapeCast3D")
+pathPivotBob = NodePath("PivotRot/PivotShake/PivotBob")
+pathPivotPosDamp = NodePath("PivotRot/PivotShake/PivotBob/PivotPosDamp")
+pathCameraNode = NodePath("PivotRot/PivotShake/PivotBob/PivotPosDamp/Camera3D")
+pathPivotRot = NodePath("PivotRot")
+pathPivotShake = NodePath("PivotRot/PivotShake")
+metadata/_edit_lock_ = true
+
+[node name="PivotRot" type="Marker3D" parent="TpsCamera"]
+editor_description = "Serve como pivô de rotação da câmera."
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+metadata/_edit_lock_ = true
+
+[node name="PivotShake" type="Marker3D" parent="TpsCamera/PivotRot"]
+metadata/_edit_lock_ = true
+
+[node name="PivotBob" type="Marker3D" parent="TpsCamera/PivotRot/PivotShake"]
+metadata/_edit_lock_ = true
+
+[node name="PivotPosDamp" type="Marker3D" parent="TpsCamera/PivotRot/PivotShake/PivotBob"]
+metadata/_edit_lock_ = true
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="TpsCamera/PivotRot/PivotShake/PivotBob/PivotPosDamp"]
+shape = SubResource("SphereShape3D_i3o6r")
+target_position = Vector3(1.25, 1.35, 3.5)
+collision_mask = 3
+metadata/_edit_lock_ = true
+
+[node name="Camera3D" type="Camera3D" parent="TpsCamera/PivotRot/PivotShake/PivotBob/PivotPosDamp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 1.35, 3.5)
+current = true
+fov = 90.0
+metadata/_edit_lock_ = true
+
+[node name="FpsCamera" type="Node3D" parent="."]
+visible = false
+script = ExtResource("3_rxfgv")
+pathPivotSwing = NodePath("PivotRot/PivotShake/Hands/PivotSwing")
+pathPivotShakeHands = NodePath("PivotRot/PivotShake/Hands/PivotSwing/PivotShakeHands")
+pathPivotTilt = NodePath("PivotRot/PivotShake/Hands/PivotSwing/PivotShakeHands/PivotTilt")
+pathPivotRecoil = NodePath("PivotRot/PivotShake/Hands/PivotSwing/PivotShakeHands/PivotTilt/PivotRecoil")
+pathPivotAimingPos = NodePath("PivotRot/PivotShake/Hands/PivotSwing/PivotShakeHands/PivotTilt/PivotRecoil/PivotAimingPos")
+curveRecoil = SubResource("Curve_abm1h")
+pathCameraNode = NodePath("PivotRot/PivotShake/Camera3D")
+pathPivotRot = NodePath("PivotRot")
+pathPivotShake = NodePath("PivotRot/PivotShake")
+metadata/_edit_lock_ = true
+
+[node name="PivotRot" type="Marker3D" parent="FpsCamera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.46104e-09, 1.5, 1.11758e-08)
+metadata/_edit_lock_ = true
+
+[node name="PivotShake" type="Marker3D" parent="FpsCamera/PivotRot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -0.2)
+metadata/_edit_lock_ = true
+
+[node name="Camera3D" type="Camera3D" parent="FpsCamera/PivotRot/PivotShake"]
+transform = Transform3D(1, 3.95812e-09, 2.94903e-17, 0, 1, 7.45058e-09, 0, 0, 1, 0, 0, 0)
+fov = 90.0
+metadata/_edit_lock_ = true
+
+[node name="Center" type="MeshInstance3D" parent="FpsCamera/PivotRot/PivotShake/Camera3D"]
+transform = Transform3D(0.0858012, 0, 0, 0, 0.0858012, 0, 0, 0, 0.0858012, 0, 0, -1.51422)
+material_override = SubResource("StandardMaterial3D_kficd")
+mesh = SubResource("SphereMesh_5yblp")
+metadata/_edit_lock_ = true
+
+[node name="Hands" type="Node3D" parent="FpsCamera/PivotRot/PivotShake"]
+transform = Transform3D(1, 3.95812e-09, 2.94903e-17, 0, 1, 7.45058e-09, 0, 0, 1, 0, -0.4, 0)
+metadata/_edit_lock_ = true
+
+[node name="PivotSwing" type="Marker3D" parent="FpsCamera/PivotRot/PivotShake/Hands"]
+metadata/_edit_lock_ = true
+
+[node name="PivotShakeHands" type="Marker3D" parent="FpsCamera/PivotRot/PivotShake/Hands/PivotSwing"]
+transform = Transform3D(1, -3.95812e-09, 0, 0, 1, -7.45058e-09, 0, 0, 1, 0, 0, 0)
+metadata/_edit_lock_ = true
+
+[node name="PivotTilt" type="Marker3D" parent="FpsCamera/PivotRot/PivotShake/Hands/PivotSwing/PivotShakeHands"]
+metadata/_edit_lock_ = true
+
+[node name="PivotRecoil" type="Marker3D" parent="FpsCamera/PivotRot/PivotShake/Hands/PivotSwing/PivotShakeHands/PivotTilt"]
+metadata/_edit_lock_ = true
+
+[node name="PivotAimingPos" type="Marker3D" parent="FpsCamera/PivotRot/PivotShake/Hands/PivotSwing/PivotShakeHands/PivotTilt/PivotRecoil"]
+transform = Transform3D(1, -1.54074e-33, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+metadata/_edit_lock_ = true
+
+[node name="Arm" type="MeshInstance3D" parent="FpsCamera/PivotRot/PivotShake/Hands/PivotSwing/PivotShakeHands/PivotTilt/PivotRecoil/PivotAimingPos"]
+transform = Transform3D(1, 1.26639e-17, 3.49246e-10, 3.49246e-10, -3.62608e-08, -1, 0, 1, -3.62608e-08, 0.2, 0, -0.2)
+mesh = SubResource("ArrayMesh_4v447")
+skeleton = NodePath("")
+
+[node name="Arm2" type="MeshInstance3D" parent="FpsCamera/PivotRot/PivotShake/Hands/PivotSwing/PivotShakeHands/PivotTilt/PivotRecoil/PivotAimingPos"]
+transform = Transform3D(0.939692, -0.34202, 3.49246e-10, -1.20738e-08, -3.41935e-08, -1, 0.34202, 0.939692, -3.62608e-08, -0.07, -0.05, -0.222)
+mesh = SubResource("ArrayMesh_4v447")
+skeleton = NodePath("")
+
+[node name="Body" type="Node3D" parent="."]
+script = ExtResource("4_lsk15")
+pathAnimTree = NodePath("PivotRotation/blockbench_export/AnimationTree")
+metadata/_edit_lock_ = true
+
+[node name="PivotRotation" type="Marker3D" parent="Body"]
+metadata/_edit_lock_ = true
+
+[node name="blockbench_export" parent="Body/PivotRotation" instance=ExtResource("6_br1xv")]
+
+[node name="Skeleton3D" parent="Body/PivotRotation/blockbench_export/origin" index="0"]
+bones/0/position = Vector3(0, -0.076576, 0)
+bones/2/rotation = Quaternion(0.258819, 0, 0, 0.965926)
+bones/4/position = Vector3(0.09375, -0.046875, -0.034375)
+bones/4/rotation = Quaternion(0.152303, -0.0480208, 0.296847, 0.941478)
+bones/5/position = Vector3(0.4375, -0.0625, -0.0625)
+bones/5/rotation = Quaternion(-0.159086, -0.0139182, -0.0860372, 0.98341)
+bones/8/rotation = Quaternion(0.212215, 0, 0, 0.977223)
+bones/9/rotation = Quaternion(-0.212215, 0, 0, 0.977223)
+
+[node name="AnimationPlayer" parent="Body/PivotRotation/blockbench_export" index="1"]
+autoplay = "TPose"
+
+[node name="AnimationTree" type="AnimationTree" parent="Body/PivotRotation/blockbench_export"]
+tree_root = SubResource("AnimationNodeBlendTree_178ah")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Add_Idle_Posture/add_amount = 1.0
+parameters/Add_Walking_Posture/add_amount = 1.0
+parameters/Add_Walking_Strafes/add_amount = 1.0
+parameters/BlendPostures/Blend/blend_amount = 0
+parameters/BlendPostures/TS_Long/scale = 1.0
+parameters/BlendPostures/TS_Short/scale = 0.5
+"parameters/BlendPostures 2/Blend/blend_amount" = 0.0
+"parameters/BlendPostures 2/TimeScale/scale" = 0.5
+"parameters/BlendPostures 2/TimeScale 2/scale" = 0.5
+parameters/Blend_Idle_Walking/blend_amount = 1.0
+parameters/Blend_Strafes/blend_amount = 0.0
+parameters/TimeScale/scale = 0.5
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 3.0
+offset_top = 41.0
+offset_right = 43.0
+offset_bottom = 64.0
+
+[editable path="Body/PivotRotation/blockbench_export"]
