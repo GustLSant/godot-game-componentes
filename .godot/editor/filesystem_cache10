@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1745017420
+::res://::1745082093
 icon.svg::CompressedTexture2D/CompressedTexture2D::3381310154789937149::1741555287::1741557460::1::::<><><>0<>0<>faa1b30fa3aed055c015ebed228df141<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 Main.gd::GDScript/GDScript::1975285753145435535::1741556507::0::1::::<>Node3D<><>0<>0<><>::
 Main.tscn::PackedScene/PackedScene::3880315880649185276::1745012860::0::1::::<><><>0<>0<><>::uid://3e3wx6xwne52::::res://Main.gd<>uid://p2wyutg0uccu::::res://Components/TpsFpsPlayer/Player.tscn
@@ -12,14 +12,14 @@ texture-spas-12.png::CompressedTexture2D/CompressedTexture2D::570708824577997026
 texture.png::CompressedTexture2D/CompressedTexture2D::1990093051601699526::1741318776::1745012782::1::::<><><>0<>0<>969ad754e024c9729cb115f35f4d5077<>res://.godot/imported/texture.png-4318a8965e8cc8f5265a5571474bf239.ctex::
 textureCoat.png::CompressedTexture2D/CompressedTexture2D::851955911585476237::1740951123::1745012782::1::::<><><>0<>0<>550d10491fe47efff53239cfa734848a<>res://.godot/imported/textureCoat.png-6533ac65bed960ed9c458b9cb6aefcf1.ctex::
 ::res://Components/::1745014323
-::res://Components/TpsFpsPlayer/::1745044244
+::res://Components/TpsFpsPlayer/::1745083254
 FpsCamera.gd::GDScript/GDScript::8342696227935481246::1744934412::0::1::::FpsCamera<>PlayerCamera<><>0<>0<><>::
 Player.gd::GDScript::5150771732514449094::1745040129::0::1::::TpsFpsPlayer<>CharacterBody3D<><>0<>0<><>::
-Player.tscn::PackedScene::1109950566949775632::1745044244::0::1::::<><><>0<>0<><>::uid://cfncptlgyantm::::res://Components/TpsFpsPlayer/Player.gd<>uid://canw6gbkuvxa5::::res://Components/TpsFpsPlayer/TpsCamera.gd<>uid://dq4i8ud83sua5::::res://Components/TpsFpsPlayer/FpsCamera.gd<>uid://xp07tyvrlbga::::res://Components/TpsFpsPlayer/PlayerBody.gd<>uid://ck3u2sxvhxvjc::::res://Meshs/PlayerBody.gltf
-PlayerBody.gd::GDScript::1646885176206013784::1745044045::0::1::::PlayerBody<>Node3D<><>0<>0<><>::
+Player.tscn::PackedScene::1109950566949775632::1745083254::0::1::::<><><>0<>0<><>::uid://cfncptlgyantm::::res://Components/TpsFpsPlayer/Player.gd<>uid://canw6gbkuvxa5::::res://Components/TpsFpsPlayer/TpsCamera.gd<>uid://dq4i8ud83sua5::::res://Components/TpsFpsPlayer/FpsCamera.gd<>uid://xp07tyvrlbga::::res://Components/TpsFpsPlayer/PlayerBody.gd<>uid://ck3u2sxvhxvjc::::res://Meshs/PlayerBody.gltf
+PlayerBody.gd::GDScript::1646885176206013784::1745045191::0::1::::PlayerBody<>Node3D<><>0<>0<><>::
 PlayerCamera.gd::GDScript/GDScript::7608516900332949519::1744954708::0::1::::PlayerCamera<>Node3D<><>0<>0<><>::
 TpsCamera.gd::GDScript::4801069728807731426::1745039589::0::1::::TpsCamera<>PlayerCamera<><>0<>0<><>::
-::res://Meshs/::1745020715
+::res://Meshs/::1745082096
 PlayerBody.blend::PackedScene/PackedScene::8947588785131182639::1744843379::1745012802::1::::<><><>0<>0<>dcb22953802f4a22306b46285b32f984<>res://.godot/imported/PlayerBody.blend-3111b9bc1dbddbfb73ffaf7130bbc11b.scn::
-PlayerBody.gltf::PackedScene/PackedScene::5533795919086192144::1745044291::1745044295::1::::<><><>0<>0<>babaa5fca88c7710f5b16cc82c011b22<>res://.godot/imported/PlayerBody.gltf-e3644db13951714e5bf7e9258b17f098.scn::
+PlayerBody.gltf::PackedScene/PackedScene::5533795919086192144::1745087038::1745087308::1::::<><><>0<>0<>babaa5fca88c7710f5b16cc82c011b22<>res://.godot/imported/PlayerBody.gltf-e3644db13951714e5bf7e9258b17f098.scn::
 PlayerBody_new.blend::PackedScene/PackedScene::3618776923451923518::1744851153::1745012805::1::::<><><>0<>0<>3f439f42e01b7b93d43b2fbeda29b97d<>res://.godot/imported/PlayerBody_new.blend-14eb3747282369c82fa357271a88e537.scn::
