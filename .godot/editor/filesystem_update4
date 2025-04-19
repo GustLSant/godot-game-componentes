@@ -1,1 +1,4 @@
 res://Components/TpsFpsPlayer/Player.tscn
+res://Components/TpsFpsPlayer/PlayerBody.gd
+res://Components/TpsFpsPlayer/Player.gd
+res://Components/TpsFpsPlayer/TpsCamera.gd

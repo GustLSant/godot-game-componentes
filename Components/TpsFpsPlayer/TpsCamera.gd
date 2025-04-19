@@ -35,7 +35,7 @@ func _process(_delta:float)->void:
 	
 	handleCameraCollision()
 	
-	handleBobbingEffect()
+	#handleBobbingEffect()
 	handlePosDamping()
 	handleShakeEffect()
 	handleCameraTargetPositioning()

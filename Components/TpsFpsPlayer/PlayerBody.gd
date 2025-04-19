@@ -5,13 +5,14 @@ extends Node3D
 @onready var tpsCamera:TpsCamera = $'../TpsCamera'
 @onready var fpsCamera:FpsCamera = $'../FpsCamera'
 @onready var pivotRot:Marker3D = $PivotRotation
+@onready var pivotRefRot:Marker3D = $PivotRefRot
 
 @export var pathAnimTree:NodePath
 @onready var animTree:AnimationTree = get_node(pathAnimTree)
 
 const BLEND_TRANSITION_SPEED_FACTOR:float = 10.0
 var blendIdleToWalking:float = 0.0
-var blendStrafes:float = 0.0
+var blendAiming:float = 0.0
 
 var delta:float = 0.01
 
@@ -31,22 +32,30 @@ func handleRotation()->void:
 	if(player.isAiming):
 		pivotRot.rotation.y = lerp_angle(pivotRot.rotation.y, tpsCamera.pivotRot.rotation.y, 25*delta)
 	else:
-		var targetBodyRotation:float = (tpsCamera.pivotRot.rotation.y * int(player.isMoving)) + (pivotRot.rotation.y * int(player.isStandingStill))
-		pivotRot.rotation.y = lerp_angle(pivotRot.rotation.y, targetBodyRotation, 12*delta)
+		#rotacao para o mesmo sentido da camera tps
+		#var targetBodyRotationY:float = (tpsCamera.pivotRot.rotation.y * int(player.isMoving)) + (pivotRot.rotation.y * int(player.isStandingStill))
+		if(player.isMoving):
+			pivotRefRot.look_at(player.global_position + player.vecMovement.normalized())
+			$MeshInstance3D.global_position = player.global_position + player.vecMovement.normalized()
+		var targetBodyRotationY:float = (
+			pivotRot.rotation.y * int(player.isStandingStill) +
+			pivotRefRot.rotation.y * int(player.isMoving)
+		)
+		pivotRot.rotation.y = lerp_angle(pivotRot.rotation.y, targetBodyRotationY, 8*delta)
 	pass
 
 
 func handleAnimBlends()->void:
 	blendIdleToWalking = lerp(
 		blendIdleToWalking,
-		int(player.isMoving)*1.0,
+		float(int(player.isMoving)),
 		BLEND_TRANSITION_SPEED_FACTOR * delta
 	)
 	
-	var targetBlendStrafes:float = Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft")
-	targetBlendStrafes *= int(player.isMoving)
-	blendStrafes = lerp(blendStrafes, targetBlendStrafes, BLEND_TRANSITION_SPEED_FACTOR * delta)
+	blendAiming = lerp(blendAiming, float(int(player.isAiming)), BLEND_TRANSITION_SPEED_FACTOR*delta)
+	
+	animTree["parameters/Blend_AimingAngles/blend_amount"] = (tpsCamera.pivotRot.rotation_degrees.x / 60.0) / 2.0 + 0.5
 	
 	animTree["parameters/Blend_Idle_Walking/blend_amount"] = blendIdleToWalking
-	animTree["parameters/Blend_Strafes/blend_amount"] = blendStrafes
+	animTree["parameters/Blend_Aiming/blend_amount"] = blendAiming
 	pass

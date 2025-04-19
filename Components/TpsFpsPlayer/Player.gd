@@ -6,7 +6,7 @@ extends CharacterBody3D
 
 #region Movement
 var vecMovement:Vector3 = Vector3.ZERO
-const WALKING_SPEED:float = 3.0
+const WALKING_SPEED:float = 4.0
 var yMovement:float = 0.0
 var isMoving:bool = 0
 var isStandingStill:bool = 0
@@ -43,7 +43,7 @@ func _ready()->void:
 	pass
 
 
-func _process(delta:float)->void:
+func _process(_delta:float)->void:
 	handleChangeCameraMode()
 	handleAimInput()
 	pass
@@ -62,8 +62,8 @@ func handleMovement()->void:
 		vecMovement = (Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft")) * fpsCamera.pivotRot.global_transform.basis.x
 		vecMovement += (Input.get_action_strength("MoveBackwards") - Input.get_action_strength("MoveFoward")) * fpsCamera.pivotRot.global_transform.basis.z
 	else:
-		vecMovement = (Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft")) * body.pivotRot.global_transform.basis.x
-		vecMovement += (Input.get_action_strength("MoveBackwards") - Input.get_action_strength("MoveFoward")) * body.pivotRot.global_transform.basis.z
+		vecMovement = (Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft")) * tpsCamera.pivotRot.global_transform.basis.x
+		vecMovement += (Input.get_action_strength("MoveBackwards") - Input.get_action_strength("MoveFoward")) * tpsCamera.pivotRot.global_transform.basis.z
 	vecMovement = vecMovement.normalized()
 	vecMovement.y = 0.0
 	
@@ -72,7 +72,7 @@ func handleMovement()->void:
 	
 	# sprint activation
 	if(Input.is_action_just_pressed("Sprint") and stamina > SPRINT_STAMINA_COST): isSprinting = !isSprinting
-	isSprinting = isSprinting and isMoving and (stamina > 0.0)
+	isSprinting = isSprinting and isMoving and (stamina > 0.0) and (not isAiming)
 	
 	# sprint usage
 	vecMovement = (
