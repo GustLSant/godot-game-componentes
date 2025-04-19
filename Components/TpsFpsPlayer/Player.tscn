@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://p2wyutg0uccu"]
+[gd_scene load_steps=42 format=4 uid="uid://p2wyutg0uccu"]
 
 [ext_resource type="Script" uid="uid://cfncptlgyantm" path="res://Components/TpsFpsPlayer/Player.gd" id="1_ivt6l"]
 [ext_resource type="Script" uid="uid://canw6gbkuvxa5" path="res://Components/TpsFpsPlayer/TpsCamera.gd" id="2_6vp7m"]
@@ -58,6 +58,11 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_0c6xt")
 
+[sub_resource type="Curve" id="Curve_onxb3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.8, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
 [sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_2flhk"]
 filter_enabled = true
 filters = ["origin/Skeleton3D:arm.left", "origin/Skeleton3D:arm.right", "origin/Skeleton3D:shoulders"]
@@ -72,6 +77,9 @@ animation = &"AimDown"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3l7hy"]
 animation = &"Walking"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3b5n1"]
+animation = &"ShotRecoil"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s8ee0"]
 animation = &"Idle"
@@ -132,17 +140,24 @@ node_connections = [&"Blend", 0, &"TS_Short", &"Blend", 1, &"TS_Long", &"TS_Long
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_dkwnh"]
 filter_enabled = true
-filters = ["origin/Skeleton3D:body", "origin/Skeleton3D:head", "origin/Skeleton3D:shoulders"]
+filters = ["origin/Skeleton3D:arm.left", "origin/Skeleton3D:arm.right", "origin/Skeleton3D:body", "origin/Skeleton3D:head", "origin/Skeleton3D:pivot_recoil", "origin/Skeleton3D:shoulders"]
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_3b5n1"]
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_1bcx0"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_onxb3"]
+filter_enabled = true
+filters = ["origin/Skeleton3D:pivot_recoil"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_0rf3i"]
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_onxb3"]
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_pfu5j"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_178ah"]
+graph_offset = Vector2(-66.454, 1106.28)
 nodes/Add_Idle_Posture/node = SubResource("AnimationNodeAdd2_2flhk")
 nodes/Add_Idle_Posture/position = Vector2(-213.333, -133.333)
 nodes/Add_Walking_Posture/node = SubResource("AnimationNodeAdd2_vfvm5")
@@ -150,27 +165,33 @@ nodes/Add_Walking_Posture/position = Vector2(-266.667, 373.333)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_s8ee0")
 nodes/Animation/position = Vector2(-640, -266.667)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_j32lk")
-"nodes/Animation 2/position" = Vector2(160, 666.667)
+"nodes/Animation 2/position" = Vector2(26.6667, 880)
 "nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_dkwnh")
-"nodes/Animation 3/position" = Vector2(160, 453.333)
+"nodes/Animation 3/position" = Vector2(26.6667, 666.667)
 "nodes/Animation 4/node" = SubResource("AnimationNodeAnimation_3l7hy")
 "nodes/Animation 4/position" = Vector2(-693.333, 346.667)
+"nodes/Animation 5/node" = SubResource("AnimationNodeAnimation_3b5n1")
+"nodes/Animation 5/position" = Vector2(106.667, 1093.33)
 nodes/BlendPostures/node = SubResource("AnimationNodeBlendTree_cg3n5")
 nodes/BlendPostures/position = Vector2(-453.333, -53.3333)
 "nodes/BlendPostures 2/node" = SubResource("AnimationNodeBlendTree_0rf3i")
 "nodes/BlendPostures 2/position" = Vector2(-506.667, 586.667)
 nodes/Blend_Aiming/node = SubResource("AnimationNodeBlend2_dkwnh")
-nodes/Blend_Aiming/position = Vector2(693.333, 320)
+nodes/Blend_Aiming/position = Vector2(1040, 506.667)
 nodes/Blend_AimingAngles/node = SubResource("AnimationNodeBlend2_3b5n1")
-nodes/Blend_AimingAngles/position = Vector2(373.333, 480)
+nodes/Blend_AimingAngles/position = Vector2(240, 693.333)
 nodes/Blend_Idle_Walking/node = SubResource("AnimationNodeBlend2_1bcx0")
 nodes/Blend_Idle_Walking/position = Vector2(240, 53.3333)
+nodes/ShotRecoil/node = SubResource("AnimationNodeOneShot_onxb3")
+nodes/ShotRecoil/position = Vector2(613.333, 826.667)
+nodes/TS_ShotRecoil/node = SubResource("AnimationNodeTimeScale_0rf3i")
+nodes/TS_ShotRecoil/position = Vector2(320, 1040)
 nodes/TS_Walking/node = SubResource("AnimationNodeTimeScale_onxb3")
 nodes/TS_Walking/position = Vector2(-506.667, 346.667)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_pfu5j")
 nodes/TimeScale/position = Vector2(-453.333, -266.667)
-nodes/output/position = Vector2(1013.33, 400)
-node_connections = [&"Add_Idle_Posture", 0, &"TimeScale", &"Add_Idle_Posture", 1, &"BlendPostures", &"Add_Walking_Posture", 0, &"TS_Walking", &"Add_Walking_Posture", 1, &"BlendPostures 2", &"Blend_Aiming", 0, &"Blend_Idle_Walking", &"Blend_Aiming", 1, &"Blend_AimingAngles", &"Blend_AimingAngles", 0, &"Animation 3", &"Blend_AimingAngles", 1, &"Animation 2", &"Blend_Idle_Walking", 0, &"Add_Idle_Posture", &"Blend_Idle_Walking", 1, &"Add_Walking_Posture", &"TS_Walking", 0, &"Animation 4", &"TimeScale", 0, &"Animation", &"output", 0, &"Blend_Aiming"]
+nodes/output/position = Vector2(1306.67, 586.667)
+node_connections = [&"Add_Idle_Posture", 0, &"TimeScale", &"Add_Idle_Posture", 1, &"BlendPostures", &"Add_Walking_Posture", 0, &"TS_Walking", &"Add_Walking_Posture", 1, &"BlendPostures 2", &"Blend_Aiming", 0, &"Blend_Idle_Walking", &"Blend_Aiming", 1, &"ShotRecoil", &"Blend_AimingAngles", 0, &"Animation 3", &"Blend_AimingAngles", 1, &"Animation 2", &"Blend_Idle_Walking", 0, &"Add_Idle_Posture", &"Blend_Idle_Walking", 1, &"Add_Walking_Posture", &"ShotRecoil", 0, &"Blend_AimingAngles", &"ShotRecoil", 1, &"TS_ShotRecoil", &"TS_ShotRecoil", 0, &"Animation 5", &"TS_Walking", 0, &"Animation 4", &"TimeScale", 0, &"Animation", &"output", 0, &"Blend_Aiming"]
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 8
@@ -285,6 +306,7 @@ skeleton = NodePath("")
 [node name="Body" type="Node3D" parent="."]
 script = ExtResource("4_lsk15")
 pathAnimTree = NodePath("PivotRotation/blockbench_export/AnimationTree")
+curveRecoil = SubResource("Curve_onxb3")
 metadata/_edit_lock_ = true
 
 [node name="PivotRefRot" type="Marker3D" parent="Body"]
@@ -296,8 +318,8 @@ metadata/_edit_lock_ = true
 [node name="blockbench_export" parent="Body/PivotRotation" instance=ExtResource("6_br1xv")]
 
 [node name="Skeleton3D" parent="Body/PivotRotation/blockbench_export/origin" index="0"]
-bones/1/rotation = Quaternion(-0.0024171, 0, 0, 0.999997)
-bones/2/position = Vector3(0, 0.593609, 0)
+bones/1/rotation = Quaternion(-0.038237, 0, 0, 0.999269)
+bones/2/position = Vector3(0, 0.596463, 0)
 bones/2/rotation = Quaternion(0.300706, 0, 0, 0.953717)
 bones/4/position = Vector3(0.09375, -0.046875, -0.034375)
 bones/4/rotation = Quaternion(0, 0, 0.300706, 0.953717)
@@ -321,9 +343,13 @@ parameters/BlendPostures/TS_Short/scale = 0.5
 "parameters/BlendPostures 2/Blend/blend_amount" = 0.0
 "parameters/BlendPostures 2/TimeScale/scale" = 1.0
 "parameters/BlendPostures 2/TimeScale 2/scale" = 1.0
-parameters/Blend_Aiming/blend_amount = 0
+parameters/Blend_Aiming/blend_amount = 0.0
 parameters/Blend_AimingAngles/blend_amount = 0.5
 parameters/Blend_Idle_Walking/blend_amount = 0.0
+parameters/ShotRecoil/active = false
+parameters/ShotRecoil/internal_active = false
+parameters/ShotRecoil/request = 0
+parameters/TS_ShotRecoil/scale = 15.0
 parameters/TS_Walking/scale = 1.0
 parameters/TimeScale/scale = 0.5
 

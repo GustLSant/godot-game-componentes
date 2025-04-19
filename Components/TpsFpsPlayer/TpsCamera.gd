@@ -23,6 +23,9 @@ var currentTargetPosition:Vector3 = DEFAULT_CAMERA_TARGET_POS
 var cameraSide:int = 1
 var cameraSideMultiplierFactor:float = 1.0 # faz a transição suave do lado da câmera
 
+# Recoil
+var realRecoilRotVector:Vector2 = Vector2.ZERO
+
 
 
 func _ready()->void:
@@ -39,6 +42,9 @@ func _process(_delta:float)->void:
 	handlePosDamping()
 	handleShakeEffect()
 	handleCameraTargetPositioning()
+	handleRecoilEffect()
+	
+	if(Input.is_action_just_pressed("Shoot")): addRecoil(2.0)
 	return
 
 
@@ -109,6 +115,21 @@ func handleCameraTargetPositioning()->void:
 func handleCameraSide()->void:
 	if(Input.is_action_just_pressed("ToggleCameraSide")): cameraSide *= -1
 	cameraSideMultiplierFactor = lerp(cameraSideMultiplierFactor, float(cameraSide), 8*delta)
+	pass
+
+
+func handleRecoilEffect()->void:
+	const DECREASE_FACTOR:float = 12.0
+	
+	pivotRot.rotation_degrees.x += realRecoilRotVector.x
+	pivotRot.rotation_degrees.y += realRecoilRotVector.y
+	pivotRot.rotation_degrees.x = clamp(pivotRot.rotation_degrees.x, -CAMERA_X_RANGE, CAMERA_X_RANGE)
+	realRecoilRotVector = lerp(realRecoilRotVector, Vector2.ZERO, DECREASE_FACTOR*delta)
+	pass
+
+func addRecoil(_realRecoilStrength:float)->void:
+	realRecoilRotVector.x = _realRecoilStrength * randf_range(0.75, 1.0)
+	realRecoilRotVector.y = _realRecoilStrength * randf_range(0.25, 0.35) * [1, -1].pick_random()
 	pass
 
 

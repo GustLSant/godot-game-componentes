@@ -6,6 +6,7 @@ extends Node3D
 @onready var fpsCamera:FpsCamera = $'../FpsCamera'
 @onready var pivotRot:Marker3D = $PivotRotation
 @onready var pivotRefRot:Marker3D = $PivotRefRot
+@onready var skeleton:Skeleton3D = $PivotRotation/blockbench_export/origin/Skeleton3D
 
 @export var pathAnimTree:NodePath
 @onready var animTree:AnimationTree = get_node(pathAnimTree)
@@ -13,6 +14,13 @@ extends Node3D
 const BLEND_TRANSITION_SPEED_FACTOR:float = 10.0
 var blendIdleToWalking:float = 0.0
 var blendAiming:float = 0.0
+
+# Recoil
+@export var curveRecoil:Curve
+@onready var pivotRecoilBoneIdx:int = skeleton.find_bone("pivot_recoil")
+const RECOIL_STRENGTH:float = 0.1
+var recoilCurveOffset:float = 0.0
+
 
 var delta:float = 0.01
 
@@ -24,7 +32,9 @@ func _ready()->void:
 func _process(_delta:float)->void:
 	delta = _delta
 	handleRotation()
+	handleRecoilEffect()
 	handleAnimBlends()
+	if(Input.is_action_just_pressed('Shoot')): addRecoil()
 	pass
 
 
@@ -41,6 +51,24 @@ func handleRotation()->void:
 			pivotRefRot.rotation.y * int(player.isMoving)
 		)
 		pivotRot.rotation.y = lerp_angle(pivotRot.rotation.y, targetBodyRotationY, 8*delta)
+	pass
+
+
+func handleRecoilEffect()->void:
+	const DECREASE_FACTOR:float = 12.0
+	
+	var originalPos:Vector3 = skeleton.get_bone_pose_position(pivotRecoilBoneIdx)
+	#skeleton.set_bone_pose_position(
+		#pivotRecoilBoneIdx, 
+		#Vector3(originalPos.x, curveRecoil.sample_baked(recoilCurveOffset) * RECOIL_STRENGTH, originalPos.z)
+	#)
+	
+	recoilCurveOffset = lerp(recoilCurveOffset, 0.0, DECREASE_FACTOR*delta)
+	pass
+
+func addRecoil()->void:
+	recoilCurveOffset = 1.0
+	animTree.set("parameters/ShotRecoil/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 	pass
 
 
