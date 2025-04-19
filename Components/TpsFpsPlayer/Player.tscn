@@ -143,7 +143,6 @@ filters = ["origin/Skeleton3D:body", "origin/Skeleton3D:head", "origin/Skeleton3
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_pfu5j"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_178ah"]
-graph_offset = Vector2(-593.009, 24.6986)
 nodes/Add_Idle_Posture/node = SubResource("AnimationNodeAdd2_2flhk")
 nodes/Add_Idle_Posture/position = Vector2(-213.333, -133.333)
 nodes/Add_Walking_Posture/node = SubResource("AnimationNodeAdd2_vfvm5")
@@ -297,16 +296,16 @@ metadata/_edit_lock_ = true
 [node name="blockbench_export" parent="Body/PivotRotation" instance=ExtResource("6_br1xv")]
 
 [node name="Skeleton3D" parent="Body/PivotRotation/blockbench_export/origin" index="0"]
-bones/1/rotation = Quaternion(-0.0338117, 0, 0, 0.999428)
-bones/2/position = Vector3(0, 0.598279, 0)
+bones/1/rotation = Quaternion(-0.0024171, 0, 0, 0.999997)
+bones/2/position = Vector3(0, 0.593609, 0)
 bones/2/rotation = Quaternion(0.300706, 0, 0, 0.953717)
 bones/4/position = Vector3(0.09375, -0.046875, -0.034375)
 bones/4/rotation = Quaternion(0, 0, 0.300706, 0.953717)
 bones/5/position = Vector3(0.4375, -0.0625, -0.0625)
 bones/5/rotation = Quaternion(0, 0, -0.0871557, 0.996195)
-bones/9/position = Vector3(0.125, 0, 0.03125)
-bones/9/rotation = Quaternion(0, -0.130526, 0, 0.991445)
-bones/10/position = Vector3(-0.125, 0, -0.09375)
+bones/8/position = Vector3(0.125, 0, 0.03125)
+bones/8/rotation = Quaternion(0, -0.130526, 0, 0.991445)
+bones/9/position = Vector3(-0.125, 0, -0.09375)
 
 [node name="AnimationPlayer" parent="Body/PivotRotation/blockbench_export" index="1"]
 autoplay = "TPose"
