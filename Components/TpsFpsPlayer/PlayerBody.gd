@@ -36,7 +36,6 @@ func handleRotation()->void:
 		#var targetBodyRotationY:float = (tpsCamera.pivotRot.rotation.y * int(player.isMoving)) + (pivotRot.rotation.y * int(player.isStandingStill))
 		if(player.isMoving):
 			pivotRefRot.look_at(player.global_position + player.vecMovement.normalized())
-			$MeshInstance3D.global_position = player.global_position + player.vecMovement.normalized()
 		var targetBodyRotationY:float = (
 			pivotRot.rotation.y * int(player.isStandingStill) +
 			pivotRefRot.rotation.y * int(player.isMoving)
@@ -54,6 +53,7 @@ func handleAnimBlends()->void:
 	
 	blendAiming = lerp(blendAiming, float(int(player.isAiming)), BLEND_TRANSITION_SPEED_FACTOR*delta)
 	
+	animTree["parameters/TS_Walking/scale"] = 1.0 - (0.5 * int(player.isAiming))
 	animTree["parameters/Blend_AimingAngles/blend_amount"] = (tpsCamera.pivotRot.rotation_degrees.x / 60.0) / 2.0 + 0.5
 	
 	animTree["parameters/Blend_Idle_Walking/blend_amount"] = blendIdleToWalking
