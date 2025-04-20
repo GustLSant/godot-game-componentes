@@ -1,11 +1,13 @@
 class_name FpsCamera
 extends PlayerCamera
 
+@export var pathPivotLerpRot:NodePath
 @export var pathPivotSwing:NodePath
 @export var pathPivotShakeHands:NodePath
 @export var pathPivotTilt:NodePath
 @export var pathPivotRecoil:NodePath
 @export var pathPivotAimingPos:NodePath
+@onready var pivotLerpRot:Marker3D = get_node(pathPivotLerpRot)
 @onready var pivotSwing:Marker3D = get_node(pathPivotSwing)
 @onready var pivotTilt:Marker3D = get_node(pathPivotTilt)
 @onready var pivotShakeHands:Marker3D = get_node(pathPivotShakeHands)
@@ -32,6 +34,7 @@ func _ready()->void:
 func _process(_delta:float)->void:
 	delta = _delta
 	
+	handleHandsLerpRotation()
 	handleSwingEffect()
 	handleShakeEffect()
 	handleTiltEffect()
@@ -43,6 +46,27 @@ func _process(_delta:float)->void:
 	
 	if(Input.is_action_just_pressed("Shoot")): addRecoil(0.1, 1.0)
 	pass
+
+
+func handleHandsLerpRotation()->void:
+	const ROT_SPEED:float = 18.0
+	pivotLerpRot.rotation.x = lerp_angle(pivotLerpRot.rotation.x, pivotRot.rotation.x, ROT_SPEED*delta)
+	pivotLerpRot.rotation.y = lerp_angle(pivotLerpRot.rotation.y, pivotRot.rotation.y, ROT_SPEED*delta)
+	
+	
+	var angle_diff = angle_difference_deg(pivotLerpRot.rotation_degrees.y, pivotRot.rotation_degrees.y)
+	if(abs(angle_diff) > 30.0):
+		pivotLerpRot.rotation_degrees.y = pivotRot.rotation_degrees.y + clamp(angle_diff, -30.0, 30.0)
+	
+	var angle_diff_x = angle_difference_deg(pivotLerpRot.rotation_degrees.x, pivotRot.rotation_degrees.x)
+	if(abs(angle_diff_x) > 10.0):
+		pivotLerpRot.rotation_degrees.x = pivotRot.rotation_degrees.x + clamp(angle_diff_x, -10.0, 10.0)
+	
+	pass
+
+func angle_difference_deg(a_deg: float, b_deg: float) -> float:
+	return wrapf(a_deg - b_deg, -180.0, 180.0)
+
 
 
 func handleSwingEffect()->void:

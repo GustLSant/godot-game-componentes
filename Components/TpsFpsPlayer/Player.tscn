@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=4 uid="uid://p2wyutg0uccu"]
+[gd_scene load_steps=43 format=4 uid="uid://p2wyutg0uccu"]
 
 [ext_resource type="Script" uid="uid://cfncptlgyantm" path="res://Components/TpsFpsPlayer/Player.gd" id="1_ivt6l"]
 [ext_resource type="Script" uid="uid://canw6gbkuvxa5" path="res://Components/TpsFpsPlayer/TpsCamera.gd" id="2_6vp7m"]
@@ -16,11 +16,6 @@ radius = 0.2
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.8, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 metadata/_snap_enabled = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kficd"]
-albedo_color = Color(0, 1, 0, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_5yblp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ygh4"]
 resource_name = "Material_2"
@@ -164,6 +159,7 @@ filters = ["origin/Skeleton3D:pivot_recoil"]
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_pfu5j"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_178ah"]
+graph_offset = Vector2(-253.554, 856.041)
 nodes/Add_Idle_Posture/node = SubResource("AnimationNodeAdd2_2flhk")
 nodes/Add_Idle_Posture/position = Vector2(-213.333, -133.333)
 nodes/Add_Walking_Posture/node = SubResource("AnimationNodeAdd2_vfvm5")
@@ -252,13 +248,13 @@ fov = 90.0
 metadata/_edit_lock_ = true
 
 [node name="FpsCamera" type="Node3D" parent="."]
-visible = false
 script = ExtResource("3_rxfgv")
-pathPivotSwing = NodePath("PivotRot/PivotShake/Hands/PivotSwing")
-pathPivotShakeHands = NodePath("PivotRot/PivotShake/Hands/PivotSwing/PivotShakeHands")
-pathPivotTilt = NodePath("PivotRot/PivotShake/Hands/PivotSwing/PivotShakeHands/PivotTilt")
-pathPivotRecoil = NodePath("PivotRot/PivotShake/Hands/PivotSwing/PivotShakeHands/PivotTilt/PivotRecoil")
-pathPivotAimingPos = NodePath("PivotRot/PivotShake/Hands/PivotSwing/PivotShakeHands/PivotTilt/PivotRecoil/PivotAimingPos")
+pathPivotLerpRot = NodePath("PivotLerpRot")
+pathPivotSwing = NodePath("PivotLerpRot/Hands/PivotSwing")
+pathPivotShakeHands = NodePath("PivotLerpRot/Hands/PivotSwing/PivotShakeHands")
+pathPivotTilt = NodePath("PivotLerpRot/Hands/PivotSwing/PivotShakeHands/PivotTilt")
+pathPivotRecoil = NodePath("PivotLerpRot/Hands/PivotSwing/PivotShakeHands/PivotTilt/PivotRecoil")
+pathPivotAimingPos = NodePath("PivotLerpRot/Hands/PivotSwing/PivotShakeHands/PivotTilt/PivotRecoil/PivotAimingPos")
 curveRecoil = SubResource("Curve_abm1h")
 pathCameraNode = NodePath("PivotRot/PivotShake/Camera3D")
 pathPivotRot = NodePath("PivotRot")
@@ -266,51 +262,48 @@ pathPivotShake = NodePath("PivotRot/PivotShake")
 metadata/_edit_lock_ = true
 
 [node name="PivotRot" type="Marker3D" parent="FpsCamera"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.46104e-09, 1.5, 1.11758e-08)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 metadata/_edit_lock_ = true
 
 [node name="PivotShake" type="Marker3D" parent="FpsCamera/PivotRot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -0.2)
 metadata/_edit_lock_ = true
 
 [node name="Camera3D" type="Camera3D" parent="FpsCamera/PivotRot/PivotShake"]
-transform = Transform3D(1, 3.95812e-09, 2.94903e-17, 0, 1, 7.45058e-09, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
 fov = 90.0
 metadata/_edit_lock_ = true
 
-[node name="Center" type="MeshInstance3D" parent="FpsCamera/PivotRot/PivotShake/Camera3D"]
-transform = Transform3D(0.0858012, 0, 0, 0, 0.0858012, 0, 0, 0, 0.0858012, 0, 0, -1.51422)
-material_override = SubResource("StandardMaterial3D_kficd")
-mesh = SubResource("SphereMesh_5yblp")
+[node name="PivotLerpRot" type="Marker3D" parent="FpsCamera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 metadata/_edit_lock_ = true
 
-[node name="Hands" type="Node3D" parent="FpsCamera/PivotRot/PivotShake"]
-transform = Transform3D(1, 3.95812e-09, 2.94903e-17, 0, 1, 7.45058e-09, 0, 0, 1, 0, -0.4, 0)
+[node name="Hands" type="Node3D" parent="FpsCamera/PivotLerpRot"]
+transform = Transform3D(1, 3.95812e-09, 2.94903e-17, 0, 1, 7.45058e-09, 0, 0, 1, 0, -0.4, -0.4)
 metadata/_edit_lock_ = true
 
-[node name="PivotSwing" type="Marker3D" parent="FpsCamera/PivotRot/PivotShake/Hands"]
+[node name="PivotSwing" type="Marker3D" parent="FpsCamera/PivotLerpRot/Hands"]
 metadata/_edit_lock_ = true
 
-[node name="PivotShakeHands" type="Marker3D" parent="FpsCamera/PivotRot/PivotShake/Hands/PivotSwing"]
+[node name="PivotShakeHands" type="Marker3D" parent="FpsCamera/PivotLerpRot/Hands/PivotSwing"]
 transform = Transform3D(1, -3.95812e-09, 0, 0, 1, -7.45058e-09, 0, 0, 1, 0, 0, 0)
 metadata/_edit_lock_ = true
 
-[node name="PivotTilt" type="Marker3D" parent="FpsCamera/PivotRot/PivotShake/Hands/PivotSwing/PivotShakeHands"]
+[node name="PivotTilt" type="Marker3D" parent="FpsCamera/PivotLerpRot/Hands/PivotSwing/PivotShakeHands"]
 metadata/_edit_lock_ = true
 
-[node name="PivotRecoil" type="Marker3D" parent="FpsCamera/PivotRot/PivotShake/Hands/PivotSwing/PivotShakeHands/PivotTilt"]
+[node name="PivotRecoil" type="Marker3D" parent="FpsCamera/PivotLerpRot/Hands/PivotSwing/PivotShakeHands/PivotTilt"]
 metadata/_edit_lock_ = true
 
-[node name="PivotAimingPos" type="Marker3D" parent="FpsCamera/PivotRot/PivotShake/Hands/PivotSwing/PivotShakeHands/PivotTilt/PivotRecoil"]
+[node name="PivotAimingPos" type="Marker3D" parent="FpsCamera/PivotLerpRot/Hands/PivotSwing/PivotShakeHands/PivotTilt/PivotRecoil"]
 transform = Transform3D(1, -1.54074e-33, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 metadata/_edit_lock_ = true
 
-[node name="Arm" type="MeshInstance3D" parent="FpsCamera/PivotRot/PivotShake/Hands/PivotSwing/PivotShakeHands/PivotTilt/PivotRecoil/PivotAimingPos"]
+[node name="Arm" type="MeshInstance3D" parent="FpsCamera/PivotLerpRot/Hands/PivotSwing/PivotShakeHands/PivotTilt/PivotRecoil/PivotAimingPos"]
 transform = Transform3D(1, 1.26639e-17, 3.49246e-10, 3.49246e-10, -3.62608e-08, -1, 0, 1, -3.62608e-08, 0.2, 0, -0.2)
 mesh = SubResource("ArrayMesh_4v447")
 skeleton = NodePath("")
 
-[node name="Arm2" type="MeshInstance3D" parent="FpsCamera/PivotRot/PivotShake/Hands/PivotSwing/PivotShakeHands/PivotTilt/PivotRecoil/PivotAimingPos"]
+[node name="Arm2" type="MeshInstance3D" parent="FpsCamera/PivotLerpRot/Hands/PivotSwing/PivotShakeHands/PivotTilt/PivotRecoil/PivotAimingPos"]
 transform = Transform3D(0.939692, -0.34202, 3.49246e-10, -1.20738e-08, -3.41935e-08, -1, 0.34202, 0.939692, -3.62608e-08, -0.07, -0.05, -0.222)
 mesh = SubResource("ArrayMesh_4v447")
 skeleton = NodePath("")
@@ -329,22 +322,11 @@ metadata/_edit_lock_ = true
 
 [node name="blockbench_export" parent="Body/PivotRotation" instance=ExtResource("6_br1xv")]
 
-[node name="Skeleton3D" parent="Body/PivotRotation/blockbench_export/origin" index="0"]
-bones/1/rotation = Quaternion(-0.0222551, 0, 0, 0.999752)
-bones/2/position = Vector3(0, 0.579011, 0)
-bones/2/rotation = Quaternion(0.300706, 0, 0, 0.953717)
-bones/4/position = Vector3(-0.15625, -0.046875, -0.034375)
-bones/4/rotation = Quaternion(0, 0, 0.300706, 0.953717)
-bones/5/position = Vector3(0.1875, -0.0625, -0.0625)
-bones/5/rotation = Quaternion(0, 0, -0.0871557, 0.996195)
-bones/8/position = Vector3(0.125, 0, 0.03125)
-bones/8/rotation = Quaternion(0, -0.130526, 0, 0.991445)
-bones/9/position = Vector3(-0.125, 0, -0.09375)
-
 [node name="AnimationPlayer" parent="Body/PivotRotation/blockbench_export" index="1"]
 autoplay = "TPose"
 
 [node name="AnimationTree" type="AnimationTree" parent="Body/PivotRotation/blockbench_export"]
+active = false
 tree_root = SubResource("AnimationNodeBlendTree_178ah")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Add_Idle_Posture/add_amount = 1.0

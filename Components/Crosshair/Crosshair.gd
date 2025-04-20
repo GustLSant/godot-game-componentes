@@ -14,7 +14,7 @@ const AIM_DISTANCE_VARIANCE:float = 10.0  # distância que varia conforme o joga
 const MOVE_DISTANCE_VARIANCE:float = 15.0 # distância que varia conforme o jogador está se movendo ou não
 var currentDistanceToCenter:float = 10.0
 
-var centerPos:Vector2 = get_viewport_rect().size / 2
+@onready var centerPos:Vector2 = get_viewport_rect().size / 2
 
 
 func _ready()->void:
