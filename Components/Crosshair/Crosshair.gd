@@ -2,11 +2,18 @@ extends Control
 
 @export var color:Color = Color.WHITE
 
+# Render
 const DOT_RADIUS:float = 1.0
 const LINE_WIDTH:float = 1.0
 const LINE_LENGTH:float = 12.0
 
-var distanceToCenter:float = 10.0
+# Behaviour
+const TRANS_TIME:float = 10.0
+const MIN_DISTANCE_TO_CENTER:float = 5.0
+const AIM_DISTANCE_VARIANCE:float = 10.0  # distância que varia conforme o jogador está mirando ou não
+const MOVE_DISTANCE_VARIANCE:float = 15.0 # distância que varia conforme o jogador está se movendo ou não
+var currentDistanceToCenter:float = 10.0
+
 var centerPos:Vector2 = get_viewport_rect().size / 2
 
 
@@ -17,9 +24,26 @@ func _ready()->void:
 
 
 func _process(delta:float)->void:
-	var player := $"../../ThirdPersonShooterPlayer"
-	color.a = lerp(color.a, 0.25 + float(int(player.isAiming)), 10*delta)
-	distanceToCenter = lerp(distanceToCenter, 5.0 + 20.0 * float(int(not player.isAiming)), 10*delta)
+	var player:TpsFpsPlayer = $"../../ThirdPersonShooterPlayer"
+	
+	color.a = lerp(
+		color.a,
+		0.3 + int(player.isAiming) -
+		0.25 * int(player.isSprinting),
+		TRANS_TIME*delta
+	)
+	
+	currentDistanceToCenter = lerp(
+		currentDistanceToCenter,
+		(
+			MIN_DISTANCE_TO_CENTER + 
+			AIM_DISTANCE_VARIANCE * int(not player.isAiming) + 
+			MOVE_DISTANCE_VARIANCE * int(player.isMoving) +
+			MOVE_DISTANCE_VARIANCE * int(player.isSprinting) 
+		),
+		TRANS_TIME*delta
+	)
+	
 	queue_redraw()
 	pass
 
@@ -33,29 +57,29 @@ func _draw()->void:
 	
 	# linha de cima
 	draw_line(
-		centerPos + Vector2.UP * distanceToCenter,
-		centerPos + Vector2.UP * (distanceToCenter + LINE_LENGTH),
+		centerPos + Vector2.UP * currentDistanceToCenter,
+		centerPos + Vector2.UP * (currentDistanceToCenter + LINE_LENGTH),
 		color, LINE_WIDTH
 	)
 	
 	# linha de baixo
 	draw_line(
-		centerPos + Vector2.DOWN * distanceToCenter,
-		centerPos + Vector2.DOWN * (distanceToCenter + LINE_LENGTH),
+		centerPos + Vector2.DOWN * currentDistanceToCenter,
+		centerPos + Vector2.DOWN * (currentDistanceToCenter + LINE_LENGTH),
 		color, LINE_WIDTH
 	)
 	
 	# linha da direita
 	draw_line(
-		centerPos + Vector2.RIGHT * distanceToCenter,
-		centerPos + Vector2.RIGHT * (distanceToCenter + LINE_LENGTH),
+		centerPos + Vector2.RIGHT * currentDistanceToCenter,
+		centerPos + Vector2.RIGHT * (currentDistanceToCenter + LINE_LENGTH),
 		color, LINE_WIDTH
 	)
 	
 	# linha da esquerda
 	draw_line(
-		centerPos + Vector2.LEFT * distanceToCenter,
-		centerPos + Vector2.LEFT * (distanceToCenter + LINE_LENGTH),
+		centerPos + Vector2.LEFT * currentDistanceToCenter,
+		centerPos + Vector2.LEFT * (currentDistanceToCenter + LINE_LENGTH),
 		color, LINE_WIDTH
 	)
 	pass
