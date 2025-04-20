@@ -157,7 +157,6 @@ filters = ["origin/Skeleton3D:pivot_recoil"]
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_pfu5j"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_178ah"]
-graph_offset = Vector2(-66.454, 1106.28)
 nodes/Add_Idle_Posture/node = SubResource("AnimationNodeAdd2_2flhk")
 nodes/Add_Idle_Posture/position = Vector2(-213.333, -133.333)
 nodes/Add_Walking_Posture/node = SubResource("AnimationNodeAdd2_vfvm5")
@@ -318,12 +317,12 @@ metadata/_edit_lock_ = true
 [node name="blockbench_export" parent="Body/PivotRotation" instance=ExtResource("6_br1xv")]
 
 [node name="Skeleton3D" parent="Body/PivotRotation/blockbench_export/origin" index="0"]
-bones/1/rotation = Quaternion(-0.038237, 0, 0, 0.999269)
-bones/2/position = Vector3(0, 0.596463, 0)
+bones/1/rotation = Quaternion(-0.0397173, 0, 0, 0.999211)
+bones/2/position = Vector3(0, 0.584365, 0)
 bones/2/rotation = Quaternion(0.300706, 0, 0, 0.953717)
-bones/4/position = Vector3(0.09375, -0.046875, -0.034375)
+bones/4/position = Vector3(-0.15625, -0.046875, -0.034375)
 bones/4/rotation = Quaternion(0, 0, 0.300706, 0.953717)
-bones/5/position = Vector3(0.4375, -0.0625, -0.0625)
+bones/5/position = Vector3(0.1875, -0.0625, -0.0625)
 bones/5/rotation = Quaternion(0, 0, -0.0871557, 0.996195)
 bones/8/position = Vector3(0.125, 0, 0.03125)
 bones/8/rotation = Quaternion(0, -0.130526, 0, 0.991445)
@@ -349,7 +348,7 @@ parameters/Blend_Idle_Walking/blend_amount = 0.0
 parameters/ShotRecoil/active = false
 parameters/ShotRecoil/internal_active = false
 parameters/ShotRecoil/request = 0
-parameters/TS_ShotRecoil/scale = 15.0
+parameters/TS_ShotRecoil/scale = 10.0
 parameters/TS_Walking/scale = 1.0
 parameters/TimeScale/scale = 0.5
 

@@ -5,8 +5,9 @@ extends CharacterBody3D
 @onready var collShape:CollisionShape3D = $CollShape
 
 #region Movement
+const MAX_WALKING_SPEED:float = 4.0
+var currentSpeed:float = 0.0
 var vecMovement:Vector3 = Vector3.ZERO
-const WALKING_SPEED:float = 4.0
 var yMovement:float = 0.0
 var isMoving:bool = 0
 var isStandingStill:bool = 0
@@ -75,9 +76,9 @@ func handleMovement()->void:
 	isSprinting = isSprinting and isMoving and (stamina > 0.0) and (not isAiming)
 	
 	# sprint usage
-	vecMovement = (
-		vecMovement*SPRINT_SPEED_MULTIPLIER*int(isSprinting) + 
-		vecMovement*int(not isSprinting)
+	var sprintSpeedMultiplier:float = (
+		SPRINT_SPEED_MULTIPLIER*int(isSprinting) + 
+		1.0*int(not isSprinting)
 		)
 	stamina += (
 		-SPRINT_STAMINA_COST*pdelta*int(isSprinting) + 
@@ -94,7 +95,8 @@ func handleMovement()->void:
 		yMovement -= GRAVITY * pdelta
 		pass
 	
-	var finalHorizontalVelocity:Vector3 = vecMovement * WALKING_SPEED
+	currentSpeed = lerp(currentSpeed, int(isMoving)*MAX_WALKING_SPEED, body.BLEND_TRANSITION_SPEED_FACTOR*pdelta)
+	var finalHorizontalVelocity:Vector3 = vecMovement * currentSpeed * sprintSpeedMultiplier
 	finalHorizontalVelocity *= (0.25 * int(isAiming)) + (1.0 * int(!isAiming)) # redução da velocidade quando estiver mirando
 	
 	self.velocity = finalHorizontalVelocity
