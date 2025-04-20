@@ -13,6 +13,7 @@ extends Node3D
 
 const BLEND_TRANSITION_SPEED_FACTOR:float = 10.0
 var blendIdleToWalking:float = 0.0
+var blendWalkingToRunning:float = 0.0
 var blendAiming:float = 0.0
 
 # Recoil
@@ -80,10 +81,12 @@ func handleAnimBlends()->void:
 	)
 	
 	blendAiming = lerp(blendAiming, float(int(player.isAiming)), BLEND_TRANSITION_SPEED_FACTOR*delta)
+	blendWalkingToRunning = lerp(blendWalkingToRunning, float(int(player.isSprinting)), BLEND_TRANSITION_SPEED_FACTOR*delta)
 	
 	animTree["parameters/TS_Walking/scale"] = 1.0 - (0.5 * int(player.isAiming))
 	animTree["parameters/Blend_AimingAngles/blend_amount"] = (tpsCamera.pivotRot.rotation_degrees.x / 60.0) / 2.0 + 0.5
 	
 	animTree["parameters/Blend_Idle_Walking/blend_amount"] = blendIdleToWalking
 	animTree["parameters/Blend_Aiming/blend_amount"] = blendAiming
+	animTree["parameters/Blend_Walking_Running/blend_amount"] = blendWalkingToRunning
 	pass

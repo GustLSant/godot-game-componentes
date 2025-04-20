@@ -5,7 +5,7 @@ extends CharacterBody3D
 @onready var collShape:CollisionShape3D = $CollShape
 
 #region Movement
-const MAX_WALKING_SPEED:float = 4.0
+const MAX_WALKING_SPEED:float = 3.0
 var currentSpeed:float = 0.0
 var vecMovement:Vector3 = Vector3.ZERO
 var yMovement:float = 0.0
@@ -80,10 +80,10 @@ func handleMovement()->void:
 		SPRINT_SPEED_MULTIPLIER*int(isSprinting) + 
 		1.0*int(not isSprinting)
 		)
-	stamina += (
-		-SPRINT_STAMINA_COST*pdelta*int(isSprinting) + 
-		STAMINA_RECOVER_FACTOR*pdelta*int(not isSprinting) 
-		)
+	#stamina += (
+		#-SPRINT_STAMINA_COST*pdelta*int(isSprinting) + 
+		#STAMINA_RECOVER_FACTOR*pdelta*int(not isSprinting) 
+		#)
 	stamina = clamp(stamina, 0.0, 100.0)
 	$Label.text = str(stamina)
 	
