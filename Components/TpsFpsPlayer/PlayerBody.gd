@@ -41,7 +41,7 @@ func _process(_delta:float)->void:
 
 func handleRotation()->void:
 	if(player.isAiming):
-		pivotRot.rotation.y = lerp_angle(pivotRot.rotation.y, tpsCamera.pivotRot.rotation.y, 25*delta)
+		pivotRot.rotation.y = Utils.betterLerpAngleF(pivotRot.rotation.y, tpsCamera.pivotRot.rotation.y, 25, delta)
 	else:
 		#rotacao para o mesmo sentido da camera tps
 		#var targetBodyRotationY:float = (tpsCamera.pivotRot.rotation.y * int(player.isMoving)) + (pivotRot.rotation.y * int(player.isStandingStill))
@@ -57,13 +57,6 @@ func handleRotation()->void:
 
 func handleRecoilEffect()->void:
 	const DECREASE_FACTOR:float = 12.0
-	
-	var originalPos:Vector3 = skeleton.get_bone_pose_position(pivotRecoilBoneIdx)
-	#skeleton.set_bone_pose_position(
-		#pivotRecoilBoneIdx, 
-		#Vector3(originalPos.x, curveRecoil.sample_baked(recoilCurveOffset) * RECOIL_STRENGTH, originalPos.z)
-	#)
-	
 	recoilCurveOffset = lerp(recoilCurveOffset, 0.0, DECREASE_FACTOR*delta)
 	pass
 

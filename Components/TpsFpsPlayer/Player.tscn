@@ -343,8 +343,8 @@ metadata/_edit_lock_ = true
 [node name="blockbench_export" parent="Body/PivotRotation" instance=ExtResource("6_br1xv")]
 
 [node name="Skeleton3D" parent="Body/PivotRotation/blockbench_export/origin" index="0"]
-bones/1/rotation = Quaternion(-0.0291362, 0, 0, 0.999576)
-bones/2/position = Vector3(0, 0.598907, 0)
+bones/1/rotation = Quaternion(-0.00236073, 0, 0, 0.999997)
+bones/2/position = Vector3(0, 0.593728, 0)
 bones/2/rotation = Quaternion(0.300706, 0, 0, 0.953717)
 bones/4/position = Vector3(-0.15625, -0.046875, -0.034375)
 bones/4/rotation = Quaternion(0, 0, 0.300706, 0.953717)
