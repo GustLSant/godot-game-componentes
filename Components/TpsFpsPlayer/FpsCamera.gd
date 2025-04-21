@@ -48,24 +48,35 @@ func _process(_delta:float)->void:
 	pass
 
 
-func handleHandsLerpRotation()->void:
-	const ROT_SPEED:float = 18.0
-	pivotLerpRot.rotation.x = lerp_angle(pivotLerpRot.rotation.x, pivotRot.rotation.x, ROT_SPEED*delta)
-	pivotLerpRot.rotation.y = lerp_angle(pivotLerpRot.rotation.y, pivotRot.rotation.y, ROT_SPEED*delta)
+func handleHandsLerpRotation() -> void:
+	var ROT_SPEED: float = 20.0 + 16.0 * int(player.isAiming)
 	
+	pivotLerpRot.rotation.x = smooth_clamped_angle(
+		pivotLerpRot.rotation.x,
+		pivotRot.rotation.x,
+		ROT_SPEED,
+		deg_to_rad(10.0)
+	)
 	
-	var angle_diff = angle_difference_deg(pivotLerpRot.rotation_degrees.y, pivotRot.rotation_degrees.y)
-	if(abs(angle_diff) > 30.0):
-		pivotLerpRot.rotation_degrees.y = pivotRot.rotation_degrees.y + clamp(angle_diff, -30.0, 30.0)
-	
-	var angle_diff_x = angle_difference_deg(pivotLerpRot.rotation_degrees.x, pivotRot.rotation_degrees.x)
-	if(abs(angle_diff_x) > 10.0):
-		pivotLerpRot.rotation_degrees.x = pivotRot.rotation_degrees.x + clamp(angle_diff_x, -10.0, 10.0)
+	pivotLerpRot.rotation.y = smooth_clamped_angle(
+		pivotLerpRot.rotation.y,
+		pivotRot.rotation.y,
+		ROT_SPEED,
+		deg_to_rad(30.0)
+	)
 	
 	pass
 
-func angle_difference_deg(a_deg: float, b_deg: float) -> float:
-	return wrapf(a_deg - b_deg, -180.0, 180.0)
+
+func smooth_clamped_angle(currentAngle:float, targetAngle:float, lerpSpeed:float, maxAngleDifference:float)->float:
+	var t:float = 1.0 - exp(-lerpSpeed * delta)
+	var new_val:float = lerp_angle(currentAngle, targetAngle, t)
+	
+	var angleDifference:float = wrapf(new_val - targetAngle, -PI, PI) # determina a diferença entre os angulos respeitando o limite [180, -180] (PI == 180)
+	if(abs(angleDifference) > maxAngleDifference): # se a diferenca entre o angulo lerpado é maior que a máxima diferença permitida
+		return targetAngle + clamp(angleDifference, -maxAngleDifference, maxAngleDifference)
+	
+	return new_val
 
 
 
@@ -73,7 +84,7 @@ func handleSwingEffect()->void:
 	const SWING_IDLE_FREQUENCY:float = 0.002
 	const SWING_WALKING_FREQUENCY:float = 0.01
 	const SWING_IDLE_AMOUNT:float = 0.02
-	const SWING_WALKING_AMOUNT:float = 0.04
+	const SWING_WALKING_AMOUNT:float = 0.05
 	
 	var frequence:float = (
 		SWING_IDLE_FREQUENCY * int(!player.isMoving) +
@@ -82,7 +93,8 @@ func handleSwingEffect()->void:
 	)
 	var amount:float = (
 		SWING_IDLE_AMOUNT * int(!player.isMoving) +
-		SWING_WALKING_AMOUNT * int(player.isMoving)
+		SWING_WALKING_AMOUNT * int(player.isMoving) +
+		SWING_WALKING_AMOUNT * int(player.isSprinting)
 	)
 	
 	# redução do efeito ao mirar

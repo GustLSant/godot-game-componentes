@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://p2wyutg0uccu"]
+[gd_scene load_steps=47 format=4 uid="uid://p2wyutg0uccu"]
 
 [ext_resource type="Script" uid="uid://cfncptlgyantm" path="res://Components/TpsFpsPlayer/Player.gd" id="1_ivt6l"]
 [ext_resource type="Script" uid="uid://canw6gbkuvxa5" path="res://Components/TpsFpsPlayer/TpsCamera.gd" id="2_6vp7m"]
@@ -159,7 +159,6 @@ filters = ["origin/Skeleton3D:pivot_recoil"]
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_pfu5j"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_178ah"]
-graph_offset = Vector2(-253.554, 856.041)
 nodes/Add_Idle_Posture/node = SubResource("AnimationNodeAdd2_2flhk")
 nodes/Add_Idle_Posture/position = Vector2(-213.333, -133.333)
 nodes/Add_Walking_Posture/node = SubResource("AnimationNodeAdd2_vfvm5")
@@ -200,6 +199,26 @@ nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_pfu5j")
 nodes/TimeScale/position = Vector2(-453.333, -266.667)
 nodes/output/position = Vector2(1306.67, 586.667)
 node_connections = [&"Add_Idle_Posture", 0, &"TimeScale", &"Add_Idle_Posture", 1, &"BlendPostures", &"Add_Walking_Posture", 0, &"Blend_Walking_Running", &"Add_Walking_Posture", 1, &"BlendPostures 2", &"Blend_Aiming", 0, &"Blend_Idle_Walking", &"Blend_Aiming", 1, &"ShotRecoil", &"Blend_AimingAngles", 0, &"Animation 3", &"Blend_AimingAngles", 1, &"Animation 2", &"Blend_Idle_Walking", 0, &"Add_Idle_Posture", &"Blend_Idle_Walking", 1, &"Add_Walking_Posture", &"Blend_Walking_Running", 0, &"TS_Walking", &"Blend_Walking_Running", 1, &"TS_Running", &"ShotRecoil", 0, &"Blend_AimingAngles", &"ShotRecoil", 1, &"TS_ShotRecoil", &"TS_Running", 0, &"Animation 6", &"TS_ShotRecoil", 0, &"Animation 5", &"TS_Walking", 0, &"Animation 4", &"TimeScale", 0, &"Animation", &"output", 0, &"Blend_Aiming"]
+
+[sub_resource type="Gradient" id="Gradient_onxb3"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_h7fnu"]
+gradient = SubResource("Gradient_onxb3")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j32lk"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.360784)
+albedo_texture = SubResource("GradientTexture2D_h7fnu")
+emission_enabled = true
+emission_texture = SubResource("GradientTexture2D_h7fnu")
+
+[sub_resource type="QuadMesh" id="QuadMesh_dkwnh"]
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 8
@@ -248,6 +267,7 @@ fov = 90.0
 metadata/_edit_lock_ = true
 
 [node name="FpsCamera" type="Node3D" parent="."]
+visible = false
 script = ExtResource("3_rxfgv")
 pathPivotLerpRot = NodePath("PivotLerpRot")
 pathPivotSwing = NodePath("PivotLerpRot/Hands/PivotSwing")
@@ -322,11 +342,22 @@ metadata/_edit_lock_ = true
 
 [node name="blockbench_export" parent="Body/PivotRotation" instance=ExtResource("6_br1xv")]
 
+[node name="Skeleton3D" parent="Body/PivotRotation/blockbench_export/origin" index="0"]
+bones/1/rotation = Quaternion(-0.0291362, 0, 0, 0.999576)
+bones/2/position = Vector3(0, 0.598907, 0)
+bones/2/rotation = Quaternion(0.300706, 0, 0, 0.953717)
+bones/4/position = Vector3(-0.15625, -0.046875, -0.034375)
+bones/4/rotation = Quaternion(0, 0, 0.300706, 0.953717)
+bones/5/position = Vector3(0.1875, -0.0625, -0.0625)
+bones/5/rotation = Quaternion(0, 0, -0.0871557, 0.996195)
+bones/8/position = Vector3(0.125, 0, 0.03125)
+bones/8/rotation = Quaternion(0, -0.130526, 0, 0.991445)
+bones/9/position = Vector3(-0.125, 0, -0.09375)
+
 [node name="AnimationPlayer" parent="Body/PivotRotation/blockbench_export" index="1"]
 autoplay = "TPose"
 
 [node name="AnimationTree" type="AnimationTree" parent="Body/PivotRotation/blockbench_export"]
-active = false
 tree_root = SubResource("AnimationNodeBlendTree_178ah")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Add_Idle_Posture/add_amount = 1.0
@@ -358,5 +389,11 @@ offset_left = 3.0
 offset_top = 41.0
 offset_right = 43.0
 offset_bottom = 64.0
+
+[node name="TesteMuzzleFlash" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.2)
+visible = false
+material_override = SubResource("StandardMaterial3D_j32lk")
+mesh = SubResource("QuadMesh_dkwnh")
 
 [editable path="Body/PivotRotation/blockbench_export"]
