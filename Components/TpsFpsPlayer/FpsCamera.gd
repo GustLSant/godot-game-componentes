@@ -81,8 +81,8 @@ func followRotationSmoothly(currentAngle:float, targetAngle:float, lerpSpeed:flo
 
 
 func handleSwingEffect()->void:
-	const SWING_IDLE_FREQUENCY:float = 0.002
-	const SWING_WALKING_FREQUENCY:float = 0.01
+	const SWING_IDLE_FREQUENCY:float = 0.0025
+	const SWING_WALKING_FREQUENCY:float = 0.0125
 	const SWING_IDLE_AMOUNT:float = 0.02
 	const SWING_WALKING_AMOUNT:float = 0.05
 	
