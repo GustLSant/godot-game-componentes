@@ -51,14 +51,14 @@ func _process(_delta:float)->void:
 func handleHandsLerpRotation() -> void:
 	var ROT_SPEED: float = 20.0 + 16.0 * int(player.isAiming)
 	
-	pivotLerpRot.rotation.x = smooth_clamped_angle(
+	pivotLerpRot.rotation.x = followRotationSmoothly(
 		pivotLerpRot.rotation.x,
 		pivotRot.rotation.x,
 		ROT_SPEED,
 		deg_to_rad(10.0)
 	)
 	
-	pivotLerpRot.rotation.y = smooth_clamped_angle(
+	pivotLerpRot.rotation.y = followRotationSmoothly(
 		pivotLerpRot.rotation.y,
 		pivotRot.rotation.y,
 		ROT_SPEED,
@@ -68,15 +68,15 @@ func handleHandsLerpRotation() -> void:
 	pass
 
 
-func smooth_clamped_angle(currentAngle:float, targetAngle:float, lerpSpeed:float, maxAngleDifference:float)->float:
+func followRotationSmoothly(currentAngle:float, targetAngle:float, lerpSpeed:float, maxAngleDifference:float)->float:
 	var t:float = 1.0 - exp(-lerpSpeed * delta)
-	var new_val:float = lerp_angle(currentAngle, targetAngle, t)
+	var newAngleRotation:float = lerp_angle(currentAngle, targetAngle, t)
 	
-	var angleDifference:float = wrapf(new_val - targetAngle, -PI, PI) # determina a diferença entre os angulos respeitando o limite [180, -180] (PI == 180)
+	var angleDifference:float = wrapf(newAngleRotation - targetAngle, -PI, PI) # determina a diferença entre os angulos respeitando o limite [180, -180] (PI == 180)
 	if(abs(angleDifference) > maxAngleDifference): # se a diferenca entre o angulo lerpado é maior que a máxima diferença permitida
 		return targetAngle + clamp(angleDifference, -maxAngleDifference, maxAngleDifference)
 	
-	return new_val
+	return newAngleRotation
 
 
 

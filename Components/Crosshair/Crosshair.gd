@@ -1,3 +1,4 @@
+class_name Crosshair
 extends Control
 
 @export var color:Color = Color.WHITE
@@ -14,6 +15,10 @@ const AIM_DISTANCE_VARIANCE:float = 10.0  # distância que varia conforme o joga
 const MOVE_DISTANCE_VARIANCE:float = 15.0 # distância que varia conforme o jogador está se movendo ou não
 var currentDistanceToCenter:float = 10.0
 
+# Accuracy by weapon spread
+const WEAPON_SPREAD_SCALE:float = 5.0 # cada grau de spread da arma vai resultar em 5 pixels de abertura do crosshair
+var weaponSpreadFactor:float = 0.0
+
 @onready var centerPos:Vector2 = get_viewport_rect().size / 2
 
 
@@ -26,10 +31,19 @@ func _ready()->void:
 func _process(delta:float)->void:
 	var player:TpsFpsPlayer = $"../../ThirdPersonShooterPlayer"
 	
+	var alphaFpsCamera:float = (
+		1.0 * int(not player.isAiming) - 
+		0.5 * int(player.isSprinting)
+	)
+	
+	var alphaTpsCamera:float = (
+		1.0 * int(player.isAiming)
+	)
+	
 	color.a = lerp(
 		color.a,
-		0.3 + int(player.isAiming) -
-		0.25 * int(player.isSprinting),
+		alphaFpsCamera * int(player.currentCameraMode == player.CAMERA_MODES.FIRST_PERSON) +
+		alphaTpsCamera * int(player.currentCameraMode == player.CAMERA_MODES.THIRD_PERSON),
 		TRANS_TIME*delta
 	)
 	
@@ -39,7 +53,8 @@ func _process(delta:float)->void:
 			MIN_DISTANCE_TO_CENTER + 
 			AIM_DISTANCE_VARIANCE * int(not player.isAiming) + 
 			MOVE_DISTANCE_VARIANCE * int(player.isMoving) +
-			MOVE_DISTANCE_VARIANCE * int(player.isSprinting) 
+			MOVE_DISTANCE_VARIANCE * int(player.isSprinting) +
+			weaponSpreadFactor * WEAPON_SPREAD_SCALE
 		),
 		TRANS_TIME*delta
 	)
