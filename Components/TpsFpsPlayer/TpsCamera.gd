@@ -15,8 +15,8 @@ var currentBobAmplitude:float = 0.0
 @onready var pivotPosDamp:Marker3D = get_node(pathPivotPosDamp)
 
 # Camera Target Position
-const DEFAULT_CAMERA_TARGET_POS:Vector3 = Vector3(1.25, 1.0, 2.5)
-const AIMING_CAMERA_TARGET_POS:Vector3 = Vector3(0.75, 0.75, 1.0)
+const DEFAULT_CAMERA_TARGET_POS:Vector3 = Vector3(1.25, 1.0, 3.5)
+const AIMING_CAMERA_TARGET_POS:Vector3 = Vector3(0.75, 0.75, 2.0)
 var currentTargetPosition:Vector3 = DEFAULT_CAMERA_TARGET_POS
 
 # Camera Side
