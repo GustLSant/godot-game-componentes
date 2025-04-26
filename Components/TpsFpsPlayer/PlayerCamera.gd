@@ -8,7 +8,7 @@ extends Node3D
 
 # Camera Rotation
 const CAMERA_SENSI:float = 0.3
-const CAMERA_X_RANGE:float = 60.0
+const CAMERA_X_RANGE:float = 80.0
 @export var pathPivotRot:NodePath
 @onready var pivotRot:Marker3D = get_node(pathPivotRot)
 

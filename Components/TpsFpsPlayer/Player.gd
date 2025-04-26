@@ -60,8 +60,12 @@ func _physics_process(_delta:float)->void:
 func handleMovement()->void:
 	# movimentacao horizontal pelo jogador
 	if(currentCameraMode == CAMERA_MODES.FIRST_PERSON):
-		vecMovement = (Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft")) * fpsCamera.pivotRot.global_transform.basis.x
-		vecMovement += (Input.get_action_strength("MoveBackwards") - Input.get_action_strength("MoveFoward")) * fpsCamera.pivotRot.global_transform.basis.z
+		var cam_x = fpsCamera.pivotRot.global_transform.basis.x
+		var cam_z = fpsCamera.pivotRot.global_transform.basis.z
+		cam_x.y = 0
+		cam_z.y = 0
+		vecMovement = (Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft")) * cam_x
+		vecMovement += (Input.get_action_strength("MoveBackwards") - Input.get_action_strength("MoveFoward")) * cam_z
 	else:
 		vecMovement = (Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft")) * tpsCamera.pivotRot.global_transform.basis.x
 		vecMovement += (Input.get_action_strength("MoveBackwards") - Input.get_action_strength("MoveFoward")) * tpsCamera.pivotRot.global_transform.basis.z
