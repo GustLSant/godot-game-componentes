@@ -31,14 +31,6 @@ func _ready()->void:
 pass
 
 
-func _input(_event:InputEvent)->void:
-	if(_event is InputEventMouseMotion):
-		pivotRot.rotation_degrees.y -= _event.relative.x * CAMERA_SENSI * (0.5*int(player.isAiming) + 1.0*int(not player.isAiming))
-		pivotRot.rotation_degrees.x -= _event.relative.y * CAMERA_SENSI * (0.5*int(player.isAiming) + 1.0*int(not player.isAiming))
-		pivotRot.rotation_degrees.x = clamp(pivotRot.rotation_degrees.x, -CAMERA_X_RANGE, CAMERA_X_RANGE)
-	pass
-
-
 func setActive(_active:bool, _previousCameraRotation:Vector3=Vector3.ZERO)->void:
 	self.visible = _active
 	self.set_process(_active)

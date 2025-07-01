@@ -48,6 +48,15 @@ func _process(_delta:float)->void:
 	pass
 
 
+func _physics_process(delta: float) -> void:
+	var sensi_scale = (0.5 * int(player.isAiming) + 1.0 * int(not player.isAiming))
+	var velocity = Input.get_last_mouse_velocity()
+	pivotRot.rotation_degrees.y -= velocity.x * CAMERA_SENSI * sensi_scale * delta
+	pivotRot.rotation_degrees.x -= velocity.y * CAMERA_SENSI * sensi_scale * delta
+	pivotRot.rotation_degrees.x = clamp(pivotRot.rotation_degrees.x, -CAMERA_X_RANGE, CAMERA_X_RANGE)
+	pass
+
+
 func handleHandsLerpRotation() -> void:
 	var ROT_SPEED: float = 20.0 + 16.0 * int(player.isAiming)
 	

@@ -27,6 +27,13 @@ var cameraSideMultiplierFactor:float = 1.0 # faz a transição suave do lado da 
 var realRecoilRotVector:Vector2 = Vector2.ZERO
 
 
+func _input(_event:InputEvent)->void:
+	if(_event is InputEventMouseMotion):
+		pivotRot.rotation_degrees.y -= _event.relative.x * CAMERA_SENSI * (0.5*int(player.isAiming) + 1.0*int(not player.isAiming))
+		pivotRot.rotation_degrees.x -= _event.relative.y * CAMERA_SENSI * (0.5*int(player.isAiming) + 1.0*int(not player.isAiming))
+		pivotRot.rotation_degrees.x = clamp(pivotRot.rotation_degrees.x, -CAMERA_X_RANGE, CAMERA_X_RANGE)
+	pass
+
 
 func _ready()->void:
 	super._ready()
@@ -38,7 +45,7 @@ func _process(_delta:float)->void:
 	
 	handleCameraCollision()
 	
-	#handleBobbingEffect()
+	#    handleBobbingEffect()
 	handlePosDamping()
 	handleShakeEffect()
 	handleCameraTargetPositioning()

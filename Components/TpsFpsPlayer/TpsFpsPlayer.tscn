@@ -1,12 +1,12 @@
 [gd_scene load_steps=163 format=4 uid="uid://p2wyutg0uccu"]
 
-[ext_resource type="Script" uid="uid://cfncptlgyantm" path="res://Components/TpsFpsPlayer/Player.gd" id="1_ivt6l"]
-[ext_resource type="Script" uid="uid://canw6gbkuvxa5" path="res://Components/TpsFpsPlayer/TpsCamera.gd" id="2_6vp7m"]
-[ext_resource type="Script" uid="uid://dq4i8ud83sua5" path="res://Components/TpsFpsPlayer/FpsCamera.gd" id="3_rxfgv"]
-[ext_resource type="Script" uid="uid://xp07tyvrlbga" path="res://Components/TpsFpsPlayer/PlayerBody.gd" id="4_lsk15"]
-[ext_resource type="Texture2D" uid="uid://d2yldsj7vc8fv" path="res://Meshs/Weapons_0.png" id="6_0rf3i"]
-[ext_resource type="PackedScene" uid="uid://ck3u2sxvhxvjc" path="res://Meshs/PlayerBody.gltf" id="6_br1xv"]
-[ext_resource type="Texture2D" uid="uid://dq60ihw0rphhd" path="res://Meshs/Weapons_1.png" id="7_4h0by"]
+[ext_resource type="Script" uid="uid://cfncptlgyantm" path="res://Components/TpsFpsPlayer/TpsFpsPlayer.gd" id="1_0hgra"]
+[ext_resource type="Script" uid="uid://canw6gbkuvxa5" path="res://Components/TpsFpsPlayer/TpsCamera.gd" id="2_nli74"]
+[ext_resource type="Script" uid="uid://dq4i8ud83sua5" path="res://Components/TpsFpsPlayer/FpsCamera.gd" id="3_qaewt"]
+[ext_resource type="Texture2D" uid="uid://dq60ihw0rphhd" path="res://Meshs/Weapons_1.png" id="4_yinl1"]
+[ext_resource type="Texture2D" uid="uid://d2yldsj7vc8fv" path="res://Meshs/Weapons_0.png" id="5_qj17b"]
+[ext_resource type="Script" uid="uid://xp07tyvrlbga" path="res://Components/TpsFpsPlayer/PlayerBody.gd" id="6_p7hxw"]
+[ext_resource type="PackedScene" uid="uid://ck3u2sxvhxvjc" path="res://Meshs/PlayerBody.gltf" id="7_jh3ix"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6vp7m"]
 size = Vector3(1, 2, 0.75)
@@ -61,7 +61,7 @@ transparency = 2
 alpha_scissor_threshold = 0.05
 alpha_antialiasing_mode = 0
 cull_mode = 2
-albedo_texture = ExtResource("7_4h0by")
+albedo_texture = ExtResource("4_yinl1")
 texture_filter = 0
 texture_repeat = false
 
@@ -489,7 +489,7 @@ transparency = 2
 alpha_scissor_threshold = 0.05
 alpha_antialiasing_mode = 0
 cull_mode = 2
-albedo_texture = ExtResource("6_0rf3i")
+albedo_texture = ExtResource("5_qj17b")
 texture_filter = 0
 texture_repeat = false
 
@@ -1953,10 +1953,10 @@ emission_texture = SubResource("GradientTexture2D_h7fnu")
 
 [sub_resource type="QuadMesh" id="QuadMesh_dkwnh"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="TpsFpsPlayer" type="CharacterBody3D"]
 collision_layer = 8
 collision_mask = 7
-script = ExtResource("1_ivt6l")
+script = ExtResource("1_0hgra")
 
 [node name="CollShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -1964,7 +1964,7 @@ shape = SubResource("BoxShape3D_6vp7m")
 metadata/_edit_lock_ = true
 
 [node name="TpsCamera" type="Node3D" parent="."]
-script = ExtResource("2_6vp7m")
+script = ExtResource("2_nli74")
 pathShapeCast3D = NodePath("PivotRot/PivotShake/PivotBob/PivotPosDamp/ShapeCast3D")
 pathPivotBob = NodePath("PivotRot/PivotShake/PivotBob")
 pathPivotPosDamp = NodePath("PivotRot/PivotShake/PivotBob/PivotPosDamp")
@@ -2000,7 +2000,7 @@ fov = 90.0
 metadata/_edit_lock_ = true
 
 [node name="FpsCamera" type="Node3D" parent="."]
-script = ExtResource("3_rxfgv")
+script = ExtResource("3_qaewt")
 pathPivotLerpRot = NodePath("PivotLerpRot")
 pathPivotSwing = NodePath("PivotLerpRot/Hands/PivotSwing")
 pathPivotShakeHands = NodePath("PivotLerpRot/Hands/PivotSwing/PivotShakeHands")
@@ -2323,7 +2323,7 @@ skeleton = NodePath("")
 
 [node name="Body" type="Node3D" parent="."]
 visible = false
-script = ExtResource("4_lsk15")
+script = ExtResource("6_p7hxw")
 pathAnimTree = NodePath("PivotRotation/blockbench_export/AnimationTree")
 curveRecoil = SubResource("Curve_onxb3")
 metadata/_edit_lock_ = true
@@ -2334,7 +2334,7 @@ metadata/_edit_lock_ = true
 [node name="PivotRotation" type="Marker3D" parent="Body"]
 metadata/_edit_lock_ = true
 
-[node name="blockbench_export" parent="Body/PivotRotation" instance=ExtResource("6_br1xv")]
+[node name="blockbench_export" parent="Body/PivotRotation" instance=ExtResource("7_jh3ix")]
 
 [node name="Skeleton3D" parent="Body/PivotRotation/blockbench_export/origin" index="0"]
 bones/2/position = Vector3(0, 0.669194, 0)

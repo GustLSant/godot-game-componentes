@@ -29,37 +29,37 @@ func _ready()->void:
 
 
 func _process(delta:float)->void:
-	var player:TpsFpsPlayer = $"../../ThirdPersonShooterPlayer"
-	
-	var alphaFpsCamera:float = (
-		1.0 * int(not player.isAiming) - 
-		0.5 * int(player.isSprinting)
-	)
-	
-	var alphaTpsCamera:float = (
-		1.0 * int(player.isAiming)
-	)
-	
-	color.a = lerp(
-		color.a,
-		alphaFpsCamera * int(player.currentCameraMode == player.CAMERA_MODES.FIRST_PERSON) +
-		alphaTpsCamera * int(player.currentCameraMode == player.CAMERA_MODES.THIRD_PERSON),
-		TRANS_TIME*delta
-	)
-	
-	currentDistanceToCenter = lerp(
-		currentDistanceToCenter,
-		(
-			MIN_DISTANCE_TO_CENTER + 
-			AIM_DISTANCE_VARIANCE * int(not player.isAiming) + 
-			MOVE_DISTANCE_VARIANCE * int(player.isMoving) +
-			MOVE_DISTANCE_VARIANCE * int(player.isSprinting) +
-			weaponSpreadFactor * WEAPON_SPREAD_SCALE
-		),
-		TRANS_TIME*delta
-	)
-	
-	queue_redraw()
+	#var player:TpsFpsPlayer = $"../../ThirdPersonShooterPlayer"
+	#
+	#var alphaFpsCamera:float = (
+		#1.0 * int(not player.isAiming) - 
+		#0.5 * int(player.isSprinting)
+	#)
+	#
+	#var alphaTpsCamera:float = (
+		#1.0 * int(player.isAiming)
+	#)
+	#
+	#color.a = lerp(
+		#color.a,
+		#alphaFpsCamera * int(player.currentCameraMode == player.CAMERA_MODES.FIRST_PERSON) +
+		#alphaTpsCamera * int(player.currentCameraMode == player.CAMERA_MODES.THIRD_PERSON),
+		#TRANS_TIME*delta
+	#)
+	#
+	#currentDistanceToCenter = lerp(
+		#currentDistanceToCenter,
+		#(
+			#MIN_DISTANCE_TO_CENTER + 
+			#AIM_DISTANCE_VARIANCE * int(not player.isAiming) + 
+			#MOVE_DISTANCE_VARIANCE * int(player.isMoving) +
+			#MOVE_DISTANCE_VARIANCE * int(player.isSprinting) +
+			#weaponSpreadFactor * WEAPON_SPREAD_SCALE
+		#),
+		#TRANS_TIME*delta
+	#)
+	#
+	#queue_redraw()
 	pass
 
 
