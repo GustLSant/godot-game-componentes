@@ -45,6 +45,7 @@ func handleSprint() -> void:
 		isSprinting = isSprinting and vecInput.y < 0.0 # moving fowards
 	#aim
 	#crouch
+	
 	currentSprintMultiplier = lerp(
 		currentSprintMultiplier,
 		int(isSprinting) * SPRINT_SPEED_MULTIPLIER + int(not isSprinting) * 1.0,

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cav0uleqdgm0g" path="res://Components/Player/PlayerCameraManager.gd" id="1_a50ic"]
 [ext_resource type="Script" uid="uid://c7alstv6ddk1m" path="res://Components/Player/PlayerMovementController.gd" id="2_8qe71"]
 [ext_resource type="Script" uid="uid://c8vevuqro0x0o" path="res://Components/Player/PlayerJumpController.gd" id="3_cyqth"]
-[ext_resource type="Script" uid="uid://cxgugdpjm5jp0" path="res://Components/Player/PlayerTpsCameraController.gd" id="4_n5pqa"]
+[ext_resource type="PackedScene" uid="uid://cl7o36m60w6ww" path="res://Components/Player/TpsController.tscn" id="4_71y7e"]
 [ext_resource type="Script" uid="uid://dyxdm7krdh2g1" path="res://Components/Player/PlayerCameraController.gd" id="5_71y7e"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2ojs8"]
@@ -38,16 +38,8 @@ mesh = SubResource("BoxMesh_2ojs8")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_2ojs8")
 
-[node name="TPS" type="Node3D" parent="." node_paths=PackedStringArray("pivotRot", "camera")]
-script = ExtResource("4_n5pqa")
-pivotRot = NodePath("PivotRot")
-camera = NodePath("PivotRot/Camera3D")
-
-[node name="PivotRot" type="Marker3D" parent="TPS"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
-[node name="Camera3D" type="Camera3D" parent="TPS/PivotRot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 1, 3)
+[node name="TPS" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_71y7e")]
+player = NodePath("..")
 
 [node name="FPS" type="Node3D" parent="." node_paths=PackedStringArray("pivotRot", "camera")]
 script = ExtResource("5_71y7e")
