@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://c7alstv6ddk1m" path="res://Components/Player/PlayerMovementController.gd" id="2_8qe71"]
 [ext_resource type="Script" uid="uid://c8vevuqro0x0o" path="res://Components/Player/PlayerJumpController.gd" id="3_cyqth"]
 [ext_resource type="PackedScene" uid="uid://cl7o36m60w6ww" path="res://Components/Player/TpsController.tscn" id="4_71y7e"]
-[ext_resource type="Script" uid="uid://dyxdm7krdh2g1" path="res://Components/Player/PlayerCameraController.gd" id="5_71y7e"]
+[ext_resource type="Script" uid="uid://d081bgbrqtwn2" path="res://Components/Player/PlayerFpsCameraController.gd" id="5_71y7e"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2ojs8"]
 size = Vector3(1, 2, 1)

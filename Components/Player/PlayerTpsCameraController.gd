@@ -19,3 +19,7 @@ func handlePlayerFollowing() -> void:
 		10 * pDelta
 		)
 	pass
+
+func onActiveUpdate(_value) -> void:
+	base.global_position = player.global_position
+	pass
