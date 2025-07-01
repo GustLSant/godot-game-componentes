@@ -13,6 +13,7 @@ var currentPivotRot: Marker3D = null
 
 func _ready() -> void:
 	setCameraMode(CAMERA_MODE.FPS)
+	pass
 
 
 func _input(_event: InputEvent) -> void:
@@ -27,10 +28,10 @@ func setCameraMode(_newCameraMode: CAMERA_MODE) -> void:
 	
 	if(_newCameraMode == CAMERA_MODE.FPS):
 		currentPivotRot = fpsPivotRot
-		fpsRoot.setActive(true, tpsRoot.pivotRot.rotation)
-		tpsRoot.setActive(false)
+		fpsRoot.call_deferred('setActive', true, tpsRoot.pivotRot.rotation)
+		tpsRoot.call_deferred('setActive', false)
 	else:
 		currentPivotRot = tpsPivotRot
-		fpsRoot.setActive(false)
-		tpsRoot.setActive(true, fpsRoot.pivotRot.rotation)
+		fpsRoot.call_deferred('setActive', false)
+		tpsRoot.call_deferred('setActive', true, fpsRoot.pivotRot.rotation)
 	pass
