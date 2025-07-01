@@ -21,9 +21,10 @@ script = ExtResource("1_a50ic")
 fpsRoot = NodePath("../../FPS")
 tpsRoot = NodePath("../../TPS")
 
-[node name="MovementController" type="Node" parent="Components" node_paths=PackedStringArray("player")]
+[node name="MovementController" type="Node" parent="Components" node_paths=PackedStringArray("player", "playerCameraManager")]
 script = ExtResource("2_8qe71")
 player = NodePath("../..")
+playerCameraManager = NodePath("../CameraManager")
 
 [node name="JumpController" type="Node" parent="Components" node_paths=PackedStringArray("player")]
 script = ExtResource("3_cyqth")

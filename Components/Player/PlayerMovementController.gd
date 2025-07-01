@@ -2,6 +2,7 @@ extends Node
 class_name PlayerMovementController
 
 @export var player: CharacterBody3D
+@export var playerCameraManager: PlayerCameraManager
 
 const BASE_MOVE_SPEED: float = 4.0
 var vecInput: Vector2 = Vector2.ZERO
@@ -20,6 +21,10 @@ func getInputs() -> void:
 
 
 func move() -> void:
-	player.velocity = Vector3(vecInput.x, player.velocity.y, vecInput.y) * BASE_MOVE_SPEED
+	var vecMovement:Vector3 = Vector3(0.0, 0.0, 0.0)
+	vecMovement = vecInput.x * playerCameraManager.currentPivotRot.transform.basis.x
+	vecMovement += vecInput.y * playerCameraManager.currentPivotRot.transform.basis.z
+	
+	player.velocity = Vector3(vecMovement.x, player.velocity.y, vecMovement.z) * BASE_MOVE_SPEED
 	player.move_and_slide()
 	pass
