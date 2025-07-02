@@ -39,4 +39,5 @@ func handlePlayerFollowing() -> void:
 
 func onActiveUpdate(_value) -> void:
 	base.global_position = player.global_position
+	body.visible = _value
 	pass

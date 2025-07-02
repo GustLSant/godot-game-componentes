@@ -64,7 +64,10 @@ func move() -> void:
 	
 	var vecMovement: Vector3 = (vecInput.x * right + vecInput.y * forward).normalized()
 	
-	player.velocity.x = vecMovement.x * BASE_MOVE_SPEED * currentSprintMultiplier
-	player.velocity.z = vecMovement.x * BASE_MOVE_SPEED * currentSprintMultiplier
+	player.velocity = (
+		Vector3(vecMovement.x, 0.0, vecMovement.z) * BASE_MOVE_SPEED * currentSprintMultiplier
+		+
+		Vector3.UP * player.velocity.y
+		)
 	player.move_and_slide()
 	pass
