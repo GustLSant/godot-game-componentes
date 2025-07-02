@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://boladt1x15x1m"]
+
+[ext_resource type="Script" uid="uid://cvgpssu82fqgo" path="res://Components/Player/PlayerTpsBodyController.gd" id="1_cy00w"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2ojs8"]
+size = Vector3(1, 2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_71y7e"]
+albedo_color = Color(0.166853, 0.166853, 0.166853, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mo2m5"]
+
+[node name="TpsBody" type="Node3D" node_paths=PackedStringArray("player", "pivotRot", "pivotRefRot")]
+script = ExtResource("1_cy00w")
+player = NodePath("")
+pivotRot = NodePath("PivotRot")
+pivotRefRot = NodePath("PivotRefRot")
+
+[node name="PivotRot" type="Marker3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PivotRot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_2ojs8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PivotRot/MeshInstance3D"]
+transform = Transform3D(1.2, 0, 0, 0, 0.3, 0, 0, 0, 0.4, 0, 0.7, -0.4)
+material_override = SubResource("StandardMaterial3D_71y7e")
+mesh = SubResource("BoxMesh_mo2m5")
+
+[node name="PivotRefRot" type="Marker3D" parent="."]

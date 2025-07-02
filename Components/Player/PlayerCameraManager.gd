@@ -2,9 +2,9 @@ extends Node
 class_name PlayerCameraManager
 
 @export var fpsRoot: PlayerCameraController
-@onready var fpsPivotRot: Marker3D = fpsRoot.pivotRot
 @export var tpsRoot: PlayerCameraController
-@onready var tpsPivotRot: Marker3D = tpsRoot.pivotRot
+@export var tpsBody: Node3D
+@export var fpsArms: Node3D
 
 enum CAMERA_MODE {FPS, TPS}
 var currentCameraMode:CAMERA_MODE = CAMERA_MODE.FPS
@@ -27,11 +27,15 @@ func setCameraMode(_newCameraMode: CAMERA_MODE) -> void:
 	currentCameraMode = _newCameraMode
 	
 	if(_newCameraMode == CAMERA_MODE.FPS):
-		currentPivotRot = fpsPivotRot
+		currentPivotRot = fpsRoot.pivotRot
 		fpsRoot.call_deferred('setActive', true, tpsRoot.pivotRot.rotation)
+		fpsArms.call_deferred('setActive', true, tpsRoot.pivotRot.rotation)
 		tpsRoot.call_deferred('setActive', false)
+		tpsBody.call_deferred('setActive', false)
 	else:
-		currentPivotRot = tpsPivotRot
+		currentPivotRot = tpsRoot.pivotRot
 		fpsRoot.call_deferred('setActive', false)
+		fpsArms.call_deferred('setActive', false)
 		tpsRoot.call_deferred('setActive', true, fpsRoot.pivotRot.rotation)
+		tpsBody.call_deferred('setActive', true, fpsRoot.pivotRot.rotation)
 	pass
