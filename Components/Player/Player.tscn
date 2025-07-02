@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://bqshrdvp6bnlg"]
 
-[ext_resource type="Script" uid="uid://cav0uleqdgm0g" path="res://Components/Player/PlayerCameraManager.gd" id="1_a50ic"]
-[ext_resource type="Script" uid="uid://c7alstv6ddk1m" path="res://Components/Player/PlayerMovementController.gd" id="2_8qe71"]
-[ext_resource type="Script" uid="uid://c8vevuqro0x0o" path="res://Components/Player/PlayerJumpController.gd" id="3_cyqth"]
-[ext_resource type="PackedScene" uid="uid://cl7o36m60w6ww" path="res://Components/Player/TpsCameraController.tscn" id="4_71y7e"]
-[ext_resource type="PackedScene" uid="uid://d33kf6ht1h1k5" path="res://Components/Player/FpsCameraController.tscn" id="5_71y7e"]
-[ext_resource type="PackedScene" uid="uid://boladt1x15x1m" path="res://Components/Player/TpsBody.tscn" id="5_eorbh"]
-[ext_resource type="PackedScene" uid="uid://vb3cyx2rvxhs" path="res://Components/Player/FpsArms.tscn" id="7_eorbh"]
+[ext_resource type="Script" uid="uid://cav0uleqdgm0g" path="res://Components/Player/PlayerScriptComponents/PlayerCameraManager.gd" id="1_a50ic"]
+[ext_resource type="Script" uid="uid://c7alstv6ddk1m" path="res://Components/Player/PlayerScriptComponents/PlayerMovementController.gd" id="2_8qe71"]
+[ext_resource type="Script" uid="uid://c8vevuqro0x0o" path="res://Components/Player/PlayerScriptComponents/PlayerJumpController.gd" id="3_cyqth"]
+[ext_resource type="PackedScene" uid="uid://cl7o36m60w6ww" path="res://Components/Player/TpsModeScenes/TpsCameraController.tscn" id="4_71y7e"]
+[ext_resource type="PackedScene" uid="uid://d33kf6ht1h1k5" path="res://Components/Player/FpsModeScenes/FpsCameraController.tscn" id="5_71y7e"]
+[ext_resource type="PackedScene" uid="uid://boladt1x15x1m" path="res://Components/Player/TpsModeScenes/TpsBody.tscn" id="5_eorbh"]
+[ext_resource type="PackedScene" uid="uid://vb3cyx2rvxhs" path="res://Components/Player/FpsModeScenes/FpsArms.tscn" id="7_eorbh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2ojs8"]
 size = Vector3(1, 2, 1)

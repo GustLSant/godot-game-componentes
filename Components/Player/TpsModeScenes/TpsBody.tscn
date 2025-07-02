@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://boladt1x15x1m"]
 
-[ext_resource type="Script" uid="uid://cvgpssu82fqgo" path="res://Components/Player/PlayerTpsBodyController.gd" id="1_cy00w"]
+[ext_resource type="Script" uid="uid://cvgpssu82fqgo" path="res://Components/Player/CameraControllerScripts/TpsModeScripts/PlayerTpsBodyController.gd" id="1_cy00w"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2ojs8"]
 size = Vector3(1, 2, 1)

@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://cl7o36m60w6ww"]
 
-[ext_resource type="Script" uid="uid://cxgugdpjm5jp0" path="res://Components/Player/PlayerTpsCameraController.gd" id="1_82np0"]
+[ext_resource type="Script" uid="uid://cxgugdpjm5jp0" path="res://Components/Player/CameraControllerScripts/TpsModeScripts/PlayerTpsCameraController.gd" id="1_liadd"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_q78qt"]
 radius = 0.25
 
 [node name="TpsCamera" type="Node3D" node_paths=PackedStringArray("base", "shapeCast", "pivotRot", "camera")]
-script = ExtResource("1_82np0")
+script = ExtResource("1_liadd")
 base = NodePath("Node/Base")
 shapeCast = NodePath("Node/Base/PivotRot/ShapeCast3D")
 pivotRot = NodePath("Node/Base/PivotRot")

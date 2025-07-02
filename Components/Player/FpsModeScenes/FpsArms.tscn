@@ -1,6 +1,6 @@
 [gd_scene load_steps=39 format=4 uid="uid://vb3cyx2rvxhs"]
 
-[ext_resource type="Script" uid="uid://d2y2o1dt32ska" path="res://Components/Player/PlayerFpsArmsController.gd" id="1_qqdmd"]
+[ext_resource type="Script" uid="uid://d2y2o1dt32ska" path="res://Components/Player/CameraControllerScripts/FpsModeScripts/PlayerFpsArmsController.gd" id="1_qqdmd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pmg3h"]
 resource_name = "material_0"
