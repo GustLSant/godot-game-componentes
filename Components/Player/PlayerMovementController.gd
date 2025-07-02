@@ -55,10 +55,16 @@ func handleSprint() -> void:
 
 
 func move() -> void:
-	var vecMovement:Vector3 = Vector3(0.0, 0.0, 0.0)
-	vecMovement = vecInput.x * playerCameraManager.currentPivotRot.transform.basis.x
-	vecMovement += vecInput.y * playerCameraManager.currentPivotRot.transform.basis.z
+	var forward: Vector3 = playerCameraManager.currentPivotRot.transform.basis.z
+	var right: Vector3 = playerCameraManager.currentPivotRot.transform.basis.x
+	forward.y = 0
+	right.y = 0
+	forward = forward.normalized()
+	right = right.normalized()
 	
-	player.velocity = Vector3(vecMovement.x, player.velocity.y, vecMovement.z) * BASE_MOVE_SPEED * currentSprintMultiplier
+	var vecMovement: Vector3 = (vecInput.x * right + vecInput.y * forward).normalized()
+	
+	player.velocity.x = vecMovement.x * BASE_MOVE_SPEED * currentSprintMultiplier
+	player.velocity.z = vecMovement.x * BASE_MOVE_SPEED * currentSprintMultiplier
 	player.move_and_slide()
 	pass

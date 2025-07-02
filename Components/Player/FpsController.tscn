@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://d33kf6ht1h1k5"]
+
+[ext_resource type="Script" uid="uid://d081bgbrqtwn2" path="res://Components/Player/PlayerFpsCameraController.gd" id="1_ce4ip"]
+
+[node name="FPS" type="Node3D" node_paths=PackedStringArray("pivotRot", "camera")]
+script = ExtResource("1_ce4ip")
+pivotRot = NodePath("PivotRot")
+camera = NodePath("PivotRot/Camera3D")
+
+[node name="PivotRot" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+
+[node name="Camera3D" type="Camera3D" parent="PivotRot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)

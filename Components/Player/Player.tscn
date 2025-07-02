@@ -1,16 +1,21 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqshrdvp6bnlg"]
+[gd_scene load_steps=10 format=3 uid="uid://bqshrdvp6bnlg"]
 
 [ext_resource type="Script" uid="uid://cav0uleqdgm0g" path="res://Components/Player/PlayerCameraManager.gd" id="1_a50ic"]
 [ext_resource type="Script" uid="uid://c7alstv6ddk1m" path="res://Components/Player/PlayerMovementController.gd" id="2_8qe71"]
 [ext_resource type="Script" uid="uid://c8vevuqro0x0o" path="res://Components/Player/PlayerJumpController.gd" id="3_cyqth"]
 [ext_resource type="PackedScene" uid="uid://cl7o36m60w6ww" path="res://Components/Player/TpsController.tscn" id="4_71y7e"]
-[ext_resource type="Script" uid="uid://d081bgbrqtwn2" path="res://Components/Player/PlayerFpsCameraController.gd" id="5_71y7e"]
+[ext_resource type="PackedScene" uid="uid://d33kf6ht1h1k5" path="res://Components/Player/FpsController.tscn" id="5_71y7e"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ojs8"]
+size = Vector3(1, 2, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_2ojs8"]
 size = Vector3(1, 2, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2ojs8"]
-size = Vector3(1, 2, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_71y7e"]
+albedo_color = Color(0.166853, 0.166853, 0.166853, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mo2m5"]
 
 [node name="Player" type="CharacterBody3D"]
 
@@ -21,33 +26,33 @@ script = ExtResource("1_a50ic")
 fpsRoot = NodePath("../../FPS")
 tpsRoot = NodePath("../../TPS")
 
+[node name="JumpController" type="Node" parent="Components" node_paths=PackedStringArray("player")]
+script = ExtResource("3_cyqth")
+player = NodePath("../..")
+
 [node name="MovementController" type="Node" parent="Components" node_paths=PackedStringArray("player", "playerCameraManager")]
 script = ExtResource("2_8qe71")
 player = NodePath("../..")
 playerCameraManager = NodePath("../CameraManager")
 
-[node name="JumpController" type="Node" parent="Components" node_paths=PackedStringArray("player")]
-script = ExtResource("3_cyqth")
-player = NodePath("../..")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("BoxMesh_2ojs8")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_2ojs8")
 
-[node name="TPS" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_71y7e")]
+[node name="Body" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_2ojs8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/MeshInstance3D"]
+transform = Transform3D(1.2, 0, 0, 0, 0.3, 0, 0, 0, 0.4, 0, 0.7, -0.4)
+material_override = SubResource("StandardMaterial3D_71y7e")
+mesh = SubResource("BoxMesh_mo2m5")
+
+[node name="TPS" parent="." node_paths=PackedStringArray("player", "body", "playerMovementController") instance=ExtResource("4_71y7e")]
 player = NodePath("..")
+body = NodePath("../Body")
+playerMovementController = NodePath("../Components/MovementController")
 
-[node name="FPS" type="Node3D" parent="." node_paths=PackedStringArray("pivotRot", "camera")]
-script = ExtResource("5_71y7e")
-pivotRot = NodePath("PivotRot")
-camera = NodePath("PivotRot/Camera3D")
-
-[node name="PivotRot" type="Marker3D" parent="FPS"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
-
-[node name="Camera3D" type="Camera3D" parent="FPS/PivotRot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
+[node name="FPS" parent="." instance=ExtResource("5_71y7e")]

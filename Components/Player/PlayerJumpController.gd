@@ -3,8 +3,8 @@ class_name PlayerJumpController
 
 @export var player: CharacterBody3D
 
-const GRAVITY_ACCELERATION:float = 10.0
-const JUMP_FORCE:float = 2.5
+const GRAVITY_ACCELERATION:float = 20.0
+const JUMP_FORCE:float = 7.5
 var currentVerticalMovement:float = 0.0
 
 var pDelta: float = 0.016
