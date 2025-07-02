@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl7o36m60w6ww"]
+
+[ext_resource type="Script" uid="uid://cxgugdpjm5jp0" path="res://Components/Player/PlayerTpsCameraController.gd" id="1_82np0"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_q78qt"]
+radius = 0.25
+
+[node name="TpsCamera" type="Node3D" node_paths=PackedStringArray("base", "shapeCast", "pivotRot", "camera")]
+script = ExtResource("1_82np0")
+base = NodePath("Node/Base")
+shapeCast = NodePath("Node/Base/PivotRot/ShapeCast3D")
+pivotRot = NodePath("Node/Base/PivotRot")
+camera = NodePath("Node/Base/PivotRot/Camera3D")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Base" type="Node3D" parent="Node"]
+
+[node name="PivotRot" type="Marker3D" parent="Node/Base"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="Node/Base/PivotRot"]
+shape = SubResource("SphereShape3D_q78qt")
+target_position = Vector3(1.25, 1, 3.25)
+collision_mask = 7
+
+[node name="Camera3D" type="Camera3D" parent="Node/Base/PivotRot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 1, 3.25)
+current = true
+
+[node name="BodyRefRot" type="Marker3D" parent="Node/Base"]

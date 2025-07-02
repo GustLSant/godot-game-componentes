@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://d33kf6ht1h1k5"]
 
-[ext_resource type="Script" uid="uid://d081bgbrqtwn2" path="res://Components/Player/PlayerFpsCameraController.gd" id="1_ce4ip"]
+[ext_resource type="Script" uid="uid://d081bgbrqtwn2" path="res://Components/Player/PlayerFpsCameraController.gd" id="1_amk06"]
 
 [node name="FPS" type="Node3D" node_paths=PackedStringArray("pivotRot", "camera")]
-script = ExtResource("1_ce4ip")
+script = ExtResource("1_amk06")
 pivotRot = NodePath("PivotRot")
 camera = NodePath("PivotRot/Camera3D")
 

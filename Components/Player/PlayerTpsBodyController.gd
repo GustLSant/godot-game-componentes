@@ -1,6 +1,8 @@
 extends Node3D
 
 @export var player: CharacterBody3D
+
+@export_category("Internal Variables")
 @export var pivotRot: Marker3D
 @export var pivotRefRot: Marker3D
 var delta: float = 0.016
