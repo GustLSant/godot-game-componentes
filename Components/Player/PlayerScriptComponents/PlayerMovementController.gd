@@ -3,6 +3,7 @@ class_name PlayerMovementController
 
 @export var player: CharacterBody3D
 @export var playerCameraManager: PlayerCameraManager
+@export var playerCombatController: PlayerCombatController
 
 const BASE_MOVE_SPEED: float = 4.0
 var vecInput: Vector2 = Vector2.ZERO
@@ -43,7 +44,7 @@ func handleSprint() -> void:
 	isSprinting = isSprinting and vecInput != Vector2.ZERO
 	if(playerCameraManager.currentCameraMode == playerCameraManager.CAMERA_MODE.FPS):
 		isSprinting = isSprinting and vecInput.y < 0.0 # moving fowards
-	#aim
+	isSprinting = isSprinting and (not playerCombatController.isAiming)
 	#crouch
 	
 	currentSprintMultiplier = lerp(

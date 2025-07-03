@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bqshrdvp6bnlg"]
+[gd_scene load_steps=10 format=3 uid="uid://bqshrdvp6bnlg"]
 
 [ext_resource type="Script" uid="uid://cav0uleqdgm0g" path="res://Components/Player/PlayerScriptComponents/PlayerCameraManager.gd" id="1_a50ic"]
 [ext_resource type="Script" uid="uid://c7alstv6ddk1m" path="res://Components/Player/PlayerScriptComponents/PlayerMovementController.gd" id="2_8qe71"]
 [ext_resource type="Script" uid="uid://c8vevuqro0x0o" path="res://Components/Player/PlayerScriptComponents/PlayerJumpController.gd" id="3_cyqth"]
 [ext_resource type="PackedScene" uid="uid://cl7o36m60w6ww" path="res://Components/Player/TpsModeScenes/TpsCameraController.tscn" id="4_71y7e"]
+[ext_resource type="Script" uid="uid://bdsu43ml1yvna" path="res://Components/Player/PlayerScriptComponents/PlayerCombatController.gd" id="4_aycwo"]
 [ext_resource type="PackedScene" uid="uid://d33kf6ht1h1k5" path="res://Components/Player/FpsModeScenes/FpsCameraController.tscn" id="5_71y7e"]
 [ext_resource type="PackedScene" uid="uid://boladt1x15x1m" path="res://Components/Player/TpsModeScenes/TpsBody.tscn" id="5_eorbh"]
 [ext_resource type="PackedScene" uid="uid://vb3cyx2rvxhs" path="res://Components/Player/FpsModeScenes/FpsArms.tscn" id="7_eorbh"]
@@ -28,10 +29,14 @@ fpsArms = NodePath("../../FPS/FpsArms")
 script = ExtResource("3_cyqth")
 player = NodePath("../..")
 
-[node name="MovementController" type="Node" parent="Components" node_paths=PackedStringArray("player", "playerCameraManager")]
+[node name="MovementController" type="Node" parent="Components" node_paths=PackedStringArray("player", "playerCameraManager", "playerCombatController")]
 script = ExtResource("2_8qe71")
 player = NodePath("../..")
 playerCameraManager = NodePath("../CameraManager")
+playerCombatController = NodePath("../CombatController")
+
+[node name="CombatController" type="Node" parent="Components"]
+script = ExtResource("4_aycwo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -39,17 +44,22 @@ shape = SubResource("BoxShape3D_2ojs8")
 
 [node name="TPS" type="Node3D" parent="."]
 
-[node name="TpsCamera" parent="TPS" node_paths=PackedStringArray("player", "playerMovementController") instance=ExtResource("4_71y7e")]
+[node name="TpsCamera" parent="TPS" node_paths=PackedStringArray("player", "playerMovementController", "playerCombatController") instance=ExtResource("4_71y7e")]
 player = NodePath("../..")
 playerMovementController = NodePath("../../Components/MovementController")
+playerCombatController = NodePath("../../Components/CombatController")
 
-[node name="TpsBody" parent="TPS" node_paths=PackedStringArray("player") instance=ExtResource("5_eorbh")]
+[node name="TpsBody" parent="TPS" node_paths=PackedStringArray("player", "tpsCamera", "playerCombatController") instance=ExtResource("5_eorbh")]
 player = NodePath("../..")
+tpsCamera = NodePath("../TpsCamera")
+playerCombatController = NodePath("../../Components/CombatController")
 
 [node name="FPS" type="Node3D" parent="."]
 
-[node name="FpsCamera" parent="FPS" instance=ExtResource("5_71y7e")]
+[node name="FpsCamera" parent="FPS" node_paths=PackedStringArray("playerCombatController") instance=ExtResource("5_71y7e")]
+playerCombatController = NodePath("../../Components/CombatController")
 
-[node name="FpsArms" parent="FPS" node_paths=PackedStringArray("fpsCamera") instance=ExtResource("7_eorbh")]
+[node name="FpsArms" parent="FPS" node_paths=PackedStringArray("fpsCamera", "playerCombatController") instance=ExtResource("7_eorbh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
 fpsCamera = NodePath("../FpsCamera")
+playerCombatController = NodePath("../../Components/CombatController")

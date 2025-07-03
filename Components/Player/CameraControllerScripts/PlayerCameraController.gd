@@ -1,6 +1,9 @@
 extends Node
 class_name PlayerCameraController
 
+@export var playerCombatController: PlayerCombatController
+
+@export_category("Internal Variables")
 const CAMERA_X_RANGE = 75.0
 @export var pivotRot:Marker3D
 @export var camera: Camera3D
@@ -32,6 +35,7 @@ func _input(_event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	delta = _delta
 	handleShakeEffect()
+	handleAimBehaviour()
 	pass
 
 
@@ -51,6 +55,13 @@ func handleShakeEffect() -> void:
 func addShake(_amount:float) -> void:
 	currentShakeStrength += _amount
 	currentShakeStrength = clamp(currentShakeStrength, 0.0, MAX_SHAKE_STRENGTH)
+	pass
+
+
+func handleAimBehaviour() -> void:
+	var defaultFOV:float = 75.0
+	var targetFOV:float = int(playerCombatController.isAiming) * (defaultFOV - 30.0) + int(not playerCombatController.isAiming) * defaultFOV
+	camera.fov = lerp(camera.fov, targetFOV, 10.0*delta)
 	pass
 
 

@@ -1,4 +1,5 @@
 extends PlayerCameraController
+class_name PlayerTpsCameraController
 
 @export var player: CharacterBody3D
 @export var playerMovementController: PlayerMovementController

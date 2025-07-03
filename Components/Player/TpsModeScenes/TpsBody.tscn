@@ -10,9 +10,8 @@ albedo_color = Color(0.166853, 0.166853, 0.166853, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_mo2m5"]
 
-[node name="TpsBody" type="Node3D" node_paths=PackedStringArray("player", "pivotRot", "pivotRefRot")]
+[node name="TpsBody" type="Node3D" node_paths=PackedStringArray("pivotRot", "pivotRefRot")]
 script = ExtResource("1_cy00w")
-player = NodePath("")
 pivotRot = NodePath("PivotRot")
 pivotRefRot = NodePath("PivotRefRot")
 
