@@ -53,5 +53,3 @@ player = NodePath("../..")
 [node name="FpsArms" parent="FPS" node_paths=PackedStringArray("fpsCamera") instance=ExtResource("7_eorbh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
 fpsCamera = NodePath("../FpsCamera")
-
-[editable path="FPS/FpsCamera"]
