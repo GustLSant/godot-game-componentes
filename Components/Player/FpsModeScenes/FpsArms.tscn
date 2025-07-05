@@ -527,10 +527,10 @@ shadow_mesh = SubResource("ArrayMesh_8ttd8")
 [sub_resource type="BoxMesh" id="BoxMesh_71y7e"]
 size = Vector3(0.4, 0.4, 1.2)
 
-[node name="FpsArms" type="Node3D" node_paths=PackedStringArray("pivotRot", "pivotPosAim")]
+[node name="FpsArms" type="Node3D" node_paths=PackedStringArray("pivotPosAim", "pivotRot")]
 script = ExtResource("1_qqdmd")
-pivotRot = NodePath("PivotRot")
 pivotPosAim = NodePath("PivotRot/PivotPosAim")
+pivotRot = NodePath("PivotRot")
 
 [node name="PivotRot" type="Marker3D" parent="."]
 

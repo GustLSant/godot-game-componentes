@@ -2,8 +2,7 @@ extends Node
 class_name PlayerMovementController
 
 @export var player: CharacterBody3D
-@export var playerCameraManager: PlayerCameraManager
-@export var playerCombatController: PlayerCombatController
+@export var playerState: PlayerState
 
 const BASE_MOVE_SPEED: float = 4.0
 var vecInput: Vector2 = Vector2.ZERO
@@ -42,9 +41,9 @@ func getSprintInput() -> void:
 
 func handleSprint() -> void:
 	isSprinting = isSprinting and vecInput != Vector2.ZERO
-	if(playerCameraManager.currentCameraMode == playerCameraManager.CAMERA_MODE.FPS):
+	if(playerState.currentCameraMode == playerState.CAMERA_MODE.FPS):
 		isSprinting = isSprinting and vecInput.y < 0.0 # moving fowards
-	isSprinting = isSprinting and (not playerCombatController.isAiming)
+	isSprinting = isSprinting and (not playerState.isAiming)
 	#crouch
 	
 	currentSprintMultiplier = lerp(
@@ -56,8 +55,8 @@ func handleSprint() -> void:
 
 
 func move() -> void:
-	var forward: Vector3 = playerCameraManager.currentPivotRot.transform.basis.z
-	var right: Vector3 = playerCameraManager.currentPivotRot.transform.basis.x
+	var forward: Vector3 = playerState.currentPivotRot.transform.basis.z
+	var right: Vector3 = playerState.currentPivotRot.transform.basis.x
 	forward.y = 0
 	right.y = 0
 	forward = forward.normalized()

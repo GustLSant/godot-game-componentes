@@ -1,9 +1,10 @@
 extends Node
 class_name PlayerCameraController
 
-@export var playerCombatController: PlayerCombatController
+@export var playerState: PlayerState
 
 @export_category("Internal Variables")
+@export var selfMode: PlayerState.CAMERA_MODE = PlayerState.CAMERA_MODE.FPS
 const CAMERA_X_RANGE = 75.0
 @export var pivotRot:Marker3D
 @export var camera: Camera3D
@@ -21,6 +22,9 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	shakeNoise.noise_type = FastNoiseLite.TYPE_SIMPLEX
 	shakeNoise.frequency = 1.0
+	
+	setActive(selfMode == playerState.currentCameraMode)
+	playerState.connect("CameraModeChanged", onCameraModeChanged)
 	pass
 
 
@@ -60,19 +64,26 @@ func addShake(_amount:float) -> void:
 
 func handleAimBehaviour() -> void:
 	var defaultFOV:float = 75.0
-	var targetFOV:float = int(playerCombatController.isAiming) * (defaultFOV - 30.0) + int(not playerCombatController.isAiming) * defaultFOV
+	var targetFOV:float = int(playerState.isAiming) * (defaultFOV - 30.0) + int(not playerState.isAiming) * defaultFOV
 	camera.fov = lerp(camera.fov, targetFOV, 10.0*delta)
 	pass
 
 
-func setActive(_value, _otherCameraRotation: Vector3 = Vector3.ZERO) -> void:
+func onCameraModeChanged() -> void:
+	setActive(selfMode == playerState.currentCameraMode)
+	pass
+
+
+func setActive(_value) -> void:
 	self.set_process(_value)
 	self.set_physics_process(_value)
 	self.set_process_input(_value)
 	camera.current = _value
 	
 	if(_value):
-		pivotRot.rotation = _otherCameraRotation
+		if(playerState.currentPivotRot): pivotRot.rotation = playerState.currentPivotRot.rotation # precisa da verificao para o primeiro setActive (do ready)
+		playerState.currentPivotRot = pivotRot
+		pass
 	
 	onActiveUpdate(_value)
 	pass
