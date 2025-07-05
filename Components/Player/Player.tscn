@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bqshrdvp6bnlg"]
 
 [ext_resource type="Script" uid="uid://cav0uleqdgm0g" path="res://Components/Player/PlayerScriptComponents/PlayerCameraManager.gd" id="1_a50ic"]
-[ext_resource type="Script" uid="uid://bsvkkfku67ulq" path="res://Components/Player/PlayerState.gd" id="1_ffdcm"]
+[ext_resource type="Script" path="res://Components/Player/PlayerState.gd" id="1_ffdcm"]
 [ext_resource type="Script" uid="uid://c7alstv6ddk1m" path="res://Components/Player/PlayerScriptComponents/PlayerMovementController.gd" id="2_8qe71"]
 [ext_resource type="Script" uid="uid://c8vevuqro0x0o" path="res://Components/Player/PlayerScriptComponents/PlayerJumpController.gd" id="3_cyqth"]
 [ext_resource type="PackedScene" uid="uid://cl7o36m60w6ww" path="res://Components/Player/TpsModeScenes/TpsCameraController.tscn" id="4_71y7e"]
@@ -46,9 +46,8 @@ shape = SubResource("BoxShape3D_2ojs8")
 
 [node name="TPS" type="Node3D" parent="."]
 
-[node name="TpsCamera" parent="TPS" node_paths=PackedStringArray("player", "playerMovementController", "playerState") instance=ExtResource("4_71y7e")]
+[node name="TpsCamera" parent="TPS" node_paths=PackedStringArray("player", "playerState") instance=ExtResource("4_71y7e")]
 player = NodePath("../..")
-playerMovementController = NodePath("../../Components/MovementController")
 playerState = NodePath("../../Components/PlayerState")
 selfMode = 1
 
@@ -61,7 +60,6 @@ selfMode = 1
 [node name="FpsCamera" parent="FPS" node_paths=PackedStringArray("playerState") instance=ExtResource("5_71y7e")]
 playerState = NodePath("../../Components/PlayerState")
 
-[node name="FpsArms" parent="FPS" node_paths=PackedStringArray("fpsCamera", "playerState") instance=ExtResource("7_eorbh")]
+[node name="FpsArms" parent="FPS" node_paths=PackedStringArray("playerState") instance=ExtResource("7_eorbh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
-fpsCamera = NodePath("../FpsCamera")
 playerState = NodePath("../../Components/PlayerState")

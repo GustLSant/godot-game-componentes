@@ -670,7 +670,7 @@ material_override = SubResource("StandardMaterial3D_cm0pq")
 mesh = SubResource("PlaneMesh_6hn5i")
 skeleton = NodePath("../..")
 
-[node name="Player" parent="Floor" instance=ExtResource("3_lgr22")]
+[node name="Player" parent="." instance=ExtResource("3_lgr22")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15692, 0, 3.97934)
 
 [node name="Cubes" type="Node3D" parent="."]

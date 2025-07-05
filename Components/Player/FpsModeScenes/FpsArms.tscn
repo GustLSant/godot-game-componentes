@@ -527,98 +527,101 @@ shadow_mesh = SubResource("ArrayMesh_8ttd8")
 [sub_resource type="BoxMesh" id="BoxMesh_71y7e"]
 size = Vector3(0.4, 0.4, 1.2)
 
-[node name="FpsArms" type="Node3D" node_paths=PackedStringArray("pivotPosAim", "pivotRot")]
+[node name="FpsArms" type="Node3D" node_paths=PackedStringArray("pivotPosAim", "pivotSway", "pivotRot")]
 script = ExtResource("1_qqdmd")
-pivotPosAim = NodePath("PivotRot/PivotPosAim")
+pivotPosAim = NodePath("PivotRot/PivotSway/PivotPosAim")
+pivotSway = NodePath("PivotRot/PivotSway")
 pivotRot = NodePath("PivotRot")
 
 [node name="PivotRot" type="Marker3D" parent="."]
 
-[node name="PivotPosAim" type="Marker3D" parent="PivotRot"]
+[node name="PivotSway" type="Marker3D" parent="PivotRot"]
+
+[node name="PivotPosAim" type="Marker3D" parent="PivotRot/PivotSway"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.4, -0.2)
 
-[node name="pistol-01" type="Node3D" parent="PivotRot/PivotPosAim"]
+[node name="pistol-01" type="Node3D" parent="PivotRot/PivotSway/PivotPosAim"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0.05, 0.5, -1.55)
 
-[node name="cuboid" type="MeshInstance3D" parent="PivotRot/PivotPosAim/pistol-01"]
+[node name="cuboid" type="MeshInstance3D" parent="PivotRot/PivotSway/PivotPosAim/pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03125, 0.03125)
 mesh = SubResource("ArrayMesh_jk1pp")
 skeleton = NodePath("")
 
-[node name="cuboid2" type="MeshInstance3D" parent="PivotRot/PivotPosAim/pistol-01"]
+[node name="cuboid2" type="MeshInstance3D" parent="PivotRot/PivotSway/PivotPosAim/pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0625, 0.03125, 0.03125)
 mesh = SubResource("ArrayMesh_8etvh")
 skeleton = NodePath("")
 
-[node name="cuboid3" type="MeshInstance3D" parent="PivotRot/PivotPosAim/pistol-01"]
+[node name="cuboid3" type="MeshInstance3D" parent="PivotRot/PivotSway/PivotPosAim/pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03125, -0.015625, -0.15625)
 mesh = SubResource("ArrayMesh_uci2r")
 skeleton = NodePath("")
 
-[node name="cuboid4" type="MeshInstance3D" parent="PivotRot/PivotPosAim/pistol-01"]
+[node name="cuboid4" type="MeshInstance3D" parent="PivotRot/PivotSway/PivotPosAim/pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 0.984808, -0.173648, 0, 0.173648, 0.984808, -0.03125, -0.171875, -0.0625)
 mesh = SubResource("ArrayMesh_tcfwj")
 skeleton = NodePath("")
 
-[node name="cuboid5" type="MeshInstance3D" parent="PivotRot/PivotPosAim/pistol-01"]
+[node name="cuboid5" type="MeshInstance3D" parent="PivotRot/PivotSway/PivotPosAim/pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03125, -0.25, -0.15625)
 mesh = SubResource("ArrayMesh_2digv")
 skeleton = NodePath("")
 
-[node name="cuboid6" type="MeshInstance3D" parent="PivotRot/PivotPosAim/pistol-01"]
+[node name="cuboid6" type="MeshInstance3D" parent="PivotRot/PivotSway/PivotPosAim/pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03125, -0.25, -0.15625)
 mesh = SubResource("ArrayMesh_y5j72")
 skeleton = NodePath("")
 
-[node name="cuboid7" type="MeshInstance3D" parent="PivotRot/PivotPosAim/pistol-01"]
+[node name="cuboid7" type="MeshInstance3D" parent="PivotRot/PivotSway/PivotPosAim/pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -0.03125, -0.265625, 0.0625)
 mesh = SubResource("ArrayMesh_8f0tg")
 skeleton = NodePath("")
 
-[node name="cuboid8" type="MeshInstance3D" parent="PivotRot/PivotPosAim/pistol-01"]
+[node name="cuboid8" type="MeshInstance3D" parent="PivotRot/PivotSway/PivotPosAim/pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03125, 0.03125, -0.40625)
 mesh = SubResource("ArrayMesh_mn1cp")
 skeleton = NodePath("")
 
-[node name="cuboid9" type="MeshInstance3D" parent="PivotRot/PivotPosAim/pistol-01"]
+[node name="cuboid9" type="MeshInstance3D" parent="PivotRot/PivotSway/PivotPosAim/pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03125, -0.203125, -0.53125)
 mesh = SubResource("ArrayMesh_m34u0")
 skeleton = NodePath("")
 
-[node name="cuboid10" type="MeshInstance3D" parent="PivotRot/PivotPosAim/pistol-01"]
+[node name="cuboid10" type="MeshInstance3D" parent="PivotRot/PivotSway/PivotPosAim/pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03125, -0.015625, 0.15625)
 mesh = SubResource("ArrayMesh_4npte")
 skeleton = NodePath("")
 
-[node name="cuboid11" type="MeshInstance3D" parent="PivotRot/PivotPosAim/pistol-01"]
+[node name="cuboid11" type="MeshInstance3D" parent="PivotRot/PivotSway/PivotPosAim/pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03125, -0.015625, 0.03125)
 mesh = SubResource("ArrayMesh_3kyp7")
 skeleton = NodePath("")
 
-[node name="cuboid12" type="MeshInstance3D" parent="PivotRot/PivotPosAim/pistol-01"]
+[node name="cuboid12" type="MeshInstance3D" parent="PivotRot/PivotSway/PivotPosAim/pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03125, 0.03125, 0.03125)
 mesh = SubResource("ArrayMesh_87h04")
 skeleton = NodePath("")
 
-[node name="cuboid13" type="MeshInstance3D" parent="PivotRot/PivotPosAim/pistol-01"]
+[node name="cuboid13" type="MeshInstance3D" parent="PivotRot/PivotSway/PivotPosAim/pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -0.03125, -0.265625, 0.0625)
 mesh = SubResource("ArrayMesh_nv167")
 skeleton = NodePath("")
 
-[node name="cuboid14" type="MeshInstance3D" parent="PivotRot/PivotPosAim/pistol-01"]
+[node name="cuboid14" type="MeshInstance3D" parent="PivotRot/PivotSway/PivotPosAim/pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -0.03125, -0.265625, 0.0625)
 mesh = SubResource("ArrayMesh_srcby")
 skeleton = NodePath("")
 
-[node name="cuboid15" type="MeshInstance3D" parent="PivotRot/PivotPosAim/pistol-01"]
+[node name="cuboid15" type="MeshInstance3D" parent="PivotRot/PivotSway/PivotPosAim/pistol-01"]
 transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, -0.03125, -0.046875, -0.46875)
 mesh = SubResource("ArrayMesh_kcnf6")
 skeleton = NodePath("")
 
-[node name="RightArm" type="MeshInstance3D" parent="PivotRot/PivotPosAim"]
+[node name="RightArm" type="MeshInstance3D" parent="PivotRot/PivotSway/PivotPosAim"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1)
 mesh = SubResource("BoxMesh_71y7e")
 
-[node name="LeftArm" type="MeshInstance3D" parent="PivotRot/PivotPosAim"]
+[node name="LeftArm" type="MeshInstance3D" parent="PivotRot/PivotSway/PivotPosAim"]
 transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -0.4, -0.1, -1)
 mesh = SubResource("BoxMesh_71y7e")

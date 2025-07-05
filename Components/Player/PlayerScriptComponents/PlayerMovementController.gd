@@ -8,7 +8,6 @@ const BASE_MOVE_SPEED: float = 4.0
 var vecInput: Vector2 = Vector2.ZERO
 
 const SPRINT_SPEED_MULTIPLIER:float = 3.0
-var isSprinting: bool = false
 var currentSprintMultiplier: float = 1.0
 
 var pDelta:float = 0.016
@@ -33,22 +32,22 @@ func getSprintInput() -> void:
 	var holdMode: bool = true
 	
 	if(holdMode):
-		isSprinting = Input.is_action_pressed("Sprint")
+		playerState.isSprinting = Input.is_action_pressed("Sprint")
 	else:
-		if(Input.is_action_just_pressed("Sprint")): isSprinting = !isSprinting
+		if(Input.is_action_just_pressed("Sprint")): playerState.isSprinting = !playerState.isSprinting
 	pass
 
 
 func handleSprint() -> void:
-	isSprinting = isSprinting and vecInput != Vector2.ZERO
+	playerState.isSprinting = playerState.isSprinting and vecInput != Vector2.ZERO
 	if(playerState.currentCameraMode == playerState.CAMERA_MODE.FPS):
-		isSprinting = isSprinting and vecInput.y < 0.0 # moving fowards
-	isSprinting = isSprinting and (not playerState.isAiming)
+		playerState.isSprinting = playerState.isSprinting and vecInput.y < 0.0 # moving fowards
+	playerState.isSprinting = playerState.isSprinting and (not playerState.isAiming)
 	#crouch
 	
 	currentSprintMultiplier = lerp(
 		currentSprintMultiplier,
-		int(isSprinting) * SPRINT_SPEED_MULTIPLIER + int(not isSprinting) * 1.0,
+		int(playerState.isSprinting) * SPRINT_SPEED_MULTIPLIER + int(not playerState.isSprinting) * 1.0,
 		10 * pDelta
 		)
 	pass
