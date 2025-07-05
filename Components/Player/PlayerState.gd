@@ -8,6 +8,7 @@ class_name PlayerState
 var inputVecMovement: Vector2 = Vector2.ZERO
 var velocity:Vector3 = Vector3.ZERO
 var isSprinting:bool = false
+var isOnFloor: bool = true
 
 # Camera Manager
 enum CAMERA_MODE {FPS, TPS}

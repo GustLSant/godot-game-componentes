@@ -1,7 +1,7 @@
 extends Node
 class_name PlayerJumpController
 
-@export var player: CharacterBody3D
+@export var playerState: PlayerState
 
 const GRAVITY_ACCELERATION:float = 20.0
 const JUMP_FORCE:float = 7.5
@@ -14,12 +14,14 @@ func _physics_process(_delta: float) -> void:
 	pDelta = _delta
 	handleGravity()
 	handleJump()
-	player.velocity.y = currentVerticalMovement
+	playerState.player.velocity.y = currentVerticalMovement
 	pass
 
 
 func handleGravity() -> void:
-	if(player.is_on_floor()):
+	playerState.isOnFloor = playerState.player.is_on_floor()
+	
+	if(playerState.isOnFloor):
 		currentVerticalMovement = 0.0
 	else:
 		currentVerticalMovement -= GRAVITY_ACCELERATION * pDelta
@@ -27,6 +29,6 @@ func handleGravity() -> void:
 
 
 func handleJump() -> void:
-	if(player.is_on_floor()):
+	if(playerState.isOnFloor):
 		if(Input.is_action_just_pressed("Jump")): currentVerticalMovement += JUMP_FORCE
 	pass

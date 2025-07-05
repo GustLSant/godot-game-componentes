@@ -6,6 +6,7 @@ const ARMS_AIM_ROT_SPEED: float = 40.0
 
 @export var pivotSway: Marker3D
 @export var pivotTilt: Marker3D
+@export var pivotPosture: Marker3D
 @export var pivotRecoil: Marker3D
 @export var pivotPosAim: Marker3D
 
@@ -13,8 +14,8 @@ const ARMS_AIM_ROT_SPEED: float = 40.0
 var recoilOffset: float = 0.0
 var recoilRotZSide: float = 1.0
 
-const DEFAULT_POS_AIM: Vector3 = Vector3(0.4, -0.4, -0.2)
-const POS_AIMING: Vector3 = Vector3(0.0, -0.175, -0.2)
+const ARMS_DEFAULT_POS: Vector3 = Vector3(0.4, -0.4, -0.6)
+const ARMS_AIMING_POS: Vector3 = Vector3(0.0, -0.175, -0.4)
 
 var delta:float = 0.016
 
@@ -25,6 +26,7 @@ func _process(_delta: float) -> void:
 	handleAimBehaviour()
 	handleSwayEffect()
 	handleTiltEffect()
+	handlePostureEffect()
 	handleRecoilEffect()
 	pass
 
@@ -39,7 +41,7 @@ func handleRotation() -> void:
 
 
 func handleAimBehaviour() -> void:
-	var targetPos: Vector3 = int(playerState.isAiming) * POS_AIMING + int(not playerState.isAiming) * DEFAULT_POS_AIM
+	var targetPos: Vector3 = int(playerState.isAiming) * ARMS_AIMING_POS + int(not playerState.isAiming) * ARMS_DEFAULT_POS
 	pivotPosAim.position = lerp(pivotPosAim.position, targetPos, 10.0 * delta)
 	pass
 
@@ -66,17 +68,16 @@ func handleSwayEffect() -> void:
 	frequence *= (0.5 * int(playerState.isAiming)) + (1.0 * int(!playerState.isAiming))
 	amount *= (0.5 * int(playerState.isAiming)) + (1.0 * int(!playerState.isAiming))
 	
-	var isPlayerOnFloor: bool = playerState.player.is_on_floor()
 	var targetSwayPosition: Vector3 = Vector3(
 		sin(Time.get_ticks_msec()*frequence*0.5)*amount,
 		sin(Time.get_ticks_msec()*frequence)*amount,
 		0.0
 	)
-	var finalPosition = int(isPlayerOnFloor) * targetSwayPosition + int(not isPlayerOnFloor) * pivotSway.position
+	
+	# cancelamento do efeito quando estiver no ae
+	var finalPosition = int(playerState.isOnFloor) * targetSwayPosition + int(not playerState.isOnFloor) * pivotSway.position
 	
 	pivotSway.position = lerp(pivotSway.position, finalPosition, 10 * delta)
-	#pivotSway.position.x = lerp(pivotSway.position.x, sin(Time.get_ticks_msec()*frequence*0.5)*amount, 10*delta)
-	#pivotSway.position.y = lerp(pivotSway.position.y, sin(Time.get_ticks_msec()*frequence)*amount, 10*delta)
 	pass
 
 
@@ -90,6 +91,12 @@ func handleTiltEffect() -> void:
 	
 	pivotTilt.rotation_degrees.z = lerp(pivotTilt.rotation_degrees.z, targetRotationZ, TILT_SPEED * delta)
 	pivotTilt.rotation_degrees.x = lerp(pivotTilt.rotation_degrees.x, targetRotationX, TILT_SPEED * delta)
+	pass
+
+
+func handlePostureEffect() -> void:
+	var targetRotation = int(playerState.isSprinting) * -10.0 + int(not playerState.isOnFloor) * 5.0
+	pivotPosture.rotation_degrees.x = lerp(pivotPosture.rotation_degrees.x, targetRotation, 10 * delta)
 	pass
 
 

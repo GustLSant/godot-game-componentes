@@ -27,9 +27,9 @@ player = NodePath("../..")
 script = ExtResource("1_a50ic")
 playerState = NodePath("../PlayerState")
 
-[node name="JumpController" type="Node" parent="Components" node_paths=PackedStringArray("player")]
+[node name="JumpController" type="Node" parent="Components" node_paths=PackedStringArray("playerState")]
 script = ExtResource("3_cyqth")
-player = NodePath("../..")
+playerState = NodePath("../PlayerState")
 
 [node name="MovementController" type="Node" parent="Components" node_paths=PackedStringArray("player", "playerState")]
 script = ExtResource("2_8qe71")
