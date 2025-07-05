@@ -25,6 +25,7 @@ func _ready() -> void:
 	
 	setActive(selfMode == playerState.currentCameraMode)
 	playerState.connect("CameraModeChanged", onCameraModeChanged)
+	playerState.connect("PlayerShot", onPlayerShot)
 	pass
 
 
@@ -44,12 +45,12 @@ func _process(_delta: float) -> void:
 
 
 func handleShakeEffect() -> void:
-	currentShakeStrength = lerp(currentShakeStrength, 0.0, 10*delta)
+	currentShakeStrength = lerp(currentShakeStrength, 0.0, 16*delta)
 	
 	shakePosOffset = Vector3(
-		shakeNoise.get_noise_1d(currentShakeStrength) * currentShakeStrength,
-		shakeNoise.get_noise_1d(currentShakeStrength*2.0) * currentShakeStrength,
-		shakeNoise.get_noise_1d(currentShakeStrength*3.0) * currentShakeStrength
+		shakeNoise.get_noise_1d(Time.get_ticks_msec()) * currentShakeStrength,
+		shakeNoise.get_noise_1d(Time.get_ticks_msec() + 200) * currentShakeStrength,
+		shakeNoise.get_noise_1d(Time.get_ticks_msec() + 400) * currentShakeStrength
 	)
 	
 	pivotShake.position = shakePosOffset
@@ -91,4 +92,10 @@ func setActive(_value) -> void:
 
 # evento para ser sobrescrito
 func onActiveUpdate(_value) -> void:
+	pass
+
+
+func onPlayerShot(_recoilStrength: float) -> void:
+	if(playerState.currentCameraMode == selfMode):
+		addShake(_recoilStrength * 0.15)
 	pass

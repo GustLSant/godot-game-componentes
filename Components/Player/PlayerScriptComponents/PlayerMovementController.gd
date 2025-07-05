@@ -5,7 +5,6 @@ class_name PlayerMovementController
 @export var playerState: PlayerState
 
 const BASE_MOVE_SPEED: float = 4.0
-var vecInput: Vector2 = Vector2.ZERO
 
 const SPRINT_SPEED_MULTIPLIER:float = 3.0
 var currentSprintMultiplier: float = 1.0
@@ -23,8 +22,8 @@ func _physics_process(_delta: float) -> void:
 
 
 func getMoveInputs() -> void:
-	vecInput.x = Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft")
-	vecInput.y = Input.get_action_strength("MoveBackwards") - Input.get_action_strength("MoveFoward")
+	playerState.inputVecMovement.x = Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft")
+	playerState.inputVecMovement.y = Input.get_action_strength("MoveBackwards") - Input.get_action_strength("MoveFoward")
 	pass
 
 
@@ -39,9 +38,9 @@ func getSprintInput() -> void:
 
 
 func handleSprint() -> void:
-	playerState.isSprinting = playerState.isSprinting and vecInput != Vector2.ZERO
+	playerState.isSprinting = playerState.isSprinting and playerState.inputVecMovement != Vector2.ZERO
 	if(playerState.currentCameraMode == playerState.CAMERA_MODE.FPS):
-		playerState.isSprinting = playerState.isSprinting and vecInput.y < 0.0 # moving fowards
+		playerState.isSprinting = playerState.isSprinting and playerState.inputVecMovement.y < 0.0 # moving fowards
 	playerState.isSprinting = playerState.isSprinting and (not playerState.isAiming)
 	#crouch
 	
@@ -61,7 +60,7 @@ func move() -> void:
 	forward = forward.normalized()
 	right = right.normalized()
 	
-	var vecMovement: Vector3 = (vecInput.x * right + vecInput.y * forward).normalized()
+	var vecMovement: Vector3 = (playerState.inputVecMovement.x * right + playerState.inputVecMovement.y * forward).normalized()
 	
 	player.velocity = (
 		Vector3(vecMovement.x, 0.0, vecMovement.z) * BASE_MOVE_SPEED * currentSprintMultiplier

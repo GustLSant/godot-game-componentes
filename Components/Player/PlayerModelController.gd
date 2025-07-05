@@ -9,6 +9,7 @@ class_name PlayerModelController
 func _ready() -> void:
 	setActive(selfMode == playerState.currentCameraMode)
 	playerState.connect("CameraModeChanged", onCameraModeChanged)
+	playerState.connect("PlayerShot", onPlayerShot)
 	pass
 
 
@@ -26,4 +27,8 @@ func setActive(_value: bool) -> void:
 	if(playerState.currentPivotRot):
 		if(selfMode == PlayerState.CAMERA_MODE.FPS): pivotRot.global_rotation = playerState.currentPivotRot.global_rotation
 		else: pivotRot.global_rotation.y = playerState.currentPivotRot.global_rotation.y
+	pass
+
+
+func onPlayerShot(_recoilStrength: float) -> void:
 	pass

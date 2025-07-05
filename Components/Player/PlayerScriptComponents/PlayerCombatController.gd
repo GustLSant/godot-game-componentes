@@ -6,6 +6,8 @@ class_name PlayerCombatController
 
 func _process(delta: float) -> void:
 	getAimInput()
+	if(Input.is_action_just_pressed("Shoot")):
+		playerState.emit_signal("PlayerShot", 1.0)
 	pass
 
 
