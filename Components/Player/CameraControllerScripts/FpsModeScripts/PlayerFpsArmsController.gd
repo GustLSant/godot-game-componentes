@@ -116,6 +116,7 @@ func addRecoil() -> void:
 
 
 func onPlayerShot(_recoilStrength: float) -> void:
-	addRecoil()
-	recoilRotZSide = [1, -1].pick_random()
+	if(playerState.currentCameraMode == selfMode):
+		addRecoil()
+		recoilRotZSide = [1, -1].pick_random()
 	pass

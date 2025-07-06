@@ -10,18 +10,21 @@ const CAMERA_X_RANGE = 75.0
 @export var camera: Camera3D
 
 @export var pivotShake:Marker3D
-const MAX_SHAKE_STRENGTH:float = 10.0
+const MAX_SHAKE_STRENGTH:float = 5.0
 var currentShakeStrength:float = 0.0
 var shakeNoise:FastNoiseLite = FastNoiseLite.new()
 var shakePosOffset:Vector3 = Vector3.ZERO
+
+var recoilDirection: Vector2 = Vector2.ZERO
+var currentRecoilStrength: float = 0.0
 
 var delta: float = 0.016
 
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	shakeNoise.noise_type = FastNoiseLite.TYPE_SIMPLEX
-	shakeNoise.frequency = 1.0
+	shakeNoise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
+	shakeNoise.frequency = 4.0
 	
 	setActive(selfMode == playerState.currentCameraMode)
 	playerState.connect("CameraModeChanged", onCameraModeChanged)
@@ -41,11 +44,14 @@ func _process(_delta: float) -> void:
 	delta = _delta
 	handleShakeEffect()
 	handleAimBehaviour()
+	handleRecoilEffect()
 	pass
 
 
 func handleShakeEffect() -> void:
-	currentShakeStrength = lerp(currentShakeStrength, 0.0, 16*delta)
+	#currentShakeStrength = lerp(currentShakeStrength, 0.0, 14 * delta)
+	currentShakeStrength -= 5.0 * delta
+	currentShakeStrength = max(currentShakeStrength, 0.0)
 	
 	shakePosOffset = Vector3(
 		shakeNoise.get_noise_1d(Time.get_ticks_msec()) * currentShakeStrength,
@@ -53,7 +59,8 @@ func handleShakeEffect() -> void:
 		shakeNoise.get_noise_1d(Time.get_ticks_msec() + 400) * currentShakeStrength
 	)
 	
-	pivotShake.position = shakePosOffset
+	var lerpFactor: float = 14 * delta
+	pivotShake.position = lerp(pivotShake.position, shakePosOffset, min(lerpFactor, 1.0))
 	pass
 
 
@@ -74,7 +81,6 @@ func onCameraModeChanged() -> void:
 	setActive(selfMode == playerState.currentCameraMode)
 	pass
 
-
 func setActive(_value) -> void:
 	self.set_process(_value)
 	self.set_physics_process(_value)
@@ -89,13 +95,29 @@ func setActive(_value) -> void:
 	onActiveUpdate(_value)
 	pass
 
-
-# evento para ser sobrescrito
 func onActiveUpdate(_value) -> void:
+	pass # evento para ser sobrescrito
+
+
+func handleRecoilEffect() -> void:
+	pivotRot.rotation_degrees.y += currentRecoilStrength * recoilDirection.x
+	pivotRot.rotation_degrees.x += currentRecoilStrength * recoilDirection.y
+	
+	pivotRot.rotation_degrees.x = clamp(pivotRot.rotation_degrees.x, -CAMERA_X_RANGE, CAMERA_X_RANGE)
+	
+	currentRecoilStrength = lerp(currentRecoilStrength, 0.0, 10 * delta)
+	pass
+
+
+func addRecoil(_strength: float) -> void:
+	recoilDirection = Vector2(randf_range(-0.5, 0.5), randf_range(0.5, 1.5))
+	currentRecoilStrength += _strength
+	currentRecoilStrength = clamp(currentRecoilStrength, 0.0, 10.0)
 	pass
 
 
 func onPlayerShot(_recoilStrength: float) -> void:
 	if(playerState.currentCameraMode == selfMode):
-		addShake(_recoilStrength * 0.15)
+		#addShake(_recoilStrength)
+		addRecoil(_recoilStrength)
 	pass
