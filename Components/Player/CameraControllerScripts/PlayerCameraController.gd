@@ -49,9 +49,7 @@ func _process(_delta: float) -> void:
 
 
 func handleShakeEffect() -> void:
-	#currentShakeStrength = lerp(currentShakeStrength, 0.0, 14 * delta)
-	currentShakeStrength -= 5.0 * delta
-	currentShakeStrength = max(currentShakeStrength, 0.0)
+	currentShakeStrength = lerp(currentShakeStrength, 0.0, 14 * delta)
 	
 	shakePosOffset = Vector3(
 		shakeNoise.get_noise_1d(Time.get_ticks_msec()) * currentShakeStrength,
@@ -118,6 +116,6 @@ func addRecoil(_strength: float) -> void:
 
 func onPlayerShot(_recoilStrength: float) -> void:
 	if(playerState.currentCameraMode == selfMode):
-		#addShake(_recoilStrength)
+		addShake(_recoilStrength * 0.25)
 		addRecoil(_recoilStrength)
 	pass
