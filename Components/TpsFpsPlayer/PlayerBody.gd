@@ -62,7 +62,7 @@ func handleRecoilEffect()->void:
 
 func addRecoil()->void:
 	recoilCurveOffset = 1.0
-	animTree.set("parameters/ShotRecoil/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+	#animTree.set("parameters/ShotRecoil/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 	pass
 
 
