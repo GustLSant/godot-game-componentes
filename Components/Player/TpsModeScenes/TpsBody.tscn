@@ -1,29 +1,125 @@
-[gd_scene load_steps=5 format=3 uid="uid://boladt1x15x1m"]
+[gd_scene load_steps=22 format=3 uid="uid://boladt1x15x1m"]
 
 [ext_resource type="Script" uid="uid://cvgpssu82fqgo" path="res://Components/Player/CameraControllerScripts/TpsModeScripts/PlayerTpsBodyController.gd" id="1_cy00w"]
+[ext_resource type="PackedScene" uid="uid://cxb66u675k0i8" path="res://Meshs/BaseCharacter.blend" id="2_ngq5v"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_2ojs8"]
-size = Vector3(1, 2, 1)
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_eo8le"]
+animation = &"Falling"
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_71y7e"]
-albedo_color = Color(0.166853, 0.166853, 0.166853, 1)
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ngq5v"]
+animation = &"Idle"
 
-[sub_resource type="BoxMesh" id="BoxMesh_mo2m5"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3gedd"]
+animation = &"Running"
 
-[node name="TpsBody" type="Node3D" node_paths=PackedStringArray("pivotRefRot", "pivotRot")]
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_11qxx"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1pcqx"]
+graph_offset = Vector2(-476, 44)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_3gedd")
+nodes/Animation/position = Vector2(-160, 133.333)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_11qxx")
+nodes/TimeScale/position = Vector2(26.6667, 133.333)
+nodes/output/position = Vector2(240, 160)
+node_connections = [&"TimeScale", 0, &"Animation", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ulx8a"]
+animation = &"TPose"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_11qxx"]
+animation = &"Walking"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_1pcqx"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_8sos3"]
+graph_offset = Vector2(-314.667, 122.667)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_11qxx")
+nodes/Animation/position = Vector2(-106.667, 133.333)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_1pcqx")
+nodes/TimeScale/position = Vector2(106.667, 133.333)
+node_connections = [&"TimeScale", 0, &"Animation", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3gedd"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_k2x41"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8sos3"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4gpff"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ngq5v"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eo8le"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ulx8a"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_11qxx"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1pcqx"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3gedd"]
+states/End/position = Vector2(163.556, 56.895)
+states/Falling/node = SubResource("AnimationNodeAnimation_eo8le")
+states/Falling/position = Vector2(471.407, -25.8436)
+states/Idle/node = SubResource("AnimationNodeAnimation_ngq5v")
+states/Idle/position = Vector2(300.802, 122.366)
+states/SprintBlendTree/node = SubResource("AnimationNodeBlendTree_1pcqx")
+states/SprintBlendTree/position = Vector2(471.79, 123.377)
+states/Start/position = Vector2(81.9981, 55.9376)
+states/TPose/node = SubResource("AnimationNodeAnimation_ulx8a")
+states/TPose/position = Vector2(-9.39037, 59.4816)
+states/WalkingBlendTree/node = SubResource("AnimationNodeBlendTree_8sos3")
+states/WalkingBlendTree/position = Vector2(302.292, -25.347)
+transitions = ["Falling", "Idle", SubResource("AnimationNodeStateMachineTransition_3gedd"), "Falling", "SprintBlendTree", SubResource("AnimationNodeStateMachineTransition_k2x41"), "Idle", "SprintBlendTree", SubResource("AnimationNodeStateMachineTransition_8sos3"), "SprintBlendTree", "Idle", SubResource("AnimationNodeStateMachineTransition_4gpff"), "WalkingBlendTree", "Idle", SubResource("AnimationNodeStateMachineTransition_ngq5v"), "Idle", "WalkingBlendTree", SubResource("AnimationNodeStateMachineTransition_eo8le"), "WalkingBlendTree", "SprintBlendTree", SubResource("AnimationNodeStateMachineTransition_ulx8a"), "SprintBlendTree", "WalkingBlendTree", SubResource("AnimationNodeStateMachineTransition_11qxx"), "Falling", "WalkingBlendTree", SubResource("AnimationNodeStateMachineTransition_1pcqx")]
+graph_offset = Vector2(-146, -79)
+
+[node name="TpsBody" type="Node3D" node_paths=PackedStringArray("pivotRefRot", "animTree", "pivotRot")]
 script = ExtResource("1_cy00w")
 pivotRefRot = NodePath("PivotRefRot")
+animTree = NodePath("PivotRot/AnimationTree")
 pivotRot = NodePath("PivotRot")
 
 [node name="PivotRot" type="Marker3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PivotRot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("BoxMesh_2ojs8")
+[node name="BaseCharacter" parent="PivotRot" instance=ExtResource("2_ngq5v")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PivotRot/MeshInstance3D"]
-transform = Transform3D(1.2, 0, 0, 0, 0.3, 0, 0, 0, 0.4, 0, 0.7, -0.4)
-material_override = SubResource("StandardMaterial3D_71y7e")
-mesh = SubResource("BoxMesh_mo2m5")
+[node name="Cube" parent="PivotRot/BaseCharacter" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.22425)
+visible = false
+
+[node name="Cube_004" parent="PivotRot/BaseCharacter" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0833333, -3.43101)
+visible = false
+
+[node name="Cube_006" parent="PivotRot/BaseCharacter" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 0.05, -1.48683)
+visible = false
+
+[node name="Cube_011" parent="PivotRot/BaseCharacter" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.23684)
+visible = false
+
+[node name="Cube_001" parent="PivotRot/BaseCharacter" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.333333, -2.07017)
+visible = false
+
+[node name="AnimationTree" type="AnimationTree" parent="PivotRot"]
+root_node = NodePath("../BaseCharacter")
+tree_root = SubResource("AnimationNodeStateMachine_3gedd")
+anim_player = NodePath("../BaseCharacter/AnimationPlayer")
+parameters/SprintBlendTree/TimeScale/scale = 5.0
+parameters/WalkingBlendTree/TimeScale/scale = 2.5
 
 [node name="PivotRefRot" type="Marker3D" parent="."]
+
+[editable path="PivotRot/BaseCharacter"]

@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://vb3cyx2rvxhs" path="res://Components/Player/FpsModeScenes/FpsArms.tscn" id="7_eorbh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2ojs8"]
-size = Vector3(1, 2, 1)
+size = Vector3(1, 2, 0.6)
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 8
@@ -43,23 +43,29 @@ playerState = NodePath("../PlayerState")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_2ojs8")
+metadata/_edit_lock_ = true
 
 [node name="TPS" type="Node3D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="TpsCamera" parent="TPS" node_paths=PackedStringArray("player", "playerState") instance=ExtResource("4_71y7e")]
 player = NodePath("../..")
 playerState = NodePath("../../Components/PlayerState")
 selfMode = 1
+metadata/_edit_lock_ = true
 
 [node name="TpsBody" parent="TPS" node_paths=PackedStringArray("playerState") instance=ExtResource("5_eorbh")]
 playerState = NodePath("../../Components/PlayerState")
 selfMode = 1
 
 [node name="FPS" type="Node3D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="FpsCamera" parent="FPS" node_paths=PackedStringArray("playerState") instance=ExtResource("5_71y7e")]
 playerState = NodePath("../../Components/PlayerState")
+metadata/_edit_lock_ = true
 
 [node name="FpsArms" parent="FPS" node_paths=PackedStringArray("playerState") instance=ExtResource("7_eorbh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
 playerState = NodePath("../../Components/PlayerState")
+metadata/_edit_lock_ = true

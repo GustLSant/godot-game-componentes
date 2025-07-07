@@ -30,6 +30,8 @@ func getMoveInputs() -> void:
 func getSprintInput() -> void:
 	var holdMode: bool = true
 	
+	if(not playerState.isOnFloor): return
+	
 	if(holdMode):
 		playerState.isSprinting = Input.is_action_pressed("Sprint")
 	else:
