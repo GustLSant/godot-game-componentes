@@ -6,7 +6,7 @@ class_name PlayerMovementController
 
 const BASE_MOVE_SPEED: float = 4.0
 
-const SPRINT_SPEED_MULTIPLIER:float = 3.0
+const SPRINT_SPEED_MULTIPLIER:float = 2.0
 var currentSprintMultiplier: float = 1.0
 
 var pDelta:float = 0.016

@@ -3,21 +3,22 @@ class_name PlayerTpsBodyController
 
 @export var pivotRefRot: Marker3D
 @export var animTree: AnimationTree
-@onready var animStateMachine:AnimationNodeStateMachinePlayback = animTree.get("parameters/playback")
+@onready var animStateMachine:AnimationNodeStateMachinePlayback = animTree.get("parameters/StateMachine/playback")
 var currentAnimation: String
+var fallingBlendAmount: float = 0.0
 const ANIMATIONS: Array[String] = [
 	"TPose",             # 0
-	"Idle",              # 1
+	"IdleBlendTree",     # 1
 	"WalkingBlendTree",  # 2
 	"SprintBlendTree",   # 3
-	"Falling",           # 4
+	"AimBlendTree",      # 4
 ]
 enum {
 	TPOSE_IDX     = 0,
 	IDLE_IDX      = 1,
 	WALKING_IDX   = 2,
 	SPRINTING_IDX = 3,
-	FALLING_IDX   = 4
+	AIM_IDX       = 4
 	}
 
 var delta: float = 0.016
@@ -44,42 +45,49 @@ func handleAimBehaviour() -> void:
 
 
 func handleAnimation() -> void:
+	var animIdx: int = getCurrentAnimationIdx()
+	tryChangeAnimation(ANIMATIONS[animIdx], animIdx)
+	
+	fallingBlendAmount = lerp(fallingBlendAmount, float(not playerState.isOnFloor), 20*delta)
+	animTree["parameters/BlendFalling/blend_amount"] = fallingBlendAmount
+	animTree["parameters/StateMachine/AimBlendTree/BlendAimAngle/blend_amount"] = playerState.currentCamera.pivotRot.rotation_degrees.x / playerState.currentCamera.CAMERA_X_RANGE
+	pass
+
+
+func getCurrentAnimationIdx() -> int:
 	var animIdx: int = 0
 	var isPlayerMoving: bool = (playerState.player.velocity.x != 0.0) or (playerState.player.velocity.z != 0.0)
 	
 	animIdx += int(
-		playerState.isOnFloor and 
+		not playerState.isAiming and
 		playerState.player.velocity == Vector3.ZERO
 	) * IDLE_IDX
 	
 	animIdx += int(
-		playerState.isOnFloor and 
+		not playerState.isAiming and
 		isPlayerMoving and 
 		not playerState.isSprinting
 	) * WALKING_IDX
 	
 	animIdx += int(
-		playerState.isOnFloor and 
+		not playerState.isAiming and
 		isPlayerMoving and 
 		playerState.isSprinting
 	) * SPRINTING_IDX
 	
 	animIdx += int(
-		not playerState.isOnFloor
-	) * FALLING_IDX
+		playerState.isAiming
+	) * AIM_IDX
 	
 	if(animIdx >= ANIMATIONS.size()): printerr("idx de animacao maior que o permitido: ", animIdx)
 	animIdx = min(animIdx, ANIMATIONS.size() - 1) # tratamento para nao acessar valor fora do array
-	tryChangeAnimation(ANIMATIONS[animIdx], animIdx == FALLING_IDX) # precisa desse imediate pq senao a aninacao de andar pode ser setada antes da falling, e ai vai esperar posicionar na Walking antes de passar pra Falling
-	pass
+	
+	return animIdx
 
 
 func tryChangeAnimation(_newAnimation: String, _immediate: bool = false) -> void:
 	if(_newAnimation != currentAnimation):
-		if(_immediate):
-			animStateMachine.start(_newAnimation)
-		else:
-			animStateMachine.travel(_newAnimation)
+		animStateMachine.travel(_newAnimation)
 		currentAnimation = _newAnimation
 	else:
 		return

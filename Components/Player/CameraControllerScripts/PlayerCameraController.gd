@@ -87,6 +87,7 @@ func setActive(_value) -> void:
 	
 	if(_value):
 		if(playerState.currentPivotRot): pivotRot.rotation = playerState.currentPivotRot.rotation # precisa da verificao para o primeiro setActive (do ready)
+		playerState.currentCamera = self
 		playerState.currentPivotRot = pivotRot
 		pass
 	

@@ -13,6 +13,7 @@ var isOnFloor: bool = true
 # Camera Manager
 enum CAMERA_MODE {FPS, TPS}
 var currentPivotRot: Marker3D = null
+var currentCamera: PlayerCameraController
 var currentCameraMode = CAMERA_MODE.FPS
 signal CameraModeChanged(_newMode: CAMERA_MODE)
 

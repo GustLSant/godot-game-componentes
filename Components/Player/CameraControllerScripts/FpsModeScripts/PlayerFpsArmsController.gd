@@ -1,7 +1,7 @@
 extends PlayerModelController
 class_name PlayerFpsArmsController
 
-const ARMS_ROT_SPEED: float = 15.0
+const ARMS_ROT_SPEED: float = 25.0
 const ARMS_AIM_ROT_SPEED: float = 40.0
 
 @export var pivotSway: Marker3D
