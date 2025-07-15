@@ -1,12 +1,21 @@
-[gd_scene load_steps=59 format=4 uid="uid://bvjwiank6nnwe"]
+[gd_scene load_steps=61 format=4 uid="uid://bvjwiank6nnwe"]
 
 [ext_resource type="Script" uid="uid://3e3wx6xwne52" path="res://Main.gd" id="1_2yxtq"]
+[ext_resource type="PackedScene" uid="uid://bqshrdvp6bnlg" path="res://Components/Player/Player.tscn" id="2_lgr22"]
 [ext_resource type="PackedScene" uid="uid://dc54qhrcohy5m" path="res://Components/Crosshair/Crosshair.tscn" id="3_r0du0"]
 [ext_resource type="Texture2D" uid="uid://drrabfgnrn6db" path="res://Meshs/Weapons_2.png" id="4_3dxm6"]
 [ext_resource type="Texture2D" uid="uid://drp8f16f0qd77" path="res://Meshs/Weapons_3.png" id="5_lgr22"]
 [ext_resource type="Texture2D" uid="uid://dgdfstmqmxr8j" path="res://Meshs/Weapons_4.png" id="6_trn2v"]
-[ext_resource type="PackedScene" uid="uid://cui8wmpml85j0" path="res://Meshs/BaseCharacter_animations.blend" id="7_lgr22"]
 [ext_resource type="MeshLibrary" uid="uid://dhx4dqc5hxu41" path="res://testecityMeshLib.tres" id="8_trn2v"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lgr22"]
+
+[sub_resource type="Sky" id="Sky_trn2v"]
+sky_material = SubResource("ProceduralSkyMaterial_lgr22")
+
+[sub_resource type="Environment" id="Environment_03owx"]
+background_mode = 2
+sky = SubResource("Sky_trn2v")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fa4h1"]
 size = Vector3(200, 1, 200)
@@ -654,37 +663,15 @@ func _process(delta: float) -> void:
 	self.text = str(Engine.get_frames_per_second())
 "
 
-[sub_resource type="GDScript" id="GDScript_lgr22"]
-script/source = "extends Node3D
-
-@onready var skeleton: Skeleton3D = $Armature/Skeleton3D
-
-
-func _process(delta: float) -> void:
-	if(Input.is_action_just_pressed(\"MoveFoward\")):
-		var currentRot: Quaternion = skeleton.get_bone_pose_rotation(4)
-		var eulerRads: Vector3 = currentRot.get_euler()
-		var eulerDegrees: Vector3 = Vector3(
-			rad_to_deg(eulerRads.x),
-			rad_to_deg(eulerRads.y),
-			rad_to_deg(eulerRads.z),
-		)
-		
-		eulerDegrees.x = randf_range(50.0, 90.0)
-		var newEulerRads: Vector3 = Vector3(
-			deg_to_rad(eulerDegrees.x),
-			deg_to_rad(eulerDegrees.y),
-			deg_to_rad(eulerDegrees.z),
-		)
-		var newQuat = Basis.from_euler(newEulerRads).get_rotation_quaternion()
-		skeleton.set_bone_pose_rotation(4, newQuat)
-"
-
 [node name="Main" type="Node3D"]
 script = ExtResource("1_2yxtq")
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_03owx")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.965926, -0.12941, 0.224144, 1.49012e-08, 0.866025, 0.5, -0.258819, -0.482963, 0.836516, 0, -2, 0)
+layers = 3
 metadata/_edit_lock_ = true
 
 [node name="Floor" type="StaticBody3D" parent="."]
@@ -698,6 +685,8 @@ shape = SubResource("BoxShape3D_fa4h1")
 material_override = SubResource("StandardMaterial3D_cm0pq")
 mesh = SubResource("PlaneMesh_6hn5i")
 skeleton = NodePath("../..")
+
+[node name="Player" parent="." instance=ExtResource("2_lgr22")]
 
 [node name="Cubes" type="Node3D" parent="."]
 
@@ -861,9 +850,6 @@ offset_bottom = 23.0
 grow_horizontal = 0
 script = SubResource("GDScript_3dxm6")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 5, 3)
-
 [node name="GridMap" type="GridMap" parent="."]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, -1.9, 0)
 mesh_library = ExtResource("8_trn2v")
@@ -871,33 +857,3 @@ cell_size = Vector3(3.2, 3.2, 3.2)
 data = {
 "cells": PackedInt32Array(1, 65534, 0, 1, 65533, 0, 1, 65532, 0, 1, 65531, 0, 1, 65530, 0, 1, 65529, 0, 0, 65529, 0, 0, 65530, 0, 0, 65531, 0, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 1, 65535, 0, 2, 65535, 655363, 2, 65534, 655363, 2, 65533, 655363, 2, 65532, 655363, 2, 65531, 655363, 2, 65530, 655363, 2, 65529, 655363, 65535, 65535, 3, 65535, 65534, 3, 65535, 65533, 3, 65535, 65532, 3, 65535, 65531, 3, 65535, 65530, 3, 65535, 65529, 3)
 }
-
-[node name="Camera3D2" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 3.5, 5.5)
-
-[node name="BaseCharacter_animations" parent="." instance=ExtResource("7_lgr22")]
-transform = Transform3D(0.0373588, 0, -0.999302, 0, 1, 0, 0.999302, 0, 0.0373588, 0.286729, -4.76837e-07, 0.911463)
-script = SubResource("GDScript_lgr22")
-
-[node name="Skeleton3D" parent="BaseCharacter_animations/Armature" index="0"]
-bones/2/position = Vector3(0.2, -0.1, -0.05)
-bones/2/rotation = Quaternion(-0.819152, -2.72644e-17, -2.72644e-17, 0.573576)
-bones/3/position = Vector3(-0.2, 0.2, 0)
-bones/3/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
-bones/4/rotation = Quaternion(0.642788, -1.36843e-17, 1.36843e-17, 0.766044)
-bones/5/position = Vector3(-7.23783e-25, 1.1, 1.49014e-08)
-bones/5/rotation = Quaternion(0.0871553, 1.20276e-16, -1.20276e-16, 0.996195)
-bones/6/position = Vector3(0.6, 2.54232e-07, -2.57794e-07)
-bones/6/rotation = Quaternion(-0.707106, 5.19916e-24, -4.67925e-24, 0.707107)
-bones/7/position = Vector3(5.96046e-08, 0.9, 3.28737e-07)
-bones/7/rotation = Quaternion(0.707107, 5.19915e-24, -4.67924e-24, 0.707107)
-bones/8/position = Vector3(-0.6, 2.54232e-07, -2.57794e-07)
-bones/8/rotation = Quaternion(-0.707106, 5.19916e-24, -4.67925e-24, 0.707107)
-bones/9/rotation = Quaternion(0.0871557, 2.43912e-24, -1.93525e-17, 0.996195)
-
-[node name="BoneAttachment3D" type="BoneAttachment3D" parent="BaseCharacter_animations/Armature/Skeleton3D" index="1"]
-transform = Transform3D(1, -3.85576e-17, -3.37336e-18, 3.85576e-17, 0.984808, 0.173648, -3.37335e-18, -0.173648, 0.984808, 0, 1.2, 0)
-bone_name = "Body"
-bone_idx = 4
-
-[editable path="BaseCharacter_animations"]

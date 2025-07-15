@@ -46,6 +46,7 @@ shape = SubResource("BoxShape3D_2ojs8")
 metadata/_edit_lock_ = true
 
 [node name="TPS" type="Node3D" parent="."]
+visible = false
 metadata/_edit_lock_ = true
 
 [node name="TpsCamera" parent="TPS" node_paths=PackedStringArray("player", "playerState") instance=ExtResource("4_71y7e")]
@@ -66,6 +67,5 @@ playerState = NodePath("../../Components/PlayerState")
 metadata/_edit_lock_ = true
 
 [node name="FpsArms" parent="FPS" node_paths=PackedStringArray("playerState") instance=ExtResource("7_eorbh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
 playerState = NodePath("../../Components/PlayerState")
 metadata/_edit_lock_ = true

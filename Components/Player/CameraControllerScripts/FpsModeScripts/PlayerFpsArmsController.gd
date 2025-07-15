@@ -14,9 +14,6 @@ const ARMS_AIM_ROT_SPEED: float = 40.0
 var recoilOffset: float = 0.0
 var recoilRotZSide: float = 1.0
 
-const ARMS_DEFAULT_POS: Vector3 = Vector3(0.4, -0.4, -0.6)
-const ARMS_AIMING_POS: Vector3 = Vector3(0.0, -0.175, -0.4)
-
 var delta:float = 0.016
 
 
@@ -41,7 +38,7 @@ func handleRotation() -> void:
 
 
 func handleAimBehaviour() -> void:
-	var targetPos: Vector3 = int(playerState.isAiming) * ARMS_AIMING_POS + int(not playerState.isAiming) * ARMS_DEFAULT_POS
+	var targetPos: Vector3 = int(playerState.isAiming) * playerState.armsAimPosition + int(not playerState.isAiming) * playerState.armsDefaultPosition
 	pivotPosAim.position = lerp(pivotPosAim.position, targetPos, 10.0 * delta)
 	pass
 
@@ -74,8 +71,9 @@ func handleSwayEffect() -> void:
 		0.0
 	)
 	
-	# cancelamento do efeito quando estiver no ae
+	# cancelamento do efeito quando estiver no ar
 	var finalPosition = int(playerState.isOnFloor) * targetSwayPosition + int(not playerState.isOnFloor) * pivotSway.position
+	finalPosition *= 0.05 # para acompanhar o scale da mesh das maos
 	
 	pivotSway.position = lerp(pivotSway.position, finalPosition, 10 * delta)
 	pass
@@ -95,16 +93,20 @@ func handleTiltEffect() -> void:
 
 
 func handlePostureEffect() -> void:
-	var targetRotation = int(playerState.isSprinting) * -10.0 + int(not playerState.isOnFloor) * 5.0
-	pivotPosture.rotation_degrees.x = lerp(pivotPosture.rotation_degrees.x, targetRotation, 10 * delta)
+	var targetXRotation:float = int(playerState.isSprinting) * -10.0
+	var targetYRotation:float = int(playerState.isSprinting) * 15.0
+	var targetYPosition: float = int(not playerState.isOnFloor) * 0.01
+	pivotPosture.rotation_degrees.x = lerp(pivotPosture.rotation_degrees.x, targetXRotation, 10.0 * delta)
+	pivotPosture.rotation_degrees.y = lerp(pivotPosture.rotation_degrees.y, targetYRotation, 10.0 * delta)
+	pivotPosture.position.y = lerp(pivotPosture.position.y, targetYPosition, 20.0 * delta)
 	pass
 
 
-func handleRecoilEffect() -> void:	
-	pivotRecoil.position.z = recoilCurve.sample_baked(recoilOffset) * 0.25 * playerState.recoilPosZStrength
+func handleRecoilEffect() -> void:
+	pivotRecoil.position.z = recoilCurve.sample_baked(recoilOffset) * 0.015 * playerState.recoilPosZStrength
 	
-	pivotRecoil.rotation.x = recoilCurve.sample_baked(recoilOffset) * 0.05 * playerState.recoilRotXStrength
-	pivotRecoil.rotation.z = recoilCurve.sample_baked(recoilOffset) * -0.05 * recoilRotZSide * playerState.recoilRotZStrength
+	pivotRecoil.rotation.x = recoilCurve.sample_baked(recoilOffset) * 0.025 * playerState.recoilRotXStrength
+	pivotRecoil.rotation.z = recoilCurve.sample_baked(recoilOffset) * -0.025 * recoilRotZSide * playerState.recoilRotZStrength
 	
 	recoilOffset = lerp(recoilOffset, 0.0, 10.0 * delta)
 	pass

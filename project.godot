@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Utils="*res://Singletons/Utils.gd"
+S_Settings="*res://Singletons/S_Settings.gd"
 
 [display]
 

@@ -2,16 +2,40 @@
 
 [ext_resource type="Script" uid="uid://d081bgbrqtwn2" path="res://Components/Player/CameraControllerScripts/FpsModeScripts/PlayerFpsCameraController.gd" id="1_oxwyr"]
 
-[node name="FpsCamera" type="Node3D" node_paths=PackedStringArray("pivotRot", "camera", "pivotShake")]
+[node name="FpsCamera" type="Node3D" node_paths=PackedStringArray("bodyCamera", "pivotRot", "camera", "pivotShake")]
 script = ExtResource("1_oxwyr")
+bodyCamera = NodePath("CanvasLayer/SubViewportContainer/SubViewport/Camera3D")
 pivotRot = NodePath("PivotRot")
 camera = NodePath("PivotRot/PivotShake/Camera3D")
 pivotShake = NodePath("PivotRot/PivotShake")
 
 [node name="PivotRot" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="PivotShake" type="Marker3D" parent="PivotRot"]
 
 [node name="Camera3D" type="Camera3D" parent="PivotRot/PivotShake"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -0.4)
+cull_mask = 1048573
+near = 0.01
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+cull_mask = 2
+near = 0.01

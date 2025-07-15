@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 class_name PlayerCameraController
 
 @export var playerState: PlayerState
@@ -69,8 +69,7 @@ func addShake(_amount:float) -> void:
 
 
 func handleAimBehaviour() -> void:
-	var defaultFOV:float = 75.0
-	var targetFOV:float = int(playerState.isAiming) * (defaultFOV - 30.0) + int(not playerState.isAiming) * defaultFOV
+	var targetFOV:float = int(playerState.isAiming) * playerState.aimFOV + int(not playerState.isAiming) * S_Settings.defaultFOV
 	camera.fov = lerp(camera.fov, targetFOV, 10.0*delta)
 	pass
 
@@ -109,14 +108,14 @@ func handleRecoilEffect() -> void:
 
 
 func addRecoil(_strength: float) -> void:
-	recoilDirection = Vector2(randf_range(-0.5, 0.5), randf_range(0.5, 1.5))
+	recoilDirection = Vector2(randf_range(-0.25, 0.25), randf_range(0.25, 0.75))
 	currentRecoilStrength += _strength
-	currentRecoilStrength = clamp(currentRecoilStrength, 0.0, 10.0)
+	currentRecoilStrength = clamp(currentRecoilStrength, 0.0, 7.5)
 	pass
 
 
 func onPlayerShot(_recoilStrength: float) -> void:
 	if(playerState.currentCameraMode == selfMode):
-		addShake(_recoilStrength * 0.25)
+		#addShake(_recoilStrength * 0.25)
 		addRecoil(_recoilStrength)
 	pass
