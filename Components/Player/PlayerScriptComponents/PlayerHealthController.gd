@@ -1,0 +1,15 @@
+extends Node
+class_name PlayerHealthController
+
+@export var playerState: PlayerState
+
+
+func _ready() -> void:
+	playerState.connect("DamageTaken", onDamageTaken)
+	pass
+
+
+func onDamageTaken(_damage: int) -> void:
+	var newHealthValue: int = playerState.health - _damage
+	playerState.health = clamp(newHealthValue, 0, playerState.maxHealth)
+	pass

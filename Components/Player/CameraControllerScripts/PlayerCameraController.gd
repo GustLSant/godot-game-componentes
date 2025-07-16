@@ -9,14 +9,18 @@ const CAMERA_X_RANGE = 75.0
 @export var pivotRot:Marker3D
 @export var camera: Camera3D
 
+#region Shake
 @export var pivotShake:Marker3D
 const MAX_SHAKE_STRENGTH:float = 5.0
 var currentShakeStrength:float = 0.0
 var shakeNoise:FastNoiseLite = FastNoiseLite.new()
 var shakePosOffset:Vector3 = Vector3.ZERO
+#endregion
 
+#region Recoil
 var recoilDirection: Vector2 = Vector2.ZERO
 var currentRecoilStrength: float = 0.0
+#endregion
 
 var delta: float = 0.016
 
@@ -29,6 +33,7 @@ func _ready() -> void:
 	setActive(selfMode == playerState.currentCameraMode)
 	playerState.connect("CameraModeChanged", onCameraModeChanged)
 	playerState.connect("PlayerShot", onPlayerShot)
+	playerState.connect("DamageTaken", onDamageTaken)
 	pass
 
 
@@ -61,7 +66,6 @@ func handleShakeEffect() -> void:
 	pivotShake.position = lerp(pivotShake.position, shakePosOffset, min(lerpFactor, 1.0))
 	pass
 
-
 func addShake(_amount:float) -> void:
 	currentShakeStrength += _amount
 	currentShakeStrength = clamp(currentShakeStrength, 0.0, MAX_SHAKE_STRENGTH)
@@ -86,7 +90,7 @@ func setActive(_value) -> void:
 	
 	if(_value):
 		if(playerState.currentPivotRot): pivotRot.rotation = playerState.currentPivotRot.rotation # precisa da verificao para o primeiro setActive (do ready)
-		playerState.currentCamera = self
+		playerState.currentCameraController = self
 		playerState.currentPivotRot = pivotRot
 		pass
 	
@@ -103,9 +107,8 @@ func handleRecoilEffect() -> void:
 	
 	pivotRot.rotation_degrees.x = clamp(pivotRot.rotation_degrees.x, -CAMERA_X_RANGE, CAMERA_X_RANGE)
 	
-	currentRecoilStrength = lerp(currentRecoilStrength, 0.0, 10 * delta)
+	currentRecoilStrength = lerp(currentRecoilStrength, 0.0, 10.0 * delta)
 	pass
-
 
 func addRecoil(_strength: float) -> void:
 	recoilDirection = Vector2(randf_range(-0.25, 0.25), randf_range(0.25, 0.75))
@@ -116,6 +119,12 @@ func addRecoil(_strength: float) -> void:
 
 func onPlayerShot(_recoilStrength: float) -> void:
 	if(playerState.currentCameraMode == selfMode):
-		#addShake(_recoilStrength * 0.25)
 		addRecoil(_recoilStrength)
+	pass
+
+
+func onDamageTaken(_damage: int) -> void:
+	if(playerState.currentCameraMode == selfMode):
+		var shakeStrength: float = Utils.getValueFraction(MAX_SHAKE_STRENGTH, _damage, 50)
+		addShake(shakeStrength)
 	pass

@@ -50,7 +50,7 @@ func handleAnimation() -> void:
 	
 	fallingBlendAmount = lerp(fallingBlendAmount, float(not playerState.isOnFloor), 20*delta)
 	animTree["parameters/BlendFalling/blend_amount"] = fallingBlendAmount
-	animTree["parameters/StateMachine/AimBlendTree/BlendAimAngle/blend_amount"] = playerState.currentCamera.pivotRot.rotation_degrees.x / playerState.currentCamera.CAMERA_X_RANGE
+	animTree["parameters/StateMachine/AimBlendTree/BlendAimAngle/blend_amount"] = playerState.currentCameraController.pivotRot.rotation_degrees.x / playerState.currentCameraController.CAMERA_X_RANGE
 	pass
 
 

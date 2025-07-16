@@ -718,7 +718,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="PivotPosAim" type="Marker3D" parent="PivotRot/PivotSway/PivotTilt/PivotPosture/PivotRecoil"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -1, -0.7)
-metadata/_edit_lock_ = true
 
 [node name="Short" type="Node3D" parent="PivotRot/PivotSway/PivotTilt/PivotPosture/PivotRecoil/PivotPosAim"]
 visible = false

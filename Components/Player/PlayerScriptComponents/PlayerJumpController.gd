@@ -22,6 +22,7 @@ func handleGravity() -> void:
 	playerState.isOnFloor = playerState.player.is_on_floor()
 	
 	if(playerState.isOnFloor):
+		if(currentVerticalMovement <= -15.0): playerState.emit_signal("DamageTaken", Utils.getValueFraction(20.0, currentVerticalMovement, -20.0))
 		currentVerticalMovement = 0.0
 	else:
 		currentVerticalMovement -= GRAVITY_ACCELERATION * pDelta

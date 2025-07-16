@@ -1,0 +1,30 @@
+extends Node
+class_name PlayerInteractionController
+
+@export var playerState: PlayerState
+@export var raycast: RayCast3D
+@export var labelDescription: Label
+@export var labelActionKey: Label
+
+
+func _physics_process(delta: float) -> void:
+	raycast.global_transform = playerState.currentCameraController.camera.global_transform
+	
+	if(raycast.is_colliding()):
+		var collider: Object = raycast.get_collider()
+		if(collider is InteractiveObject):
+			setLabelsVisible(true)
+			labelDescription.text = collider.description
+			labelActionKey.text = "Press [" + collider.actionKey + "] to interact"
+		else:
+			setLabelsVisible(false)
+	else:
+		setLabelsVisible(false)
+	
+	pass
+
+
+func setLabelsVisible(_visible: bool) -> void:
+	labelDescription.visible = _visible
+	labelActionKey.visible = _visible
+	pass

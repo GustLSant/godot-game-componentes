@@ -15,7 +15,7 @@ var isOnFloor: bool = true
 # Camera Manager
 enum CAMERA_MODE {FPS, TPS}
 var currentPivotRot: Marker3D = null
-var currentCamera: PlayerCameraController
+var currentCameraController: PlayerCameraController
 var currentCameraMode = CAMERA_MODE.FPS
 signal CameraModeChanged(_newMode: CAMERA_MODE)
 
@@ -24,6 +24,12 @@ signal CameraModeChanged(_newMode: CAMERA_MODE)
 var isAiming: bool = false
 var attackRate: float = 0.1
 signal PlayerShot(_recoilStrength: float)
+
+
+# HealthController
+var maxHealth:int = 100
+var health:int = maxHealth
+signal DamageTaken(_damage: float)
 
 
 # Weapons
