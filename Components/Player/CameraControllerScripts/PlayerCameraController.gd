@@ -1,8 +1,6 @@
 extends Node3D
 class_name PlayerCameraController
 
-@export var playerState: PlayerState
-
 @export_category("Internal Variables")
 @export var selfMode: PlayerState.CAMERA_MODE = PlayerState.CAMERA_MODE.FPS
 const CAMERA_X_RANGE = 75.0
@@ -30,10 +28,10 @@ func _ready() -> void:
 	shakeNoise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
 	shakeNoise.frequency = 4.0
 	
-	setActive(selfMode == playerState.currentCameraMode)
-	playerState.connect("CameraModeChanged", onCameraModeChanged)
-	playerState.connect("PlayerShot", onPlayerShot)
-	playerState.connect("DamageTaken", onDamageTaken)
+	setActive(selfMode == PlayerState.currentCameraMode)
+	PlayerState.connect("CameraModeChanged", onCameraModeChanged)
+	PlayerState.connect("PlayerShot", onPlayerShot)
+	PlayerState.connect("DamageTaken", onDamageTaken)
 	pass
 
 
@@ -73,13 +71,13 @@ func addShake(_amount:float) -> void:
 
 
 func handleAimBehaviour() -> void:
-	var targetFOV:float = int(playerState.isAiming) * playerState.aimFOV + int(not playerState.isAiming) * S_Settings.defaultFOV
+	var targetFOV:float = int(PlayerState.isAiming) * PlayerState.aimFOV + int(not PlayerState.isAiming) * Settings.defaultFOV
 	camera.fov = lerp(camera.fov, targetFOV, 10.0*delta)
 	pass
 
 
 func onCameraModeChanged() -> void:
-	setActive(selfMode == playerState.currentCameraMode)
+	setActive(selfMode == PlayerState.currentCameraMode)
 	pass
 
 func setActive(_value) -> void:
@@ -89,9 +87,9 @@ func setActive(_value) -> void:
 	camera.current = _value
 	
 	if(_value):
-		if(playerState.currentPivotRot): pivotRot.rotation = playerState.currentPivotRot.rotation # precisa da verificao para o primeiro setActive (do ready)
-		playerState.currentCameraController = self
-		playerState.currentPivotRot = pivotRot
+		if(PlayerState.currentPivotRot): pivotRot.rotation = PlayerState.currentPivotRot.rotation # precisa da verificao para o primeiro setActive (do ready)
+		PlayerState.currentCameraController = self
+		PlayerState.currentPivotRot = pivotRot
 		pass
 	
 	onActiveUpdate(_value)
@@ -118,13 +116,13 @@ func addRecoil(_strength: float) -> void:
 
 
 func onPlayerShot(_recoilStrength: float) -> void:
-	if(playerState.currentCameraMode == selfMode):
+	if(PlayerState.currentCameraMode == selfMode):
 		addRecoil(_recoilStrength)
 	pass
 
 
 func onDamageTaken(_damage: int) -> void:
-	if(playerState.currentCameraMode == selfMode):
+	if(PlayerState.currentCameraMode == selfMode):
 		var shakeStrength: float = Utils.getValueFraction(MAX_SHAKE_STRENGTH, _damage, 50)
 		addShake(shakeStrength)
 	pass

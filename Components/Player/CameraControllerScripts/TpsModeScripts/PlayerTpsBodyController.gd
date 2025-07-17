@@ -33,14 +33,14 @@ func _process(_delta: float) -> void:
 
 
 func handleRotation() -> void:
-	if(playerState.player.velocity.x != 0.0 or playerState.player.velocity.z != 0.0):
-		pivotRefRot.look_at(self.global_position + playerState.player.velocity)
+	if(Nodes.player.velocity.x != 0.0 or Nodes.player.velocity.z != 0.0):
+		pivotRefRot.look_at(self.global_position + Nodes.player.velocity)
 		pivotRot.global_rotation.y = lerp_angle(pivotRot.global_rotation.y, pivotRefRot.global_rotation.y, 10 * delta)
 	pass
 
 
 func handleAimBehaviour() -> void:
-	pivotRot.global_rotation.y = int(playerState.isAiming) * playerState.currentPivotRot.global_rotation.y + int(not playerState.isAiming) * pivotRot.global_rotation.y
+	pivotRot.global_rotation.y = int(PlayerState.isAiming) * PlayerState.currentPivotRot.global_rotation.y + int(not PlayerState.isAiming) * pivotRot.global_rotation.y
 	pass
 
 
@@ -48,35 +48,35 @@ func handleAnimation() -> void:
 	var animIdx: int = getCurrentAnimationIdx()
 	tryChangeAnimation(ANIMATIONS[animIdx], animIdx)
 	
-	fallingBlendAmount = lerp(fallingBlendAmount, float(not playerState.isOnFloor), 20*delta)
+	fallingBlendAmount = lerp(fallingBlendAmount, float(not PlayerState.isOnFloor), 20*delta)
 	animTree["parameters/BlendFalling/blend_amount"] = fallingBlendAmount
-	animTree["parameters/StateMachine/AimBlendTree/BlendAimAngle/blend_amount"] = playerState.currentCameraController.pivotRot.rotation_degrees.x / playerState.currentCameraController.CAMERA_X_RANGE
+	animTree["parameters/StateMachine/AimBlendTree/BlendAimAngle/blend_amount"] = PlayerState.currentCameraController.pivotRot.rotation_degrees.x / PlayerState.currentCameraController.CAMERA_X_RANGE
 	pass
 
 
 func getCurrentAnimationIdx() -> int:
 	var animIdx: int = 0
-	var isPlayerMoving: bool = (playerState.player.velocity.x != 0.0) or (playerState.player.velocity.z != 0.0)
+	var isPlayerMoving: bool = (Nodes.player.velocity.x != 0.0) or (Nodes.player.velocity.z != 0.0)
 	
 	animIdx += int(
-		not playerState.isAiming and
-		playerState.player.velocity == Vector3.ZERO
+		not PlayerState.isAiming and
+		Nodes.player.velocity == Vector3.ZERO
 	) * IDLE_IDX
 	
 	animIdx += int(
-		not playerState.isAiming and
+		not PlayerState.isAiming and
 		isPlayerMoving and 
-		not playerState.isSprinting
+		not PlayerState.isSprinting
 	) * WALKING_IDX
 	
 	animIdx += int(
-		not playerState.isAiming and
+		not PlayerState.isAiming and
 		isPlayerMoving and 
-		playerState.isSprinting
+		PlayerState.isSprinting
 	) * SPRINTING_IDX
 	
 	animIdx += int(
-		playerState.isAiming
+		PlayerState.isAiming
 	) * AIM_IDX
 	
 	if(animIdx >= ANIMATIONS.size()): printerr("idx de animacao maior que o permitido: ", animIdx)

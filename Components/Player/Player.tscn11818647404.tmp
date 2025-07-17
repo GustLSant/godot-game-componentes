@@ -1,10 +1,10 @@
 [gd_scene load_steps=13 format=3 uid="uid://bqshrdvp6bnlg"]
 
 [ext_resource type="Script" uid="uid://cav0uleqdgm0g" path="res://Components/Player/PlayerScriptComponents/PlayerCameraManager.gd" id="1_a50ic"]
-[ext_resource type="Script" uid="uid://bt7qclob8p22t" path="res://Components/Player/Player.gd" id="1_qij2n"]
 [ext_resource type="Script" uid="uid://c7alstv6ddk1m" path="res://Components/Player/PlayerScriptComponents/PlayerMovementController.gd" id="2_8qe71"]
 [ext_resource type="Script" uid="uid://c8vevuqro0x0o" path="res://Components/Player/PlayerScriptComponents/PlayerJumpController.gd" id="3_cyqth"]
 [ext_resource type="PackedScene" uid="uid://cl7o36m60w6ww" path="res://Components/Player/TpsModeScenes/TpsCameraController.tscn" id="4_71y7e"]
+[ext_resource type="Script" uid="uid://bdsu43ml1yvna" path="res://Components/Player/PlayerScriptComponents/PlayerCombatController.gd" id="4_aycwo"]
 [ext_resource type="PackedScene" uid="uid://d33kf6ht1h1k5" path="res://Components/Player/FpsModeScenes/FpsCameraController.tscn" id="5_71y7e"]
 [ext_resource type="PackedScene" uid="uid://boladt1x15x1m" path="res://Components/Player/TpsModeScenes/TpsBody.tscn" id="5_eorbh"]
 [ext_resource type="Script" uid="uid://dv6lvx2d5aiug" path="res://Components/Player/PlayerScriptComponents/PlayerHealthController.gd" id="6_px31v"]
@@ -18,7 +18,6 @@ size = Vector3(1, 2, 0.6)
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 8
 collision_mask = 3
-script = ExtResource("1_qij2n")
 
 [node name="Components" type="Node" parent="."]
 
@@ -31,6 +30,9 @@ script = ExtResource("3_cyqth")
 [node name="MovementController" type="Node" parent="Components" node_paths=PackedStringArray("player")]
 script = ExtResource("2_8qe71")
 player = NodePath("../..")
+
+[node name="CombatController" type="Node" parent="Components"]
+script = ExtResource("4_aycwo")
 
 [node name="HealthController" type="Node" parent="Components"]
 script = ExtResource("6_px31v")
@@ -63,4 +65,5 @@ metadata/_edit_lock_ = true
 metadata/_edit_lock_ = true
 
 [node name="FpsArms" parent="FPS" instance=ExtResource("7_eorbh")]
+selfMode = null
 metadata/_edit_lock_ = true

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8djk1ns80fn1"]
+
+[ext_resource type="Script" uid="uid://yaf1vx4ipvs3" path="res://Components/Player/PlayerWeapon/WeaponPickUpController.gd" id="1_eokgg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eokgg"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_mmmw1"]
+
+[node name="PickupWeapon01" type="Node3D"]
+script = ExtResource("1_eokgg")
+weaponScenePath = "res://Components/Player/PlayerWeapon/Weapon_01.tscn"
+description = "Weapon 01"
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_eokgg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("PrismMesh_mmmw1")
