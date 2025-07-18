@@ -10,18 +10,19 @@ class_name PlayerWeaponController
 @export var aimFOV: float = 45.0
 
 @export_category("Recoil Variables")
+@export var cameraRecoilStrength:float = 1.0
 @export var recoilShakeStrength: float = 1.0
 @export var recoilPosZStrength: float = 1.0
 @export var recoilRotXStrength: float = 1.0
 @export var recoilRotZStrength: float = 1.0
 
+var isActive: bool = true : set = setActive
 var currentFireCooldown: float = 0.0
 var delta: float = 0.016
 
 
 func _ready() -> void:
-	#setActive(false)
-	setParameters()
+	if(isActive): setParametersOnPlayerState()
 	pass
 
 
@@ -43,7 +44,7 @@ func getAimInput() -> void:
 
 func handleShootInput() -> void:
 	if(Input.is_action_pressed("Shoot") and currentFireCooldown <= 0.0 and PlayerState.inventory.size() > 0):
-		PlayerState.emit_signal("PlayerShot", 1.0)
+		PlayerState.emit_signal("PlayerShot", cameraRecoilStrength)
 		currentFireCooldown = PlayerState.fireRate
 	pass
 
@@ -54,13 +55,17 @@ func handleAtackRate() -> void:
 
 
 func setActive(_value: bool) -> void:
+	isActive = _value
 	self.set_process(_value)
 	self.set_physics_process(_value)
 	self.visible = _value
+	if(_value):
+		setParametersOnPlayerState()
+		PlayerState.currentWeapon = self
 	pass
 
 
-func setParameters() -> void:
+func setParametersOnPlayerState() -> void:
 	PlayerState.damage = damage
 	PlayerState.fireRate = fireRate
 	

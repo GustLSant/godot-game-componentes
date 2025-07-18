@@ -530,90 +530,107 @@ size = Vector3(0.4, 0.4, 1.2)
 [node name="Weapon02" type="Node3D"]
 script = ExtResource("1_ddo5g")
 armsDefaultPosition = Vector3(0.6, -1, -0.4)
-armsAimPosition = Vector3(0, -0.57, -0.2)
+armsAimPosition = Vector3(0, -0.57, 0.2)
 
 [node name="pistol-01" type="Node3D" parent="."]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0.05, 0.5, -1.55)
 
 [node name="cuboid" type="MeshInstance3D" parent="pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03125, 0.03125)
+layers = 2
 mesh = SubResource("ArrayMesh_ddo5g")
 skeleton = NodePath("")
 
 [node name="cuboid2" type="MeshInstance3D" parent="pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0625, 0.03125, 0.03125)
+layers = 2
 mesh = SubResource("ArrayMesh_j7iur")
 skeleton = NodePath("")
 
 [node name="cuboid3" type="MeshInstance3D" parent="pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03125, -0.015625, -0.15625)
+layers = 2
 mesh = SubResource("ArrayMesh_uufmr")
 skeleton = NodePath("")
 
 [node name="cuboid4" type="MeshInstance3D" parent="pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 0.984808, -0.173648, 0, 0.173648, 0.984808, -0.03125, -0.171875, -0.0625)
+layers = 2
 mesh = SubResource("ArrayMesh_k6w84")
 skeleton = NodePath("")
 
 [node name="cuboid5" type="MeshInstance3D" parent="pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03125, -0.25, -0.15625)
+layers = 2
 mesh = SubResource("ArrayMesh_il1wg")
 skeleton = NodePath("")
 
 [node name="cuboid6" type="MeshInstance3D" parent="pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03125, -0.25, -0.15625)
+layers = 2
 mesh = SubResource("ArrayMesh_vlsv3")
 skeleton = NodePath("")
 
 [node name="cuboid7" type="MeshInstance3D" parent="pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -0.03125, -0.265625, 0.0625)
+layers = 2
 mesh = SubResource("ArrayMesh_c6mae")
 skeleton = NodePath("")
 
 [node name="cuboid8" type="MeshInstance3D" parent="pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03125, 0.03125, -0.40625)
+layers = 2
 mesh = SubResource("ArrayMesh_vrtfw")
 skeleton = NodePath("")
 
 [node name="cuboid9" type="MeshInstance3D" parent="pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03125, -0.203125, -0.53125)
+layers = 2
 mesh = SubResource("ArrayMesh_yum8h")
 skeleton = NodePath("")
 
 [node name="cuboid10" type="MeshInstance3D" parent="pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03125, -0.015625, 0.15625)
+layers = 2
 mesh = SubResource("ArrayMesh_5k4qh")
 skeleton = NodePath("")
 
 [node name="cuboid11" type="MeshInstance3D" parent="pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03125, -0.015625, 0.03125)
+layers = 2
 mesh = SubResource("ArrayMesh_lb24a")
 skeleton = NodePath("")
 
 [node name="cuboid12" type="MeshInstance3D" parent="pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03125, 0.03125, 0.03125)
+layers = 2
 mesh = SubResource("ArrayMesh_1r4et")
 skeleton = NodePath("")
 
 [node name="cuboid13" type="MeshInstance3D" parent="pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -0.03125, -0.265625, 0.0625)
+layers = 2
 mesh = SubResource("ArrayMesh_5j6qq")
 skeleton = NodePath("")
 
 [node name="cuboid14" type="MeshInstance3D" parent="pistol-01"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -0.03125, -0.265625, 0.0625)
+layers = 2
 mesh = SubResource("ArrayMesh_oci5t")
 skeleton = NodePath("")
 
 [node name="cuboid15" type="MeshInstance3D" parent="pistol-01"]
 transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, -0.03125, -0.046875, -0.46875)
+layers = 2
 mesh = SubResource("ArrayMesh_axw38")
 skeleton = NodePath("")
 
 [node name="RightArm" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1)
+layers = 2
 mesh = SubResource("BoxMesh_ypkbs")
 
 [node name="LeftArm" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -0.4, -0.0999985, -1)
+layers = 2
 mesh = SubResource("BoxMesh_ypkbs")

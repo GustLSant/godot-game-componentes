@@ -16,6 +16,7 @@ var shakePosOffset:Vector3 = Vector3.ZERO
 #endregion
 
 #region Recoil
+const MAX_RECOIL_STRENGTH: float = 7.5
 var recoilDirection: Vector2 = Vector2.ZERO
 var currentRecoilStrength: float = 0.0
 #endregion
@@ -109,9 +110,9 @@ func handleRecoilEffect() -> void:
 	pass
 
 func addRecoil(_strength: float) -> void:
-	recoilDirection = Vector2(randf_range(-0.25, 0.25), randf_range(0.25, 0.75))
+	recoilDirection = Vector2(randf_range(-0.15, 0.15), randf_range(0.15, 0.5))
 	currentRecoilStrength += _strength
-	currentRecoilStrength = clamp(currentRecoilStrength, 0.0, 7.5)
+	currentRecoilStrength = clamp(currentRecoilStrength, 0.0, MAX_RECOIL_STRENGTH)
 	pass
 
 

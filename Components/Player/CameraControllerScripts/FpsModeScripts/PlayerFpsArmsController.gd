@@ -19,7 +19,7 @@ var delta:float = 0.016
 
 func _ready() -> void:
 	super._ready()
-	Nodes.playerFpsArmsWeaponsSocket = $PivotRot/PivotSway/PivotTilt/PivotPosture/PivotRecoil/PivotPosAim/WeaponsSocket
+	PlayerState.connect("PickupWeapon", onPickupWeapon)
 	pass
 
 
@@ -100,7 +100,7 @@ func handleTiltEffect() -> void:
 func handlePostureEffect() -> void:
 	var targetXRotation:float = int(PlayerState.isSprinting) * -10.0
 	var targetYRotation:float = int(PlayerState.isSprinting) * 15.0
-	var targetYPosition: float = int(not PlayerState.isOnFloor) * 0.2
+	var targetYPosition: float = int(not PlayerState.isOnFloor) * 0.2 - int(not PlayerState.isOnFloor and PlayerState.isAiming) * 0.15
 	
 	pivotPosture.rotation_degrees.x = lerp(pivotPosture.rotation_degrees.x, targetXRotation, 10.0 * delta)
 	pivotPosture.rotation_degrees.y = lerp(pivotPosture.rotation_degrees.y, targetYRotation, 10.0 * delta)
@@ -126,4 +126,9 @@ func onPlayerShot(_recoilStrength: float) -> void:
 	if(PlayerState.currentCameraMode == selfMode):
 		addRecoil()
 		recoilRotZSide = [1, -1].pick_random()
+	pass
+
+
+func onPickupWeapon(_newWeaponScene: Node3D) -> void:
+	$PivotRot/PivotSway/PivotTilt/PivotPosture/PivotRecoil/PivotPosAim/WeaponsSocket.add_child(_newWeaponScene)
 	pass

@@ -26,11 +26,11 @@ signal DamageTaken(_damage: float)
 
 
 # Inventory
-var inventory: Array[Node3D] = []
+var inventory: Array[PlayerWeaponController] = []
 var inventoryMaxSize: int = 3
 var currentWeapon: PlayerWeaponController = null
 signal TryPickupWeapon(_newWeaponScenePath: String)
-signal WeaponChanged(_newWeapon: PlayerWeaponController)
+signal PickupWeapon(_newWeaponScene: Node3D)
 
 
 # Weapon Controller
