@@ -4,5 +4,5 @@ extends InteractiveObject
 
 
 func action() -> void:
-	PlayerState.emit_signal("TryPickupWeapon", weaponScenePath)
+	Nodes.playerState.emit_signal("TryPickupWeapon", weaponScenePath)
 	pass

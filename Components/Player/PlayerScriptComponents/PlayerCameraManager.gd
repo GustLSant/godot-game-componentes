@@ -1,15 +1,17 @@
 extends Node
 class_name PlayerCameraManager
 
+@onready var playerState: PlayerState = Nodes.playerState
+
 
 func _input(_event: InputEvent) -> void:
 	if(_event.is_action_pressed("ChangeCameraMode")):
-		if(PlayerState.currentCameraMode == PlayerState.CAMERA_MODE.FPS): setCameraMode(PlayerState.CAMERA_MODE.TPS)
-		else: setCameraMode(PlayerState.CAMERA_MODE.FPS)
+		if(playerState.currentCameraMode == playerState.CAMERA_MODE.FPS): setCameraMode(playerState.CAMERA_MODE.TPS)
+		else: setCameraMode(playerState.CAMERA_MODE.FPS)
 	pass
 
 
 func setCameraMode(_newCameraMode: PlayerState.CAMERA_MODE) -> void:
-	PlayerState.currentCameraMode = _newCameraMode
-	PlayerState.emit_signal("CameraModeChanged")
+	playerState.currentCameraMode = _newCameraMode
+	playerState.emit_signal("CameraModeChanged")
 	pass

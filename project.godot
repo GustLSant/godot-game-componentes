@@ -20,7 +20,6 @@ config/icon="res://icon.svg"
 
 Utils="*res://Singletons/Utils.gd"
 Settings="*res://Singletons/S_Settings.gd"
-PlayerState="*res://Singletons/PlayerState.gd"
 Nodes="*res://Singletons/Nodes.gd"
 
 [display]

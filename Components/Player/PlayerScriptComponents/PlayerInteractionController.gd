@@ -7,7 +7,7 @@ class_name PlayerInteractionController
 
 
 func _physics_process(delta: float) -> void:
-	raycast.global_transform = PlayerState.currentCameraController.camera.global_transform
+	raycast.global_transform = Nodes.playerState.currentCameraController.camera.global_transform
 	
 	if(raycast.is_colliding()):
 		var collider: Object = raycast.get_collider().get_parent()

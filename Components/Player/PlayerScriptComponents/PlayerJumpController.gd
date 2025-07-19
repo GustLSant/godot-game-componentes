@@ -1,6 +1,8 @@
 extends Node
 class_name PlayerJumpController
 
+@onready var playerState: PlayerState = Nodes.playerState
+
 const GRAVITY_ACCELERATION:float = 20.0
 const JUMP_FORCE:float = 7.5
 var currentVerticalMovement:float = 0.0
@@ -17,10 +19,10 @@ func _physics_process(_delta: float) -> void:
 
 
 func handleGravity() -> void:
-	PlayerState.isOnFloor = Nodes.player.is_on_floor()
+	playerState.isOnFloor = Nodes.player.is_on_floor()
 	
-	if(PlayerState.isOnFloor):
-		if(currentVerticalMovement <= -15.0): PlayerState.emit_signal("DamageTaken", Utils.getValueFraction(20.0, currentVerticalMovement, -20.0))
+	if(playerState.isOnFloor):
+		if(currentVerticalMovement <= -15.0): playerState.emit_signal("DamageTaken", Utils.getValueFraction(20.0, currentVerticalMovement, -20.0))
 		currentVerticalMovement = 0.0
 	else:
 		currentVerticalMovement -= GRAVITY_ACCELERATION * pDelta
@@ -28,6 +30,6 @@ func handleGravity() -> void:
 
 
 func handleJump() -> void:
-	if(PlayerState.isOnFloor):
+	if(playerState.isOnFloor):
 		if(Input.is_action_just_pressed("Jump")): currentVerticalMovement += JUMP_FORCE
 	pass

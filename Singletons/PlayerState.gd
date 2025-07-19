@@ -1,7 +1,10 @@
 extends Node
+class_name PlayerState
 
-# Reference
-@export var player: CharacterBody3D
+
+func _init() -> void:
+	Nodes.playerState = self
+	pass
 
 
 # Movement Controller

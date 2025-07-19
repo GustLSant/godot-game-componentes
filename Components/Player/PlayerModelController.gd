@@ -1,19 +1,20 @@
 extends Node
 class_name PlayerModelController
 
+@onready var playerState: PlayerState = Nodes.playerState
 @export var selfMode: PlayerState.CAMERA_MODE
 @export var pivotRot: Marker3D
 
 
 func _ready() -> void:
-	setActive(selfMode == PlayerState.currentCameraMode)
-	PlayerState.connect("CameraModeChanged", onCameraModeChanged)
-	PlayerState.connect("PlayerShot", onPlayerShot)
+	setActive(selfMode == playerState.currentCameraMode)
+	playerState.connect("CameraModeChanged", onCameraModeChanged)
+	playerState.connect("PlayerShot", onPlayerShot)
 	pass
 
 
 func onCameraModeChanged() -> void:
-	setActive(selfMode == PlayerState.currentCameraMode)
+	setActive(selfMode == playerState.currentCameraMode)
 	pass
 
 
@@ -23,9 +24,9 @@ func setActive(_value: bool) -> void:
 	self.visible = _value
 	
 	# precisa da verificao para o primeiro setActive (do ready)
-	if(PlayerState.currentPivotRot):
-		if(selfMode == PlayerState.CAMERA_MODE.FPS): pivotRot.global_rotation = PlayerState.currentPivotRot.global_rotation
-		else: pivotRot.global_rotation.y = PlayerState.currentPivotRot.global_rotation.y
+	if(playerState.currentPivotRot):
+		if(selfMode == playerState.CAMERA_MODE.FPS): pivotRot.global_rotation = playerState.currentPivotRot.global_rotation
+		else: pivotRot.global_rotation.y = playerState.currentPivotRot.global_rotation.y
 	pass
 
 

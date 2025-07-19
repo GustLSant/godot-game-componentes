@@ -1,6 +1,8 @@
 extends Node
 class_name PlayerWeaponController
 
+@onready var playerState: PlayerState = Nodes.playerState
+
 @export var damage: float = 20.0
 @export var fireRate: float = 0.15
 
@@ -36,16 +38,16 @@ func _process(_delta: float) -> void:
 
 func getAimInput() -> void:
 	if(Settings.aimHoldMode):
-		PlayerState.isAiming = Input.is_action_pressed("Aim")
+		playerState.isAiming = Input.is_action_pressed("Aim")
 	else:
-		if(Input.is_action_just_pressed("Aim")): PlayerState.isAiming = !PlayerState.isAiming
+		if(Input.is_action_just_pressed("Aim")): playerState.isAiming = !playerState.isAiming
 	pass
 
 
 func handleShootInput() -> void:
-	if(Input.is_action_pressed("Shoot") and currentFireCooldown <= 0.0 and PlayerState.inventory.size() > 0):
-		PlayerState.emit_signal("PlayerShot", cameraRecoilStrength)
-		currentFireCooldown = PlayerState.fireRate
+	if(Input.is_action_pressed("Shoot") and currentFireCooldown <= 0.0 and playerState.inventory.size() > 0):
+		playerState.emit_signal("PlayerShot", cameraRecoilStrength)
+		currentFireCooldown = playerState.fireRate
 	pass
 
 
@@ -61,20 +63,22 @@ func setActive(_value: bool) -> void:
 	self.visible = _value
 	if(_value):
 		setParametersOnPlayerState()
-		PlayerState.currentWeapon = self
+		playerState.currentWeapon = self
 	pass
 
 
 func setParametersOnPlayerState() -> void:
-	PlayerState.damage = damage
-	PlayerState.fireRate = fireRate
+	playerState = Nodes.playerState # pq essa funcao pode ser chamada antes do ready
 	
-	PlayerState.armsDefaultPosition = armsDefaultPosition
-	PlayerState.armsAimPosition = armsAimPosition
-	PlayerState.aimFOV = aimFOV
+	playerState.damage = damage
+	playerState.fireRate = fireRate
 	
-	PlayerState.recoilShakeStrength = recoilShakeStrength
-	PlayerState.recoilPosZStrength = recoilPosZStrength
-	PlayerState.recoilRotXStrength = recoilRotXStrength
-	PlayerState.recoilRotZStrength = recoilRotZStrength
+	playerState.armsDefaultPosition = armsDefaultPosition
+	playerState.armsAimPosition = armsAimPosition
+	playerState.aimFOV = aimFOV
+	
+	playerState.recoilShakeStrength = recoilShakeStrength
+	playerState.recoilPosZStrength = recoilPosZStrength
+	playerState.recoilRotXStrength = recoilRotXStrength
+	playerState.recoilRotZStrength = recoilRotZStrength
 	pass

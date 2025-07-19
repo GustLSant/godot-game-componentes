@@ -1,6 +1,7 @@
-[gd_scene load_steps=56 format=4 uid="uid://vb3cyx2rvxhs"]
+[gd_scene load_steps=57 format=4 uid="uid://vb3cyx2rvxhs"]
 
 [ext_resource type="Script" uid="uid://d2y2o1dt32ska" path="res://Components/Player/CameraControllerScripts/FpsModeScripts/PlayerFpsArmsController.gd" id="1_qqdmd"]
+[ext_resource type="PackedScene" uid="uid://cx0kso1jvtdxa" path="res://Components/Player/PlayerWeapon/Weapon_01.tscn" id="2_bdhlb"]
 
 [sub_resource type="Curve" id="Curve_2lbj5"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.8, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -856,3 +857,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.333333, 0.15408)
 layers = 2
 mesh = SubResource("ArrayMesh_sbia5")
 skeleton = NodePath("../../../../../../../../../../..")
+
+[node name="Weapon01" parent="PivotRot/PivotSway/PivotTilt/PivotPosture/PivotRecoil/PivotPosAim/WeaponsSocket" instance=ExtResource("2_bdhlb")]

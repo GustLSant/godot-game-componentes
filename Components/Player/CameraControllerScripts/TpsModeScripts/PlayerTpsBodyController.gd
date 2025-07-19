@@ -40,7 +40,7 @@ func handleRotation() -> void:
 
 
 func handleAimBehaviour() -> void:
-	pivotRot.global_rotation.y = int(PlayerState.isAiming) * PlayerState.currentPivotRot.global_rotation.y + int(not PlayerState.isAiming) * pivotRot.global_rotation.y
+	pivotRot.global_rotation.y = int(playerState.isAiming) * playerState.currentPivotRot.global_rotation.y + int(not playerState.isAiming) * pivotRot.global_rotation.y
 	pass
 
 
@@ -48,9 +48,9 @@ func handleAnimation() -> void:
 	var animIdx: int = getCurrentAnimationIdx()
 	tryChangeAnimation(ANIMATIONS[animIdx], animIdx)
 	
-	fallingBlendAmount = lerp(fallingBlendAmount, float(not PlayerState.isOnFloor), 20*delta)
+	fallingBlendAmount = lerp(fallingBlendAmount, float(not playerState.isOnFloor), 20*delta)
 	animTree["parameters/BlendFalling/blend_amount"] = fallingBlendAmount
-	animTree["parameters/StateMachine/AimBlendTree/BlendAimAngle/blend_amount"] = PlayerState.currentCameraController.pivotRot.rotation_degrees.x / PlayerState.currentCameraController.CAMERA_X_RANGE
+	animTree["parameters/StateMachine/AimBlendTree/BlendAimAngle/blend_amount"] = playerState.currentCameraController.pivotRot.rotation_degrees.x / playerState.currentCameraController.CAMERA_X_RANGE
 	pass
 
 
@@ -59,24 +59,24 @@ func getCurrentAnimationIdx() -> int:
 	var isPlayerMoving: bool = (Nodes.player.velocity.x != 0.0) or (Nodes.player.velocity.z != 0.0)
 	
 	animIdx += int(
-		not PlayerState.isAiming and
+		not playerState.isAiming and
 		Nodes.player.velocity == Vector3.ZERO
 	) * IDLE_IDX
 	
 	animIdx += int(
-		not PlayerState.isAiming and
+		not playerState.isAiming and
 		isPlayerMoving and 
-		not PlayerState.isSprinting
+		not playerState.isSprinting
 	) * WALKING_IDX
 	
 	animIdx += int(
-		not PlayerState.isAiming and
+		not playerState.isAiming and
 		isPlayerMoving and 
-		PlayerState.isSprinting
+		playerState.isSprinting
 	) * SPRINTING_IDX
 	
 	animIdx += int(
-		PlayerState.isAiming
+		playerState.isAiming
 	) * AIM_IDX
 	
 	if(animIdx >= ANIMATIONS.size()): printerr("idx de animacao maior que o permitido: ", animIdx)
