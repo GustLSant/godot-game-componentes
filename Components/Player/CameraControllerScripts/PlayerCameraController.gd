@@ -107,8 +107,8 @@ func onActiveUpdate(_value) -> void:
 
 
 func handleRecoilEffect() -> void:
-	pivotRot.rotation_degrees.y += currentRecoilStrength * recoilDirection.x
-	pivotRot.rotation_degrees.x += currentRecoilStrength * recoilDirection.y
+	pivotRot.rotation_degrees.y += currentRecoilStrength * recoilDirection.x * delta
+	pivotRot.rotation_degrees.x += currentRecoilStrength * recoilDirection.y * delta
 	
 	pivotRot.rotation_degrees.x = clamp(pivotRot.rotation_degrees.x, -CAMERA_X_RANGE, CAMERA_X_RANGE)
 	
@@ -116,7 +116,7 @@ func handleRecoilEffect() -> void:
 	pass
 
 func addRecoil(_strength: float) -> void:
-	recoilDirection = Vector2(randf_range(-0.15, 0.15), randf_range(0.15, 0.5))
+	recoilDirection = Vector2(randf_range(-5.0, 15.0), randf_range(15.0, 30.0))
 	currentRecoilStrength += _strength
 	currentRecoilStrength = clamp(currentRecoilStrength, 0.0, MAX_RECOIL_STRENGTH)
 	pass

@@ -53,8 +53,6 @@ func getAimInput() -> void:
 
 func handleShootInput() -> void:
 	if(Input.is_action_pressed("Shoot") and currentFireCooldown <= 0.0 and playerState.currentWeapon == self):
-		print(playerState.inventory)
-		print(playerState.currentWeapon)
 		playerState.emit_signal("PlayerShot", cameraRecoilStrength)
 		currentFireCooldown = playerState.fireRate
 	pass

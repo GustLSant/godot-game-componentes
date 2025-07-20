@@ -41,4 +41,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.65, -1.25)
 [node name="WeaponsSocket" type="Node3D" parent="PivotRot/PivotSway/PivotTilt/PivotPosture/PivotPosAim/PivotRecoil"]
 
 [node name="Weapon01" parent="PivotRot/PivotSway/PivotTilt/PivotPosture/PivotPosAim/PivotRecoil/WeaponsSocket" instance=ExtResource("2_bdhlb")]
+armsAimPosition = Vector3(0, -0.33, -0.75)
 isActive = true

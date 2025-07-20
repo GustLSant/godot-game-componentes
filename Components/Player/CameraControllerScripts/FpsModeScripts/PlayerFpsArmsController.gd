@@ -116,23 +116,16 @@ func handlePostureEffect() -> void:
 
 
 func handleRecoilEffect() -> void:
-	var targetPosZ: float = posRecoilCurve.sample_baked(recoilCurveOffset) * 0.5                  * playerState.recoilPosZStrength
-	var targetRotX: float = rotRecoilCurve.sample_baked(recoilCurveOffset) * 4.0                  * playerState.recoilRotXStrength
-	var targetRotZ: float = rotRecoilCurve.sample_baked(recoilCurveOffset) * 10.0 * recoilRotZSide * playerState.recoilRotZStrength
+	var targetPosZ: float = posRecoilCurve.sample_baked(recoilCurveOffset) * 0.15                 * playerState.recoilPosZStrength
+	var targetRotX: float = rotRecoilCurve.sample_baked(recoilCurveOffset) * 5.0                  * playerState.recoilRotXStrength
+	var targetRotZ: float = rotRecoilCurve.sample_baked(recoilCurveOffset) * 4.0 * recoilRotZSide * playerState.recoilRotZStrength
 	
-	var deltaFactor: float = 25.0 * delta
-	deltaFactor = int(deltaFactor <= 0.9) * deltaFactor + int(deltaFactor > 0.9) * 0.9 # clamp max
-	
-	pivotRecoil.position.z = lerp(pivotRecoil.position.z, targetPosZ, deltaFactor)
-	pivotRecoil.rotation_degrees.x = lerp(pivotRecoil.rotation_degrees.x, targetRotX, deltaFactor)
-	pivotRecoil.rotation_degrees.z = lerp(pivotRecoil.rotation_degrees.z, targetRotZ, deltaFactor)
-	
-	#recoilCurveOffset = lerp(recoilCurveOffset, 0.0, 10.0 * delta)
+	pivotRecoil.position.z = targetPosZ
+	pivotRecoil.rotation_degrees.x = targetRotX
+	pivotRecoil.rotation_degrees.z = targetRotZ
 	pass
 
 func addRecoil() -> void:
-	#recoilCurveOffset = 1.0
-	
 	if(tweenRecoil):
 		tweenRecoil.kill()
 		tweenRecoil = get_tree().create_tween()
@@ -141,7 +134,9 @@ func addRecoil() -> void:
 	
 	recoilRotZSide = [-1, 1].pick_random()
 	recoilCurveOffset = 1.0
-	tweenRecoil.tween_property(self, "recoilCurveOffset", 0.0, 0.15)
+	tweenRecoil.set_ease(Tween.EASE_OUT)
+	tweenRecoil.set_trans(Tween.TRANS_CUBIC)
+	tweenRecoil.tween_property(self, "recoilCurveOffset", 0.0, 0.4)
 	pass
 
 
