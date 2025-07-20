@@ -10,15 +10,19 @@ const ARMS_AIM_ROT_SPEED: float = 40.0
 @export var pivotRecoil: Marker3D
 @export var pivotPosAim: Marker3D
 
-@export var recoilCurve: Curve
-var recoilOffset: float = 0.0
+@export var posZRecoilCurve: Curve
+@export var rotXRecoilCurve: Curve
+@export var rotZRecoilCurve: Curve
+var tweenRecoil: Tween
+var recoilCurveOffset: float = 0.0
 var recoilRotZSide: float = 1.0
 
 var delta:float = 0.016
 
 
 func _init() -> void:
-	playerState.connect("PickupWeapon", onPickupWeapon)
+	super._init()
+	Nodes.playerState.connect("PickupWeapon", onPickupWeapon)
 	pass
 
 
@@ -113,23 +117,38 @@ func handlePostureEffect() -> void:
 
 
 func handleRecoilEffect() -> void:
-	pivotRecoil.position.z = recoilCurve.sample_baked(recoilOffset) * 0.05 * playerState.recoilPosZStrength
+	var targetPosZ: float = posZRecoilCurve.sample_baked(recoilCurveOffset) * 0.5                  * playerState.recoilPosZStrength
+	var targetRotX: float = rotXRecoilCurve.sample_baked(recoilCurveOffset) * 4.0                  * playerState.recoilRotXStrength
+	var targetRotZ: float = rotZRecoilCurve.sample_baked(recoilCurveOffset) * 3.5 * recoilRotZSide * playerState.recoilRotZStrength
 	
-	pivotRecoil.rotation.x = recoilCurve.sample_baked(recoilOffset) * 0.035 * playerState.recoilRotXStrength
-	pivotRecoil.rotation.z = recoilCurve.sample_baked(recoilOffset) * -0.025 * recoilRotZSide * playerState.recoilRotZStrength
+	var deltaFactor: float = 25.0 * delta
+	deltaFactor = int(deltaFactor <= 0.9) * deltaFactor + int(deltaFactor > 0.9) * 0.9 # clamp max
 	
-	recoilOffset = lerp(recoilOffset, 0.0, 10.0 * delta)
+	pivotRecoil.position.z = lerp(pivotRecoil.position.z, targetPosZ, deltaFactor)
+	pivotRecoil.rotation_degrees.x = lerp(pivotRecoil.rotation_degrees.x, targetRotX, deltaFactor)
+	pivotRecoil.rotation_degrees.z = lerp(pivotRecoil.rotation_degrees.z, targetRotZ, deltaFactor)
+	
+	#recoilCurveOffset = lerp(recoilCurveOffset, 0.0, 10.0 * delta)
 	pass
 
 func addRecoil() -> void:
-	recoilOffset = 1.0
+	#recoilCurveOffset = 1.0
+	
+	if(tweenRecoil):
+		tweenRecoil.kill()
+		tweenRecoil = get_tree().create_tween()
+	else:
+		tweenRecoil = get_tree().create_tween()
+	
+	recoilRotZSide = [-1, 1].pick_random()
+	recoilCurveOffset = 1.0
+	tweenRecoil.tween_property(self, "recoilCurveOffset", 0.0, 0.2)
 	pass
 
 
 func onPlayerShot(_recoilStrength: float) -> void:
 	if(playerState.currentCameraMode == selfMode):
 		addRecoil()
-		recoilRotZSide = [1, -1].pick_random()
 	pass
 
 

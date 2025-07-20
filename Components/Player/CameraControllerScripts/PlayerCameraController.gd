@@ -27,9 +27,9 @@ var delta: float = 0.016
 
 
 func _init() -> void:
-	playerState.connect("CameraModeChanged", onCameraModeChanged)
-	playerState.connect("PlayerShot", onPlayerShot)
-	playerState.connect("DamageTaken", onDamageTaken)
+	Nodes.playerState.connect("CameraModeChanged", onCameraModeChanged)
+	Nodes.playerState.connect("PlayerShot", onPlayerShot)
+	Nodes.playerState.connect("DamageTaken", onDamageTaken)
 	pass
 
 

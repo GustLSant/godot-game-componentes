@@ -7,8 +7,8 @@ class_name PlayerModelController
 
 
 func _init() -> void:
-	playerState.connect("CameraModeChanged", onCameraModeChanged)
-	playerState.connect("PlayerShot", onPlayerShot)
+	Nodes.playerState.connect("CameraModeChanged", onCameraModeChanged)
+	Nodes.playerState.connect("PlayerShot", onPlayerShot)
 	pass
 
 

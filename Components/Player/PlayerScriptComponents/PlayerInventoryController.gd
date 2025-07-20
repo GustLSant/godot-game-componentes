@@ -5,9 +5,9 @@ class_name PlayerInventoryController
 
 
 func _init() -> void:
-	playerState.connect("TryPickupWeapon", onTryPickupWeapon)
-	playerState.connect("PickupWeapon", onPickupWeapon)
-	playerState.connect("ChangeWeapon", onChangeWeapon)
+	Nodes.playerState.connect("TryPickupWeapon", onTryPickupWeapon)
+	Nodes.playerState.connect("PickupWeapon", onPickupWeapon)
+	Nodes.playerState.connect("ChangeWeapon", onChangeWeapon)
 	pass
 
 

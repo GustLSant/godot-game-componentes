@@ -1,10 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://vb3cyx2rvxhs"]
+[gd_scene load_steps=6 format=3 uid="uid://vb3cyx2rvxhs"]
 
 [ext_resource type="Script" uid="uid://d2y2o1dt32ska" path="res://Components/Player/CameraControllerScripts/FpsModeScripts/PlayerFpsArmsController.gd" id="1_qqdmd"]
 [ext_resource type="PackedScene" uid="uid://cx0kso1jvtdxa" path="res://Components/Player/PlayerWeapon/Weapon_01.tscn" id="2_bdhlb"]
 
 [sub_resource type="Curve" id="Curve_2lbj5"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.8, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.9, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_bdhlb"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1.49012e-08), 0.0, 0.0, 0, 0, Vector2(0.6, 0.4), 0.0, 0.0, 0, 0, Vector2(0.7, -0.6), 0.0, 0.0, 0, 0, Vector2(0.8, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 6
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_b62om"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 metadata/_snap_enabled = true
 
@@ -15,7 +26,9 @@ pivotTilt = NodePath("PivotRot/PivotSway/PivotTilt")
 pivotPosture = NodePath("PivotRot/PivotSway/PivotTilt/PivotPosture")
 pivotRecoil = NodePath("PivotRot/PivotSway/PivotTilt/PivotPosture/PivotRecoil")
 pivotPosAim = NodePath("PivotRot/PivotSway/PivotTilt/PivotPosture/PivotRecoil/PivotPosAim")
-recoilCurve = SubResource("Curve_2lbj5")
+posZRecoilCurve = SubResource("Curve_2lbj5")
+rotXRecoilCurve = SubResource("Curve_bdhlb")
+rotZRecoilCurve = SubResource("Curve_b62om")
 pivotRot = NodePath("PivotRot")
 
 [node name="PivotRot" type="Marker3D" parent="."]

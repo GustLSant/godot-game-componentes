@@ -5,7 +5,7 @@ class_name PlayerHealthController
 
 
 func _init() -> void:
-	playerState.connect("DamageTaken", onDamageTaken)
+	Nodes.playerState.connect("DamageTaken", onDamageTaken)
 	pass
 
 
