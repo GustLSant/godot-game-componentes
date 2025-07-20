@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://vb3cyx2rvxhs"]
+[gd_scene load_steps=5 format=3 uid="uid://vb3cyx2rvxhs"]
 
 [ext_resource type="Script" uid="uid://d2y2o1dt32ska" path="res://Components/Player/CameraControllerScripts/FpsModeScripts/PlayerFpsArmsController.gd" id="1_qqdmd"]
 [ext_resource type="PackedScene" uid="uid://cx0kso1jvtdxa" path="res://Components/Player/PlayerWeapon/Weapon_01.tscn" id="2_bdhlb"]
@@ -9,13 +9,7 @@ point_count = 3
 metadata/_snap_enabled = true
 
 [sub_resource type="Curve" id="Curve_bdhlb"]
-_limits = [-1.0, 1.0, 0.0, 1.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1.49012e-08), 0.0, 0.0, 0, 0, Vector2(0.6, 0.4), 0.0, 0.0, 0, 0, Vector2(0.7, -0.6), 0.0, 0.0, 0, 0, Vector2(0.8, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 6
-metadata/_snap_enabled = true
-
-[sub_resource type="Curve" id="Curve_b62om"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.8, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 metadata/_snap_enabled = true
 
@@ -24,11 +18,10 @@ script = ExtResource("1_qqdmd")
 pivotSway = NodePath("PivotRot/PivotSway")
 pivotTilt = NodePath("PivotRot/PivotSway/PivotTilt")
 pivotPosture = NodePath("PivotRot/PivotSway/PivotTilt/PivotPosture")
-pivotRecoil = NodePath("PivotRot/PivotSway/PivotTilt/PivotPosture/PivotRecoil")
-pivotPosAim = NodePath("PivotRot/PivotSway/PivotTilt/PivotPosture/PivotRecoil/PivotPosAim")
-posZRecoilCurve = SubResource("Curve_2lbj5")
-rotXRecoilCurve = SubResource("Curve_bdhlb")
-rotZRecoilCurve = SubResource("Curve_b62om")
+pivotRecoil = NodePath("PivotRot/PivotSway/PivotTilt/PivotPosture/PivotPosAim/PivotRecoil")
+pivotPosAim = NodePath("PivotRot/PivotSway/PivotTilt/PivotPosture/PivotPosAim")
+posRecoilCurve = SubResource("Curve_2lbj5")
+rotRecoilCurve = SubResource("Curve_bdhlb")
 pivotRot = NodePath("PivotRot")
 
 [node name="PivotRot" type="Marker3D" parent="."]
@@ -40,12 +33,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="PivotPosture" type="Marker3D" parent="PivotRot/PivotSway/PivotTilt"]
 
-[node name="PivotRecoil" type="Marker3D" parent="PivotRot/PivotSway/PivotTilt/PivotPosture"]
+[node name="PivotPosAim" type="Marker3D" parent="PivotRot/PivotSway/PivotTilt/PivotPosture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.65, -1.25)
 
-[node name="PivotPosAim" type="Marker3D" parent="PivotRot/PivotSway/PivotTilt/PivotPosture/PivotRecoil"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -1, -0.7)
+[node name="PivotRecoil" type="Marker3D" parent="PivotRot/PivotSway/PivotTilt/PivotPosture/PivotPosAim"]
 
-[node name="WeaponsSocket" type="Node3D" parent="PivotRot/PivotSway/PivotTilt/PivotPosture/PivotRecoil/PivotPosAim"]
+[node name="WeaponsSocket" type="Node3D" parent="PivotRot/PivotSway/PivotTilt/PivotPosture/PivotPosAim/PivotRecoil"]
 
-[node name="Weapon01" parent="PivotRot/PivotSway/PivotTilt/PivotPosture/PivotRecoil/PivotPosAim/WeaponsSocket" instance=ExtResource("2_bdhlb")]
+[node name="Weapon01" parent="PivotRot/PivotSway/PivotTilt/PivotPosture/PivotPosAim/PivotRecoil/WeaponsSocket" instance=ExtResource("2_bdhlb")]
 isActive = true

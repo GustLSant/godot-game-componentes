@@ -44,8 +44,8 @@ signal PlayerShot(_recoilStrength: float)
 # Weapons Parameters
 var damage: float = 20.0
 var fireRate: float = 0.1
-var armsDefaultPosition: Vector3 = Vector3(0.6, -1.0, 0.2) # short: Vector3(0.6, -1.0, -0.4)
-var armsAimPosition: Vector3 = Vector3(0.0, -0.57, 0.4)    # short: Vector3(0.0, -0.57, -0.2)
+var armsDefaultPosition: Vector3 = Vector3(0.6, -0.65, -1.25) # short: Vector3(0.6, -1.0, -0.4)
+var armsAimPosition: Vector3 = Vector3(0.0, -0.35, -1.0)      # short: Vector3(0.0, -0.57, -0.2)
 var aimFOV: float = 45.0
 var recoilShakeStrength: float = 1.0
 var recoilPosZStrength: float = 1.0

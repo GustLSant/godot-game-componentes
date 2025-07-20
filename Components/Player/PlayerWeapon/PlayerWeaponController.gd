@@ -7,8 +7,8 @@ class_name PlayerWeaponController
 @export var fireRate: float = 0.15
 
 @export_category("Aim Variables")
-@export var armsDefaultPosition: Vector3 = Vector3(0.6, -1.0, 0.2)
-@export var armsAimPosition: Vector3 = Vector3(0.0, -0.57, 0.4)
+@export var armsDefaultPosition: Vector3 = Vector3(0.6, -0.65, -1.25)
+@export var armsAimPosition: Vector3 = Vector3(0.0, -0.33, -1.0)
 @export var aimFOV: float = 45.0
 
 @export_category("Recoil Variables")
