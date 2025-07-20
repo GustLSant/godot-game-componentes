@@ -26,15 +26,19 @@ var currentRecoilStrength: float = 0.0
 var delta: float = 0.016
 
 
+func _init() -> void:
+	playerState.connect("CameraModeChanged", onCameraModeChanged)
+	playerState.connect("PlayerShot", onPlayerShot)
+	playerState.connect("DamageTaken", onDamageTaken)
+	pass
+
+
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	shakeNoise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
 	shakeNoise.frequency = 4.0
 	
 	setActive(selfMode == playerState.currentCameraMode)
-	playerState.connect("CameraModeChanged", onCameraModeChanged)
-	playerState.connect("PlayerShot", onPlayerShot)
-	playerState.connect("DamageTaken", onDamageTaken)
 	pass
 
 

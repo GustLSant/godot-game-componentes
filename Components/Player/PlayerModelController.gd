@@ -6,10 +6,14 @@ class_name PlayerModelController
 @export var pivotRot: Marker3D
 
 
-func _ready() -> void:
-	setActive(selfMode == playerState.currentCameraMode)
+func _init() -> void:
 	playerState.connect("CameraModeChanged", onCameraModeChanged)
 	playerState.connect("PlayerShot", onPlayerShot)
+	pass
+
+
+func _ready() -> void:
+	setActive(selfMode == playerState.currentCameraMode)
 	pass
 
 

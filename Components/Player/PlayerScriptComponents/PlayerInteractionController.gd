@@ -6,7 +6,7 @@ class_name PlayerInteractionController
 @export var labelActionKey: Label
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	raycast.global_transform = Nodes.playerState.currentCameraController.camera.global_transform
 	
 	if(raycast.is_colliding()):

@@ -661,7 +661,7 @@ albedo_color = Color(0.133196, 0.133196, 0.133196, 1)
 script/source = "extends Label
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	self.text = str(Engine.get_frames_per_second())
 "
 

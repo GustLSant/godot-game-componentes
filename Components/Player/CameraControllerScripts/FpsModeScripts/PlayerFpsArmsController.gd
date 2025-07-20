@@ -17,9 +17,13 @@ var recoilRotZSide: float = 1.0
 var delta:float = 0.016
 
 
+func _init() -> void:
+	playerState.connect("PickupWeapon", onPickupWeapon)
+	pass
+
+
 func _ready() -> void:
 	super._ready()
-	playerState.connect("PickupWeapon", onPickupWeapon)
 	pass
 
 
@@ -129,6 +133,7 @@ func onPlayerShot(_recoilStrength: float) -> void:
 	pass
 
 
-func onPickupWeapon(_newWeaponScene: Node3D) -> void:
-	$PivotRot/PivotSway/PivotTilt/PivotPosture/PivotRecoil/PivotPosAim/WeaponsSocket.add_child(_newWeaponScene)
+func onPickupWeapon(_newWeaponScene: Node3D, _spawnOnPlayerModel: bool) -> void:
+	if(_spawnOnPlayerModel):
+		$PivotRot/PivotSway/PivotTilt/PivotPosture/PivotRecoil/PivotPosAim/WeaponsSocket.add_child(_newWeaponScene)
 	pass

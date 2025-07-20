@@ -18,17 +18,24 @@ class_name PlayerWeaponController
 @export var recoilRotXStrength: float = 1.0
 @export var recoilRotZStrength: float = 1.0
 
-var isActive: bool = true : set = setActive
+@export var isActive: bool = false : set = setActive
 var currentFireCooldown: float = 0.0
 var delta: float = 0.016
 
 
+func _init() -> void:
+	Nodes.playerState.connect("ChangeWeapon", onChangeWeapon)
+	pass
+
+
 func _ready() -> void:
-	if(isActive): setParametersOnPlayerState()
+	setActive(isActive)
+	if(isActive): playerState.emit_signal("PickupWeapon", self, false)
 	pass
 
 
 func _process(_delta: float) -> void:
+	if(not isActive): return
 	delta = _delta
 	getAimInput()
 	handleShootInput()
@@ -45,7 +52,9 @@ func getAimInput() -> void:
 
 
 func handleShootInput() -> void:
-	if(Input.is_action_pressed("Shoot") and currentFireCooldown <= 0.0 and playerState.inventory.size() > 0):
+	if(Input.is_action_pressed("Shoot") and currentFireCooldown <= 0.0 and playerState.currentWeapon == self):
+		print(playerState.inventory)
+		print(playerState.currentWeapon)
 		playerState.emit_signal("PlayerShot", cameraRecoilStrength)
 		currentFireCooldown = playerState.fireRate
 	pass
@@ -58,12 +67,8 @@ func handleAtackRate() -> void:
 
 func setActive(_value: bool) -> void:
 	isActive = _value
-	self.set_process(_value)
-	self.set_physics_process(_value)
 	self.visible = _value
-	if(_value):
-		setParametersOnPlayerState()
-		playerState.currentWeapon = self
+	if(_value): setParametersOnPlayerState()
 	pass
 
 
@@ -81,4 +86,9 @@ func setParametersOnPlayerState() -> void:
 	playerState.recoilPosZStrength = recoilPosZStrength
 	playerState.recoilRotXStrength = recoilRotXStrength
 	playerState.recoilRotZStrength = recoilRotZStrength
+	pass
+
+
+func onChangeWeapon(_newWeapon: PlayerWeaponController) -> void:
+	setActive(self == _newWeapon)
 	pass

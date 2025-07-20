@@ -40,6 +40,7 @@ script = ExtResource("2_8qe71")
 script = ExtResource("6_px31v")
 
 [node name="InventoryController" type="Node" parent="Components"]
+process_priority = 1
 script = ExtResource("7_qij2n")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

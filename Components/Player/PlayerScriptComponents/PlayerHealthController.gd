@@ -4,7 +4,7 @@ class_name PlayerHealthController
 @onready var playerState: PlayerState = Nodes.playerState
 
 
-func _ready() -> void:
+func _init() -> void:
 	playerState.connect("DamageTaken", onDamageTaken)
 	pass
 
