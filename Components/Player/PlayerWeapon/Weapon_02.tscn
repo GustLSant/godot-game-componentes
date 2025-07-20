@@ -531,8 +531,9 @@ size = Vector3(0.4, 0.4, 1.2)
 script = ExtResource("1_ddo5g")
 fireRate = 0.2
 armsDefaultPosition = Vector3(0.6, -0.65, -1.75)
+recoverFactor = 2.0
 recoilPosZStrength = 1.5
-recoilRotXStrength = 1.5
+recoilRotXStrength = 5.0
 
 [node name="pistol-01" type="Node3D" parent="."]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0.05, 0.26, 0.0450001)

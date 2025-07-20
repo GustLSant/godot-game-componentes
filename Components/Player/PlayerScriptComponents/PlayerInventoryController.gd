@@ -32,12 +32,16 @@ func onPickupWeapon(_newWeapon: PlayerWeaponController, _spawnOnPlayerModel: boo
 
 
 func getInputChangeWeapon() -> void:
-	if(Input.is_action_just_pressed("ChangeNextWeapon")): handleInputChangeWeapon(1)
-	elif(Input.is_action_just_pressed("ChangePreviousWeapon")): handleInputChangeWeapon(-1)
+	if(Input.is_action_just_pressed("ChangeNextWeapon")): handleInputChangeWeaponByDirection(1)
+	elif(Input.is_action_just_pressed("ChangePreviousWeapon")): handleInputChangeWeaponByDirection(-1)
+	
+	if(Input.is_action_just_pressed("ChangeFirstWeapon")): handleInputChangeWeaponByIdx(0)
+	if(Input.is_action_just_pressed("ChangeSecondWeapon")): handleInputChangeWeaponByIdx(1)
+	if(Input.is_action_just_pressed("ChangeThirdWeapon")): handleInputChangeWeaponByIdx(2)
 	pass
 
 
-func handleInputChangeWeapon(_changeDirection: int) -> void:
+func handleInputChangeWeaponByDirection(_changeDirection: int) -> void:
 	if(playerState.inventory.size() <= 1): return
 	if(playerState.currentWeapon == null): playerState.emit_signal("ChangeWeapon", playerState.inventory[0]) # sem nenhuma arma equipada, equipa a primeira do inventario
 	
@@ -54,6 +58,13 @@ func handleInputChangeWeapon(_changeDirection: int) -> void:
 		nextWeaponIdx = playerState.inventory.size()-1
 	
 	playerState.emit_signal("ChangeWeapon", playerState.inventory[nextWeaponIdx])
+	pass
+
+
+func handleInputChangeWeaponByIdx(_idx: int) -> void:
+	if(_idx > playerState.inventory.size()-1): return
+	if(playerState.inventory[_idx] != null):
+		playerState.emit_signal("ChangeWeapon", playerState.inventory[_idx])
 	pass
 
 

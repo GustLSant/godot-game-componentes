@@ -117,12 +117,12 @@ func handlePostureEffect() -> void:
 
 func handleRecoilEffect() -> void:
 	var targetPosZ: float = posRecoilCurve.sample_baked(recoilCurveOffset) * 0.15                 * playerState.recoilPosZStrength
-	var targetRotX: float = rotRecoilCurve.sample_baked(recoilCurveOffset) * 5.0                  * playerState.recoilRotXStrength
-	var targetRotZ: float = rotRecoilCurve.sample_baked(recoilCurveOffset) * 4.0 * recoilRotZSide * playerState.recoilRotZStrength
+	var targetRotX: float = rotRecoilCurve.sample_baked(recoilCurveOffset) * 2.0                  * playerState.recoilRotXStrength
+	var targetRotZ: float = rotRecoilCurve.sample_baked(recoilCurveOffset) * 1.0 * recoilRotZSide * playerState.recoilRotZStrength
 	
-	pivotRecoil.position.z = targetPosZ
-	pivotRecoil.rotation_degrees.x = targetRotX
-	pivotRecoil.rotation_degrees.z = targetRotZ
+	pivotRecoil.position.z =         Utils.betterLerpF(pivotRecoil.position.z,         targetPosZ, 45.0, delta)
+	pivotRecoil.rotation_degrees.x = Utils.betterLerpF(pivotRecoil.rotation_degrees.x, targetRotX, 45.0, delta)
+	pivotRecoil.rotation_degrees.z = Utils.betterLerpF(pivotRecoil.rotation_degrees.z, targetRotZ, 45.0, delta)
 	pass
 
 func addRecoil() -> void:
@@ -134,9 +134,10 @@ func addRecoil() -> void:
 	
 	recoilRotZSide = [-1, 1].pick_random()
 	recoilCurveOffset = 1.0
-	tweenRecoil.set_ease(Tween.EASE_OUT)
+	var tweenDuration: float = 0.4 / playerState.recoverFactor
 	tweenRecoil.set_trans(Tween.TRANS_CUBIC)
-	tweenRecoil.tween_property(self, "recoilCurveOffset", 0.0, 0.4)
+	tweenRecoil.set_ease(Tween.EASE_OUT)
+	tweenRecoil.tween_property(self, "recoilCurveOffset", 0.0, tweenDuration)
 	pass
 
 

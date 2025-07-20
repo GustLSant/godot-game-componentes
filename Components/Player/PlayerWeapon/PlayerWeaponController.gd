@@ -12,7 +12,8 @@ class_name PlayerWeaponController
 @export var aimFOV: float = 45.0
 
 @export_category("Recoil Variables")
-@export var cameraRecoilStrength:float = 1.0
+@export var recoverFactor: float = 1.0
+@export var cameraRecoilStrength: float = 1.0
 @export var recoilShakeStrength: float = 1.0
 @export var recoilPosZStrength: float = 1.0
 @export var recoilRotXStrength: float = 1.0
@@ -80,6 +81,7 @@ func setParametersOnPlayerState() -> void:
 	playerState.armsAimPosition = armsAimPosition
 	playerState.aimFOV = aimFOV
 	
+	playerState.recoverFactor = recoverFactor
 	playerState.recoilShakeStrength = recoilShakeStrength
 	playerState.recoilPosZStrength = recoilPosZStrength
 	playerState.recoilRotXStrength = recoilRotXStrength

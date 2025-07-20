@@ -116,7 +116,7 @@ func handleRecoilEffect() -> void:
 	pass
 
 func addRecoil(_strength: float) -> void:
-	recoilDirection = Vector2(randf_range(-5.0, 15.0), randf_range(15.0, 30.0))
+	recoilDirection = Vector2(randf_range(-5, 5), randf_range(10.0, 20.0))
 	currentRecoilStrength += _strength
 	currentRecoilStrength = clamp(currentRecoilStrength, 0.0, MAX_RECOIL_STRENGTH)
 	pass
