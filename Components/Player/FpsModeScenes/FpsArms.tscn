@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://vb3cyx2rvxhs"]
+[gd_scene load_steps=8 format=3 uid="uid://vb3cyx2rvxhs"]
 
 [ext_resource type="Script" uid="uid://d2y2o1dt32ska" path="res://Components/Player/CameraControllerScripts/FpsModeScripts/PlayerFpsArmsController.gd" id="1_qqdmd"]
 [ext_resource type="PackedScene" uid="uid://cx0kso1jvtdxa" path="res://Components/Player/PlayerWeapon/Weapon_01.tscn" id="2_bdhlb"]
@@ -13,13 +13,66 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2
 point_count = 3
 metadata/_snap_enabled = true
 
-[node name="FpsArms" type="Node3D" node_paths=PackedStringArray("pivotSway", "pivotTilt", "pivotPosture", "pivotRecoil", "pivotPosAim", "pivotRot")]
+[sub_resource type="Animation" id="Animation_bdhlb"]
+resource_name = "ChangeWeapon"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:changeWeaponRotXAnimValue")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -45.0, 0.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"onMiddleOfChangeWeaponAnimation"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_b62om"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:changeWeaponRotXAnimValue")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b62om"]
+_data = {
+&"ChangeWeapon": SubResource("Animation_bdhlb"),
+&"RESET": SubResource("Animation_b62om")
+}
+
+[node name="FpsArms" type="Node3D" node_paths=PackedStringArray("pivotSway", "pivotTilt", "pivotPosture", "pivotAnim", "pivotRecoil", "pivotPosAim", "animP", "pivotRot")]
 script = ExtResource("1_qqdmd")
 pivotSway = NodePath("PivotRot/PivotSway")
 pivotTilt = NodePath("PivotRot/PivotSway/PivotTilt")
 pivotPosture = NodePath("PivotRot/PivotSway/PivotTilt/PivotPosture")
-pivotRecoil = NodePath("PivotRot/PivotSway/PivotTilt/PivotPosture/PivotPosAim/PivotRecoil")
-pivotPosAim = NodePath("PivotRot/PivotSway/PivotTilt/PivotPosture/PivotPosAim")
+pivotAnim = NodePath("PivotRot/PivotSway/PivotTilt/PivotPosture/PivotAnim")
+pivotRecoil = NodePath("PivotRot/PivotSway/PivotTilt/PivotPosture/PivotAnim/PivotPosAim/PivotRecoil")
+pivotPosAim = NodePath("PivotRot/PivotSway/PivotTilt/PivotPosture/PivotAnim/PivotPosAim")
+animP = NodePath("AnimationPlayer")
 posRecoilCurve = SubResource("Curve_2lbj5")
 rotRecoilCurve = SubResource("Curve_bdhlb")
 pivotRot = NodePath("PivotRot")
@@ -33,13 +86,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="PivotPosture" type="Marker3D" parent="PivotRot/PivotSway/PivotTilt"]
 
-[node name="PivotPosAim" type="Marker3D" parent="PivotRot/PivotSway/PivotTilt/PivotPosture"]
+[node name="PivotAnim" type="Marker3D" parent="PivotRot/PivotSway/PivotTilt/PivotPosture"]
+
+[node name="PivotPosAim" type="Marker3D" parent="PivotRot/PivotSway/PivotTilt/PivotPosture/PivotAnim"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.65, -1.25)
 
-[node name="PivotRecoil" type="Marker3D" parent="PivotRot/PivotSway/PivotTilt/PivotPosture/PivotPosAim"]
+[node name="PivotRecoil" type="Marker3D" parent="PivotRot/PivotSway/PivotTilt/PivotPosture/PivotAnim/PivotPosAim"]
 
-[node name="WeaponsSocket" type="Node3D" parent="PivotRot/PivotSway/PivotTilt/PivotPosture/PivotPosAim/PivotRecoil"]
+[node name="WeaponsSocket" type="Node3D" parent="PivotRot/PivotSway/PivotTilt/PivotPosture/PivotAnim/PivotPosAim/PivotRecoil"]
 
-[node name="Weapon01" parent="PivotRot/PivotSway/PivotTilt/PivotPosture/PivotPosAim/PivotRecoil/WeaponsSocket" instance=ExtResource("2_bdhlb")]
+[node name="Weapon01" parent="PivotRot/PivotSway/PivotTilt/PivotPosture/PivotAnim/PivotPosAim/PivotRecoil/WeaponsSocket" instance=ExtResource("2_bdhlb")]
 armsAimPosition = Vector3(0, -0.33, -0.75)
 isActive = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_b62om")
+}
+speed_scale = 2.0

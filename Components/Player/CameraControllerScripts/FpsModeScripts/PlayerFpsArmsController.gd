@@ -7,8 +7,10 @@ const ARMS_AIM_ROT_SPEED: float = 40.0
 @export var pivotSway: Marker3D
 @export var pivotTilt: Marker3D
 @export var pivotPosture: Marker3D
+@export var pivotAnim: Marker3D
 @export var pivotRecoil: Marker3D
 @export var pivotPosAim: Marker3D
+@export var animP: AnimationPlayer
 
 @export var posRecoilCurve: Curve
 @export var rotRecoilCurve: Curve
@@ -16,12 +18,16 @@ var tweenRecoil: Tween
 var recoilCurveOffset: float = 0.0
 var recoilRotZSide: float = 1.0
 
+var nextWeaponScene: PlayerWeaponController = null
+@export var changeWeaponRotXAnimValue: float = 0.0
+
 var delta:float = 0.016
 
 
 func _init() -> void:
 	super._init()
 	Nodes.playerState.connect("PickupWeapon", onPickupWeapon)
+	Nodes.playerState.connect("TryChangeWeapon", onTryChangeWeapon)
 	pass
 
 
@@ -37,6 +43,7 @@ func _process(_delta: float) -> void:
 	handleSwayEffect()
 	handleTiltEffect()
 	handlePostureEffect()
+	handleAnimEffect()
 	handleRecoilEffect()
 	pass
 
@@ -115,6 +122,11 @@ func handlePostureEffect() -> void:
 	pass
 
 
+func handleAnimEffect() -> void:
+	pivotAnim.rotation_degrees.x = changeWeaponRotXAnimValue
+	pass
+
+
 func handleRecoilEffect() -> void:
 	var targetPosZ: float = posRecoilCurve.sample_baked(recoilCurveOffset) * 0.15                 * playerState.recoilPosZStrength
 	var targetRotX: float = rotRecoilCurve.sample_baked(recoilCurveOffset) * 2.0                  * playerState.recoilRotXStrength
@@ -149,5 +161,18 @@ func onPlayerShot(_recoilStrength: float) -> void:
 
 func onPickupWeapon(_newWeaponScene: Node3D, _spawnOnPlayerModel: bool) -> void:
 	if(_spawnOnPlayerModel):
-		$PivotRot/PivotSway/PivotTilt/PivotPosture/PivotPosAim/PivotRecoil/WeaponsSocket.add_child(_newWeaponScene)
+		$PivotRot/PivotSway/PivotTilt/PivotPosture/PivotAnim/PivotPosAim/PivotRecoil/WeaponsSocket.add_child(_newWeaponScene)
+	pass
+
+
+func onTryChangeWeapon(_newWeaponScene: PlayerWeaponController) -> void:
+	if(animP.is_playing()): return
+	else:
+		nextWeaponScene = _newWeaponScene
+		animP.play("ChangeWeapon")
+	pass
+
+
+func onMiddleOfChangeWeaponAnimation() -> void:
+	playerState.emit_signal("ChangeWeapon", nextWeaponScene)
 	pass

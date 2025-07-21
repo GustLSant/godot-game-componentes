@@ -27,7 +27,7 @@ func onPickupWeapon(_newWeapon: PlayerWeaponController, _spawnOnPlayerModel: boo
 	playerState.inventory.append(_newWeapon)
 	
 	if(playerState.inventory.size() == 1): # se nao tinha arma, ja equipa a que pegou
-		playerState.emit_signal("ChangeWeapon", playerState.inventory[0])
+		playerState.emit_signal("TryChangeWeapon", playerState.inventory[0])
 	pass
 
 
@@ -43,13 +43,9 @@ func getInputChangeWeapon() -> void:
 
 func handleInputChangeWeaponByDirection(_changeDirection: int) -> void:
 	if(playerState.inventory.size() <= 1): return
-	if(playerState.currentWeapon == null): playerState.emit_signal("ChangeWeapon", playerState.inventory[0]) # sem nenhuma arma equipada, equipa a primeira do inventario
+	if(playerState.currentWeapon == null): playerState.emit_signal("TryChangeWeapon", playerState.inventory[0]) # sem nenhuma arma equipada, equipa a primeira do inventario
 	
-	var currentWeaponIdx: int = 0
-	for i in range(playerState.inventory.size()):
-		if(playerState.inventory[i] == playerState.currentWeapon):
-			currentWeaponIdx = i
-			break
+	var currentWeaponIdx: int = getCurrentWeaponIdx()
 	
 	var nextWeaponIdx: int = currentWeaponIdx + _changeDirection
 	if(nextWeaponIdx > playerState.inventory.size()-1):
@@ -57,15 +53,29 @@ func handleInputChangeWeaponByDirection(_changeDirection: int) -> void:
 	elif(nextWeaponIdx < 0):
 		nextWeaponIdx = playerState.inventory.size()-1
 	
-	playerState.emit_signal("ChangeWeapon", playerState.inventory[nextWeaponIdx])
+	playerState.emit_signal("TryChangeWeapon", playerState.inventory[nextWeaponIdx])
 	pass
 
 
 func handleInputChangeWeaponByIdx(_idx: int) -> void:
 	if(_idx > playerState.inventory.size()-1): return
+	
+	if(playerState.currentWeapon == playerState.inventory[_idx]): return
+	
 	if(playerState.inventory[_idx] != null):
-		playerState.emit_signal("ChangeWeapon", playerState.inventory[_idx])
+		playerState.emit_signal("TryChangeWeapon", playerState.inventory[_idx])
 	pass
+
+
+func getCurrentWeaponIdx() -> int:
+	var result: int = -1
+	
+	for i in range(playerState.inventory.size()):
+		if(playerState.inventory[i] == playerState.currentWeapon):
+			result = i
+			break
+	
+	return result
 
 
 func onChangeWeapon(_nextCurrentWeapon: PlayerWeaponController) -> void:

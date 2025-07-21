@@ -34,6 +34,7 @@ var inventoryMaxSize: int = 3
 var currentWeapon: PlayerWeaponController = null
 signal TryPickupWeapon(_newWeaponScenePath: String)
 signal PickupWeapon(_newWeaponScene: PlayerWeaponController, _spawnOnPlayerModel: bool)
+signal TryChangeWeapon(_newWeaponScene: PlayerWeaponController)
 signal ChangeWeapon(_newWeaponScene: PlayerWeaponController)
 
 
