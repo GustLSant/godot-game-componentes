@@ -10,6 +10,7 @@ const ARMS_AIM_ROT_SPEED: float = 40.0
 @export var pivotAnim: Marker3D
 @export var pivotRecoil: Marker3D
 @export var pivotPosAim: Marker3D
+@export var weaponSocket: Node3D
 @export var animP: AnimationPlayer
 
 @export var posRecoilCurve: Curve
@@ -161,7 +162,7 @@ func onPlayerShot(_recoilStrength: float) -> void:
 
 func onPickupWeapon(_newWeaponScene: Node3D, _spawnOnPlayerModel: bool) -> void:
 	if(_spawnOnPlayerModel):
-		$PivotRot/PivotSway/PivotTilt/PivotPosture/PivotAnim/PivotPosAim/PivotRecoil/WeaponsSocket.add_child(_newWeaponScene)
+		weaponSocket.add_child(_newWeaponScene)
 	pass
 
 
