@@ -162,7 +162,7 @@ func onPlayerShot(_recoilStrength: float) -> void:
 
 func onPickupWeapon(_newWeaponScene: Node3D, _spawnOnPlayerModel: bool) -> void:
 	if(_spawnOnPlayerModel):
-		weaponSocket.add_child(_newWeaponScene)
+		weaponSocket.call_deferred("add_child", _newWeaponScene)
 	pass
 
 

@@ -168,8 +168,10 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_gc6gj")
 
-[node name="Weapon01" type="Node3D"]
+[node name="Weapon01" type="Node3D" node_paths=PackedStringArray("shotRayCast", "barrelNode")]
 script = ExtResource("1_0gfg1")
+shotRayCast = NodePath("ShotRayCast")
+barrelNode = NodePath("BarrelPos")
 fireRate = 0.125
 
 [node name="RightArm" type="MeshInstance3D" parent="."]
@@ -215,3 +217,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.333333, 0.15408)
 layers = 2
 mesh = SubResource("ArrayMesh_48ska")
 skeleton = NodePath("")
+
+[node name="ShotRayCast" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -75)
+collision_mask = 7
+collide_with_areas = true
+
+[node name="BarrelPos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.72529e-09, -1.85)

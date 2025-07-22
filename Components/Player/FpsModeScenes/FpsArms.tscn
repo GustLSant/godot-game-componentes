@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://vb3cyx2rvxhs"]
 
 [ext_resource type="Script" uid="uid://d2y2o1dt32ska" path="res://Components/Player/CameraControllerScripts/FpsModeScripts/PlayerFpsArmsController.gd" id="1_qqdmd"]
-[ext_resource type="PackedScene" uid="uid://cx0kso1jvtdxa" path="res://Components/Player/PlayerWeapon/Weapon_01.tscn" id="2_bdhlb"]
+[ext_resource type="Script" uid="uid://cu5562ee02nfj" path="res://Components/Player/PlayerWeapon/PlayerWeaponSpawner.gd" id="2_bdhlb"]
 
 [sub_resource type="Curve" id="Curve_2lbj5"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.9, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -96,9 +96,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.65, -1.25)
 
 [node name="WeaponsSocket" type="Node3D" parent="PivotRot/PivotAnim/PivotPosture/PivotPosAim/PivotSway/PivotTilt/PivotRecoil"]
 
-[node name="Weapon01" parent="PivotRot/PivotAnim/PivotPosture/PivotPosAim/PivotSway/PivotTilt/PivotRecoil/WeaponsSocket" instance=ExtResource("2_bdhlb")]
-armsAimPosition = Vector3(0, -0.33, -0.75)
-isActive = true
+[node name="PlayerWeaponSpawner" type="Node" parent="PivotRot/PivotAnim/PivotPosture/PivotPosAim/PivotSway/PivotTilt/PivotRecoil/WeaponsSocket"]
+script = ExtResource("2_bdhlb")
+weaponScenePath = "res://Components/Player/PlayerWeapon/Weapon_01.tscn"
+metadata/_custom_type_script = "uid://cu5562ee02nfj"
+
+[node name="PlayerWeaponSpawner2" type="Node" parent="PivotRot/PivotAnim/PivotPosture/PivotPosAim/PivotSway/PivotTilt/PivotRecoil/WeaponsSocket"]
+script = ExtResource("2_bdhlb")
+weaponScenePath = "res://Components/Player/PlayerWeapon/Weapon_02.tscn"
+metadata/_custom_type_script = "uid://cu5562ee02nfj"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

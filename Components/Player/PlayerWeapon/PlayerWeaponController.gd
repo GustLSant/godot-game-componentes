@@ -3,6 +3,9 @@ class_name PlayerWeaponController
 
 @onready var playerState: PlayerState = Nodes.playerState
 
+@export var shotRayCast: RayCast3D
+@export var barrelNode: Node3D
+
 @export var damage: float = 20.0
 @export var fireRate: float = 0.15
 
@@ -19,7 +22,7 @@ class_name PlayerWeaponController
 @export var recoilRotXStrength: float = 1.0
 @export var recoilRotZStrength: float = 1.0
 
-@export var isActive: bool = false : set = setActive
+var isActive: bool = false : set = setActive
 var currentFireCooldown: float = 0.0
 var delta: float = 0.016
 
@@ -31,7 +34,6 @@ func _init() -> void:
 
 func _ready() -> void:
 	setActive(isActive)
-	if(isActive): playerState.emit_signal("PickupWeapon", self, false)
 	pass
 
 
@@ -39,8 +41,12 @@ func _process(_delta: float) -> void:
 	if(not isActive): return
 	delta = _delta
 	getAimInput()
-	handleShootInput()
 	handleAtackRate()
+	pass
+
+
+func _physics_process(delta: float) -> void:
+	handleShootInput()
 	pass
 
 
@@ -56,6 +62,23 @@ func handleShootInput() -> void:
 	if(Input.is_action_pressed("Shoot") and currentFireCooldown <= 0.0 and playerState.currentWeapon == self):
 		playerState.emit_signal("PlayerShot", cameraRecoilStrength)
 		currentFireCooldown = playerState.fireRate
+		
+		shotRayCast.global_transform = playerState.currentCameraController.pivotRot.global_transform
+		shotRayCast.force_raycast_update()
+		var collider: Object = shotRayCast.get_collider()
+		var distance: float = 99.0
+		if(collider != null): distance = barrelNode.global_position.distance_to(shotRayCast.get_collision_point())
+		
+		spawnShotVfx(distance)
+	pass
+
+
+func spawnShotVfx(_collDistance: float) -> void:
+	var vfxInstance: Node3D = load("res://Components/Player/PlayerWeapon/Shot/PlayerShotVfx.tscn").instantiate()
+	vfxInstance.transform = barrelNode.global_transform
+	vfxInstance.scale.z = _collDistance
+	vfxInstance.call_deferred("look_at", playerState.currentPivotRot.global_position - playerState.currentPivotRot.global_transform.basis.z * 10.0)
+	Nodes.mainNode.add_child(vfxInstance)
 	pass
 
 
