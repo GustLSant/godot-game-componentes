@@ -5,7 +5,6 @@ class_name PlayerInventoryController
 
 
 func _init() -> void:
-	Nodes.playerState.connect("TryPickupWeapon", onTryPickupWeapon)
 	Nodes.playerState.connect("PickupWeapon", onPickupWeapon)
 	Nodes.playerState.connect("ChangeWeapon", onChangeWeapon)
 	pass
@@ -16,18 +15,33 @@ func _process(_delta: float) -> void:
 	pass
 
 
-func onTryPickupWeapon(_newWeaponScenePath: String) -> void:
+func onPickupWeapon(_newWeapon: PlayerWeaponController, _spawnOnPlayerModel: bool) -> void:
 	if(playerState.inventory.size() < playerState.inventoryMaxSize):
-		var newWeapon: PlayerWeaponController = load(_newWeaponScenePath).instantiate()
-		playerState.emit_signal("PickupWeapon", newWeapon, true)
+		playerState.inventory.append(_newWeapon)
+		
+		if(playerState.inventory.size() == 1): # se nao tinha arma, ja equipa a que pegou
+			playerState.emit_signal("TryChangeWeapon", playerState.inventory[0])
+	else:
+		replaceCurrentWeapon(_newWeapon)
 	pass
 
 
-func onPickupWeapon(_newWeapon: PlayerWeaponController, _spawnOnPlayerModel: bool) -> void:
-	playerState.inventory.append(_newWeapon)
+func replaceCurrentWeapon(_newWeapon: PlayerWeaponController) -> void:
+	var currentWeaponIdx: int = getCurrentWeaponIdx()
+	var previousWeaponId: int = playerState.currentWeapon.id
 	
-	if(playerState.inventory.size() == 1): # se nao tinha arma, ja equipa a que pegou
-		playerState.emit_signal("TryChangeWeapon", playerState.inventory[0])
+	playerState.currentWeapon.queue_free()
+	playerState.inventory[currentWeaponIdx] = _newWeapon
+	playerState.emit_signal("TryChangeWeapon", playerState.inventory[currentWeaponIdx])
+	
+	var previousPickupWeaponScenePath: String = ""
+	match previousWeaponId:
+		1: previousPickupWeaponScenePath = "res://Components/Player/PlayerWeapon/PickupWeapon_01.tscn"
+		2: previousPickupWeaponScenePath = "res://Components/Player/PlayerWeapon/PickupWeapon_02.tscn"
+	
+	var previousPickupWeaponScene: InteractiveObject = load(previousPickupWeaponScenePath).instantiate()
+	previousPickupWeaponScene.position = Nodes.player.global_position
+	Nodes.mainNode.add_child(previousPickupWeaponScene)
 	pass
 
 

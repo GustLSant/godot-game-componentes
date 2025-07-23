@@ -9,7 +9,7 @@ class_name PlayerInteractionController
 func _physics_process(_delta: float) -> void:
 	raycast.global_transform = Nodes.playerState.currentCameraController.camera.global_transform
 	
-	if(raycast.is_colliding()):
+	if(raycast.is_colliding() and is_instance_valid(raycast.get_collider())):
 		var collider: Object = raycast.get_collider().get_parent()
 		if(collider is InteractiveObject):
 			setLabelsVisible(true)

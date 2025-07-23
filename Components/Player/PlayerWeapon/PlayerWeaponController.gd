@@ -22,6 +22,9 @@ class_name PlayerWeaponController
 @export var recoilRotXStrength: float = 1.0
 @export var recoilRotZStrength: float = 1.0
 
+@export_category("ID")
+@export var id: int = 0
+
 var isActive: bool = false : set = setActive
 var currentFireCooldown: float = 0.0
 var delta: float = 0.016

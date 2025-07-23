@@ -29,10 +29,15 @@ signal DamageTaken(_damage: float)
 
 
 # Inventory
+#var inventory: Dictionary[String, Array] = {
+	#'weapons' = [],
+	#'ammo' = [],
+	#'keyItems' = [],
+	#'misc' = []
+#}
 var inventory: Array[PlayerWeaponController] = []
 var inventoryMaxSize: int = 3
 var currentWeapon: PlayerWeaponController = null
-signal TryPickupWeapon(_newWeaponScenePath: String)
 signal PickupWeapon(_newWeaponScene: PlayerWeaponController, _spawnOnPlayerModel: bool)
 signal TryChangeWeapon(_newWeaponScene: PlayerWeaponController)
 signal ChangeWeapon(_newWeaponScene: PlayerWeaponController)
