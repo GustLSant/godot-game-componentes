@@ -16,11 +16,11 @@ func _process(_delta: float) -> void:
 
 
 func onPickupWeapon(_newWeapon: PlayerWeaponController, _spawnOnPlayerModel: bool) -> void:
-	if(playerState.inventory.size() < playerState.inventoryMaxSize):
-		playerState.inventory.append(_newWeapon)
+	if(playerState.inventory["weapons"].size() < playerState.inventoryMaxSize):
+		playerState.inventory["weapons"].append(_newWeapon)
 		
-		if(playerState.inventory.size() == 1): # se nao tinha arma, ja equipa a que pegou
-			playerState.emit_signal("TryChangeWeapon", playerState.inventory[0])
+		if(playerState.inventory["weapons"].size() == 1): # se nao tinha arma, ja equipa a que pegou
+			playerState.emit_signal("TryChangeWeapon", playerState.inventory["weapons"][0])
 	else:
 		replaceCurrentWeapon(_newWeapon)
 	pass
@@ -31,8 +31,8 @@ func replaceCurrentWeapon(_newWeapon: PlayerWeaponController) -> void:
 	var previousWeaponId: int = playerState.currentWeapon.id
 	
 	playerState.currentWeapon.queue_free()
-	playerState.inventory[currentWeaponIdx] = _newWeapon
-	playerState.emit_signal("TryChangeWeapon", playerState.inventory[currentWeaponIdx])
+	playerState.inventory["weapons"][currentWeaponIdx] = _newWeapon
+	playerState.emit_signal("TryChangeWeapon", playerState.inventory["weapons"][currentWeaponIdx])
 	
 	var previousPickupWeaponScenePath: String = ""
 	match previousWeaponId:
@@ -56,36 +56,36 @@ func getInputChangeWeapon() -> void:
 
 
 func handleInputChangeWeaponByDirection(_changeDirection: int) -> void:
-	if(playerState.inventory.size() <= 1): return
-	if(playerState.currentWeapon == null): playerState.emit_signal("TryChangeWeapon", playerState.inventory[0]) # sem nenhuma arma equipada, equipa a primeira do inventario
+	if(playerState.inventory["weapons"].size() <= 1): return
+	if(playerState.currentWeapon == null): playerState.emit_signal("TryChangeWeapon", playerState.inventory["weapons"][0]) # sem nenhuma arma equipada, equipa a primeira do inventario
 	
 	var currentWeaponIdx: int = getCurrentWeaponIdx()
 	
 	var nextWeaponIdx: int = currentWeaponIdx + _changeDirection
-	if(nextWeaponIdx > playerState.inventory.size()-1):
+	if(nextWeaponIdx > playerState.inventory["weapons"].size()-1):
 		nextWeaponIdx = 0
 	elif(nextWeaponIdx < 0):
-		nextWeaponIdx = playerState.inventory.size()-1
+		nextWeaponIdx = playerState.inventory["weapons"].size()-1
 	
-	playerState.emit_signal("TryChangeWeapon", playerState.inventory[nextWeaponIdx])
+	playerState.emit_signal("TryChangeWeapon", playerState.inventory["weapons"][nextWeaponIdx])
 	pass
 
 
 func handleInputChangeWeaponByIdx(_idx: int) -> void:
-	if(_idx > playerState.inventory.size()-1): return
+	if(_idx > playerState.inventory["weapons"].size()-1): return
 	
-	if(playerState.currentWeapon == playerState.inventory[_idx]): return
+	if(playerState.currentWeapon == playerState.inventory["weapons"][_idx]): return
 	
-	if(playerState.inventory[_idx] != null):
-		playerState.emit_signal("TryChangeWeapon", playerState.inventory[_idx])
+	if(playerState.inventory["weapons"][_idx] != null):
+		playerState.emit_signal("TryChangeWeapon", playerState.inventory["weapons"][_idx])
 	pass
 
 
 func getCurrentWeaponIdx() -> int:
 	var result: int = -1
 	
-	for i in range(playerState.inventory.size()):
-		if(playerState.inventory[i] == playerState.currentWeapon):
+	for i in range(playerState.inventory["weapons"].size()):
+		if(playerState.inventory["weapons"][i] == playerState.currentWeapon):
 			result = i
 			break
 	

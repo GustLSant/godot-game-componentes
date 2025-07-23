@@ -29,13 +29,14 @@ signal DamageTaken(_damage: float)
 
 
 # Inventory
-#var inventory: Dictionary[String, Array] = {
-	#'weapons' = [],
-	#'ammo' = [],
-	#'keyItems' = [],
-	#'misc' = []
-#}
-var inventory: Array[PlayerWeaponController] = []
+var inventory: Dictionary[String, Array] = {
+	'weapons' = [],
+	'magazineAmmo' = [],
+	'ammo' = [],
+	'keyItems' = [],
+	'misc' = []
+}
+#var inventory: Array[PlayerWeaponController] = []
 var inventoryMaxSize: int = 3
 var currentWeapon: PlayerWeaponController = null
 signal PickupWeapon(_newWeaponScene: PlayerWeaponController, _spawnOnPlayerModel: bool)
