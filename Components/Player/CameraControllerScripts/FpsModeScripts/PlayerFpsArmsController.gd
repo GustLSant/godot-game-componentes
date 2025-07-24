@@ -113,7 +113,7 @@ func handleTiltEffect() -> void:
 
 
 func handlePostureEffect() -> void:
-	var targetXRotation:float = int(playerState.isSprinting) * -10.0
+	var targetXRotation:float = int(playerState.isSprinting) * -10.0 + int(playerState.isReloading) * -20.0
 	var targetYRotation:float = int(playerState.isSprinting) * 15.0
 	var targetYPosition: float = int(not playerState.isOnFloor) * 0.2 - int(not playerState.isOnFloor and playerState.isAiming) * 0.15
 	

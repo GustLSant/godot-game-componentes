@@ -3,11 +3,14 @@ class_name PlayerWeaponController
 
 @onready var playerState: PlayerState = Nodes.playerState
 
-@export var shotRayCast: RayCast3D
-@export var barrelNode: Node3D
-
 @export var damage: float = 20.0
 @export var fireRate: float = 0.15
+@export var magazineSize: int = 30
+@export var reloadTime: float = 2.5
+
+@export_category("Nodes")
+@export var shotRayCast: RayCast3D
+@export var barrelNode: Node3D
 
 @export_category("Aim Variables")
 @export var armsDefaultPosition: Vector3 = Vector3(0.6, -0.65, -1.25)
@@ -24,14 +27,18 @@ class_name PlayerWeaponController
 
 @export_category("ID")
 @export var id: int = 0
+@export var ammoId: int = 0
 
 var isActive: bool = false : set = setActive
 var currentFireCooldown: float = 0.0
+var currentMagazineAmmo: int = 0
+var canTriggerReloadEndSignal: bool = false
 var delta: float = 0.016
 
 
 func _init() -> void:
 	Nodes.playerState.connect("ChangeWeapon", onChangeWeapon)
+	self.connect("tree_exiting", onTreeExiting)
 	pass
 
 
@@ -45,6 +52,7 @@ func _process(_delta: float) -> void:
 	delta = _delta
 	getAimInput()
 	handleAtackRate()
+	handleReload()
 	pass
 
 
@@ -62,7 +70,8 @@ func getAimInput() -> void:
 
 
 func handleShootInput() -> void:
-	if(Input.is_action_pressed("Shoot") and currentFireCooldown <= 0.0 and playerState.currentWeapon == self):
+	if(checkCanShoot()):
+		currentMagazineAmmo -= 1
 		playerState.emit_signal("PlayerShot", cameraRecoilStrength)
 		currentFireCooldown = playerState.fireRate
 		
@@ -73,6 +82,35 @@ func handleShootInput() -> void:
 		if(collider != null): distance = barrelNode.global_position.distance_to(shotRayCast.get_collision_point())
 		
 		spawnShotVfx(distance)
+	pass
+
+
+func checkCanShoot() -> bool:
+	return( 
+		Input.is_action_pressed("Shoot") and 
+		currentFireCooldown <= 0.0 and 
+		playerState.currentWeapon == self and 
+		not playerState.isReloading and  
+		currentMagazineAmmo > 0 
+	)
+
+
+func handleReload() -> void:
+	if(Input.is_action_just_pressed("Reload")):
+		if(playerState.isReloading or currentMagazineAmmo >= magazineSize or playerState.inventory["ammo"][ammoId] <= 0): return
+		playerState.isReloading = true
+		playerState.currentReloadTime = reloadTime
+		canTriggerReloadEndSignal = true
+	
+	if(playerState.currentReloadTime > 0.0):
+		playerState.currentReloadTime -= 1 * delta
+	else:
+		if(canTriggerReloadEndSignal):
+			playerState.isReloading = false
+			currentMagazineAmmo += min(magazineSize, playerState.inventory["ammo"][ammoId])
+			playerState.inventory["ammo"][ammoId] -= currentMagazineAmmo
+			playerState.emit_signal("ReloadEnd")
+			canTriggerReloadEndSignal = false
 	pass
 
 
@@ -117,4 +155,9 @@ func setParametersOnPlayerState() -> void:
 
 func onChangeWeapon(_newWeapon: PlayerWeaponController) -> void:
 	setActive(self == _newWeapon)
+	pass
+
+
+func onTreeExiting() -> void:
+	playerState.inventory["ammo"][ammoId] += currentMagazineAmmo # devolvendo a municao restante do pente para o inventario
 	pass

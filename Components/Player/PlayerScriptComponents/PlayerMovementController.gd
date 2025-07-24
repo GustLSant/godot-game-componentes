@@ -41,7 +41,9 @@ func handleSprint() -> void:
 	playerState.isSprinting = playerState.isSprinting and playerState.inputVecMovement != Vector2.ZERO
 	if(playerState.currentCameraMode == playerState.CAMERA_MODE.FPS):
 		playerState.isSprinting = playerState.isSprinting and playerState.inputVecMovement.y < 0.0 # moving fowards
+	
 	playerState.isSprinting = playerState.isSprinting and (not playerState.isAiming)
+	playerState.isSprinting = playerState.isSprinting and (not playerState.isReloading)
 	#crouch
 	
 	currentSprintMultiplier = lerp(

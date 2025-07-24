@@ -7,6 +7,11 @@ func _init() -> void:
 	pass
 
 
+func _process(delta: float) -> void:
+	if(Input.is_action_just_pressed("Test")):
+		print(inventory)
+
+
 # Movement Controller
 var inputVecMovement: Vector2 = Vector2.ZERO
 var velocity:Vector3 = Vector3.ZERO
@@ -31,8 +36,7 @@ signal DamageTaken(_damage: float)
 # Inventory
 var inventory: Dictionary[String, Array] = {
 	'weapons' = [],
-	'magazineAmmo' = [],
-	'ammo' = [],
+	'ammo' = [20, 0, 0, 0], # cada indice eh um tipo de municao
 	'keyItems' = [],
 	'misc' = []
 }
@@ -42,10 +46,13 @@ var currentWeapon: PlayerWeaponController = null
 signal PickupWeapon(_newWeaponScene: PlayerWeaponController, _spawnOnPlayerModel: bool)
 signal TryChangeWeapon(_newWeaponScene: PlayerWeaponController)
 signal ChangeWeapon(_newWeaponScene: PlayerWeaponController)
+signal ReloadEnd()
 
 
 # Weapon Controller
 var isAiming: bool = false
+var isReloading: bool = false
+var currentReloadTime: float = 0.0
 signal PlayerShot(_recoilStrength: float)
 
 # Weapons Parameters
@@ -59,3 +66,14 @@ var recoilShakeStrength: float = 1.0
 var recoilPosZStrength: float = 1.0
 var recoilRotXStrength: float = 1.0
 var recoilRotZStrength: float = 1.0
+
+
+func getCurrentWeaponIdx() -> int:
+	var result: int = -1
+	
+	for i in range(inventory["weapons"].size()):
+		if(inventory["weapons"][i] == currentWeapon):
+			result = i
+			break
+	
+	return result

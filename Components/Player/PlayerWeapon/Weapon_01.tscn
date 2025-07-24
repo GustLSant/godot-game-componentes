@@ -170,9 +170,9 @@ shadow_mesh = SubResource("ArrayMesh_e8ijh")
 
 [node name="Weapon_01" type="Node3D" node_paths=PackedStringArray("shotRayCast", "barrelNode")]
 script = ExtResource("1_0gfg1")
+fireRate = 0.125
 shotRayCast = NodePath("ShotRayCast")
 barrelNode = NodePath("BarrelPos")
-fireRate = 0.125
 id = 1
 
 [node name="RightArm" type="MeshInstance3D" parent="."]
