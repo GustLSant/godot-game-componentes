@@ -37,7 +37,7 @@ signal DamageTaken(_damage: float)
 var inventory: Dictionary[String, Array] = {
 	'weapons' = [],
 	'weaponsAmmo' = [0, 0, 0, 0, 0], # municao de cada arma relacionada pelo idx dos arrays
-	'reserveAmmo' = [200, 0, 0, 0],   # cada indice eh um tipo de municao
+	'reserveAmmo' = [50, 0, 200, 0],   # cada indice eh um tipo de municao
 	'keyItems' = [],
 	'misc' = []
 }

@@ -22,10 +22,10 @@ func getCurrentWeaponIdx() -> int:
 	return max(Nodes.playerState.getCurrentWeaponIdx(), 0) # se nao tiver nenhuma arma, vai pegar o primeiro idx
 
 func updateLabels() -> void:
+	var ammoId: int = Nodes.playerState.currentWeapon.ammoId if (is_instance_valid(Nodes.playerState.currentWeapon)) else 0
 	magAmmoLabel.text = str(Nodes.playerState.inventory["weaponsAmmo"][currentWeaponIdx])
-	reserveAmmoLabel.text = "/" + str(Nodes.playerState.inventory["reserveAmmo"][currentWeaponIdx]) # aqui tem que ser eh o id da municao que a arma usa
+	reserveAmmoLabel.text = "/" + str(Nodes.playerState.inventory["reserveAmmo"][ammoId]) # aqui tem que ser eh o id da municao que a arma usa
 	pass
-
 
 
 func onChangeWeapon(_newWeapon: PlayerWeaponController) -> void:

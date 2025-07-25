@@ -118,7 +118,10 @@ func handleReload() -> void:
 	else:
 		if(canTriggerReloadEndSignal):
 			playerState.isReloading = false
-			var ammoAmount: int = min(playerState.magazineSize, playerState.inventory["reserveAmmo"][ammoId]) - playerState.inventory["weaponsAmmo"][ammoId]
+			var ammoAmount: int = min(
+				abs(playerState.magazineSize - playerState.inventory["weaponsAmmo"][selfIdxOnInventory]), 
+				playerState.inventory["reserveAmmo"][ammoId]
+				)
 			playerState.inventory["weaponsAmmo"][selfIdxOnInventory] += ammoAmount
 			playerState.inventory["reserveAmmo"][ammoId] -= ammoAmount
 			playerState.emit_signal("ReloadEnd")
