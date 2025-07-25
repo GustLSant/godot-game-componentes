@@ -31,8 +31,8 @@ class_name PlayerWeaponController
 
 var isActive: bool = false : set = setActive
 var currentFireCooldown: float = 0.0
-var currentMagazineAmmo: int = 0
 var canTriggerReloadEndSignal: bool = false
+var selfIdxOnInventory: int = -1
 var delta: float = 0.016
 
 
@@ -43,7 +43,18 @@ func _init() -> void:
 
 
 func _ready() -> void:
+	getSelfIdxOnInventory()
 	setActive(isActive)
+	pass
+
+
+func getSelfIdxOnInventory() -> void:
+	for i in range(playerState.inventory["weapons"].size()):
+		if(playerState.inventory["weapons"][i].id == self.id):
+			selfIdxOnInventory = i
+			return
+	
+	if(selfIdxOnInventory == -1): printerr("Não foi possível achar o idx da arma atual // id: ", self.id, " // weapon name: ", self.name, " // inventory: ", playerState.inventory["weapons"])
 	pass
 
 
@@ -71,7 +82,7 @@ func getAimInput() -> void:
 
 func handleShootInput() -> void:
 	if(checkCanShoot()):
-		currentMagazineAmmo -= 1
+		playerState.inventory["weaponsAmmo"][selfIdxOnInventory] -= 1
 		playerState.emit_signal("PlayerShot", cameraRecoilStrength)
 		currentFireCooldown = playerState.fireRate
 		
@@ -91,13 +102,13 @@ func checkCanShoot() -> bool:
 		currentFireCooldown <= 0.0 and 
 		playerState.currentWeapon == self and 
 		not playerState.isReloading and  
-		currentMagazineAmmo > 0 
+		playerState.inventory["weaponsAmmo"][selfIdxOnInventory] > 0 
 	)
 
 
 func handleReload() -> void:
 	if(Input.is_action_just_pressed("Reload")):
-		if(playerState.isReloading or currentMagazineAmmo >= magazineSize or playerState.inventory["ammo"][ammoId] <= 0): return
+		if(playerState.isReloading or playerState.inventory["weaponsAmmo"][selfIdxOnInventory] >= playerState.magazineSize or playerState.inventory["reserveAmmo"][ammoId] <= 0): return
 		playerState.isReloading = true
 		playerState.currentReloadTime = reloadTime
 		canTriggerReloadEndSignal = true
@@ -107,8 +118,8 @@ func handleReload() -> void:
 	else:
 		if(canTriggerReloadEndSignal):
 			playerState.isReloading = false
-			currentMagazineAmmo += min(magazineSize, playerState.inventory["ammo"][ammoId])
-			playerState.inventory["ammo"][ammoId] -= currentMagazineAmmo
+			playerState.inventory["weaponsAmmo"][selfIdxOnInventory] += min(playerState.magazineSize, playerState.inventory["reserveAmmo"][ammoId])
+			playerState.inventory["reserveAmmo"][ammoId] -= playerState.inventory["weaponsAmmo"][selfIdxOnInventory]
 			playerState.emit_signal("ReloadEnd")
 			canTriggerReloadEndSignal = false
 	pass
@@ -140,6 +151,7 @@ func setParametersOnPlayerState() -> void:
 	
 	playerState.damage = damage
 	playerState.fireRate = fireRate
+	playerState.magazineSize = magazineSize
 	
 	playerState.armsDefaultPosition = armsDefaultPosition
 	playerState.armsAimPosition = armsAimPosition
@@ -159,5 +171,6 @@ func onChangeWeapon(_newWeapon: PlayerWeaponController) -> void:
 
 
 func onTreeExiting() -> void:
-	playerState.inventory["ammo"][ammoId] += currentMagazineAmmo # devolvendo a municao restante do pente para o inventario
+	playerState.inventory["reserveAmmo"][ammoId] += playerState.inventory["weaponsAmmo"][selfIdxOnInventory] # devolvendo a municao restante do pente para o inventario
+	playerState.inventory["weaponsAmmo"][selfIdxOnInventory] = 0
 	pass

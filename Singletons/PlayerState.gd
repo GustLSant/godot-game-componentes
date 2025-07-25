@@ -36,7 +36,8 @@ signal DamageTaken(_damage: float)
 # Inventory
 var inventory: Dictionary[String, Array] = {
 	'weapons' = [],
-	'ammo' = [20, 0, 0, 0], # cada indice eh um tipo de municao
+	'weaponsAmmo' = [0, 0, 0, 0, 0], # municao de cada arma relacionada pelo idx dos arrays
+	'reserveAmmo' = [20, 0, 0, 0],   # cada indice eh um tipo de municao
 	'keyItems' = [],
 	'misc' = []
 }
@@ -58,6 +59,7 @@ signal PlayerShot(_recoilStrength: float)
 # Weapons Parameters
 var damage: float = 20.0
 var fireRate: float = 0.1
+var magazineSize: int = 20
 var armsDefaultPosition: Vector3 = Vector3(0.6, -0.65, -1.25) # short: Vector3(0.6, -0.65, -1.75)
 var armsAimPosition: Vector3 = Vector3(0.0, -0.33, -1.0)      # short: Vector3(0.0, -0.33, -1.0)
 var aimFOV: float = 45.0
