@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bqshrdvp6bnlg"]
+[gd_scene load_steps=15 format=3 uid="uid://bqshrdvp6bnlg"]
 
 [ext_resource type="Script" uid="uid://cav0uleqdgm0g" path="res://Components/Player/PlayerScriptComponents/PlayerCameraManager.gd" id="1_a50ic"]
 [ext_resource type="Script" uid="uid://bt7qclob8p22t" path="res://Components/Player/Player.gd" id="1_qij2n"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://vb3cyx2rvxhs" path="res://Components/Player/FpsModeScenes/FpsArms.tscn" id="7_eorbh"]
 [ext_resource type="Script" uid="uid://bqwi45676hfsr" path="res://Components/Player/PlayerScriptComponents/PlayerInventoryController.gd" id="7_qij2n"]
 [ext_resource type="PackedScene" uid="uid://dso55xewkvp8t" path="res://Components/Player/PlayerInteractionController.tscn" id="8_qij2n"]
+[ext_resource type="PackedScene" uid="uid://dmqq5fk6xr18x" path="res://Components/Player/PlayerAmmoPisplayer.tscn" id="13_xuja4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2ojs8"]
 size = Vector3(1, 2, 0.6)
@@ -69,3 +70,5 @@ metadata/_edit_lock_ = true
 
 [node name="FpsArms" parent="FPS" instance=ExtResource("7_eorbh")]
 metadata/_edit_lock_ = true
+
+[node name="AmmoDisplayer" parent="." instance=ExtResource("13_xuja4")]

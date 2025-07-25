@@ -118,8 +118,9 @@ func handleReload() -> void:
 	else:
 		if(canTriggerReloadEndSignal):
 			playerState.isReloading = false
-			playerState.inventory["weaponsAmmo"][selfIdxOnInventory] += min(playerState.magazineSize, playerState.inventory["reserveAmmo"][ammoId])
-			playerState.inventory["reserveAmmo"][ammoId] -= playerState.inventory["weaponsAmmo"][selfIdxOnInventory]
+			var ammoAmount: int = min(playerState.magazineSize, playerState.inventory["reserveAmmo"][ammoId]) - playerState.inventory["weaponsAmmo"][ammoId]
+			playerState.inventory["weaponsAmmo"][selfIdxOnInventory] += ammoAmount
+			playerState.inventory["reserveAmmo"][ammoId] -= ammoAmount
 			playerState.emit_signal("ReloadEnd")
 			canTriggerReloadEndSignal = false
 	pass
@@ -128,6 +129,7 @@ func handleReload() -> void:
 func spawnShotVfx(_collDistance: float) -> void:
 	var vfxInstance: Node3D = load("res://Components/Player/PlayerWeapon/Shot/PlayerShotVfx.tscn").instantiate()
 	vfxInstance.transform = barrelNode.global_transform
+	#vfxInstance.position += vfxInstance.transform.basis.z * 1.0
 	vfxInstance.scale.z = _collDistance
 	vfxInstance.call_deferred("look_at", playerState.currentPivotRot.global_position - playerState.currentPivotRot.global_transform.basis.z * 10.0)
 	Nodes.mainNode.add_child(vfxInstance)
