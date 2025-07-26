@@ -5,5 +5,5 @@ class_name PlayerWeaponSpawner
 
 func _ready() -> void:
 	#Nodes.playerState.emit_signal("TryPickupWeapon", weaponScenePath)
-	Nodes.playerState.emit_signal("PickupWeapon", weaponScenePath)
+	Nodes.playerState.emit_signal("PickupWeapon", load(weaponScenePath).instantiate(), true)
 	pass

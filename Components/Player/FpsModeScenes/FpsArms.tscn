@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://vb3cyx2rvxhs"]
+[gd_scene load_steps=8 format=3 uid="uid://vb3cyx2rvxhs"]
 
 [ext_resource type="Script" uid="uid://d2y2o1dt32ska" path="res://Components/Player/CameraControllerScripts/FpsModeScripts/PlayerFpsArmsController.gd" id="1_qqdmd"]
+[ext_resource type="Script" uid="uid://cu5562ee02nfj" path="res://Components/Player/PlayerWeapon/PlayerWeaponSpawner.gd" id="2_bdhlb"]
 
 [sub_resource type="Curve" id="Curve_2lbj5"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.9, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -81,6 +82,7 @@ pivotRot = NodePath("PivotRot")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="PivotAnim" type="Marker3D" parent="PivotRot"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 
 [node name="PivotPosture" type="Marker3D" parent="PivotRot/PivotAnim"]
 
@@ -94,6 +96,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.65, -1.25)
 [node name="PivotRecoil" type="Marker3D" parent="PivotRot/PivotAnim/PivotPosture/PivotPosAim/PivotSway/PivotTilt"]
 
 [node name="WeaponsSocket" type="Node3D" parent="PivotRot/PivotAnim/PivotPosture/PivotPosAim/PivotSway/PivotTilt/PivotRecoil"]
+
+[node name="PlayerWeaponSpawner" type="Node" parent="PivotRot/PivotAnim/PivotPosture/PivotPosAim/PivotSway/PivotTilt/PivotRecoil/WeaponsSocket"]
+script = ExtResource("2_bdhlb")
+weaponScenePath = "res://Components/Player/PlayerWeapon/Weapon_01.tscn"
+metadata/_custom_type_script = "uid://cu5562ee02nfj"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

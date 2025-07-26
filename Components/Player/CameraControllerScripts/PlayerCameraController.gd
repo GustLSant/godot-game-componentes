@@ -44,8 +44,8 @@ func _ready() -> void:
 
 func _input(_event: InputEvent) -> void:
 	if(_event is InputEventMouseMotion):
-		pivotRot.rotation_degrees.y -= _event.relative.x * 0.3
-		pivotRot.rotation_degrees.x -= _event.relative.y * 0.3
+		pivotRot.rotation_degrees.y -= _event.relative.x * Settings.cameraSensitivity
+		pivotRot.rotation_degrees.x -= _event.relative.y * Settings.cameraSensitivity
 		pivotRot.rotation_degrees.x = clamp(pivotRot.rotation_degrees.x, -CAMERA_X_RANGE, CAMERA_X_RANGE)
 	pass
 

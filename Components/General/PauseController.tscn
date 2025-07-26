@@ -51,5 +51,40 @@ text = "Resume"
 layout_mode = 2
 text = "Quit to desktop"
 
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+anchor_left = 0.418403
+anchor_top = 0.0478395
+anchor_right = 0.576389
+anchor_bottom = 0.0756173
+offset_right = 1.0
+offset_bottom = 40.0
+alignment = 1
+metadata/_edit_use_anchors_ = true
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Sensibilidade do mouse"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ButtonLess" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "-"
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+text = "0.35"
+
+[node name="ButtonMore" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "+"
+
 [connection signal="pressed" from="CenterContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/ButtonLess" to="." method="_on_button_less_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/ButtonMore" to="." method="_on_button_more_pressed"]

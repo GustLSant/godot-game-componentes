@@ -132,6 +132,7 @@ func handleReload() -> void:
 func spawnShotVfx(_collDistance: float) -> void:
 	var vfxInstance: Node3D = load("res://Components/Player/PlayerWeapon/Shot/PlayerShotVfx.tscn").instantiate()
 	vfxInstance.transform = barrelNode.global_transform
+	vfxInstance.scale = Vector3.ONE
 	#vfxInstance.position += vfxInstance.transform.basis.z * 1.0
 	vfxInstance.scale.z = _collDistance
 	vfxInstance.call_deferred("look_at", playerState.currentPivotRot.global_position - playerState.currentPivotRot.global_transform.basis.z * 10.0)

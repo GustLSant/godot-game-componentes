@@ -16,7 +16,7 @@ func _process(_delta: float) -> void:
 
 
 func onPickupWeapon(_newWeapon: PlayerWeaponController, _spawnOnPlayerModel: bool) -> void:
-	if(playerState.inventory["weapons"].size() < playerState.inventoryMaxSize):
+	if(playerState.inventory["weapons"].size() < playerState.weaponsInventoryMaxSize):
 		playerState.inventory["weapons"].append(_newWeapon)
 		
 		if(playerState.inventory["weapons"].size() == 1): # se nao tinha arma, ja equipa a que pegou

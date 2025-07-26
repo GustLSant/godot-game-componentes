@@ -42,7 +42,7 @@ var inventory: Dictionary[String, Array] = {
 	'misc' = []
 }
 #var inventory: Array[PlayerWeaponController] = []
-var inventoryMaxSize: int = 3
+var weaponsInventoryMaxSize: int = 2
 var currentWeapon: PlayerWeaponController = null
 signal PickupWeapon(_newWeaponScene: PlayerWeaponController, _spawnOnPlayerModel: bool)
 signal TryChangeWeapon(_newWeaponScene: PlayerWeaponController)

@@ -29,3 +29,19 @@ func _on_resume_button_pressed() -> void:
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
 	pass
+
+
+
+
+
+
+
+
+func _process(delta: float) -> void:
+	$VBoxContainer/HBoxContainer/Label.text = str(Settings.cameraSensitivity)
+
+func _on_button_less_pressed() -> void:
+	Settings.cameraSensitivity -= 0.05
+
+func _on_button_more_pressed() -> void:
+	Settings.cameraSensitivity += 0.05
