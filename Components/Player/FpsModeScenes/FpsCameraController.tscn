@@ -2,19 +2,22 @@
 
 [ext_resource type="Script" uid="uid://d081bgbrqtwn2" path="res://Components/Player/CameraControllerScripts/FpsModeScripts/PlayerFpsCameraController.gd" id="1_oxwyr"]
 
-[node name="FpsCamera" type="Node3D" node_paths=PackedStringArray("bodyCamera", "pivotRot", "camera", "pivotShake")]
+[node name="FpsCamera" type="Node3D" node_paths=PackedStringArray("pivotPosture", "bodyCamera", "pivotRot", "camera", "pivotShake")]
 script = ExtResource("1_oxwyr")
+pivotPosture = NodePath("PivotRot/PivotPosture")
 bodyCamera = NodePath("CanvasLayer/SubViewportContainer/SubViewport/Camera3D")
 pivotRot = NodePath("PivotRot")
-camera = NodePath("PivotRot/PivotShake/Camera3D")
-pivotShake = NodePath("PivotRot/PivotShake")
+camera = NodePath("PivotRot/PivotPosture/PivotShake/Camera3D")
+pivotShake = NodePath("PivotRot/PivotPosture/PivotShake")
 
 [node name="PivotRot" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
-[node name="PivotShake" type="Marker3D" parent="PivotRot"]
+[node name="PivotPosture" type="Marker3D" parent="PivotRot"]
 
-[node name="Camera3D" type="Camera3D" parent="PivotRot/PivotShake"]
+[node name="PivotShake" type="Marker3D" parent="PivotRot/PivotPosture"]
+
+[node name="Camera3D" type="Camera3D" parent="PivotRot/PivotPosture/PivotShake"]
 cull_mask = 1048573
 near = 0.01
 
@@ -29,11 +32,13 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
+canvas_cull_mask = 4293918722
 size = Vector2i(1152, 648)
 render_target_update_mode = 4
 

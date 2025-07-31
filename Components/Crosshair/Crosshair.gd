@@ -1,7 +1,8 @@
 class_name Crosshair
 extends Control
 
-@export var color:Color = Color.WHITE
+var playerState: PlayerState = Nodes.playerState
+var color:Color = Color.WHITE
 
 # Render
 const DOT_RADIUS:float = 1.0
@@ -29,46 +30,28 @@ func _ready()->void:
 
 
 func _process(_delta:float)->void:
-	#var player:TpsFpsPlayer = $"../../ThirdPersonShooterPlayer"
-	#
-	#var alphaFpsCamera:float = (
-		#1.0 * int(not player.isAiming) - 
-		#0.5 * int(player.isSprinting)
-	#)
-	#
-	#var alphaTpsCamera:float = (
-		#1.0 * int(player.isAiming)
-	#)
-	#
-	#color.a = lerp(
-		#color.a,
-		#alphaFpsCamera * int(player.currentCameraMode == player.CAMERA_MODES.FIRST_PERSON) +
-		#alphaTpsCamera * int(player.currentCameraMode == player.CAMERA_MODES.THIRD_PERSON),
-		#TRANS_TIME*delta
-	#)
-	#
-	#currentDistanceToCenter = lerp(
-		#currentDistanceToCenter,
-		#(
-			#MIN_DISTANCE_TO_CENTER + 
-			#AIM_DISTANCE_VARIANCE * int(not player.isAiming) + 
-			#MOVE_DISTANCE_VARIANCE * int(player.isMoving) +
-			#MOVE_DISTANCE_VARIANCE * int(player.isSprinting) +
-			#weaponSpreadFactor * WEAPON_SPREAD_SCALE
-		#),
-		#TRANS_TIME*delta
-	#)
-	#
-	#queue_redraw()
+	color.a = lerp(
+		color.a,
+		int(playerState.isAiming or playerState.isSprinting) * 0.0 + int(not playerState.isAiming) * 1.0,
+		TRANS_TIME*_delta
+		)
+	
+	currentDistanceToCenter = lerp(
+		currentDistanceToCenter,
+		playerState.fireSpread * 7.5,
+		TRANS_TIME*_delta
+	)
+	
+	queue_redraw()
 	pass
 
 
 func _draw()->void:
-	draw_circle(
-		centerPos,
-		DOT_RADIUS,
-		color
-	)
+	#draw_circle(
+		#centerPos,
+		#DOT_RADIUS,
+		#color
+	#)
 	
 	# linha de cima
 	draw_line(

@@ -6,6 +6,7 @@ class_name PlayerWeaponController
 @export var damage: float = 20.0
 @export var fireRate: float = 0.15
 @export var magazineSize: int = 30
+@export var fireSpread: float = 2.5
 @export var reloadTime: float = 2.5
 
 @export_category("Nodes")
@@ -62,12 +63,13 @@ func _process(_delta: float) -> void:
 	if(not isActive): return
 	delta = _delta
 	getAimInput()
-	handleAtackRate()
+	handleFireSpread()
+	handleFireRate()
 	handleReload()
 	pass
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	handleShootInput()
 	pass
 
@@ -77,22 +79,22 @@ func getAimInput() -> void:
 		playerState.isAiming = Input.is_action_pressed("Aim")
 	else:
 		if(Input.is_action_just_pressed("Aim")): playerState.isAiming = !playerState.isAiming
+	
+	playerState.isAiming = playerState.isAiming and (not playerState.isReloading)
+	pass
+
+
+func handleFireSpread() -> void:
+	var walkingMultiplier: float =   int(Nodes.player.velocity != Vector3.ZERO) * 1.5  + int(Nodes.player.velocity == Vector3.ZERO) * 1.0
+	var sprintingMultiplier: float = int(playerState.isSprinting)               * 2.0  + int(not playerState.isSprinting) * 1.0
+	var aimingMultiplier: float =    int(playerState.isAiming)                  * 0.05 + int(not playerState.isAiming) * 1.0
+	playerState.fireSpread = fireSpread * walkingMultiplier * sprintingMultiplier * aimingMultiplier
 	pass
 
 
 func handleShootInput() -> void:
 	if(checkCanShoot()):
-		playerState.inventory["weaponsAmmo"][selfIdxOnInventory] -= 1
-		playerState.emit_signal("PlayerShot", cameraRecoilStrength)
-		currentFireCooldown = playerState.fireRate
-		
-		shotRayCast.global_transform = playerState.currentCameraController.pivotRot.global_transform
-		shotRayCast.force_raycast_update()
-		var collider: Object = shotRayCast.get_collider()
-		var distance: float = 99.0
-		if(collider != null): distance = barrelNode.global_position.distance_to(shotRayCast.get_collision_point())
-		
-		spawnShotVfx(distance)
+		shoot()
 	pass
 
 
@@ -104,6 +106,38 @@ func checkCanShoot() -> bool:
 		not playerState.isReloading and  
 		playerState.inventory["weaponsAmmo"][selfIdxOnInventory] > 0 
 	)
+
+
+func shoot() -> void:
+	playerState.inventory["weaponsAmmo"][selfIdxOnInventory] -= 1
+	playerState.emit_signal("PlayerShot", cameraRecoilStrength)
+	currentFireCooldown = playerState.fireRate
+	
+	shotRayCast.global_transform = playerState.currentCameraController.pivotRot.global_transform
+	shotRayCast.rotation_degrees.x += randf_range(-playerState.fireSpread, playerState.fireSpread)
+	shotRayCast.rotation_degrees.y += randf_range(-playerState.fireSpread, playerState.fireSpread)
+	
+	shotRayCast.force_raycast_update()
+	var collider: Object = shotRayCast.get_collider()
+	var distance: float = 99.0
+	var collisionPoint: Vector3 = shotRayCast.global_position - shotRayCast.global_transform.basis.z * distance
+	if(collider != null): 
+		collisionPoint = shotRayCast.get_collision_point()
+		distance = barrelNode.global_position.distance_to(collisionPoint)
+	
+	spawnShotVfx(distance, collisionPoint)
+	pass
+
+
+func spawnShotVfx(_collDistance: float, _collPoint: Vector3) -> void:
+	var vfxInstance: Node3D = load("res://Components/Player/PlayerWeapon/Shot/PlayerShotVfx.tscn").instantiate()
+	vfxInstance.transform = barrelNode.global_transform
+	vfxInstance.scale = Vector3.ONE
+	vfxInstance.scale.z = _collDistance
+	
+	vfxInstance.call_deferred("look_at", _collPoint)
+	Nodes.mainNode.add_child(vfxInstance)
+	pass
 
 
 func handleReload() -> void:
@@ -129,20 +163,12 @@ func handleReload() -> void:
 	pass
 
 
-func spawnShotVfx(_collDistance: float) -> void:
-	var vfxInstance: Node3D = load("res://Components/Player/PlayerWeapon/Shot/PlayerShotVfx.tscn").instantiate()
-	vfxInstance.transform = barrelNode.global_transform
-	vfxInstance.scale = Vector3.ONE
-	#vfxInstance.position += vfxInstance.transform.basis.z * 1.0
-	vfxInstance.scale.z = _collDistance
-	vfxInstance.call_deferred("look_at", playerState.currentPivotRot.global_position - playerState.currentPivotRot.global_transform.basis.z * 10.0)
-	Nodes.mainNode.add_child(vfxInstance)
-	pass
-
-
-func handleAtackRate() -> void:
+func handleFireRate() -> void:
 	currentFireCooldown -= 1 * delta
 	pass
+
+
+
 
 
 func setActive(_value: bool) -> void:
@@ -158,6 +184,7 @@ func setParametersOnPlayerState() -> void:
 	playerState.damage = damage
 	playerState.fireRate = fireRate
 	playerState.magazineSize = magazineSize
+	playerState.fireSpread = fireSpread
 	
 	playerState.armsDefaultPosition = armsDefaultPosition
 	playerState.armsAimPosition = armsAimPosition

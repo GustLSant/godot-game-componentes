@@ -7,16 +7,19 @@ func _init() -> void:
 	pass
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if(Input.is_action_just_pressed("Test")):
 		print(inventory)
 
 
 # Movement Controller
 var inputVecMovement: Vector2 = Vector2.ZERO
-var velocity:Vector3 = Vector3.ZERO
 var isSprinting:bool = false
 var isOnFloor: bool = true
+
+
+# Posture Controller
+var isCrouched: bool = false
 
 
 # Camera Manager
@@ -60,6 +63,7 @@ signal PlayerShot(_recoilStrength: float)
 var damage: float = 20.0
 var fireRate: float = 0.1
 var magazineSize: int = 20
+var fireSpread: float = 2.5
 var armsDefaultPosition: Vector3 = Vector3(0.6, -0.65, -1.25) # short: Vector3(0.6, -0.65, -1.75)
 var armsAimPosition: Vector3 = Vector3(0.0, -0.33, -1.0)      # short: Vector3(0.0, -0.33, -1.0)
 var aimFOV: float = 45.0

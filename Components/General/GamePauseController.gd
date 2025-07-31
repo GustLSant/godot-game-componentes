@@ -37,7 +37,7 @@ func _on_quit_button_pressed() -> void:
 
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	$VBoxContainer/HBoxContainer/Label.text = str(Settings.cameraSensitivity)
 
 func _on_button_less_pressed() -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bqshrdvp6bnlg"]
+[gd_scene load_steps=16 format=3 uid="uid://bqshrdvp6bnlg"]
 
 [ext_resource type="Script" uid="uid://cav0uleqdgm0g" path="res://Components/Player/PlayerScriptComponents/PlayerCameraManager.gd" id="1_a50ic"]
 [ext_resource type="Script" uid="uid://bt7qclob8p22t" path="res://Components/Player/Player.gd" id="1_qij2n"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://dv6lvx2d5aiug" path="res://Components/Player/PlayerScriptComponents/PlayerHealthController.gd" id="6_px31v"]
 [ext_resource type="PackedScene" uid="uid://vb3cyx2rvxhs" path="res://Components/Player/FpsModeScenes/FpsArms.tscn" id="7_eorbh"]
 [ext_resource type="Script" uid="uid://bqwi45676hfsr" path="res://Components/Player/PlayerScriptComponents/PlayerInventoryController.gd" id="7_qij2n"]
+[ext_resource type="Script" uid="uid://bl2t62uejfdxp" path="res://Components/Player/PlayerScriptComponents/PlayerPostureController.gd" id="8_qf1ab"]
 [ext_resource type="PackedScene" uid="uid://dso55xewkvp8t" path="res://Components/Player/PlayerInteractionController.tscn" id="8_qij2n"]
 [ext_resource type="PackedScene" uid="uid://dmqq5fk6xr18x" path="res://Components/Player/PlayerAmmoPisplayer.tscn" id="13_xuja4"]
 
@@ -43,6 +44,9 @@ script = ExtResource("6_px31v")
 [node name="InventoryController" type="Node" parent="Components"]
 process_priority = 1
 script = ExtResource("7_qij2n")
+
+[node name="PostureController" type="Node" parent="Components"]
+script = ExtResource("8_qf1ab")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

@@ -44,7 +44,7 @@ func _process(_delta: float) -> void:
 	handleSwayEffect()
 	handleTiltEffect()
 	handlePostureEffect()
-	handleAnimEffect()
+	handleReloadAnimEffect()
 	handleRecoilEffect()
 	pass
 
@@ -67,28 +67,33 @@ func handleAimBehaviour() -> void:
 func handleSwayEffect() -> void:
 	var playerIsMoving: bool = Nodes.player.velocity.x != 0.0 or Nodes.player.velocity.z != 0.0
 	const SWAY_IDLE_FREQUENCY:float = 0.0025
-	const SWAY_WALKING_FREQUENCY:float = 0.01
-	const SWAY_IDLE_AMOUNT:float = 0.02
-	const SWAY_WALKING_AMOUNT:float = 0.075
+	const SWAY_WALKING_FREQUENCY:float = 0.0115
+	const SWAY_IDLE_AMOUNT:float = 0.015
+	const SWAY_WALKING_AMOUNT:float = 0.040
 	
 	var frequence:float = (
-		SWAY_IDLE_FREQUENCY * int(!playerIsMoving) +
+		SWAY_IDLE_FREQUENCY * int(not playerIsMoving) +
 		SWAY_WALKING_FREQUENCY * int(playerIsMoving) +
-		SWAY_WALKING_FREQUENCY * int(playerIsMoving and playerState.isSprinting)
+		SWAY_WALKING_FREQUENCY * int(playerState.isSprinting)
 	)
 	var amount:float = (
-		SWAY_IDLE_AMOUNT * int(!playerIsMoving) +
+		SWAY_IDLE_AMOUNT * int(not playerIsMoving) +
 		SWAY_WALKING_AMOUNT * int(playerIsMoving) +
-		SWAY_WALKING_AMOUNT * int(playerIsMoving and playerState.isSprinting)
+		SWAY_WALKING_AMOUNT * int(playerState.isSprinting)
 	)
 	
-	# redução do efeito ao mirar
-	frequence *= (0.5 * int(playerState.isAiming)) + (1.0 * int(!playerState.isAiming))
-	amount *= (0.5 * int(playerState.isAiming)) + (1.0 * int(!playerState.isAiming))
+	var aimMultiplier: float = int(playerState.isAiming) * 0.5 + int(not playerState.isAiming) * 1.0
+	var crouchMultiplier: float = int(playerState.isCrouched) * 0.75 + int(not playerState.isCrouched) * 1.0
+	
+	frequence *= aimMultiplier
+	frequence *= crouchMultiplier
+	amount *= aimMultiplier
+	
+	var xAmountMultiplier: float = int(not playerState.isSprinting) * 0.6 + int(playerState.isSprinting) * 2.0
 	
 	var targetSwayPosition: Vector3 = Vector3(
-		sin(Time.get_ticks_msec()*frequence*0.5)*amount,
-		sin(Time.get_ticks_msec()*frequence)*amount,
+		sin(Time.get_ticks_msec()*frequence*0.5) * amount * xAmountMultiplier,
+		sin(Time.get_ticks_msec()*frequence) * amount,
 		0.0
 	)
 	
@@ -104,8 +109,8 @@ func handleTiltEffect() -> void:
 	var targetRotationZ: float = playerState.inputVecMovement.x * -7.5
 	var targetRotationX: float = playerState.inputVecMovement.y * 2.5
 	
-	targetRotationZ *= int(playerState.isAiming) * 0.5 + int(not playerState.isAiming) * 1.0
-	targetRotationX *= int(playerState.isAiming) * 0.5 + int(not playerState.isAiming) * 1.0
+	targetRotationZ *= int(playerState.isAiming) * 0.25 + int(not playerState.isAiming) * 1.0
+	targetRotationX *= int(playerState.isAiming) * 0.25 + int(not playerState.isAiming) * 1.0
 	
 	pivotTilt.rotation_degrees.z = lerp(pivotTilt.rotation_degrees.z, targetRotationZ, TILT_SPEED * delta)
 	pivotTilt.rotation_degrees.x = lerp(pivotTilt.rotation_degrees.x, targetRotationX, TILT_SPEED * delta)
@@ -113,23 +118,27 @@ func handleTiltEffect() -> void:
 
 
 func handlePostureEffect() -> void:
+	var isLongWeapon: bool = is_instance_valid(playerState.currentWeapon) and playerState.currentWeapon.ammoId > 0
+	
 	var targetXRotation:float = int(playerState.isSprinting) * -10.0 + int(playerState.isReloading) * -20.0
-	var targetYRotation:float = int(playerState.isSprinting) * 15.0
-	var targetYPosition: float = int(not playerState.isOnFloor) * 0.2 - int(not playerState.isOnFloor and playerState.isAiming) * 0.15
+	var targetYRotation:float = int(playerState.isSprinting and isLongWeapon) * 45.0 + int(playerState.isSprinting and not isLongWeapon) * 15.0
+	var targetXPosition:float = int(playerState.isSprinting) * 0.1 * int(isLongWeapon)
+	var targetYPosition: float = int(not playerState.isOnFloor) * 0.2 + int(not playerState.isOnFloor and playerState.isAiming) * -0.15 + int(playerState.isCrouched) * -0.75
 	
 	pivotPosture.rotation_degrees.x = lerp(pivotPosture.rotation_degrees.x, targetXRotation, 10.0 * delta)
 	pivotPosture.rotation_degrees.y = lerp(pivotPosture.rotation_degrees.y, targetYRotation, 10.0 * delta)
-	pivotPosture.position.y = lerp(pivotPosture.position.y, targetYPosition, 20.0 * delta)
+	pivotPosture.position.x = lerp(pivotPosture.position.x, targetXPosition, 10.0 * delta)
+	pivotPosture.position.y = lerp(pivotPosture.position.y, targetYPosition, 10.0 * delta)
 	pass
 
 
-func handleAnimEffect() -> void:
+func handleReloadAnimEffect() -> void:
 	pivotAnim.rotation_degrees.x = changeWeaponRotXAnimValue
 	pass
 
 
 func handleRecoilEffect() -> void:
-	var targetPosZ: float = posRecoilCurve.sample_baked(recoilCurveOffset) * 0.15                 * playerState.recoilPosZStrength
+	var targetPosZ: float = posRecoilCurve.sample_baked(recoilCurveOffset) * 0.1                  * playerState.recoilPosZStrength
 	var targetRotX: float = rotRecoilCurve.sample_baked(recoilCurveOffset) * 2.0                  * playerState.recoilRotXStrength
 	var targetRotZ: float = rotRecoilCurve.sample_baked(recoilCurveOffset) * 1.0 * recoilRotZSide * playerState.recoilRotZStrength
 	

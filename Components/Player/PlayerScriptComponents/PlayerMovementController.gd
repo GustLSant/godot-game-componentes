@@ -12,12 +12,17 @@ var currentSprintMultiplier: float = 1.0
 var pDelta:float = 0.016
 
 
+func _init() -> void:
+	Nodes.playerState.connect("PlayerShot", onPlayerShot)
+	pass
+
+
 func _physics_process(_delta: float) -> void:
 	pDelta = _delta
 	getMoveInputs()
-	getSprintInput()
+	handleSprintInput()
 	handleSprint()
-	move()
+	handleMovement()
 	pass
 
 
@@ -27,7 +32,7 @@ func getMoveInputs() -> void:
 	pass
 
 
-func getSprintInput() -> void:
+func handleSprintInput() -> void:
 	if(not playerState.isOnFloor): return
 	
 	if(Settings.sprintHoldMode):
@@ -54,7 +59,7 @@ func handleSprint() -> void:
 	pass
 
 
-func move() -> void:
+func handleMovement() -> void:
 	var forward: Vector3 = playerState.currentPivotRot.transform.basis.z
 	var right: Vector3 = playerState.currentPivotRot.transform.basis.x
 	forward.y = 0
@@ -63,11 +68,18 @@ func move() -> void:
 	right = right.normalized()
 	
 	var vecMovement: Vector3 = (playerState.inputVecMovement.x * right + playerState.inputVecMovement.y * forward).normalized()
+	var aimingSpeedMultiplier: float = int(playerState.isAiming) * 0.35 + int(not playerState.isAiming) * 1.0
+	var crouchSpeedMultiplier: float = int(playerState.isCrouched) * 0.75 + int(not playerState.isCrouched) * 1.0
 	
 	player.velocity = (
-		Vector3(vecMovement.x, 0.0, vecMovement.z) * BASE_MOVE_SPEED * currentSprintMultiplier
+		Vector3(vecMovement.x, 0.0, vecMovement.z) * BASE_MOVE_SPEED * currentSprintMultiplier * aimingSpeedMultiplier * crouchSpeedMultiplier
 		+
 		Vector3.UP * player.velocity.y
 		)
 	player.move_and_slide()
+	pass
+
+
+func onPlayerShot(_recoilStrength: float) -> void:
+	playerState.isSprinting = false
 	pass
