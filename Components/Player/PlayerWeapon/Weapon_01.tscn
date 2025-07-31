@@ -176,6 +176,8 @@ shotRayCast = NodePath("ShotRayCast")
 barrelNode = NodePath("BarrelPos")
 armsDefaultPosition = Vector3(0.6, -0.65, -1.15)
 armsAimPosition = Vector3(0, -0.33, -0.75)
+recoilRotXStrength = 0.0
+recoilRotZStrength = 1.5
 id = 1
 ammoId = 2
 
