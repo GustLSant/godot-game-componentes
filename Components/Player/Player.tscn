@@ -6,10 +6,10 @@
 [ext_resource type="Script" uid="uid://bsvkkfku67ulq" path="res://Singletons/PlayerState.gd" id="2_qij2n"]
 [ext_resource type="Script" uid="uid://c8vevuqro0x0o" path="res://Components/Player/PlayerScriptComponents/PlayerJumpController.gd" id="3_cyqth"]
 [ext_resource type="PackedScene" uid="uid://cl7o36m60w6ww" path="res://Components/Player/TpsModeScenes/TpsCameraController.tscn" id="4_71y7e"]
-[ext_resource type="PackedScene" uid="uid://d33kf6ht1h1k5" path="res://Components/Player/FpsModeScenes/FpsCameraController.tscn" id="5_71y7e"]
+[ext_resource type="PackedScene" uid="uid://d33kf6ht1h1k5" path="res://Components/Player/FpsMode/FpsCameraController.tscn" id="5_71y7e"]
 [ext_resource type="PackedScene" uid="uid://boladt1x15x1m" path="res://Components/Player/TpsModeScenes/TpsBody.tscn" id="5_eorbh"]
 [ext_resource type="Script" uid="uid://dv6lvx2d5aiug" path="res://Components/Player/PlayerScriptComponents/PlayerHealthController.gd" id="6_px31v"]
-[ext_resource type="PackedScene" uid="uid://vb3cyx2rvxhs" path="res://Components/Player/FpsModeScenes/FpsArms.tscn" id="7_eorbh"]
+[ext_resource type="PackedScene" uid="uid://vb3cyx2rvxhs" path="res://Components/Player/FpsMode/FpsArms.tscn" id="7_eorbh"]
 [ext_resource type="Script" uid="uid://bqwi45676hfsr" path="res://Components/Player/PlayerScriptComponents/PlayerInventoryController.gd" id="7_qij2n"]
 [ext_resource type="Script" uid="uid://bl2t62uejfdxp" path="res://Components/Player/PlayerScriptComponents/PlayerPostureController.gd" id="8_qf1ab"]
 [ext_resource type="PackedScene" uid="uid://dso55xewkvp8t" path="res://Components/Player/PlayerInteractionController.tscn" id="8_qij2n"]
@@ -73,6 +73,5 @@ metadata/_edit_lock_ = true
 metadata/_edit_lock_ = true
 
 [node name="FpsArms" parent="FPS" instance=ExtResource("7_eorbh")]
-metadata/_edit_lock_ = true
 
 [node name="AmmoDisplayer" parent="." instance=ExtResource("13_xuja4")]

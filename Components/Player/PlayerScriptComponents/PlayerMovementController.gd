@@ -5,8 +5,6 @@ class_name PlayerMovementController
 @onready var player: CharacterBody3D = Nodes.player
 
 const BASE_MOVE_SPEED: float = 4.0
-
-const SPRINT_SPEED_MULTIPLIER:float = 2.0
 var currentSprintMultiplier: float = 1.0
 
 var pDelta:float = 0.016
@@ -53,7 +51,7 @@ func handleSprint() -> void:
 	
 	currentSprintMultiplier = lerp(
 		currentSprintMultiplier,
-		int(playerState.isSprinting) * SPRINT_SPEED_MULTIPLIER + int(not playerState.isSprinting) * 1.0,
+		int(playerState.isSprinting) * playerState.SPRINT_MULTIPLIER_FACTOR + int(not playerState.isSprinting) * 1.0,
 		10 * pDelta
 		)
 	pass

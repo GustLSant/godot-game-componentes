@@ -6,15 +6,20 @@ class_name ArmsRecoilController
 
 const TWEEN_ATTACK_DURATION: float = 0.05
 const TWEEN_RECOVER_DURATION: float = 0.2
-var tweenPosRecoil: Tween = null
-var tweenRotRecoil: Tween = null
+var tweenRecoil: Tween = null
 
-const BASE_RECOIL_POS_Z: float = 0.2
+const BASE_RECOIL_POS_Z: float = 0.3
 const BASE_RECOIL_ROT_X: float = 1.0
-var recoilPosFactor: float = 0.0
-var recoilRotFactor: float = 0.0
+const BASE_RECOIL_ROT_Z: float = 2.5
+var recoilFactor: float = 0.0
+var recoilRotZSide: float = 1.0
 
 var delta: float = 0.016
+
+
+func _init() -> void:
+	Nodes.playerState.connect("PlayerShot", onPlayerShot)
+	pass
 
 
 func _process(_delta: float) -> void:
@@ -24,67 +29,53 @@ func _process(_delta: float) -> void:
 
 
 func handleRecoilEffect() -> void:
-	pivot.position.z =         BASE_RECOIL_POS_Z * playerState.recoilPosZStrength * recoilPosFactor
-	pivot.rotation_degrees.x = BASE_RECOIL_ROT_X * playerState.recoilRotXStrength * recoilRotFactor
+	pivot.position.z =         BASE_RECOIL_POS_Z * playerState.recoilPosZStrength * recoilFactor
+	pivot.rotation_degrees.x = BASE_RECOIL_ROT_X * playerState.recoilRotXStrength * recoilFactor
+	
+	var targetRotZ: float =    BASE_RECOIL_ROT_Z * playerState.recoilRotZStrength * recoilFactor * recoilRotZSide
+	pivot.rotation_degrees.z = lerp(pivot.rotation_degrees.z, targetRotZ, 16.0 * delta)
 	pass
 
 
 func addRecoil() -> void:
-	playeRecoilPosAttack()
-	playeRecoilRotAttack()
+	recoilRotZSide = [-1.0, 1.0].pick_random()
+	playeRecoilAttackEffect()
 	pass
 
 
-func playeRecoilPosAttack() -> void:
-	tweenPosRecoil = getRestartedTween(tweenPosRecoil)
+func playeRecoilAttackEffect() -> void:
+	tweenRecoil = getRestartedTween(tweenRecoil)
 	
-	var durationFactor: float = Utils.getRemaningFraction(1.0, recoilPosFactor)
-	tweenPosRecoil.set_trans(Tween.TRANS_CUBIC)
-	tweenPosRecoil.set_ease(Tween.EASE_OUT)
+	var durationFactor: float = Utils.getRemaningFraction(1.0, recoilFactor)
+	tweenRecoil.set_trans(Tween.TRANS_CUBIC)
+	tweenRecoil.set_ease(Tween.EASE_OUT)
 	
-	tweenPosRecoil.tween_property(self, "recoilPosFactor", 1.0, TWEEN_ATTACK_DURATION * durationFactor)
-	tweenPosRecoil.connect("step_finished", onTweenPosRecoilStepFinished)
-	pass
-
-func playRecoilPosRecover() -> void:
-	tweenPosRecoil = getRestartedTween(tweenPosRecoil)
+	tweenRecoil.tween_property           (self, "recoilFactor", 1.0, TWEEN_ATTACK_DURATION * durationFactor)
+	tweenRecoil.parallel().tween_property(self, "recoilFactor", 1.0, TWEEN_ATTACK_DURATION * durationFactor)
 	
-	tweenPosRecoil.set_trans(Tween.TRANS_CUBIC)
-	tweenPosRecoil.set_ease(Tween.EASE_OUT)
-	
-	tweenPosRecoil.tween_property(self, "recoilPosFactor", 0.0, TWEEN_RECOVER_DURATION)
+	tweenRecoil.connect("step_finished", onTweenPosRecoilStepFinished)
 	pass
 
 
-func playeRecoilRotAttack() -> void:
-	tweenRotRecoil = getRestartedTween(tweenRotRecoil)
+func playRecoilRecoverEffect() -> void:
+	tweenRecoil = getRestartedTween(tweenRecoil)
 	
-	var durationFactor: float = Utils.getRemaningFraction(1.0, recoilRotFactor)
-	tweenRotRecoil.set_trans(Tween.TRANS_LINEAR)
-	tweenRotRecoil.set_ease(Tween.EASE_OUT)
+	tweenRecoil.set_trans(Tween.TRANS_CUBIC)
+	tweenRecoil.set_ease(Tween.EASE_OUT)
 	
-	tweenRotRecoil.tween_property(self, "recoilRotFactor", 1.0, TWEEN_ATTACK_DURATION * durationFactor)
-	tweenRotRecoil.connect("step_finished", onTweenRotRecoilStepFinished)
-	pass
-
-func playRecoilRotRecover() -> void:
-	tweenRotRecoil = getRestartedTween(tweenRotRecoil)
-	
-	tweenRotRecoil.set_trans(Tween.TRANS_LINEAR)
-	tweenRotRecoil.set_ease(Tween.EASE_OUT)
-	
-	tweenRotRecoil.tween_property(self, "recoilRotFactor", 0.0, TWEEN_RECOVER_DURATION)
+	tweenRecoil.tween_property           (self, "recoilFactor", 0.0, TWEEN_RECOVER_DURATION)
+	tweenRecoil.parallel().tween_property(self, "recoilFactor", 0.0, TWEEN_RECOVER_DURATION)
 	pass
 
 
 func onTweenPosRecoilStepFinished(_idx: int) -> void:
-	if(recoilPosFactor == 1):
-		playRecoilPosRecover()
+	if(recoilFactor == 1):
+		playRecoilRecoverEffect()
 	pass
 
 func onTweenRotRecoilStepFinished(_idx: int) -> void:
-	if(recoilRotFactor == 1):
-		playRecoilRotRecover()
+	if(recoilFactor == 1):
+		playRecoilRecoverEffect()
 	pass
 
 
@@ -92,3 +83,8 @@ func getRestartedTween(_tween: Tween) -> Tween:
 	if(_tween):
 		_tween.kill()
 	return get_tree().create_tween()
+
+
+func onPlayerShot(_recoilStrength: float) -> void:
+	addRecoil()
+	pass

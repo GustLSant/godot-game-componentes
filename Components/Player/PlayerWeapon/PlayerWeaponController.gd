@@ -113,7 +113,7 @@ func shoot() -> void:
 	playerState.emit_signal("PlayerShot", cameraRecoilStrength)
 	currentFireCooldown = playerState.fireRate
 	
-	shotRayCast.global_transform = playerState.currentCameraController.pivotRot.global_transform
+	shotRayCast.global_transform = barrelNode.global_transform #playerState.currentCameraController.pivotRot.global_transform
 	shotRayCast.rotation_degrees.x += randf_range(-playerState.fireSpread, playerState.fireSpread)
 	shotRayCast.rotation_degrees.y += randf_range(-playerState.fireSpread, playerState.fireSpread)
 	

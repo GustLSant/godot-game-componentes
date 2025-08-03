@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://d33kf6ht1h1k5"]
 
-[ext_resource type="Script" uid="uid://d081bgbrqtwn2" path="res://Components/Player/CameraControllerScripts/FpsModeScripts/PlayerFpsCameraController.gd" id="1_oxwyr"]
+[ext_resource type="Script" uid="uid://d081bgbrqtwn2" path="res://Components/Player/CameraControllerScripts/FpsModeScripts/PlayerFpsCameraController.gd" id="1_8lwsl"]
 
 [node name="FpsCamera" type="Node3D" node_paths=PackedStringArray("pivotPosture", "bodyCamera", "pivotRot", "camera", "pivotShake")]
-script = ExtResource("1_oxwyr")
+script = ExtResource("1_8lwsl")
 pivotPosture = NodePath("PivotRot/PivotPosture")
 bodyCamera = NodePath("CanvasLayer/SubViewportContainer/SubViewport/Camera3D")
 pivotRot = NodePath("PivotRot")

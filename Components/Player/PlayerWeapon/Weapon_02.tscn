@@ -529,14 +529,13 @@ size = Vector3(0.4, 0.4, 1.2)
 
 [node name="Weapon_02" type="Node3D" node_paths=PackedStringArray("shotRayCast", "barrelNode")]
 script = ExtResource("1_ddo5g")
-fireRate = 0.2
 magazineSize = 12
+reloadTime = 0.5
 shotRayCast = NodePath("ShotRayCast")
 barrelNode = NodePath("BarrelPos")
-armsDefaultPosition = Vector3(0.6, -0.65, -1.75)
-recoverFactor = 2.0
-recoilPosZStrength = 1.5
-recoilRotXStrength = 5.0
+armsDefaultPosition = Vector3(0.7, -0.8, -0.75)
+armsAimPosition = Vector3(0, -0.5, -0.75)
+recoilPosZStrength = 2.0
 id = 2
 
 [node name="pistol-01" type="Node3D" parent="."]
@@ -634,11 +633,13 @@ skeleton = NodePath("")
 
 [node name="RightArm" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24, 0.495)
+visible = false
 layers = 2
 mesh = SubResource("BoxMesh_ypkbs")
 
 [node name="LeftArm" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -0.4, -0.339998, 0.595)
+visible = false
 layers = 2
 mesh = SubResource("BoxMesh_ypkbs")
 

@@ -16,10 +16,14 @@ func _process(_delta: float) -> void:
 var inputVecMovement: Vector2 = Vector2.ZERO
 var isSprinting:bool = false
 var isOnFloor: bool = true
+const SPRINT_MULTIPLIER_FACTOR: float = 2.0
 
 
 # Posture Controller
 var isCrouched: bool = false
+const CROUCH_HEIGHT: float = -0.8
+const CROUCH_SPEED: float = 10.0
+const CROUCH_MULTIPLIER_FACTOR: float = 0.75
 
 
 # Camera Manager
@@ -57,6 +61,7 @@ signal ReloadEnd()
 var isAiming: bool = false
 var isReloading: bool = false
 var currentReloadTime: float = 0.0
+const AIM_MULTIPLIER_FACTOR: float = 0.5
 signal PlayerShot(_recoilStrength: float)
 
 # Weapons Parameters
