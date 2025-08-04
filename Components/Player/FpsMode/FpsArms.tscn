@@ -3,54 +3,51 @@
 [ext_resource type="Script" uid="uid://d2y2o1dt32ska" path="res://Components/Player/CameraControllerScripts/FpsModeScripts/PlayerFpsArmsController.gd" id="1_48f11"]
 [ext_resource type="Script" uid="uid://3e2u3bcqakmn" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsRecoilController.gd" id="2_cjgvy"]
 [ext_resource type="Script" uid="uid://bbqfph3ddidu4" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsSwayController.gd" id="3_c5b7h"]
-[ext_resource type="Script" uid="uid://d4gq313cxbjdg" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsCrouchController.gd" id="4_m1cbt"]
+[ext_resource type="Script" uid="uid://d4gq313cxbjdg" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsPostureController.gd" id="4_m1cbt"]
 [ext_resource type="Script" uid="uid://dh0vpy7ovjx2" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsTiltController.gd" id="5_dd5bv"]
 [ext_resource type="Script" uid="uid://c3ggovm0hxyf" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsPositionController.gd" id="6_6sold"]
 [ext_resource type="PackedScene" uid="uid://b4i8ky11wn2rx" path="res://Components/Player/FpsMode/FpsArmsMesh.tscn" id="7_mukl3"]
 
 [node name="FpsArms" type="Node3D" node_paths=PackedStringArray("weaponSocket", "pivotRot")]
 script = ExtResource("1_48f11")
-weaponSocket = NodePath("PivotRot/PivotPosture/PivotPosAim/PivotSway/PivotTilt/PivotRecoil/FpsArmsMesh/Bone_Base/Bone_ArmR/PlayerArm/WeaponsSocket")
+weaponSocket = NodePath("PivotRot/PivotPosture/PivotPosAim/PivotSway/FpsArmsMesh/Bone_Base/Bone_ArmR/PlayerArm/WeaponsSocket")
 pivotRot = NodePath("PivotRot")
 
 [node name="Components" type="Node" parent="."]
-
-[node name="ArmsRecoilController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
-script = ExtResource("2_cjgvy")
-pivot = NodePath("../../PivotRot/PivotPosture/PivotPosAim/PivotSway/PivotTilt/PivotRecoil")
-metadata/_custom_type_script = "uid://3e2u3bcqakmn"
-
-[node name="ArmsSwayController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
-script = ExtResource("3_c5b7h")
-pivot = NodePath("../../PivotRot/PivotPosture/PivotPosAim/PivotSway")
-metadata/_custom_type_script = "uid://bbqfph3ddidu4"
-
-[node name="ArmsCrouchController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
-script = ExtResource("4_m1cbt")
-pivot = NodePath("../../PivotRot/PivotPosture")
-metadata/_custom_type_script = "uid://d4gq313cxbjdg"
-
-[node name="ArmsTiltController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
-script = ExtResource("5_dd5bv")
-pivot = NodePath("../../PivotRot/PivotPosture/PivotPosAim/PivotSway/PivotTilt")
-metadata/_custom_type_script = "uid://dh0vpy7ovjx2"
 
 [node name="ArmsPositionController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
 script = ExtResource("6_6sold")
 pivot = NodePath("../../PivotRot/PivotPosture/PivotPosAim")
 metadata/_custom_type_script = "uid://c3ggovm0hxyf"
 
+[node name="ArmsSwayController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
+script = ExtResource("3_c5b7h")
+pivot = NodePath("../../PivotRot/PivotPosture/PivotPosAim/PivotSway")
+metadata/_custom_type_script = "uid://bbqfph3ddidu4"
+
+[node name="ArmsTiltController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
+script = ExtResource("5_dd5bv")
+pivot = NodePath("../../PivotRot/PivotPosture/PivotPosAim/PivotSway")
+metadata/_custom_type_script = "uid://dh0vpy7ovjx2"
+
+[node name="ArmsPostureController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
+script = ExtResource("4_m1cbt")
+pivot = NodePath("../../PivotRot/PivotPosture")
+metadata/_custom_type_script = "uid://d4gq313cxbjdg"
+
+[node name="ArmsRecoilController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
+script = ExtResource("2_cjgvy")
+pivot = NodePath("../../PivotRot/PivotPosture")
+metadata/_custom_type_script = "uid://3e2u3bcqakmn"
+
 [node name="PivotRot" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 1.8, 0)
 
 [node name="PivotPosture" type="Marker3D" parent="PivotRot"]
 
 [node name="PivotPosAim" type="Marker3D" parent="PivotRot/PivotPosture"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.8, -0.2)
 
 [node name="PivotSway" type="Marker3D" parent="PivotRot/PivotPosture/PivotPosAim"]
 
-[node name="PivotTilt" type="Marker3D" parent="PivotRot/PivotPosture/PivotPosAim/PivotSway"]
-
-[node name="PivotRecoil" type="Marker3D" parent="PivotRot/PivotPosture/PivotPosAim/PivotSway/PivotTilt"]
-
-[node name="FpsArmsMesh" parent="PivotRot/PivotPosture/PivotPosAim/PivotSway/PivotTilt/PivotRecoil" instance=ExtResource("7_mukl3")]
+[node name="FpsArmsMesh" parent="PivotRot/PivotPosture/PivotPosAim/PivotSway" instance=ExtResource("7_mukl3")]

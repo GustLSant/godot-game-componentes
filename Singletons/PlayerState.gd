@@ -24,6 +24,7 @@ var isCrouched: bool = false
 const CROUCH_HEIGHT: float = -0.8
 const CROUCH_SPEED: float = 10.0
 const CROUCH_MULTIPLIER_FACTOR: float = 0.75
+signal PlayerCrouch()
 
 
 # Camera Manager
@@ -69,8 +70,8 @@ var damage: float = 20.0
 var fireRate: float = 0.1
 var magazineSize: int = 20
 var fireSpread: float = 2.5
-var armsDefaultPosition: Vector3 = Vector3(0.6, -0.65, -1.25)
-var armsAimPosition: Vector3 = Vector3(0.0, -0.33, -1.0)
+var armsDefaultPosition: Vector3 = Vector3(0.6, -0.8, -0.2)
+var armsAimPosition: Vector3 = Vector3(0.0, -0.5, -0.2)
 var aimFOV: float = 45.0
 var recoverFactor: float = 1.0
 var recoilShakeStrength: float = 1.0

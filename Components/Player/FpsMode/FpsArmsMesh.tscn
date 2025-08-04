@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b4i8ky11wn2rx"]
+[gd_scene load_steps=23 format=3 uid="uid://b4i8ky11wn2rx"]
 
 [ext_resource type="PackedScene" uid="uid://hqgxmcmyw8qj" path="res://Meshs/PlayerArm.blend" id="1_456j5"]
 [ext_resource type="Script" uid="uid://d153bq7wvkbki" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsAnimationController.gd" id="1_ri7q4"]
@@ -8,6 +8,22 @@
 albedo_texture = ExtResource("2_ainnh")
 texture_filter = 0
 texture_repeat = false
+
+[sub_resource type="Animation" id="Animation_fg708"]
+resource_name = "Crouch"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bone_Base:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, -0.1, 0), Vector3(0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_7dsrq"]
 resource_name = "Long_Idle"
@@ -34,6 +50,81 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bone_Base/Bone_ArmR:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bone_Base/Bone_ArmL:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.45, -0.1, -0.85)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Bone_Base/Bone_ArmR:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Bone_Base/Bone_ArmL:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.2595e-08, -0.436332, 0.436332)]
+}
+
+[sub_resource type="Animation" id="Animation_5je05"]
+resource_name = "Long_Sprinting"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bone_Base:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.2, -0.05, -0.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bone_Base:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.0472, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -234,6 +325,81 @@ tracks/5/keys = {
 "values": [Vector3(0, -0.174533, 0.785398)]
 }
 
+[sub_resource type="Animation" id="Animation_01e8d"]
+resource_name = "Short_Sprinting"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bone_Base:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bone_Base:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bone_Base/Bone_ArmR:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.2, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bone_Base/Bone_ArmL:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1, -1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Bone_Base/Bone_ArmR:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.22173, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Bone_Base/Bone_ArmL:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_ainnh"]
 resource_name = "TPose"
 length = 0.001
@@ -385,158 +551,9 @@ tracks/5/keys = {
 "values": [Vector3(-1.5708, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_01e8d"]
-resource_name = "Short_Sprinting"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Bone_Base:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Bone_Base:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Bone_Base/Bone_ArmR:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.2, 0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Bone_Base/Bone_ArmL:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-1, -1, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Bone_Base/Bone_ArmR:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1.22173, 0, 0)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Bone_Base/Bone_ArmL:rotation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_5je05"]
-resource_name = "Long_Sprinting"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Bone_Base:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.2, -0.05, -0.1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Bone_Base:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 1.0472, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Bone_Base/Bone_ArmR:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Bone_Base/Bone_ArmL:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.45, -0.1, -0.85)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Bone_Base/Bone_ArmR:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Bone_Base/Bone_ArmL:rotation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1.2595e-08, -0.436332, 0.436332)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fad1k"]
 _data = {
+&"Crouch": SubResource("Animation_fg708"),
 &"Long_Idle": SubResource("Animation_7dsrq"),
 &"Long_Sprinting": SubResource("Animation_5je05"),
 &"RESET": SubResource("Animation_4iqv5"),
@@ -565,7 +582,7 @@ animation = &"Short_Idle"
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_lvli1"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_so5p0"]
-graph_offset = Vector2(-713.164, 354.417)
+graph_offset = Vector2(-217.669, 597.313)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_ainnh")
 nodes/Animation/position = Vector2(-533.333, 240)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_ri7q4")
@@ -580,7 +597,7 @@ nodes/Blend_PostureSprinting/node = SubResource("AnimationNodeBlend2_01e8d")
 nodes/Blend_PostureSprinting/position = Vector2(-266.667, 773.333)
 nodes/Blend_Sprinting/node = SubResource("AnimationNodeBlend2_lvli1")
 nodes/Blend_Sprinting/position = Vector2(53.3333, 533.333)
-nodes/output/position = Vector2(426.667, 533.333)
+nodes/output/position = Vector2(826.667, 773.333)
 node_connections = [&"Blend_PostureIdle", 0, &"Animation", &"Blend_PostureIdle", 1, &"Animation 2", &"Blend_PostureSprinting", 0, &"Animation 4", &"Blend_PostureSprinting", 1, &"Animation 3", &"Blend_Sprinting", 0, &"Blend_PostureIdle", &"Blend_Sprinting", 1, &"Blend_PostureSprinting", &"output", 0, &"Blend_Sprinting"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_x8qxs"]
@@ -596,7 +613,6 @@ animTree = NodePath("../../AnimationTree")
 metadata/_custom_type_script = "uid://d153bq7wvkbki"
 
 [node name="Bone_Base" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Bone_ArmR" type="Marker3D" parent="Bone_Base"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0)
@@ -630,7 +646,7 @@ autoplay = "Unarmed"
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeBlendTree_so5p0")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Blend_PostureIdle/blend_amount = 0
+parameters/Blend_PostureIdle/blend_amount = 0.0
 parameters/Blend_PostureSprinting/blend_amount = 0
 parameters/Blend_Sprinting/blend_amount = false
 

@@ -10,7 +10,7 @@ const LINE_WIDTH:float = 1.0
 const LINE_LENGTH:float = 12.0
 
 # Behaviour
-const TRANS_TIME:float = 10.0
+const TRANS_TIME:float = 16.0
 const MIN_DISTANCE_TO_CENTER:float = 5.0
 const AIM_DISTANCE_VARIANCE:float = 10.0  # distância que varia conforme o jogador está mirando ou não
 const MOVE_DISTANCE_VARIANCE:float = 15.0 # distância que varia conforme o jogador está se movendo ou não

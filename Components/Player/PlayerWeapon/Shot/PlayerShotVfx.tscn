@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://bwubipyt374vu"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_cg43f"]
-size = Vector3(0.05, 0.05, 1)
+size = Vector3(0.1, 0.1, 1)
 
 [node name="PlayerShotVfx" type="Node3D"]
 

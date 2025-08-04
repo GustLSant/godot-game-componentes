@@ -33,8 +33,8 @@ func handleSwayEffect() -> void:
 	amount *= aimMultiplier
 	amount *= sprintMultiplier
 	
-	var xAmountMultiplier: float = 1.0 #int(not playerState.isSprinting) * 0.6 + int(playerState.isSprinting) * 2.0
-	var yAmountMultiplier: float = 2.0
+	var xAmountMultiplier: float = 0.75 #int(not playerState.isSprinting) * 0.6 + int(playerState.isSprinting) * 2.0
+	var yAmountMultiplier: float = 1.5
 	
 	var targetSwayPosition: Vector3 = Vector3(
 		sin(Time.get_ticks_msec()*frequence*0.5) * amount * xAmountMultiplier,

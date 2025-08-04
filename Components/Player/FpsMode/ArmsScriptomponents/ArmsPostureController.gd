@@ -1,5 +1,5 @@
 extends Node
-class_name ArmsCrouchController
+class_name ArmsPostureController
 
 @export var pivot: Node3D
 @onready var playerState: PlayerState = Nodes.playerState

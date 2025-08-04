@@ -1,6 +1,8 @@
 extends Node
 class_name PlayerPostureController
 
+var wasCrouching: bool = false
+
 
 func _process(delta: float) -> void:
 	handleCrouchInput()
@@ -13,6 +15,11 @@ func handleCrouchInput() -> void:
 		Nodes.playerState.isCrouched = Input.is_action_pressed("Crouch")
 	else:
 		if(Input.is_action_just_pressed("Crouch")): Nodes.playerState.isCrouched = !Nodes.playerState.isCrouched
+	
+	if(Nodes.playerState.isCrouched and not wasCrouching):
+		Nodes.playerState.emit_signal("PlayerCrouch")
+	
+	wasCrouching = Nodes.playerState.isCrouched
 	pass
 
 
