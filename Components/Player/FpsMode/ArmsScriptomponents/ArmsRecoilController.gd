@@ -63,8 +63,8 @@ func playRecoilRecoverEffect() -> void:
 	tweenRecoil.set_trans(Tween.TRANS_CUBIC)
 	tweenRecoil.set_ease(Tween.EASE_OUT)
 	
-	tweenRecoil.tween_property           (self, "recoilFactor", 0.0, TWEEN_RECOVER_DURATION)
-	tweenRecoil.parallel().tween_property(self, "recoilFactor", 0.0, TWEEN_RECOVER_DURATION)
+	tweenRecoil.tween_property           (self, "recoilFactor", 0.0, TWEEN_RECOVER_DURATION * playerState.recoverFactor)
+	tweenRecoil.parallel().tween_property(self, "recoilFactor", 0.0, TWEEN_RECOVER_DURATION * playerState.recoverFactor)
 	pass
 
 

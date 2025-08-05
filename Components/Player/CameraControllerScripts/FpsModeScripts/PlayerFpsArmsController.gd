@@ -44,5 +44,5 @@ func onPickupWeapon(_newWeaponScene: Node3D, _spawnOnPlayerModel: bool) -> void:
 
 
 func onTryChangeWeapon(_newWeaponScene: PlayerWeaponController) -> void:
-	playerState.emit_signal("ChangeWeapon", _newWeaponScene) # normalmente toca a aniamcao de troca de arma, e no meio da animacao, equipa a arma
+	Nodes.playerState.emit_signal("ChangeWeapon", _newWeaponScene) # normalmente toca a aniamcao de troca de arma, e no meio da animacao, equipa a arma
 	pass

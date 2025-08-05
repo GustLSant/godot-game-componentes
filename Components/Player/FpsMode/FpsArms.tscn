@@ -10,24 +10,24 @@
 
 [node name="FpsArms" type="Node3D" node_paths=PackedStringArray("weaponSocket", "pivotRot")]
 script = ExtResource("1_48f11")
-weaponSocket = NodePath("PivotRot/PivotPosture/PivotPosAim/PivotSway/FpsArmsMesh/Bone_Base/Bone_ArmR/PlayerArm/WeaponsSocket")
+weaponSocket = NodePath("PivotRot/PivotPosture/Scaler/PivotRecoil/PivotSway/PivotPosAim/FpsArmsMesh/Bone_Base/Bone_ArmR/PlayerArm/WeaponsSocket")
 pivotRot = NodePath("PivotRot")
 
 [node name="Components" type="Node" parent="."]
 
 [node name="ArmsPositionController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
 script = ExtResource("6_6sold")
-pivot = NodePath("../../PivotRot/PivotPosture/PivotPosAim")
+pivot = NodePath("../../PivotRot/PivotPosture/Scaler/PivotRecoil/PivotSway/PivotPosAim")
 metadata/_custom_type_script = "uid://c3ggovm0hxyf"
 
 [node name="ArmsSwayController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
 script = ExtResource("3_c5b7h")
-pivot = NodePath("../../PivotRot/PivotPosture/PivotPosAim/PivotSway")
+pivot = NodePath("../../PivotRot/PivotPosture/Scaler/PivotRecoil/PivotSway")
 metadata/_custom_type_script = "uid://bbqfph3ddidu4"
 
 [node name="ArmsTiltController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
 script = ExtResource("5_dd5bv")
-pivot = NodePath("../../PivotRot/PivotPosture/PivotPosAim/PivotSway")
+pivot = NodePath("../../PivotRot/PivotPosture/Scaler/PivotRecoil/PivotSway")
 metadata/_custom_type_script = "uid://dh0vpy7ovjx2"
 
 [node name="ArmsPostureController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
@@ -37,17 +37,21 @@ metadata/_custom_type_script = "uid://d4gq313cxbjdg"
 
 [node name="ArmsRecoilController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
 script = ExtResource("2_cjgvy")
-pivot = NodePath("../../PivotRot/PivotPosture")
+pivot = NodePath("../../PivotRot/PivotPosture/Scaler/PivotRecoil")
 metadata/_custom_type_script = "uid://3e2u3bcqakmn"
 
 [node name="PivotRot" type="Marker3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="PivotPosture" type="Marker3D" parent="PivotRot"]
 
-[node name="PivotPosAim" type="Marker3D" parent="PivotRot/PivotPosture"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.8, -0.2)
+[node name="Scaler" type="Node3D" parent="PivotRot/PivotPosture"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="PivotSway" type="Marker3D" parent="PivotRot/PivotPosture/PivotPosAim"]
+[node name="PivotRecoil" type="Marker3D" parent="PivotRot/PivotPosture/Scaler"]
 
-[node name="FpsArmsMesh" parent="PivotRot/PivotPosture/PivotPosAim/PivotSway" instance=ExtResource("7_mukl3")]
+[node name="PivotSway" type="Marker3D" parent="PivotRot/PivotPosture/Scaler/PivotRecoil"]
+
+[node name="PivotPosAim" type="Marker3D" parent="PivotRot/PivotPosture/Scaler/PivotRecoil/PivotSway"]
+
+[node name="FpsArmsMesh" parent="PivotRot/PivotPosture/Scaler/PivotRecoil/PivotSway/PivotPosAim" instance=ExtResource("7_mukl3")]
