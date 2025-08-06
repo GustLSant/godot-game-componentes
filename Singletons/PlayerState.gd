@@ -41,10 +41,19 @@ var health:int = maxHealth
 signal DamageTaken(_damage: float)
 
 
+# modelo do objeto container dos attachments
+var attachmentSlots: Dictionary[String, Object] = {
+	"sight" = null,
+	"grip" = null,
+	"magazine" = null,
+	"device" = null,
+	"barrel" = null
+}
+
 # Inventory
 var inventory: Dictionary[String, Array] = {
 	'weapons' = [],
-	'weaponsAmmo' = [0, 0, 0, 0, 0], # municao de cada arma relacionada pelo idx dos arrays
+	'magazineAmmo' = [0, 0, 0, 0, 0], # municao de cada arma relacionada pelo idx dos arrays
 	'reserveAmmo' = [50, 0, 200, 0],   # cada indice eh um tipo de municao
 	'keyItems' = [],
 	'misc' = []

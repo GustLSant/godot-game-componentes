@@ -1,6 +1,5 @@
-[gd_scene load_steps=16 format=3 uid="uid://bqshrdvp6bnlg"]
+[gd_scene load_steps=15 format=3 uid="uid://bqshrdvp6bnlg"]
 
-[ext_resource type="Script" uid="uid://cav0uleqdgm0g" path="res://Components/Player/PlayerScriptComponents/PlayerCameraManager.gd" id="1_a50ic"]
 [ext_resource type="Script" uid="uid://bt7qclob8p22t" path="res://Components/Player/Player.gd" id="1_qij2n"]
 [ext_resource type="Script" uid="uid://c7alstv6ddk1m" path="res://Components/Player/PlayerScriptComponents/PlayerMovementController.gd" id="2_8qe71"]
 [ext_resource type="Script" uid="uid://bsvkkfku67ulq" path="res://Singletons/PlayerState.gd" id="2_qij2n"]
@@ -31,9 +30,6 @@ metadata/_custom_type_script = "uid://bsvkkfku67ulq"
 
 [node name="JumpController" type="Node" parent="Components"]
 script = ExtResource("3_cyqth")
-
-[node name="CameraManager" type="Node" parent="Components"]
-script = ExtResource("1_a50ic")
 
 [node name="MovementController" type="Node" parent="Components"]
 script = ExtResource("2_8qe71")

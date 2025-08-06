@@ -14,8 +14,8 @@ class_name PlayerWeaponController
 @export var barrelNode: Node3D
 
 @export_category("Aim Variables")
-@export var armsDefaultPosition: Vector3 = Vector3(0.6, -0.65, -1.25)
-@export var armsAimPosition: Vector3 = Vector3(0.0, -0.33, -1.0)
+@export var armsDefaultPosition: Vector3 = Vector3(0.0, -0.8, -0.2)
+@export var armsAimPosition: Vector3 = Vector3(0.0, -0.5, -0.2)
 @export var aimFOV: float = 45.0
 
 @export_category("Recoil Variables")
@@ -104,12 +104,12 @@ func checkCanShoot() -> bool:
 		currentFireCooldown <= 0.0 and 
 		playerState.currentWeapon == self and 
 		not playerState.isReloading and  
-		playerState.inventory["weaponsAmmo"][selfIdxOnInventory] > 0 
+		playerState.inventory["magazineAmmo"][selfIdxOnInventory] > 0 
 	)
 
 
 func shoot() -> void:
-	playerState.inventory["weaponsAmmo"][selfIdxOnInventory] -= 1
+	playerState.inventory["magazineAmmo"][selfIdxOnInventory] -= 1
 	playerState.emit_signal("PlayerShot", cameraRecoilStrength)
 	currentFireCooldown = playerState.fireRate
 	
@@ -142,7 +142,7 @@ func spawnShotVfx(_collDistance: float, _collPoint: Vector3) -> void:
 
 func handleReload() -> void:
 	if(Input.is_action_just_pressed("Reload")):
-		if(playerState.isReloading or playerState.inventory["weaponsAmmo"][selfIdxOnInventory] >= playerState.magazineSize or playerState.inventory["reserveAmmo"][ammoId] <= 0): return
+		if(playerState.isReloading or playerState.inventory["magazineAmmo"][selfIdxOnInventory] >= playerState.magazineSize or playerState.inventory["reserveAmmo"][ammoId] <= 0): return
 		playerState.isReloading = true
 		playerState.currentReloadTime = reloadTime
 		canTriggerReloadEndSignal = true
@@ -153,10 +153,10 @@ func handleReload() -> void:
 		if(canTriggerReloadEndSignal):
 			playerState.isReloading = false
 			var ammoAmount: int = min(
-				abs(playerState.magazineSize - playerState.inventory["weaponsAmmo"][selfIdxOnInventory]), 
+				abs(playerState.magazineSize - playerState.inventory["magazineAmmo"][selfIdxOnInventory]), 
 				playerState.inventory["reserveAmmo"][ammoId]
 				)
-			playerState.inventory["weaponsAmmo"][selfIdxOnInventory] += ammoAmount
+			playerState.inventory["magazineAmmo"][selfIdxOnInventory] += ammoAmount
 			playerState.inventory["reserveAmmo"][ammoId] -= ammoAmount
 			playerState.emit_signal("ReloadEnd")
 			canTriggerReloadEndSignal = false
@@ -204,6 +204,6 @@ func onChangeWeapon(_newWeapon: PlayerWeaponController) -> void:
 
 
 func onTreeExiting() -> void:
-	playerState.inventory["reserveAmmo"][ammoId] += playerState.inventory["weaponsAmmo"][selfIdxOnInventory] # devolvendo a municao restante do pente para o inventario
-	playerState.inventory["weaponsAmmo"][selfIdxOnInventory] = 0
+	playerState.inventory["reserveAmmo"][ammoId] += playerState.inventory["magazineAmmo"][selfIdxOnInventory] # devolvendo a municao restante do pente para o inventario
+	playerState.inventory["magazineAmmo"][selfIdxOnInventory] = 0
 	pass

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://cx0kso1jvtdxa"]
+[gd_scene load_steps=19 format=4 uid="uid://cx0kso1jvtdxa"]
 
 [ext_resource type="Script" uid="uid://d3a06blw1q5ss" path="res://Components/Player/PlayerWeapon/PlayerWeaponController.gd" id="1_0gfg1"]
 
@@ -162,14 +162,21 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_e8ijh")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0gfg1"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 20.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_j61ko"]
+size = Vector3(0.025, 0.025, 20)
+
 [node name="Weapon_01" type="Node3D" node_paths=PackedStringArray("shotRayCast", "barrelNode")]
 script = ExtResource("1_0gfg1")
 fireRate = 0.1
 reloadTime = 0.5
 shotRayCast = NodePath("ShotRayCast")
 barrelNode = NodePath("BarrelPos")
-armsDefaultPosition = Vector3(0, -0.8, -0.2)
-armsAimPosition = Vector3(0, -0.5, -0.2)
 id = 1
 ammoId = 2
 
@@ -204,6 +211,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.333333, 0.15408)
 layers = 2
 mesh = SubResource("ArrayMesh_48ska")
 skeleton = NodePath("")
+
+[node name="Laser" type="Node3D" parent="Weapon"]
+transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 0.15, 0, -0.7)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Weapon/Laser"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+material_override = SubResource("StandardMaterial3D_0gfg1")
+mesh = SubResource("BoxMesh_j61ko")
 
 [node name="ShotRayCast" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -75)

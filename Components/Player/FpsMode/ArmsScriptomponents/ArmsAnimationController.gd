@@ -4,6 +4,7 @@ class_name ArmsAnimationController
 @export var animTree: AnimationTree
 @onready var playerState: PlayerState = Nodes.playerState
 
+var blendArmed: float = 0.0
 var blendPosture: float = 0.0
 var blendIdleToAiming: float = 0.0
 var blendToSprinting: float = 0.0
@@ -24,12 +25,12 @@ func _process(_delta: float) -> void:
 
 
 func handleAnimations() -> void:
-	blendPosture = lerp(blendPosture, float(playerState.currentWeapon and playerState.currentWeapon.ammoId > 0), 10.0 * delta)
-	
+	blendArmed        = lerp(blendArmed,        float(is_instance_valid(playerState.currentWeapon)), 10.0 * delta)
+	blendPosture      = lerp(blendPosture,      float(playerState.currentWeapon and playerState.currentWeapon.ammoId > 0), 10.0 * delta)
 	blendIdleToAiming = lerp(blendIdleToAiming, float(playerState.isAiming),    10.0 * delta)
-	blendToSprinting =  lerp(blendToSprinting,  float(playerState.isSprinting), 10.0 * delta)
+	blendToSprinting  = lerp(blendToSprinting,  float(playerState.isSprinting), 10.0 * delta)
 	
-	animTree["parameters/Blend_Armed/blend_amount"] = 1.0#float(is_instance_valid(playerState.currentWeapon))
+	animTree["parameters/Blend_Armed/blend_amount"] = blendArmed
 	
 	animTree["parameters/Blend_Posture_1/blend_amount"]  = blendPosture
 	animTree["parameters/Blend_Posture_2/blend_amount"]  = blendPosture

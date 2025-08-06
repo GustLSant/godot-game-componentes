@@ -23,7 +23,7 @@ func getCurrentWeaponIdx() -> int:
 
 func updateLabels() -> void:
 	var ammoId: int = Nodes.playerState.currentWeapon.ammoId if (is_instance_valid(Nodes.playerState.currentWeapon)) else 0
-	magAmmoLabel.text = str(Nodes.playerState.inventory["weaponsAmmo"][currentWeaponIdx])
+	magAmmoLabel.text = str(Nodes.playerState.inventory["magazineAmmo"][currentWeaponIdx])
 	reserveAmmoLabel.text = "/" + str(Nodes.playerState.inventory["reserveAmmo"][ammoId]) # aqui tem que ser eh o id da municao que a arma usa
 	pass
 

@@ -535,6 +535,7 @@ armsAimPosition = Vector3(0, -0.5, -0.75)
 recoverFactor = 4.0
 recoilPosZStrength = 2.0
 recoilRotXStrength = 10.0
+recoilRotZStrength = 2.0
 id = 2
 
 [node name="pistol-01" type="Node3D" parent="."]
