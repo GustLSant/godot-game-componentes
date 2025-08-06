@@ -11,6 +11,11 @@ var blendToSprinting: float = 0.0
 var delta: float = 0.016
 
 
+func _init() -> void:
+	Nodes.playerState.connect("PlayerShot", onPlayerShot)
+	pass
+
+
 func _process(_delta: float) -> void:
 	delta = _delta
 	handleAnimations()
@@ -24,15 +29,28 @@ func handleAnimations() -> void:
 	blendIdleToAiming = lerp(blendIdleToAiming, float(playerState.isAiming),    10.0 * delta)
 	blendToSprinting =  lerp(blendToSprinting,  float(playerState.isSprinting), 10.0 * delta)
 	
+	animTree["parameters/Blend_Armed/blend_amount"] = 1.0#float(is_instance_valid(playerState.currentWeapon))
+	
 	animTree["parameters/Blend_Posture_1/blend_amount"]  = blendPosture
 	animTree["parameters/Blend_Posture_2/blend_amount"]  = blendPosture
 	animTree["parameters/Blend_Posture_3/blend_amount"]  = blendPosture
+	animTree["parameters/Blend_Posture_4/blend_amount"]  = blendPosture
 	animTree["parameters/Blend_IdleAiming/blend_amount"] = blendIdleToAiming
 	animTree["parameters/Blend_Sprinting/blend_amount"]  = blendToSprinting
 	pass
 
 
 func handleInspect() -> void:
-	if(Input.is_action_just_pressed("Test")):
-		animTree["parameters/OneShot_ShortInspect/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+	if(Input.is_action_just_pressed("InspectWeapon") and not playerState.isAiming and not playerState.isSprinting):
+		animTree["parameters/OneShot_Inspect/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+	pass
+
+
+func abortInspectAnimation() -> void:
+	animTree["parameters/OneShot_Inspect/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT
+	pass
+
+
+func onPlayerShot(_recoilStrength: float) -> void:
+	abortInspectAnimation()
 	pass

@@ -12,7 +12,6 @@ var delta:float = 0.016
 func _init() -> void:
 	super._init()
 	Nodes.playerState.connect("PickupWeapon", onPickupWeapon)
-	Nodes.playerState.connect("TryChangeWeapon", onTryChangeWeapon)
 	pass
 
 
@@ -40,9 +39,4 @@ func handleRotation() -> void:
 func onPickupWeapon(_newWeaponScene: Node3D, _spawnOnPlayerModel: bool) -> void:
 	if(_spawnOnPlayerModel):
 		weaponSocket.call_deferred("add_child", _newWeaponScene)
-	pass
-
-
-func onTryChangeWeapon(_newWeaponScene: PlayerWeaponController) -> void:
-	Nodes.playerState.emit_signal("ChangeWeapon", _newWeaponScene) # normalmente toca a aniamcao de troca de arma, e no meio da animacao, equipa a arma
 	pass

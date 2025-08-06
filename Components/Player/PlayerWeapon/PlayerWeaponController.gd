@@ -134,7 +134,6 @@ func spawnShotVfx(_collDistance: float, _collPoint: Vector3) -> void:
 	vfxInstance.transform = barrelNode.global_transform
 	vfxInstance.scale = Vector3.ONE
 	vfxInstance.scale.z = _collDistance
-	#vfxInstance.position += barrelNode.global_transform.basis.z * 0.5
 	
 	vfxInstance.call_deferred("look_at", _collPoint)
 	Nodes.mainNode.add_child(vfxInstance)

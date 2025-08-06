@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://b4i8ky11wn2rx"]
+[gd_scene load_steps=40 format=3 uid="uid://b4i8ky11wn2rx"]
 
 [ext_resource type="PackedScene" uid="uid://hqgxmcmyw8qj" path="res://Meshs/PlayerArm.blend" id="1_456j5"]
 [ext_resource type="Script" uid="uid://d153bq7wvkbki" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsAnimationController.gd" id="1_ri7q4"]
@@ -10,8 +10,8 @@ albedo_texture = ExtResource("2_ainnh")
 texture_filter = 0
 texture_repeat = false
 
-[sub_resource type="Animation" id="Animation_fg708"]
-resource_name = "Crouch"
+[sub_resource type="Animation" id="Animation_qpcjw"]
+resource_name = "ChangeWeapon"
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -20,10 +20,111 @@ tracks/0/path = NodePath("Bone_Base:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.75, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, -0.1, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0.6, 0, 0), Vector3(0.6, -0.4, 0), Vector3(0.6, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bone_Base:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.872665, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Components/ArmsAnimationController")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"changeWeapon"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_ktocl"]
+resource_name = "Long_Aiming"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bone_Base:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bone_Base:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bone_Base/Bone_ArmR:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bone_Base/Bone_ArmL:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.45, -0.1, -0.85)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Bone_Base/Bone_ArmR:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Bone_Base/Bone_ArmL:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.2595e-08, -0.436332, 0.436332)]
 }
 
 [sub_resource type="Animation" id="Animation_7dsrq"]
@@ -99,6 +200,83 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(1.2595e-08, -0.436332, 0.436332)]
+}
+
+[sub_resource type="Animation" id="Animation_fg708"]
+resource_name = "Long_Inspect"
+length = 3.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bone_Base:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.6, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bone_Base:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bone_Base/Bone_ArmR:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.45, 2, 3, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.4), Vector3(0, 0, -0.4), Vector3(-0.4, 0, -0.4), Vector3(-0.4, 0, -0.4), Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bone_Base/Bone_ArmL:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 3, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.45, -0.1, -0.85), Vector3(-1.2, -0.4, 0), Vector3(-1.2, -0.4, 0), Vector3(-0.45, -0.1, -0.85)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Bone_Base/Bone_ArmR:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.45, 2, 3, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.523599, 0, -0.523599), Vector3(0.523599, 0, -0.523599), Vector3(0.523599, 2.4122e-08, 1.0472), Vector3(0.523599, 2.4122e-08, 1.0472), Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Bone_Base/Bone_ArmL:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.5, 3, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.2595e-08, -0.436332, 0.436332), Vector3(-1.5708, 0, 0), Vector3(-1.5708, 0, 0), Vector3(1.2595e-08, -0.436332, 0.436332)]
 }
 
 [sub_resource type="Animation" id="Animation_5je05"]
@@ -251,6 +429,81 @@ tracks/5/keys = {
 "values": [Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_bs67h"]
+resource_name = "Short_Aiming"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bone_Base:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bone_Base:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bone_Base/Bone_ArmR:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bone_Base/Bone_ArmL:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.45, -0.2, 0.15)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Bone_Base/Bone_ArmR:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Bone_Base/Bone_ArmL:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.174533, 0.785398)]
+}
+
 [sub_resource type="Animation" id="Animation_ri7q4"]
 resource_name = "Short_Idle"
 tracks/0/type = "value"
@@ -340,7 +593,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0.6, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -566,7 +819,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0, -0.2, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -629,161 +882,12 @@ tracks/5/keys = {
 "values": [Vector3(-1.5708, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_bs67h"]
-resource_name = "Short_Aiming"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Bone_Base:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Bone_Base:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Bone_Base/Bone_ArmR:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Bone_Base/Bone_ArmL:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.45, -0.2, 0.15)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Bone_Base/Bone_ArmR:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Bone_Base/Bone_ArmL:rotation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -0.174533, 0.785398)]
-}
-
-[sub_resource type="Animation" id="Animation_ktocl"]
-resource_name = "Long_Aiming"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Bone_Base:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Bone_Base:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Bone_Base/Bone_ArmR:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Bone_Base/Bone_ArmL:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.45, -0.1, -0.85)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Bone_Base/Bone_ArmR:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Bone_Base/Bone_ArmL:rotation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1.2595e-08, -0.436332, 0.436332)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fad1k"]
 _data = {
-&"Crouch": SubResource("Animation_fg708"),
+&"ChangeWeapon": SubResource("Animation_qpcjw"),
 &"Long_Aiming": SubResource("Animation_ktocl"),
 &"Long_Idle": SubResource("Animation_7dsrq"),
+&"Long_Inspect": SubResource("Animation_fg708"),
 &"Long_Sprinting": SubResource("Animation_5je05"),
 &"RESET": SubResource("Animation_4iqv5"),
 &"Short_Aiming": SubResource("Animation_bs67h"),
@@ -793,6 +897,9 @@ _data = {
 &"TPose": SubResource("Animation_ainnh"),
 &"Unarmed": SubResource("Animation_fad1k")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bs67h"]
+animation = &"ChangeWeapon"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ri7q4"]
 animation = &"Long_Idle"
@@ -812,8 +919,16 @@ animation = &"Short_Aiming"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5je05"]
 animation = &"Long_Aiming"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fg708"]
+animation = &"Unarmed"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_r5r4p"]
+animation = &"Long_Inspect"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ainnh"]
 animation = &"Short_Idle"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_r5r4p"]
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_4iqv5"]
 
@@ -823,16 +938,22 @@ animation = &"Short_Idle"
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_01e8d"]
 
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_bs67h"]
+
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_lvli1"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_ktocl"]
+filter_enabled = true
+filters = ["Bone_Base:position", "Bone_Base:rotation"]
 
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_01e8d"]
 
-[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_5je05"]
-
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_so5p0"]
-graph_offset = Vector2(-869.219, -161.895)
+graph_offset = Vector2(956, 533.333)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_ainnh")
 nodes/Animation/position = Vector2(-826.667, -186.667)
+"nodes/Animation 10/node" = SubResource("AnimationNodeAnimation_bs67h")
+"nodes/Animation 10/position" = Vector2(1146.67, 986.667)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_ri7q4")
 "nodes/Animation 2/position" = Vector2(-826.667, 26.6667)
 "nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_4iqv5")
@@ -840,11 +961,17 @@ nodes/Animation/position = Vector2(-826.667, -186.667)
 "nodes/Animation 4/node" = SubResource("AnimationNodeAnimation_fad1k")
 "nodes/Animation 4/position" = Vector2(-826.667, 773.333)
 "nodes/Animation 5/node" = SubResource("AnimationNodeAnimation_7dsrq")
-"nodes/Animation 5/position" = Vector2(160, 986.667)
+"nodes/Animation 5/position" = Vector2(266.667, 1013.33)
 "nodes/Animation 6/node" = SubResource("AnimationNodeAnimation_01e8d")
 "nodes/Animation 6/position" = Vector2(-826.667, 293.333)
 "nodes/Animation 7/node" = SubResource("AnimationNodeAnimation_5je05")
 "nodes/Animation 7/position" = Vector2(-826.667, 506.667)
+"nodes/Animation 8/node" = SubResource("AnimationNodeAnimation_fg708")
+"nodes/Animation 8/position" = Vector2(1440, 480)
+"nodes/Animation 9/node" = SubResource("AnimationNodeAnimation_r5r4p")
+"nodes/Animation 9/position" = Vector2(266.667, 1253.33)
+nodes/Blend_Armed/node = SubResource("AnimationNodeBlend2_r5r4p")
+nodes/Blend_Armed/position = Vector2(1733.33, 560)
 nodes/Blend_IdleAiming/node = SubResource("AnimationNodeBlend2_4iqv5")
 nodes/Blend_IdleAiming/position = Vector2(-240, 133.333)
 nodes/Blend_Posture_1/node = SubResource("AnimationNodeBlend2_7dsrq")
@@ -853,14 +980,16 @@ nodes/Blend_Posture_2/node = SubResource("AnimationNodeBlend2_fad1k")
 nodes/Blend_Posture_2/position = Vector2(-560, 346.667)
 nodes/Blend_Posture_3/node = SubResource("AnimationNodeBlend2_01e8d")
 nodes/Blend_Posture_3/position = Vector2(-560, 826.667)
+nodes/Blend_Posture_4/node = SubResource("AnimationNodeBlend2_bs67h")
+nodes/Blend_Posture_4/position = Vector2(533.333, 1093.33)
 nodes/Blend_Sprinting/node = SubResource("AnimationNodeBlend2_lvli1")
 nodes/Blend_Sprinting/position = Vector2(160, 586.667)
-nodes/OneShot_LongInspect/node = SubResource("AnimationNodeOneShot_01e8d")
-nodes/OneShot_LongInspect/position = Vector2(906.667, 773.333)
-nodes/OneShot_ShortInspect/node = SubResource("AnimationNodeOneShot_5je05")
-nodes/OneShot_ShortInspect/position = Vector2(506.667, 773.333)
-nodes/output/position = Vector2(1333.33, 800)
-node_connections = [&"Blend_IdleAiming", 0, &"Blend_Posture_1", &"Blend_IdleAiming", 1, &"Blend_Posture_2", &"Blend_Posture_1", 0, &"Animation", &"Blend_Posture_1", 1, &"Animation 2", &"Blend_Posture_2", 0, &"Animation 6", &"Blend_Posture_2", 1, &"Animation 7", &"Blend_Posture_3", 0, &"Animation 4", &"Blend_Posture_3", 1, &"Animation 3", &"Blend_Sprinting", 0, &"Blend_IdleAiming", &"Blend_Sprinting", 1, &"Blend_Posture_3", &"OneShot_LongInspect", 0, &"OneShot_ShortInspect", &"OneShot_ShortInspect", 0, &"Blend_Sprinting", &"OneShot_ShortInspect", 1, &"Animation 5", &"output", 0, &"OneShot_LongInspect"]
+nodes/OneShot_ChangeWeapon/node = SubResource("AnimationNodeOneShot_ktocl")
+nodes/OneShot_ChangeWeapon/position = Vector2(1386.67, 773.333)
+nodes/OneShot_Inspect/node = SubResource("AnimationNodeOneShot_01e8d")
+nodes/OneShot_Inspect/position = Vector2(906.667, 773.333)
+nodes/output/position = Vector2(2000, 746.667)
+node_connections = [&"Blend_Armed", 0, &"Animation 8", &"Blend_Armed", 1, &"OneShot_ChangeWeapon", &"Blend_IdleAiming", 0, &"Blend_Posture_1", &"Blend_IdleAiming", 1, &"Blend_Posture_2", &"Blend_Posture_1", 0, &"Animation", &"Blend_Posture_1", 1, &"Animation 2", &"Blend_Posture_2", 0, &"Animation 6", &"Blend_Posture_2", 1, &"Animation 7", &"Blend_Posture_3", 0, &"Animation 4", &"Blend_Posture_3", 1, &"Animation 3", &"Blend_Posture_4", 0, &"Animation 5", &"Blend_Posture_4", 1, &"Animation 9", &"Blend_Sprinting", 0, &"Blend_IdleAiming", &"Blend_Sprinting", 1, &"Blend_Posture_3", &"OneShot_ChangeWeapon", 0, &"OneShot_Inspect", &"OneShot_ChangeWeapon", 1, &"Animation 10", &"OneShot_Inspect", 0, &"Blend_Sprinting", &"OneShot_Inspect", 1, &"Blend_Posture_4", &"output", 0, &"Blend_Armed"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_x8qxs"]
 size = Vector3(0.8, 1.2, 0.4)
@@ -890,7 +1019,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -0.9)
 
 [node name="PlayerWeaponSpawner" type="Node" parent="Bone_Base/Bone_ArmR/PlayerArm/WeaponsSocket"]
 script = ExtResource("3_4iqv5")
-weaponScenePath = "res://Components/Player/PlayerWeapon/Weapon_02.tscn"
 metadata/_custom_type_script = "uid://cu5562ee02nfj"
 
 [node name="Bone_ArmL" type="Marker3D" parent="Bone_Base"]
@@ -913,17 +1041,19 @@ autoplay = "Unarmed"
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeBlendTree_so5p0")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Blend_IdleAiming/blend_amount = 0
-parameters/Blend_Posture_1/blend_amount = 0.0
+parameters/Blend_Armed/blend_amount = false
+parameters/Blend_IdleAiming/blend_amount = false
+parameters/Blend_Posture_1/blend_amount = false
 parameters/Blend_Posture_2/blend_amount = 0
 parameters/Blend_Posture_3/blend_amount = 0
+parameters/Blend_Posture_4/blend_amount = 0.0
 parameters/Blend_Sprinting/blend_amount = false
-parameters/OneShot_LongInspect/active = false
-parameters/OneShot_LongInspect/internal_active = false
-parameters/OneShot_LongInspect/request = 0
-parameters/OneShot_ShortInspect/active = false
-parameters/OneShot_ShortInspect/internal_active = false
-parameters/OneShot_ShortInspect/request = 0
+parameters/OneShot_ChangeWeapon/active = 0.0
+parameters/OneShot_ChangeWeapon/internal_active = 0.0
+parameters/OneShot_ChangeWeapon/request = 0
+parameters/OneShot_Inspect/active = false
+parameters/OneShot_Inspect/internal_active = false
+parameters/OneShot_Inspect/request = 0
 
 [node name="Body" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0)

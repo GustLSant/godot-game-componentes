@@ -20,7 +20,7 @@ func onPickupWeapon(_newWeapon: PlayerWeaponController, _spawnOnPlayerModel: boo
 		playerState.inventory["weapons"].append(_newWeapon)
 		
 		if(playerState.inventory["weapons"].size() == 1): # se nao tinha arma, ja equipa a que pegou
-			playerState.emit_signal("TryChangeWeapon", playerState.inventory["weapons"][0])
+			playerState.emit_signal("ChangeWeapon", playerState.inventory["weapons"][0])
 	else:
 		replaceCurrentWeapon(_newWeapon)
 	pass
@@ -32,7 +32,7 @@ func replaceCurrentWeapon(_newWeapon: PlayerWeaponController) -> void:
 	
 	playerState.currentWeapon.queue_free()
 	playerState.inventory["weapons"][currentWeaponIdx] = _newWeapon
-	playerState.emit_signal("TryChangeWeapon", playerState.inventory["weapons"][currentWeaponIdx])
+	playerState.emit_signal("ChangeWeapon", playerState.inventory["weapons"][currentWeaponIdx])
 	
 	var previousPickupWeaponScenePath: String = ""
 	match previousWeaponId:
@@ -57,7 +57,7 @@ func getInputChangeWeapon() -> void:
 
 func handleInputChangeWeaponByDirection(_changeDirection: int) -> void:
 	if(playerState.inventory["weapons"].size() <= 1): return
-	if(playerState.currentWeapon == null): playerState.emit_signal("TryChangeWeapon", playerState.inventory["weapons"][0]) # sem nenhuma arma equipada, equipa a primeira do inventario
+	if(playerState.currentWeapon == null): playerState.emit_signal("ChangeWeapon", playerState.inventory["weapons"][0]) # sem nenhuma arma equipada, equipa a primeira do inventario
 	
 	var currentWeaponIdx: int = playerState.getCurrentWeaponIdx()
 	
@@ -67,7 +67,7 @@ func handleInputChangeWeaponByDirection(_changeDirection: int) -> void:
 	elif(nextWeaponIdx < 0):
 		nextWeaponIdx = playerState.inventory["weapons"].size()-1
 	
-	playerState.emit_signal("TryChangeWeapon", playerState.inventory["weapons"][nextWeaponIdx])
+	playerState.emit_signal("ChangeWeapon", playerState.inventory["weapons"][nextWeaponIdx])
 	pass
 
 
@@ -77,7 +77,7 @@ func handleInputChangeWeaponByIdx(_idx: int) -> void:
 	if(playerState.currentWeapon == playerState.inventory["weapons"][_idx]): return
 	
 	if(playerState.inventory["weapons"][_idx] != null):
-		playerState.emit_signal("TryChangeWeapon", playerState.inventory["weapons"][_idx])
+		playerState.emit_signal("ChangeWeapon", playerState.inventory["weapons"][_idx])
 	pass
 
 

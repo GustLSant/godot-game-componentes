@@ -1,9 +1,9 @@
 extends Node
 class_name PlayerWeaponSpawner
 
-@export var weaponScenePath: String
+@export var weaponScenePath: String = ""
 
 func _ready() -> void:
-	#Nodes.playerState.emit_signal("TryPickupWeapon", weaponScenePath)
-	Nodes.playerState.emit_signal("PickupWeapon", load(weaponScenePath).instantiate(), true)
+	if(weaponScenePath != ""):
+		Nodes.playerState.emit_signal("PickupWeapon", load(weaponScenePath).instantiate(), true)
 	pass

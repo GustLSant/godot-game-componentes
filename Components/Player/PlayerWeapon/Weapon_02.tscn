@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://c5e28yunseufr"]
+[gd_scene load_steps=38 format=4 uid="uid://c5e28yunseufr"]
 
 [ext_resource type="Script" uid="uid://d3a06blw1q5ss" path="res://Components/Player/PlayerWeapon/PlayerWeaponController.gd" id="1_ddo5g"]
 
@@ -524,9 +524,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ymwip")
 
-[sub_resource type="BoxMesh" id="BoxMesh_ypkbs"]
-size = Vector3(0.4, 0.4, 1.2)
-
 [node name="Weapon_02" type="Node3D" node_paths=PackedStringArray("shotRayCast", "barrelNode")]
 script = ExtResource("1_ddo5g")
 magazineSize = 12
@@ -632,18 +629,6 @@ transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, 
 layers = 2
 mesh = SubResource("ArrayMesh_axw38")
 skeleton = NodePath("")
-
-[node name="RightArm" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.24, 0.495)
-visible = false
-layers = 2
-mesh = SubResource("BoxMesh_ypkbs")
-
-[node name="LeftArm" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -0.4, -0.339998, 0.595)
-visible = false
-layers = 2
-mesh = SubResource("BoxMesh_ypkbs")
 
 [node name="ShotRayCast" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -75)
