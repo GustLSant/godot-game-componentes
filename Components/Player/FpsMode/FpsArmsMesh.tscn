@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b4i8ky11wn2rx"]
+[gd_scene load_steps=39 format=3 uid="uid://b4i8ky11wn2rx"]
 
 [ext_resource type="PackedScene" uid="uid://hqgxmcmyw8qj" path="res://Meshs/PlayerArm.blend" id="1_456j5"]
 [ext_resource type="Script" uid="uid://d153bq7wvkbki" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsAnimationController.gd" id="1_ri7q4"]
@@ -23,7 +23,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0.6, 0, 0), Vector3(0.6, -0.4, 0), Vector3(0.6, 0, 0)]
+"values": [Vector3(0, 0, 0), Vector3(0, -0.4, 0), Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -125,7 +125,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.6, 0, 0)]
+"values": [Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -202,7 +202,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.6, 0, 0)]
+"values": [Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -277,7 +277,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.8, -0.05, -0.1)]
+"values": [Vector3(0.2, -0.05, -0.1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -502,7 +502,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.6, 0, 0)]
+"values": [Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -579,7 +579,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.6, 0, 0)]
+"values": [Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -654,7 +654,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.6, 0, 0)]
+"values": [Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -977,9 +977,6 @@ nodes/OneShot_Inspect/position = Vector2(906.667, 773.333)
 nodes/output/position = Vector2(2000, 746.667)
 node_connections = [&"Blend_Armed", 0, &"Animation 8", &"Blend_Armed", 1, &"OneShot_ChangeWeapon", &"Blend_IdleAiming", 0, &"Blend_Posture_1", &"Blend_IdleAiming", 1, &"Blend_Posture_2", &"Blend_Posture_1", 0, &"Animation", &"Blend_Posture_1", 1, &"Animation 2", &"Blend_Posture_2", 0, &"Animation 6", &"Blend_Posture_2", 1, &"Animation 7", &"Blend_Posture_3", 0, &"Animation 4", &"Blend_Posture_3", 1, &"Animation 3", &"Blend_Posture_4", 0, &"Animation 5", &"Blend_Posture_4", 1, &"Animation 9", &"Blend_Sprinting", 0, &"Blend_IdleAiming", &"Blend_Sprinting", 1, &"Blend_Posture_3", &"OneShot_ChangeWeapon", 0, &"OneShot_Inspect", &"OneShot_ChangeWeapon", 1, &"Animation 10", &"OneShot_Inspect", 0, &"Blend_Sprinting", &"OneShot_Inspect", 1, &"Blend_Posture_4", &"output", 0, &"Blend_Armed"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_x8qxs"]
-size = Vector3(0.8, 1.2, 0.4)
-
 [node name="FpsArmsMesh" type="Node3D"]
 
 [node name="Components" type="Node" parent="."]
@@ -1040,11 +1037,6 @@ parameters/OneShot_ChangeWeapon/request = 0
 parameters/OneShot_Inspect/active = false
 parameters/OneShot_Inspect/internal_active = false
 parameters/OneShot_Inspect/request = 0
-
-[node name="Body" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0)
-visible = false
-mesh = SubResource("BoxMesh_x8qxs")
 
 [editable path="Bone_Base/Bone_ArmR/PlayerArm"]
 [editable path="Bone_Base/Bone_ArmL/PlayerArm"]
