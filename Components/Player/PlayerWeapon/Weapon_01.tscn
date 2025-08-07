@@ -222,9 +222,10 @@ material_override = SubResource("StandardMaterial3D_0gfg1")
 mesh = SubResource("BoxMesh_j61ko")
 
 [node name="ShotRayCast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
 target_position = Vector3(0, 0, -75)
 collision_mask = 7
 collide_with_areas = true
 
 [node name="BarrelPos" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.72529e-09, -1.85)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, -1.85)
