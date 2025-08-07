@@ -46,7 +46,8 @@ var attachmentSlots: Dictionary[String, Object] = {
 	"sight" = null,
 	"grip" = null,
 	"magazine" = null,
-	"device" = null,
+	"device_l" = null,
+	"device_r" = null,
 	"barrel" = null
 }
 
@@ -55,6 +56,7 @@ var inventory: Dictionary[String, Array] = {
 	'weapons' = [],
 	'magazineAmmo' = [0, 0, 0, 0, 0], # municao de cada arma relacionada pelo idx dos arrays
 	'reserveAmmo' = [50, 0, 200, 0],   # cada indice eh um tipo de municao
+	'weaponAttachments' = [null, null, null, null, null], # cada indice eh referente à arma de mesmo indice, e representa um objeto da classe WeaponAttachmentLoadout
 	'keyItems' = [],
 	'misc' = []
 }

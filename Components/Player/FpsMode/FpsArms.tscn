@@ -1,19 +1,27 @@
-[gd_scene load_steps=8 format=3 uid="uid://vb3cyx2rvxhs"]
+[gd_scene load_steps=9 format=3 uid="uid://vb3cyx2rvxhs"]
 
-[ext_resource type="Script" uid="uid://d2y2o1dt32ska" path="res://Components/Player/CameraControllerScripts/FpsModeScripts/PlayerFpsArmsController.gd" id="1_48f11"]
+[ext_resource type="Script" uid="uid://unh5h1rg5hdv" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsRotationController.gd" id="2_3t2y8"]
 [ext_resource type="Script" uid="uid://3e2u3bcqakmn" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsRecoilController.gd" id="2_cjgvy"]
 [ext_resource type="Script" uid="uid://bbqfph3ddidu4" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsSwayController.gd" id="3_c5b7h"]
 [ext_resource type="Script" uid="uid://d4gq313cxbjdg" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsPostureController.gd" id="4_m1cbt"]
 [ext_resource type="Script" uid="uid://dh0vpy7ovjx2" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsTiltController.gd" id="5_dd5bv"]
 [ext_resource type="Script" uid="uid://c3ggovm0hxyf" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsPositionController.gd" id="6_6sold"]
 [ext_resource type="PackedScene" uid="uid://b4i8ky11wn2rx" path="res://Components/Player/FpsMode/FpsArmsMesh.tscn" id="7_mukl3"]
+[ext_resource type="Script" uid="uid://c7emkks1thnj0" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsInventoryController.gd" id="8_y3x4x"]
 
-[node name="FpsArms" type="Node3D" node_paths=PackedStringArray("weaponSocket", "pivotRot")]
-script = ExtResource("1_48f11")
-weaponSocket = NodePath("PivotRot/PivotPosture/Scaler/PivotRecoil/PivotSway/PivotPosAim/FpsArmsMesh/Bone_Base/Bone_ArmR/PlayerArm/WeaponsSocket")
-pivotRot = NodePath("PivotRot")
+[node name="FpsArms" type="Node3D"]
 
 [node name="Components" type="Node" parent="."]
+
+[node name="ArmsInventoryController" type="Node" parent="Components" node_paths=PackedStringArray("weaponSocket")]
+script = ExtResource("8_y3x4x")
+weaponSocket = NodePath("../../PivotRot/PivotPosture/Scaler/PivotRecoil/PivotSway/PivotPosAim/FpsArmsMesh/Bone_Base/Bone_ArmR/PlayerArm/WeaponsSocket")
+metadata/_custom_type_script = "uid://c7emkks1thnj0"
+
+[node name="ArmsRotationController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
+script = ExtResource("2_3t2y8")
+pivot = NodePath("../../PivotRot")
+metadata/_custom_type_script = "uid://unh5h1rg5hdv"
 
 [node name="ArmsPositionController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
 script = ExtResource("6_6sold")
