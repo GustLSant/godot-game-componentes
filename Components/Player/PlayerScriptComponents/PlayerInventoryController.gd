@@ -7,11 +7,26 @@ class_name PlayerInventoryController
 func _init() -> void:
 	Nodes.playerState.connect("PickupWeapon", onPickupWeapon)
 	Nodes.playerState.connect("ChangeWeapon", onChangeWeapon)
+	Nodes.playerState.connect("EquipAttachment", onEquipAttachment)
+	pass
+
+
+func _ready() -> void:
+	getStartItems()
 	pass
 
 
 func _process(_delta: float) -> void:
 	getInputChangeWeapon()
+	pass
+
+
+func getStartItems() -> void:
+	for w: String in GameplayManager.startInventory["weapons"]:
+		Nodes.playerState.emit_signal("PickupWeapon", load(w).instantiate(), true)
+	
+	for att: String in GameplayManager.startInventory["weaponAttachments"]:
+		Nodes.playerState.emit_signal("EquipAttachment", load(att).instantiate(), playerState.inventory["weapons"][0].id)
 	pass
 
 
@@ -83,4 +98,9 @@ func handleInputChangeWeaponByIdx(_idx: int) -> void:
 
 func onChangeWeapon(_nextCurrentWeapon: PlayerWeaponController) -> void:
 	playerState.currentWeapon = _nextCurrentWeapon
+	pass
+
+
+func onEquipAttachment(_attachment: WeaponAttachment, _weaponIdx: int) -> void:
+	# aqui vai adicionar no playerState
 	pass

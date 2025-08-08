@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://cx0kso1jvtdxa"]
+[gd_scene load_steps=17 format=4 uid="uid://cx0kso1jvtdxa"]
 
 [ext_resource type="Script" uid="uid://d3a06blw1q5ss" path="res://Components/Player/PlayerWeapon/PlayerWeaponController.gd" id="1_0gfg1"]
 
@@ -162,21 +162,13 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_e8ijh")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0gfg1"]
-albedo_color = Color(1, 0, 0, 1)
-emission_enabled = true
-emission = Color(1, 0, 0, 1)
-emission_energy_multiplier = 20.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_j61ko"]
-size = Vector3(0.025, 0.025, 50)
-
-[node name="Weapon_01" type="Node3D" node_paths=PackedStringArray("shotRayCast", "barrelNode")]
+[node name="Weapon_01" type="Node3D" node_paths=PackedStringArray("shotRayCast", "barrelNode", "attachmentNodes")]
 script = ExtResource("1_0gfg1")
 fireRate = 0.1
 reloadTime = 0.5
 shotRayCast = NodePath("ShotRayCast")
 barrelNode = NodePath("BarrelPos")
+attachmentNodes = [NodePath("Weapon/AttachmentSlots/Sight"), NodePath("Weapon/AttachmentSlots/Magazine"), NodePath("Weapon/AttachmentSlots/Grip"), NodePath("Weapon/AttachmentSlots/Device_L"), NodePath("Weapon/AttachmentSlots/Device_R"), NodePath("Weapon/AttachmentSlots/Barrel")]
 armsDefaultPosition = Vector3(0.6, -0.8, -0.2)
 id = 1
 ammoId = 2
@@ -190,7 +182,7 @@ mesh = SubResource("ArrayMesh_3emef")
 skeleton = NodePath("")
 
 [node name="Cube_004" type="MeshInstance3D" parent="Weapon"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0833333, -1.20676)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -1.2)
 layers = 2
 mesh = SubResource("ArrayMesh_qegdy")
 skeleton = NodePath("")
@@ -213,19 +205,37 @@ layers = 2
 mesh = SubResource("ArrayMesh_48ska")
 skeleton = NodePath("")
 
-[node name="Laser" type="Node3D" parent="Weapon"]
-transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 0.15, 0, -0.7)
+[node name="AttachmentSlots" type="Node3D" parent="Weapon"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Weapon/Laser"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25)
-material_override = SubResource("StandardMaterial3D_0gfg1")
-mesh = SubResource("BoxMesh_j61ko")
+[node name="Sight" type="Node3D" parent="Weapon/AttachmentSlots"]
+transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, -9.53676e-08, 0.3, -0.4)
+
+[node name="Magazine" type="Node3D" parent="Weapon/AttachmentSlots"]
+transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, -9.53676e-08, -0.45, -0.4)
+
+[node name="Grip" type="Node3D" parent="Weapon/AttachmentSlots"]
+transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, -2.02656e-07, -0.1, -0.85)
+
+[node name="Device_L" type="Node3D" parent="Weapon/AttachmentSlots"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.15, 0.15, -0.5)
+
+[node name="Device_R" type="Node3D" parent="Weapon/AttachmentSlots"]
+transform = Transform3D(-4.37113e-08, 1, 2.38419e-07, -1, -4.37114e-08, 2.38419e-07, 2.38419e-07, -2.38419e-07, 1, 0.15, 0.15, -0.5)
+
+[node name="Barrel" type="Node3D" parent="Weapon/AttachmentSlots"]
+transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, -2.62261e-07, 0.1, -1.1)
 
 [node name="ShotRayCast" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 target_position = Vector3(0, 0, -75)
 collision_mask = 7
 collide_with_areas = true
 
 [node name="BarrelPos" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, -1.85)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -1.8)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, -0.7)
+layers = 3
+spot_range = 10.0
+spot_angle = 30.0

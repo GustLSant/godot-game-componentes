@@ -23,22 +23,12 @@ func handleSwayEffect() -> void:
 	var frequence:float = int(playerIsMoving) * SWAY_WALKING_FREQUENCY + int(not playerIsMoving) * SWAY_IDLE_FREQUENCY
 	var amount:float =    int(playerIsMoving) * SWAY_WALKING_AMOUNT    + int(not playerIsMoving) * SWAY_IDLE_AMOUNT
 	
-	var aimMultiplier: float    = int(playerState.isAiming)    * playerState.AIM_MULTIPLIER_FACTOR    + int(not playerState.isAiming)    * 1.0
-	var crouchMultiplier: float = int(playerState.isCrouched)  * playerState.CROUCH_MULTIPLIER_FACTOR + int(not playerState.isCrouched)  * 1.0
-	var sprintMultiplier: float = int(playerState.isSprinting) * playerState.SPRINT_MULTIPLIER_FACTOR + int(not playerState.isSprinting) * 1.0
-	
-	frequence *= aimMultiplier
-	frequence *= crouchMultiplier
-	frequence *= sprintMultiplier
-	amount *= aimMultiplier
-	amount *= sprintMultiplier
-	
-	var xAmountMultiplier: float = 0.75 #int(not playerState.isSprinting) * 0.6 + int(playerState.isSprinting) * 2.0
-	var yAmountMultiplier: float = 1.5
+	frequence = handleFrequencyMultipliers(frequence)
+	amount = handleAmountMultipliers(amount)
 	
 	var targetSwayPosition: Vector3 = Vector3(
-		sin(Time.get_ticks_msec()*frequence*0.5) * amount * xAmountMultiplier,
-		sin(Time.get_ticks_msec()*frequence) * amount * yAmountMultiplier,
+		sin(Time.get_ticks_msec()*frequence*0.5) * amount * 0.75,
+		sin(Time.get_ticks_msec()*frequence)     * amount * 1.5,
 		0.0
 	)
 	
@@ -47,3 +37,31 @@ func handleSwayEffect() -> void:
 	
 	pivot.position = lerp(pivot.position, finalPosition, 10 * delta)
 	pass
+
+
+func handleFrequencyMultipliers(_currentFrequency: float) -> float:
+	var newFrequency: float = _currentFrequency
+	
+	var aimMultiplier: float    = int(playerState.isAiming)    * playerState.AIM_MULTIPLIER_FACTOR    + int(not playerState.isAiming)    * 1.0
+	var crouchMultiplier: float = int(playerState.isCrouched)  * playerState.CROUCH_MULTIPLIER_FACTOR + int(not playerState.isCrouched)  * 1.0
+	var sprintMultiplier: float = int(playerState.isSprinting) * playerState.SPRINT_MULTIPLIER_FACTOR + int(not playerState.isSprinting) * 1.0
+	
+	newFrequency *= aimMultiplier
+	newFrequency *= crouchMultiplier
+	newFrequency *= sprintMultiplier
+	
+	return newFrequency
+
+
+func handleAmountMultipliers(_currentAmount: float) -> float:
+	var newAmount = _currentAmount
+	
+	var aimMultiplier: float    = int(playerState.isAiming)    * 0.2 + int(not playerState.isAiming)    * 1.0
+	var crouchMultiplier: float = int(playerState.isCrouched)  * 0.75 + int(not playerState.isCrouched)  * 1.0
+	var sprintMultiplier: float = int(playerState.isSprinting) * 2.0 + int(not playerState.isSprinting) * 1.0
+	
+	newAmount *= aimMultiplier
+	newAmount *= crouchMultiplier
+	newAmount *= sprintMultiplier
+	
+	return newAmount

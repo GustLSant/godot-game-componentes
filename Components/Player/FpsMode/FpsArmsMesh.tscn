@@ -1,9 +1,8 @@
-[gd_scene load_steps=39 format=3 uid="uid://b4i8ky11wn2rx"]
+[gd_scene load_steps=38 format=3 uid="uid://b4i8ky11wn2rx"]
 
 [ext_resource type="PackedScene" uid="uid://hqgxmcmyw8qj" path="res://Meshs/PlayerArm.blend" id="1_456j5"]
 [ext_resource type="Script" uid="uid://d153bq7wvkbki" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsAnimationController.gd" id="1_ri7q4"]
 [ext_resource type="Texture2D" uid="uid://yhvpso6ngpww" path="res://Meshs/PlayerArm_Tex.png" id="2_ainnh"]
-[ext_resource type="Script" uid="uid://cu5562ee02nfj" path="res://Components/Player/PlayerWeapon/PlayerWeaponSpawner.gd" id="3_4iqv5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ri7q4"]
 albedo_texture = ExtResource("2_ainnh")
@@ -277,7 +276,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.2, -0.05, -0.1)]
+"values": [Vector3(0.2, -0.05, -0.15)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -289,7 +288,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 1.0472, 0)]
+"values": [Vector3(-0.0872665, 1.0472, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -935,7 +934,6 @@ filters = ["Bone_Base:position", "Bone_Base:rotation"]
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_01e8d"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_so5p0"]
-graph_offset = Vector2(956, 533.333)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_ainnh")
 nodes/Animation/position = Vector2(-826.667, -186.667)
 "nodes/Animation 10/node" = SubResource("AnimationNodeAnimation_bs67h")
@@ -987,6 +985,7 @@ animTree = NodePath("../../AnimationTree")
 metadata/_custom_type_script = "uid://d153bq7wvkbki"
 
 [node name="Bone_Base" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Bone_ArmR" type="Marker3D" parent="Bone_Base"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0)
@@ -999,10 +998,6 @@ layers = 2
 
 [node name="WeaponsSocket" type="Node3D" parent="Bone_Base/Bone_ArmR/PlayerArm"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -0.9)
-
-[node name="PlayerWeaponSpawner" type="Node" parent="Bone_Base/Bone_ArmR/PlayerArm/WeaponsSocket"]
-script = ExtResource("3_4iqv5")
-metadata/_custom_type_script = "uid://cu5562ee02nfj"
 
 [node name="Bone_ArmL" type="Marker3D" parent="Bone_Base"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0, 0)

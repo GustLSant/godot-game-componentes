@@ -41,32 +41,27 @@ var health:int = maxHealth
 signal DamageTaken(_damage: float)
 
 
-# modelo do objeto container dos attachments
-var attachmentSlots: Dictionary[String, Object] = {
-	"sight" = null,
-	"grip" = null,
-	"magazine" = null,
-	"device_l" = null,
-	"device_r" = null,
-	"barrel" = null
-}
-
 # Inventory
 var inventory: Dictionary[String, Array] = {
 	'weapons' = [],
 	'magazineAmmo' = [0, 0, 0, 0, 0], # municao de cada arma relacionada pelo idx dos arrays
 	'reserveAmmo' = [50, 0, 200, 0],   # cada indice eh um tipo de municao
-	'weaponAttachments' = [null, null, null, null, null], # cada indice eh referente à arma de mesmo indice, e representa um objeto da classe WeaponAttachmentLoadout
+	'weaponAttachments' = [
+		WeaponAttachmentsLoadout.new(null, null, null, null, null, null),
+		WeaponAttachmentsLoadout.new(null, null, null, null, null, null),
+		WeaponAttachmentsLoadout.new(null, null, null, null, null, null),
+		WeaponAttachmentsLoadout.new(null, null, null, null, null, null),
+		WeaponAttachmentsLoadout.new(null, null, null, null, null, null),
+	],
 	'keyItems' = [],
 	'misc' = []
 }
-#var inventory: Array[PlayerWeaponController] = []
 var weaponsInventoryMaxSize: int = 2
 var currentWeapon: PlayerWeaponController = null
 signal PickupWeapon(_newWeaponScene: PlayerWeaponController, _spawnOnPlayerModel: bool)
 signal TryChangeWeapon(_newWeaponScene: PlayerWeaponController)
 signal ChangeWeapon(_newWeaponScene: PlayerWeaponController)
-signal ReloadEnd()
+signal EquipAttachment(_attachment: WeaponAttachment, _weaponId: int)
 
 
 # Weapon Controller
@@ -75,6 +70,7 @@ var isReloading: bool = false
 var currentReloadTime: float = 0.0
 const AIM_MULTIPLIER_FACTOR: float = 0.5
 signal PlayerShot(_recoilStrength: float)
+signal ReloadEnd()
 
 # Weapons Parameters
 var damage: float = 20.0

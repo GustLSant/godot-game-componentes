@@ -12,6 +12,7 @@ class_name PlayerWeaponController
 @export_category("Nodes")
 @export var shotRayCast: RayCast3D
 @export var barrelNode: Node3D
+@export var attachmentNodes: Array[Node3D]
 
 @export_category("Aim Variables")
 @export var armsDefaultPosition: Vector3 = Vector3(0.0, -0.8, -0.2)
@@ -39,6 +40,7 @@ var delta: float = 0.016
 
 func _init() -> void:
 	Nodes.playerState.connect("ChangeWeapon", onChangeWeapon)
+	Nodes.playerState.connect("EquipAttachment", onEquipAttachment)
 	self.connect("tree_exiting", onTreeExiting)
 	pass
 
@@ -200,6 +202,27 @@ func setParametersOnPlayerState() -> void:
 
 func onChangeWeapon(_newWeapon: PlayerWeaponController) -> void:
 	setActive(self == _newWeapon)
+	pass
+
+
+func onEquipAttachment(_attachment: WeaponAttachment, _weaponId: int) -> void:
+	print(_attachment)
+	if(self.id == _weaponId):
+		print('oasjda')
+		attachmentNodes[_attachment.type].add_child(_attachment)
+	#match (_attachment.type):
+		#_attachment.TYPES.SIGHT:
+			#pass
+		#_attachment.TYPES.MAGAZINE:
+			#pass
+		#_attachment.TYPES.GRIP:
+			#pass
+		#_attachment.TYPES.DEVICE_L:
+			#pass
+		#_attachment.TYPES.DEVICE_R:
+			#pass
+		#_attachment.TYPES.BARREL:
+			#pass
 	pass
 
 

@@ -14,8 +14,8 @@ func _process(_delta: float) -> void:
 
 
 func handleCrouchPosition() -> void:
-	var targetPosY: float = int(playerState.isCrouched) * playerState.CROUCH_HEIGHT + int(playerState.isCrouched and not playerState.isAiming) * 0.1
-	var targetPosZ: float = int(playerState.isCrouched) * 0.2
+	var targetPosY: float = int(playerState.isCrouched) * playerState.CROUCH_HEIGHT + int(playerState.isCrouched and not playerState.isAiming) * 0.15
+	var targetPosZ: float = int(playerState.isCrouched and not playerState.isAiming) * 0.25
 	pivot.position.y = lerp(pivot.position.y, targetPosY, playerState.CROUCH_SPEED * delta)
 	pivot.position.z = lerp(pivot.position.z, targetPosZ, playerState.CROUCH_SPEED * delta)
 	pass
