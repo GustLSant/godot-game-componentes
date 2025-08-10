@@ -1,5 +1,5 @@
 extends Node
-class_name WeaponAttachmentsLoadout
+class_name T_WeaponAttachmentsData
 
 var sight: Object = null
 var grip: Object = null

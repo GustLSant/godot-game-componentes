@@ -54,7 +54,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 [node name="PivotPosture" type="Marker3D" parent="PivotRot"]
 
 [node name="Scaler" type="Node3D" parent="PivotRot/PivotPosture"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.19209e-07, 0)
 
 [node name="PivotRecoil" type="Marker3D" parent="PivotRot/PivotPosture/Scaler"]
 

@@ -985,7 +985,6 @@ animTree = NodePath("../../AnimationTree")
 metadata/_custom_type_script = "uid://d153bq7wvkbki"
 
 [node name="Bone_Base" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Bone_ArmR" type="Marker3D" parent="Bone_Base"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0)

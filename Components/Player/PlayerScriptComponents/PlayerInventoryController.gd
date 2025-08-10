@@ -23,31 +23,35 @@ func _process(_delta: float) -> void:
 
 func getStartItems() -> void:
 	for w: String in GameplayManager.startInventory["weapons"]:
-		Nodes.playerState.emit_signal("PickupWeapon", load(w).instantiate(), true)
+		var newWeaponData: T_WeaponData = T_WeaponData.new(load(w).instantiate())
+		newWeaponData.magazineAmmo = GameplayManager.startInventory["magazineAmmo"][0]
+		Nodes.playerState.inventory.reserveAmmo = GameplayManager.startInventory["reserveAmmo"]
+		
+		Nodes.playerState.emit_signal("PickupWeapon", newWeaponData, true)
 	
 	for att: String in GameplayManager.startInventory["weaponAttachments"]:
-		Nodes.playerState.emit_signal("EquipAttachment", load(att).instantiate(), playerState.inventory["weapons"][0].id)
+		Nodes.playerState.emit_signal("EquipAttachment", load(att).instantiate(), playerState.inventory.weapons[0].instance.id)
 	pass
 
 
-func onPickupWeapon(_newWeapon: PlayerWeaponController, _spawnOnPlayerModel: bool) -> void:
-	if(playerState.inventory["weapons"].size() < playerState.weaponsInventoryMaxSize):
-		playerState.inventory["weapons"].append(_newWeapon)
+func onPickupWeapon(_newWeaponData: T_WeaponData, _spawnOnPlayerModel: bool) -> void:
+	if(playerState.inventory.weapons.size() < playerState.weaponsInventoryMaxSize):
+		playerState.inventory.weapons.append(_newWeaponData)
 		
-		if(playerState.inventory["weapons"].size() == 1): # se nao tinha arma, ja equipa a que pegou
-			playerState.emit_signal("ChangeWeapon", playerState.inventory["weapons"][0])
+		if(playerState.inventory.weapons.size() == 1): # se nao tinha arma, ja equipa a que pegou
+			playerState.emit_signal("ChangeWeapon", playerState.inventory.weapons[0])
 	else:
-		replaceCurrentWeapon(_newWeapon)
+		replaceCurrentWeapon(_newWeaponData)
 	pass
 
 
-func replaceCurrentWeapon(_newWeapon: PlayerWeaponController) -> void:
+func replaceCurrentWeapon(_newWeaponData: T_WeaponData) -> void:
 	var currentWeaponIdx: int = playerState.getCurrentWeaponIdx()
 	var previousWeaponId: int = playerState.currentWeapon.id
 	
 	playerState.currentWeapon.queue_free()
-	playerState.inventory["weapons"][currentWeaponIdx] = _newWeapon
-	playerState.emit_signal("ChangeWeapon", playerState.inventory["weapons"][currentWeaponIdx])
+	playerState.inventory.weapons[currentWeaponIdx] = _newWeaponData
+	playerState.emit_signal("ChangeWeapon", playerState.inventory.weapons[currentWeaponIdx])
 	
 	var previousPickupWeaponScenePath: String = ""
 	match previousWeaponId:
@@ -96,11 +100,11 @@ func handleInputChangeWeaponByIdx(_idx: int) -> void:
 	pass
 
 
-func onChangeWeapon(_nextCurrentWeapon: PlayerWeaponController) -> void:
-	playerState.currentWeapon = _nextCurrentWeapon
+func onChangeWeapon(_nextCurrentWeaponData: T_WeaponData) -> void:
+	playerState.currentWeapon = _nextCurrentWeaponData.instance
 	pass
 
 
 func onEquipAttachment(_attachment: WeaponAttachment, _weaponIdx: int) -> void:
-	# aqui vai adicionar no playerState
+	playerState.inventory.weapons[0].attachments.device_r = _attachment # o idx ta hardcoded
 	pass

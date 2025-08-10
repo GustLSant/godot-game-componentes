@@ -42,25 +42,12 @@ signal DamageTaken(_damage: float)
 
 
 # Inventory
-var inventory: Dictionary[String, Array] = {
-	'weapons' = [],
-	'magazineAmmo' = [0, 0, 0, 0, 0], # municao de cada arma relacionada pelo idx dos arrays
-	'reserveAmmo' = [50, 0, 200, 0],   # cada indice eh um tipo de municao
-	'weaponAttachments' = [
-		WeaponAttachmentsLoadout.new(null, null, null, null, null, null),
-		WeaponAttachmentsLoadout.new(null, null, null, null, null, null),
-		WeaponAttachmentsLoadout.new(null, null, null, null, null, null),
-		WeaponAttachmentsLoadout.new(null, null, null, null, null, null),
-		WeaponAttachmentsLoadout.new(null, null, null, null, null, null),
-	],
-	'keyItems' = [],
-	'misc' = []
-}
+var inventory: T_InventoryData = T_InventoryData.new()
 var weaponsInventoryMaxSize: int = 2
 var currentWeapon: PlayerWeaponController = null
-signal PickupWeapon(_newWeaponScene: PlayerWeaponController, _spawnOnPlayerModel: bool)
-signal TryChangeWeapon(_newWeaponScene: PlayerWeaponController)
-signal ChangeWeapon(_newWeaponScene: PlayerWeaponController)
+signal PickupWeapon(_newWeaponData: T_WeaponData, _spawnOnPlayerModel: bool)
+signal TryChangeWeapon(_newWeaponData: T_WeaponData)
+signal ChangeWeapon(_newWeaponData: T_WeaponData)
 signal EquipAttachment(_attachment: WeaponAttachment, _weaponId: int)
 
 

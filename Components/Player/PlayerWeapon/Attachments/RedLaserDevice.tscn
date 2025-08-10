@@ -1,19 +1,36 @@
-[gd_scene load_steps=8 format=3 uid="uid://dy45078cl868a"]
+[gd_scene load_steps=11 format=3 uid="uid://dy45078cl868a"]
 
 [ext_resource type="Script" uid="uid://da2m0mqvr11xv" path="res://Components/Player/PlayerWeapon/Attachments/WeaponAttachment.gd" id="1_5f2au"]
 
+[sub_resource type="Gradient" id="Gradient_5f2au"]
+offsets = PackedFloat32Array(0, 0.3)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_u2w3b"]
+offset = Vector3(1e+08, 1e+08, 1e+08)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bar7f"]
+in_3d_space = true
+seamless = true
+color_ramp = SubResource("Gradient_5f2au")
+noise = SubResource("FastNoiseLite_u2w3b")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vj432"]
+transparency = 1
 albedo_color = Color(1, 0, 0, 1)
+albedo_texture = SubResource("NoiseTexture2D_bar7f")
 emission_enabled = true
 emission = Color(1, 0, 0, 1)
-emission_energy_multiplier = 20.0
+emission_energy_multiplier = 200.0
+uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_5f2au"]
 size = Vector3(0.025, 0.025, 50)
 
 [sub_resource type="Animation" id="Animation_5f2au"]
 resource_name = "Active"
-length = 1.5
+length = 0.8
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -22,25 +39,10 @@ tracks/0/path = NodePath("MeshInstance3D:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.35, 0.4, 0.45, 1.4, 1.45, 1.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.7, 0.75, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [true, false, true, false, true, true, false, true, true, false, true]
-}
-
-[sub_resource type="Animation" id="Animation_u2w3b"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"values": [true, true, false, true, true, false, true, true, false, true]
 }
 
 [sub_resource type="Animation" id="Animation_bar7f"]
@@ -56,6 +58,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_u2w3b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i5bmr"]
