@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bqshrdvp6bnlg"]
+[gd_scene load_steps=14 format=3 uid="uid://bqshrdvp6bnlg"]
 
 [ext_resource type="Script" uid="uid://bt7qclob8p22t" path="res://Components/Player/Player.gd" id="1_qij2n"]
 [ext_resource type="Script" uid="uid://c7alstv6ddk1m" path="res://Components/Player/PlayerScriptComponents/Pl_MovementController.gd" id="2_8qe71"]
 [ext_resource type="Script" uid="uid://c8vevuqro0x0o" path="res://Components/Player/PlayerScriptComponents/Pl_JumpController.gd" id="3_cyqth"]
+[ext_resource type="PackedScene" uid="uid://cl7o36m60w6ww" path="res://Components/Player/TpsModeScenes/TpsCameraController.tscn" id="4_71y7e"]
 [ext_resource type="PackedScene" uid="uid://d33kf6ht1h1k5" path="res://Components/Player/FpsMode/FpsCameraController.tscn" id="5_71y7e"]
+[ext_resource type="PackedScene" uid="uid://boladt1x15x1m" path="res://Components/Player/TpsModeScenes/TpsBody.tscn" id="5_eorbh"]
 [ext_resource type="Script" uid="uid://dv6lvx2d5aiug" path="res://Components/Player/PlayerScriptComponents/Pl_HealthController.gd" id="6_px31v"]
 [ext_resource type="PackedScene" uid="uid://vb3cyx2rvxhs" path="res://Components/Player/FpsMode/FpsArms.tscn" id="7_eorbh"]
 [ext_resource type="Script" uid="uid://bqwi45676hfsr" path="res://Components/Player/PlayerScriptComponents/Pl_InventoryController.gd" id="7_qij2n"]
@@ -11,8 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://dso55xewkvp8t" path="res://Components/Player/PlayerInteractionController.tscn" id="8_qij2n"]
 [ext_resource type="PackedScene" uid="uid://dmqq5fk6xr18x" path="res://Components/Player/PlayerAmmoPisplayer.tscn" id="13_xuja4"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_px31v"]
-radius = 0.4
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ojs8"]
+size = Vector3(1, 2, 0.6)
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 8
@@ -47,8 +49,19 @@ metadata/_custom_type_script = "uid://bl2t62uejfdxp"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_px31v")
+shape = SubResource("BoxShape3D_2ojs8")
 metadata/_edit_lock_ = true
+
+[node name="TPS" type="Node3D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="TpsCamera" parent="TPS" node_paths=PackedStringArray("player") instance=ExtResource("4_71y7e")]
+selfMode = 1
+player = NodePath("../..")
+metadata/_edit_lock_ = true
+
+[node name="TpsBody" parent="TPS" instance=ExtResource("5_eorbh")]
+selfMode = 1
 
 [node name="FPS" type="Node3D" parent="."]
 metadata/_edit_lock_ = true

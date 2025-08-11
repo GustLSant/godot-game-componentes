@@ -1,7 +1,7 @@
 class_name Crosshair
 extends Control
 
-var playerState: PlayerState = Nodes.playerState
+var player: Player = Nodes.player
 var color:Color = Color.WHITE
 
 # Render
@@ -32,13 +32,13 @@ func _ready()->void:
 func _process(_delta:float)->void:
 	color.a = lerp(
 		color.a,
-		int(playerState.isAiming or playerState.isSprinting) * 0.0 + int(not playerState.isAiming) * 1.0,
+		int(player.isAiming or player.isSprinting) * 0.0 + int(not player.isAiming) * 1.0,
 		TRANS_TIME*_delta
 		)
 	
 	currentDistanceToCenter = lerp(
 		currentDistanceToCenter,
-		playerState.fireSpread * 7.5,
+		player.fireSpread * 7.5,
 		TRANS_TIME*_delta
 	)
 	

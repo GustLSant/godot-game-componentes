@@ -1,5 +1,5 @@
 extends Node
-class_name PlayerWeaponController
+class_name PlayerWeapon
 
 @onready var player: Player = Nodes.player
 
@@ -32,6 +32,12 @@ class_name PlayerWeaponController
 @export var ammoId: int = 0
 
 var isActive: bool = false
-var currentFireCooldown: float = 0.0
-var canTriggerReloadEndSignal: bool = false
 var selfIdxOnInventory: int = -1
+var attachments: T_WeaponAttachmentsData = T_WeaponAttachmentsData.new()
+
+# fire rate
+var currentFireCooldown: float = 0.0
+
+# ammo / reload
+var canTriggerReloadEndSignal: bool = false
+var magazineAmmo: int = 0

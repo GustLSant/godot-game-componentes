@@ -1,7 +1,6 @@
 extends PlayerCameraController
 class_name PlayerTpsCameraController
 
-@export var player: CharacterBody3D
 @export var base: Node3D
 @export var shapeCast: ShapeCast3D
 

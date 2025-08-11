@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=4 uid="uid://cx0kso1jvtdxa"]
+[gd_scene load_steps=22 format=4 uid="uid://cx0kso1jvtdxa"]
 
-[ext_resource type="Script" uid="uid://d3a06blw1q5ss" path="res://Components/Player/PlayerWeapon/PlayerWeaponController.gd" id="1_0gfg1"]
+[ext_resource type="Script" uid="uid://d1q6q2gbtacwq" path="res://Components/Player/PlayerWeapon/Components/PlayerWeapon.gd" id="1_p0npl"]
 [ext_resource type="Script" uid="uid://coo5sgyoljyjq" path="res://Components/Player/PlayerWeapon/Components/PlWp_AimController.gd" id="2_j61ko"]
 [ext_resource type="Script" uid="uid://ep34p3kse2wi" path="res://Components/Player/PlayerWeapon/Components/PlWp_SpreadController.gd" id="3_ywxr6"]
 [ext_resource type="Script" uid="uid://bi4aqrorx82rf" path="res://Components/Player/PlayerWeapon/Components/PlWp_InventoryController.gd" id="4_3emef"]
 [ext_resource type="Script" uid="uid://dmdn0lkoq1e5l" path="res://Components/Player/PlayerWeapon/Components/PlWp_ShootController.gd" id="5_qegdy"]
+[ext_resource type="Script" uid="uid://r3nlpgoy0gdm" path="res://Components/Player/PlayerWeapon/Components/PlWp_ReloadController.gd" id="6_p0npl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xnrla"]
 
@@ -167,9 +168,9 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_e8ijh")
 
 [node name="Weapon_01" type="Node3D" node_paths=PackedStringArray("shotRayCast", "barrelNode", "attachmentNodes")]
-script = ExtResource("1_0gfg1")
-fireRate = 0.1
-reloadTime = 0.2
+script = ExtResource("1_p0npl")
+fireRate = 0.05
+reloadTime = 0.5
 shotRayCast = NodePath("ShotRayCast")
 barrelNode = NodePath("BarrelPos")
 attachmentNodes = [NodePath("Weapon/AttachmentSlots/Sight"), NodePath("Weapon/AttachmentSlots/Magazine"), NodePath("Weapon/AttachmentSlots/Grip"), NodePath("Weapon/AttachmentSlots/Device_L"), NodePath("Weapon/AttachmentSlots/Device_R"), NodePath("Weapon/AttachmentSlots/Barrel")]
@@ -197,6 +198,11 @@ metadata/_custom_type_script = "uid://bi4aqrorx82rf"
 script = ExtResource("5_qegdy")
 wpState = NodePath("../..")
 metadata/_custom_type_script = "uid://dmdn0lkoq1e5l"
+
+[node name="PlWp_ReloadController" type="Node" parent="Components" node_paths=PackedStringArray("wpState")]
+script = ExtResource("6_p0npl")
+wpState = NodePath("../..")
+metadata/_custom_type_script = "uid://r3nlpgoy0gdm"
 
 [node name="Weapon" type="Node3D" parent="."]
 transform = Transform3D(1, -3.55271e-15, -2.38419e-07, 3.55271e-15, 1, -3.10588e-22, 2.38419e-07, -5.36445e-22, 1, 0, -0.049999, 0.1)

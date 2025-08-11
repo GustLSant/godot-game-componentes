@@ -2,9 +2,10 @@ extends Node
 class_name ArmsPostureController
 
 @export var pivot: Node3D
-@onready var playerState: PlayerState = Nodes.playerState
+@onready var player: Player = Nodes.player
 
-const ROT_HEIGHT_OFFSET: float = 0.1
+const MAX_HEIGHT_OFFSET: float = 0.3
+var currentHeightOffset: float = 0.0
 var delta: float = 0.016
 
 
@@ -15,16 +16,21 @@ func _process(_delta: float) -> void:
 
 
 func handleCrouchPosition() -> void:
-	var rotationHeightOffset: float = -(playerState.currentPivotRot.rotation_degrees.x / playerState.currentCameraController.CAMERA_X_RANGE) * ROT_HEIGHT_OFFSET
-	rotationHeightOffset = clamp(rotationHeightOffset, -ROT_HEIGHT_OFFSET, 0.05)
+	var currentHeightOffset: float = lerp(
+		currentHeightOffset, 
+			-(player.currentPivotRot.rotation_degrees.x / player.currentCameraController.CAMERA_X_RANGE)
+			* MAX_HEIGHT_OFFSET 
+			* int(not player.isAiming),
+		16.0 * delta
+	)
 	
 	var targetPosY: float = (
-		rotationHeightOffset +
-		int(playerState.isCrouched) * playerState.CROUCH_HEIGHT +
-		int(playerState.isCrouched and not playerState.isAiming) * 0.15
+		currentHeightOffset +
+		int(player.isCrouched) * player.CROUCH_HEIGHT +
+		int(player.isCrouched and not player.isAiming) * 0.15
 	)
-	var targetPosZ: float = int(playerState.isCrouched and not playerState.isAiming) * 0.25
+	var targetPosZ: float = int(player.isCrouched and not player.isAiming) * 0.25
 	
-	pivot.position.y = lerp(pivot.position.y, targetPosY, playerState.CROUCH_SPEED * delta)
-	pivot.position.z = lerp(pivot.position.z, targetPosZ, playerState.CROUCH_SPEED * delta)
+	pivot.position.y = lerp(pivot.position.y, targetPosY, player.CROUCH_SPEED * delta)
+	pivot.position.z = lerp(pivot.position.z, targetPosZ, player.CROUCH_SPEED * delta)
 	pass

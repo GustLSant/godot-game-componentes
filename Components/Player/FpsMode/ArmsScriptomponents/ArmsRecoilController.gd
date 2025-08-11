@@ -2,7 +2,7 @@ extends Node
 class_name ArmsRecoilController
 
 @export var pivot: Node3D
-@onready var playerState: PlayerState = Nodes.playerState
+@onready var player: Player = Nodes.player
 
 const TWEEN_ATTACK_DURATION: float = 0.05
 const TWEEN_RECOVER_DURATION: float = 0.2
@@ -18,7 +18,7 @@ var delta: float = 0.016
 
 
 func _init() -> void:
-	Nodes.playerState.connect("PlayerShot", onPlayerShot)
+	Nodes.player.connect("PlayerShot", onPlayerShot)
 	pass
 
 
@@ -29,10 +29,10 @@ func _process(_delta: float) -> void:
 
 
 func handleRecoilEffect() -> void:
-	pivot.position.z =         BASE_RECOIL_POS_Z * playerState.recoilPosZStrength * recoilFactor
-	pivot.rotation_degrees.x = BASE_RECOIL_ROT_X * playerState.recoilRotXStrength * recoilFactor
+	pivot.position.z =         BASE_RECOIL_POS_Z * player.recoilPosZStrength * recoilFactor
+	pivot.rotation_degrees.x = BASE_RECOIL_ROT_X * player.recoilRotXStrength * recoilFactor
 	
-	var targetRotZ: float =    BASE_RECOIL_ROT_Z * playerState.recoilRotZStrength * recoilFactor * recoilRotZSide
+	var targetRotZ: float =    BASE_RECOIL_ROT_Z * player.recoilRotZStrength * recoilFactor * recoilRotZSide
 	pivot.rotation_degrees.z = lerp(pivot.rotation_degrees.z, targetRotZ, 16.0 * delta)
 	pass
 
@@ -63,8 +63,8 @@ func playRecoilRecoverEffect() -> void:
 	tweenRecoil.set_trans(Tween.TRANS_CUBIC)
 	tweenRecoil.set_ease(Tween.EASE_OUT)
 	
-	tweenRecoil.tween_property           (self, "recoilFactor", 0.0, TWEEN_RECOVER_DURATION * playerState.recoverFactor)
-	tweenRecoil.parallel().tween_property(self, "recoilFactor", 0.0, TWEEN_RECOVER_DURATION * playerState.recoverFactor)
+	tweenRecoil.tween_property           (self, "recoilFactor", 0.0, TWEEN_RECOVER_DURATION * player.recoverFactor)
+	tweenRecoil.parallel().tween_property(self, "recoilFactor", 0.0, TWEEN_RECOVER_DURATION * player.recoverFactor)
 	pass
 
 

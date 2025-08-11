@@ -13,14 +13,14 @@ func _process(_delta: float) -> void:
 
 
 func handlePosture() -> void:
-	var targetYPos: float = int(playerState.isCrouched) * playerState.CROUCH_HEIGHT
-	pivotPosture.position.y = lerp(pivotPosture.position.y, targetYPos, playerState.CROUCH_SPEED * delta)
+	var targetYPos: float = int(player.isCrouched) * player.CROUCH_HEIGHT
+	pivotPosture.position.y = lerp(pivotPosture.position.y, targetYPos, player.CROUCH_SPEED * delta)
 	pass
 
 
 func handleAimBehaviour() -> void:
-	var targetGeneralFOV:float = int(playerState.isAiming) * playerState.aimFOV + int(not playerState.isAiming) * Settings.defaultFOV
-	var targetBodyFOV:float = int(playerState.isAiming) * (Settings.defaultFOV - 5.0) + int(not playerState.isAiming) * Settings.defaultFOV
+	var targetGeneralFOV:float = int(player.isAiming) * player.aimFOV + int(not player.isAiming) * Settings.defaultFOV
+	var targetBodyFOV:float = int(player.isAiming) * (Settings.defaultFOV - 5.0) + int(not player.isAiming) * Settings.defaultFOV
 	camera.fov = lerp(camera.fov, targetGeneralFOV, 10.0*delta)
 	bodyCamera.fov = lerp(camera.fov, targetBodyFOV, 10.0*delta)
 	pass

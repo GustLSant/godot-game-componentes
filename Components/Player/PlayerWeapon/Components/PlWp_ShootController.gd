@@ -1,35 +1,39 @@
 extends Node
 class_name PlWp_ShootController
 
-@onready var playerState: PlayerState = Nodes.playerState
-@export var wpState: PlayerWeaponController
+@onready var player: Player = Nodes.player
+@export var wpState: PlayerWeapon
+
+var delta: float = 0.016
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if(not wpState.isActive): return
-	if(checkCanShoot()):
-		shoot()
+	
+	delta = _delta
+	handleFireRate()
+	if(handleShootInput()): shoot()
 	pass
 
 
-func checkCanShoot() -> bool:
+func handleShootInput() -> bool:
 	return( 
 		Input.is_action_pressed("Shoot") and 
 		wpState.currentFireCooldown <= 0.0 and 
-		playerState.currentWeapon == wpState and 
-		not playerState.isReloading and  
-		playerState.inventory.weapons[wpState.selfIdxOnInventory].magazineAmmo > 0 
+		player.currentWeapon == wpState and 
+		not player.isReloading and  
+		wpState.magazineAmmo > 0 
 	)
 
 
 func shoot() -> void:
-	playerState.inventory.weapons[wpState.selfIdxOnInventory].magazineAmmo -= 1
-	playerState.emit_signal("PlayerShot", wpState.cameraRecoilStrength)
-	wpState.currentFireCooldown = playerState.fireRate
+	wpState.magazineAmmo -= 1
+	player.emit_signal("PlayerShot", wpState.cameraRecoilStrength)
+	wpState.currentFireCooldown = player.fireRate
 	
-	wpState.shotRayCast.global_transform = wpState.barrelNode.global_transform #playerState.currentCameraController.pivotRot.global_transform
-	wpState.shotRayCast.rotation_degrees.x += randf_range(-playerState.fireSpread, playerState.fireSpread)
-	wpState.shotRayCast.rotation_degrees.y += randf_range(-playerState.fireSpread, playerState.fireSpread)
+	wpState.shotRayCast.global_transform = wpState.barrelNode.global_transform #player.currentCameraController.pivotRot.global_transform
+	wpState.shotRayCast.rotation_degrees.x += randf_range(-player.fireSpread, player.fireSpread)
+	wpState.shotRayCast.rotation_degrees.y += randf_range(-player.fireSpread, player.fireSpread)
 	
 	wpState.shotRayCast.force_raycast_update()
 	var collider: Object = wpState.shotRayCast.get_collider()
@@ -40,6 +44,11 @@ func shoot() -> void:
 		distance = wpState.barrelNode.global_position.distance_to(collisionPoint)
 	
 	spawnShotVfx(distance, collisionPoint)
+	pass
+
+
+func handleFireRate() -> void:
+	wpState.currentFireCooldown -= 1 * delta
 	pass
 
 

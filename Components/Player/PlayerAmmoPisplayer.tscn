@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dmqq5fk6xr18x"]
 
-[ext_resource type="Script" uid="uid://civs403j64aai" path="res://Components/Player/PlayerScriptComponents/PlayerAmmoDisplayerController.gd" id="1_qppl7"]
+[ext_resource type="Script" uid="uid://civs403j64aai" path="res://Components/Player/PlayerScriptComponents/AmmoDisplayerController.gd" id="1_qppl7"]
 
 [node name="AmmoDisplayer" type="Control" node_paths=PackedStringArray("magAmmoLabel", "reserveAmmoLabel")]
 layout_mode = 3
@@ -29,10 +29,10 @@ metadata/_edit_use_anchors_ = true
 [node name="MagAmmoLabel" type="Label" parent="HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
-text = "10"
+text = "0"
 metadata/_edit_lock_ = true
 
 [node name="ReserveAmmoLabel" type="Label" parent="HBoxContainer"]
 layout_mode = 2
-text = "/20"
+text = "/0"
 metadata/_edit_lock_ = true

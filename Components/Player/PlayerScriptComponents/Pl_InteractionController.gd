@@ -1,5 +1,5 @@
 extends Node
-class_name PlayerInteractionController
+class_name Pl_InteractionController
 
 @export var raycast: RayCast3D
 @export var labelDescription: Label
@@ -7,7 +7,7 @@ class_name PlayerInteractionController
 
 
 func _physics_process(_delta: float) -> void:
-	raycast.global_transform = Nodes.playerState.currentCameraController.camera.global_transform
+	raycast.global_transform = Nodes.player.currentCameraController.camera.global_transform
 	
 	if(raycast.is_colliding() and is_instance_valid(raycast.get_collider())):
 		var collider: Object = raycast.get_collider().get_parent()

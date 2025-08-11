@@ -9,7 +9,7 @@ var device_r: Object = null
 var barrel: Object = null
 
 
-func _init(_sight: Object, _grip: Object, _magazine: Object, _deviceL: Object, _deviceR: Object, _barrel: Object) -> void:
+func _init(_sight: Object = null, _grip: Object = null, _magazine: Object = null, _deviceL: Object = null, _deviceR: Object = null, _barrel: Object = null) -> void:
 	sight = _sight
 	grip = _grip
 	magazine = _magazine

@@ -1,8 +1,8 @@
 extends Node
 class_name PlWp_AimController
 
-@onready var playerState: PlayerState = Nodes.playerState
-@export var wpState: PlayerWeaponController
+@onready var player: Player = Nodes.player
+@export var wpState: PlayerWeapon
 
 
 func _process(_delta: float) -> void:
@@ -13,9 +13,9 @@ func _process(_delta: float) -> void:
 
 func handleAimInput() -> void:
 	if(Settings.aimHoldMode):
-		playerState.isAiming = Input.is_action_pressed("Aim")
+		player.isAiming = Input.is_action_pressed("Aim")
 	else:
-		if(Input.is_action_just_pressed("Aim")): playerState.isAiming = !playerState.isAiming
+		if(Input.is_action_just_pressed("Aim")): player.isAiming = !player.isAiming
 	
-	playerState.isAiming = playerState.isAiming and (not playerState.isReloading)
+	player.isAiming = player.isAiming and (not player.isReloading)
 	pass

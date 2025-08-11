@@ -2,7 +2,7 @@ extends Node
 class_name ArmsSwayController
 
 @export var pivot: Node3D
-@onready var playerState: PlayerState = Nodes.playerState
+@onready var player: Player = Nodes.player
 
 var delta: float = 0.016
 
@@ -33,7 +33,7 @@ func handleSwayEffect() -> void:
 	)
 	
 	# cancelamento do efeito quando estiver no ar
-	var finalPosition = int(playerState.isOnFloor) * targetSwayPosition + int(not playerState.isOnFloor) * pivot.position
+	var finalPosition = int(player.isOnFloor) * targetSwayPosition + int(not player.isOnFloor) * pivot.position
 	
 	pivot.position = lerp(pivot.position, finalPosition, 10 * delta)
 	pass
@@ -42,9 +42,9 @@ func handleSwayEffect() -> void:
 func handleFrequencyMultipliers(_currentFrequency: float) -> float:
 	var newFrequency: float = _currentFrequency
 	
-	var aimMultiplier: float    = int(playerState.isAiming)    * playerState.AIM_MULTIPLIER_FACTOR    + int(not playerState.isAiming)    * 1.0
-	var crouchMultiplier: float = int(playerState.isCrouched)  * playerState.CROUCH_MULTIPLIER_FACTOR + int(not playerState.isCrouched)  * 1.0
-	var sprintMultiplier: float = int(playerState.isSprinting) * playerState.SPRINT_MULTIPLIER_FACTOR + int(not playerState.isSprinting) * 1.0
+	var aimMultiplier: float    = int(player.isAiming)    * player.AIM_MULTIPLIER_FACTOR    + int(not player.isAiming)    * 1.0
+	var crouchMultiplier: float = int(player.isCrouched)  * player.CROUCH_MULTIPLIER_FACTOR + int(not player.isCrouched)  * 1.0
+	var sprintMultiplier: float = int(player.isSprinting) * player.SPRINT_MULTIPLIER_FACTOR + int(not player.isSprinting) * 1.0
 	
 	newFrequency *= aimMultiplier
 	newFrequency *= crouchMultiplier
@@ -56,9 +56,9 @@ func handleFrequencyMultipliers(_currentFrequency: float) -> float:
 func handleAmountMultipliers(_currentAmount: float) -> float:
 	var newAmount = _currentAmount
 	
-	var aimMultiplier: float    = int(playerState.isAiming)    * 0.2 + int(not playerState.isAiming)    * 1.0
-	var crouchMultiplier: float = int(playerState.isCrouched)  * 0.75 + int(not playerState.isCrouched)  * 1.0
-	var sprintMultiplier: float = int(playerState.isSprinting) * 2.0 + int(not playerState.isSprinting) * 1.0
+	var aimMultiplier: float    = int(player.isAiming)    * 0.2 + int(not player.isAiming)    * 1.0
+	var crouchMultiplier: float = int(player.isCrouched)  * 0.75 + int(not player.isCrouched)  * 1.0
+	var sprintMultiplier: float = int(player.isSprinting) * 2.0 + int(not player.isSprinting) * 1.0
 	
 	newAmount *= aimMultiplier
 	newAmount *= crouchMultiplier

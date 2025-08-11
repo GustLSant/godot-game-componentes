@@ -2,7 +2,7 @@ extends Node
 class_name ArmsAnimationController
 
 @export var animTree: AnimationTree
-@onready var playerState: PlayerState = Nodes.playerState
+@onready var player: Player = Nodes.player
 
 var blendArmed: float = 0.0
 var blendPosture: float = 0.0
@@ -13,7 +13,7 @@ var delta: float = 0.016
 
 
 func _init() -> void:
-	Nodes.playerState.connect("PlayerShot", onPlayerShot)
+	Nodes.player.connect("PlayerShot", onPlayerShot)
 	pass
 
 
@@ -25,10 +25,10 @@ func _process(_delta: float) -> void:
 
 
 func handleAnimations() -> void:
-	blendArmed        = lerp(blendArmed,        float(is_instance_valid(playerState.currentWeapon)), 10.0 * delta)
-	blendPosture      = lerp(blendPosture,      float(playerState.currentWeapon and playerState.currentWeapon.ammoId > 0), 10.0 * delta)
-	blendIdleToAiming = lerp(blendIdleToAiming, float(playerState.isAiming),    10.0 * delta)
-	blendToSprinting  = lerp(blendToSprinting,  float(playerState.isSprinting), 10.0 * delta)
+	blendArmed        = lerp(blendArmed,        float(is_instance_valid(player.currentWeapon)), 10.0 * delta)
+	blendPosture      = lerp(blendPosture,      float(player.currentWeapon and player.currentWeapon.ammoId > 0), 10.0 * delta)
+	blendIdleToAiming = lerp(blendIdleToAiming, float(player.isAiming),    10.0 * delta)
+	blendToSprinting  = lerp(blendToSprinting,  float(player.isSprinting), 10.0 * delta)
 	
 	animTree["parameters/Blend_Armed/blend_amount"] = blendArmed
 	
@@ -42,7 +42,7 @@ func handleAnimations() -> void:
 
 
 func handleInspect() -> void:
-	if(Input.is_action_just_pressed("InspectWeapon") and not playerState.isAiming and not playerState.isSprinting):
+	if(Input.is_action_just_pressed("InspectWeapon") and not player.isAiming and not player.isSprinting):
 		animTree["parameters/OneShot_Inspect/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 	pass
 

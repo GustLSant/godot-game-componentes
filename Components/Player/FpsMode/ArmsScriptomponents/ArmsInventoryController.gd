@@ -5,11 +5,11 @@ class_name ArmsInventoryController
 
 
 func _init() -> void:
-	Nodes.playerState.connect("PickupWeapon", onPickupWeapon)
+	Nodes.player.connect("PickupWeapon", onPickupWeapon)
 	pass
 
 
-func onPickupWeapon(_newWeaponData: T_WeaponData, _spawnOnPlayerModel: bool) -> void:
+func onPickupWeapon(_newWeapon: PlayerWeapon, _spawnOnPlayerModel: bool) -> void:
 	if(_spawnOnPlayerModel):
-		weaponSocket.call_deferred("add_child", _newWeaponData.instance)
+		weaponSocket.call_deferred("add_child", _newWeapon)
 	pass

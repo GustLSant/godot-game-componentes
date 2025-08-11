@@ -4,6 +4,8 @@ extends InteractiveObject
 
 
 func action() -> void:
-	Nodes.playerState.emit_signal("PickupWeapon", load(weaponScenePath).instantiate(), true)
+	var w: PlayerWeapon = load(weaponScenePath).instantiate()
+	print(w)
+	Nodes.player.emit_signal("PickupWeapon", w, true)
 	self.queue_free()
 	pass

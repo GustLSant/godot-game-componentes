@@ -1,13 +1,13 @@
 extends Node
 class_name PlWp_InventoryController
 
-@onready var playerState: PlayerState = Nodes.playerState
-@export var wpState: PlayerWeaponController
+@onready var player: Player = Nodes.player
+@export var wpState: PlayerWeapon
 
 
 func _init() -> void:
-	Nodes.playerState.connect("ChangeWeapon", onChangeWeapon)
-	Nodes.playerState.connect("EquipAttachment", onEquipAttachment)
+	Nodes.player.connect("ChangeWeapon", onChangeWeapon)
+	Nodes.player.connect("EquipAttachment", onEquipAttachment)
 	self.connect("tree_exiting", onTreeExiting)
 	pass
 
@@ -19,12 +19,12 @@ func _ready() -> void:
 
 
 func getSelfIdxOnInventory() -> void:
-	for i in range(playerState.inventory.weapons.size()):
-		if(playerState.inventory.weapons[i].instance.id == wpState.id):
+	for i in range(player.inventory.weapons.size()):
+		if(player.inventory.weapons[i].id == wpState.id):
 			wpState.selfIdxOnInventory = i
 			return
 	
-	if(wpState.selfIdxOnInventory == -1): printerr("Não foi possível achar o idx da arma atual // id: ", wpState.id, " // weapon name: ", wpState.name, " // inventory: ", playerState.inventory.weapons)
+	if(wpState.selfIdxOnInventory == -1): printerr("Não foi possível achar o idx da arma atual // id: ", wpState.id, " // weapon name: ", wpState.name, " // inventory: ", player.inventory.weapons)
 	pass
 
 
@@ -35,8 +35,8 @@ func setActive(_value: bool) -> void:
 	pass
 
 
-func onChangeWeapon(_newWeaponData: T_WeaponData) -> void:
-	setActive(wpState.id == _newWeaponData.instance.id)
+func onChangeWeapon(_newWeaponData: PlayerWeapon) -> void:
+	setActive(wpState.id == _newWeaponData.id)
 	pass
 
 
@@ -47,26 +47,25 @@ func onEquipAttachment(_attachment: WeaponAttachment, _weaponId: int) -> void:
 
 
 func setParametersOnPlayerState() -> void:
-	playerState = Nodes.playerState # pq essa funcao pode ser chamada antes do ready
+	player = Nodes.player # pq essa funcao pode ser chamada antes do ready
 	
-	playerState.damage = wpState.damage
-	playerState.fireRate = wpState.fireRate
-	playerState.magazineSize = wpState.magazineSize
-	playerState.fireSpread = wpState.fireSpread
+	player.damage = wpState.damage
+	player.fireRate = wpState.fireRate
+	player.magazineSize = wpState.magazineSize
+	player.fireSpread = wpState.fireSpread
 	
-	playerState.armsDefaultPosition = wpState.armsDefaultPosition
-	playerState.armsAimPosition = wpState.armsAimPosition
-	playerState.aimFOV = wpState.aimFOV
+	player.armsDefaultPosition = wpState.armsDefaultPosition
+	player.armsAimPosition = wpState.armsAimPosition
+	player.aimFOV = wpState.aimFOV
 	
-	playerState.recoverFactor = wpState.recoverFactor
-	playerState.recoilShakeStrength = wpState.recoilShakeStrength
-	playerState.recoilPosZStrength = wpState.recoilPosZStrength
-	playerState.recoilRotXStrength = wpState.recoilRotXStrength
-	playerState.recoilRotZStrength = wpState.recoilRotZStrength
+	player.recoverFactor = wpState.recoverFactor
+	player.recoilShakeStrength = wpState.recoilShakeStrength
+	player.recoilPosZStrength = wpState.recoilPosZStrength
+	player.recoilRotXStrength = wpState.recoilRotXStrength
+	player.recoilRotZStrength = wpState.recoilRotZStrength
 	pass
 
 
 func onTreeExiting() -> void:
-	playerState.inventory["reserveAmmo"][wpState.ammoId] += playerState.inventory.weapons[wpState.selfIdxOnInventory].magazineAmmo # devolvendo a municao restante do pente para o inventario
-	playerState.inventory.weapons[wpState.selfIdxOnInventory].magazineAmmo = 0
+	player.inventory["reserveAmmo"][wpState.ammoId] += wpState.magazineAmmo # devolvendo a municao restante do pente para o inventario
 	pass
