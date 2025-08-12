@@ -15,7 +15,7 @@
 
 [node name="ArmsInventoryController" type="Node" parent="Components" node_paths=PackedStringArray("weaponSocket")]
 script = ExtResource("8_y3x4x")
-weaponSocket = NodePath("../../PivotRot/PivotPosture/Scaler/PivotRecoil/PivotSway/PivotPosAim/FpsArmsMesh/Bone_Base/Bone_ArmR/PlayerArm/WeaponsSocket")
+weaponSocket = NodePath("../../PivotRot/PivotPosture/Scaler/PivotSway/PivotPosAim/PivotRecoil/FpsArmsMesh/Bone_Base/Bone_ArmR/PlayerArm/WeaponsSocket")
 metadata/_custom_type_script = "uid://c7emkks1thnj0"
 
 [node name="ArmsRotationController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
@@ -25,17 +25,17 @@ metadata/_custom_type_script = "uid://unh5h1rg5hdv"
 
 [node name="ArmsPositionController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
 script = ExtResource("6_6sold")
-pivot = NodePath("../../PivotRot/PivotPosture/Scaler/PivotRecoil/PivotSway/PivotPosAim")
+pivot = NodePath("../../PivotRot/PivotPosture/Scaler/PivotSway/PivotPosAim")
 metadata/_custom_type_script = "uid://c3ggovm0hxyf"
 
 [node name="ArmsSwayController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
 script = ExtResource("3_c5b7h")
-pivot = NodePath("../../PivotRot/PivotPosture/Scaler/PivotRecoil/PivotSway")
+pivot = NodePath("../../PivotRot/PivotPosture/Scaler/PivotSway")
 metadata/_custom_type_script = "uid://bbqfph3ddidu4"
 
 [node name="ArmsTiltController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
 script = ExtResource("5_dd5bv")
-pivot = NodePath("../../PivotRot/PivotPosture/Scaler/PivotRecoil/PivotSway")
+pivot = NodePath("../../PivotRot/PivotPosture/Scaler/PivotSway")
 metadata/_custom_type_script = "uid://dh0vpy7ovjx2"
 
 [node name="ArmsPostureController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
@@ -45,7 +45,7 @@ metadata/_custom_type_script = "uid://d4gq313cxbjdg"
 
 [node name="ArmsRecoilController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
 script = ExtResource("2_cjgvy")
-pivot = NodePath("../../PivotRot/PivotPosture/Scaler/PivotRecoil")
+pivot = NodePath("../../PivotRot/PivotPosture/Scaler/PivotSway/PivotPosAim/PivotRecoil")
 metadata/_custom_type_script = "uid://3e2u3bcqakmn"
 
 [node name="PivotRot" type="Marker3D" parent="."]
@@ -56,10 +56,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 [node name="Scaler" type="Node3D" parent="PivotRot/PivotPosture"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.19209e-07, 0)
 
-[node name="PivotRecoil" type="Marker3D" parent="PivotRot/PivotPosture/Scaler"]
+[node name="PivotSway" type="Marker3D" parent="PivotRot/PivotPosture/Scaler"]
 
-[node name="PivotSway" type="Marker3D" parent="PivotRot/PivotPosture/Scaler/PivotRecoil"]
+[node name="PivotPosAim" type="Marker3D" parent="PivotRot/PivotPosture/Scaler/PivotSway"]
 
-[node name="PivotPosAim" type="Marker3D" parent="PivotRot/PivotPosture/Scaler/PivotRecoil/PivotSway"]
+[node name="PivotRecoil" type="Marker3D" parent="PivotRot/PivotPosture/Scaler/PivotSway/PivotPosAim"]
 
-[node name="FpsArmsMesh" parent="PivotRot/PivotPosture/Scaler/PivotRecoil/PivotSway/PivotPosAim" instance=ExtResource("7_mukl3")]
+[node name="FpsArmsMesh" parent="PivotRot/PivotPosture/Scaler/PivotSway/PivotPosAim/PivotRecoil" instance=ExtResource("7_mukl3")]
+editor_description = "Está deslocado assim para o pivotRot ficar no local do gatilho da arma, e o efeito de recuo ficar mais natural
+
+1.0 é a distancia do centro do ombro da mesh, até a ponta da mao no FpsArmsMesh -> talvez seja uma boa no futuro deixar a ponta da mao no (0,0,0) pra poder retirar esse offset daqui"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)

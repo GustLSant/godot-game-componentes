@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://drp8f16f0qd77" path="res://Meshs/Weapons_3.png" id="3_ncnre"]
 [ext_resource type="Texture2D" uid="uid://dgdfstmqmxr8j" path="res://Meshs/Weapons_4.png" id="4_1dcsj"]
 [ext_resource type="MeshLibrary" uid="uid://dhx4dqc5hxu41" path="res://testecityMeshLib.tres" id="5_1dcsj"]
-[ext_resource type="PackedScene" uid="uid://c8djk1ns80fn1" path="res://Components/Player/PlayerWeapon/PickupWeapon_01.tscn" id="6_s8r7n"]
-[ext_resource type="PackedScene" uid="uid://cnsif2ol7kkv5" path="res://Components/Player/PlayerWeapon/PickupWeapon_02.tscn" id="7_5nn8l"]
+[ext_resource type="PackedScene" uid="uid://c8djk1ns80fn1" path="res://Components/PlayerWeapons/PickupWeapon_01.tscn" id="6_s8r7n"]
+[ext_resource type="PackedScene" uid="uid://cnsif2ol7kkv5" path="res://Components/PlayerWeapons/PickupWeapon_02.tscn" id="7_5nn8l"]
 [ext_resource type="PackedScene" uid="uid://dqojp2t7bfo6w" path="res://Components/General/PauseController.tscn" id="8_s8r7n"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s8r7n"]
@@ -684,7 +684,7 @@ material_override = SubResource("StandardMaterial3D_5nn8l")
 mesh = SubResource("BoxMesh_h3jud")
 
 [node name="Wall2" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, -10.5415, -2.75049, -1.6108)
+transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, -10.5415, -2.90049, -1.6108)
 collision_layer = 2
 collision_mask = 0
 

@@ -1,16 +1,16 @@
 extends Node
 
-var startInventory: Dictionary[String, Array] = {
-	'weapons' = ["res://Components/Player/PlayerWeapon/Weapon_01.tscn"],
-	'magazineAmmo' = [0, 0, 0, 0, 0], # municao de cada arma relacionada pelo idx dos arrays
-	'reserveAmmo' = [50, 0, 200, 0],   # cada indice eh um tipo de municao
-	'weaponAttachments' = [
-		"res://Components/Player/PlayerWeapon/Attachments/RedLaserDevice.tscn"
-		#WeaponAttachmentsLoadout.new(null, null, null, null, null, null),
-		#WeaponAttachmentsLoadout.new(null, null, null, null, null, null),
-		#WeaponAttachmentsLoadout.new(null, null, null, null, null, null),
-		#WeaponAttachmentsLoadout.new(null, null, null, null, null, null),
-	],
-	'keyItems' = [],
-	'misc' = []
-}
+var startInventory: T_StartInventory = T_StartInventory.new()
+
+func _ready() -> void:
+	startInventory.weapons = [
+		"res://Components/PlayerWeapons/Weapon_01.tscn",
+		"res://Components/PlayerWeapons/Weapon_02.tscn"
+	]
+	startInventory.weaponAttachments = [
+		"res://Components/PlayerWeapons/Attachments/RedLaserDevice.tscn res://Components/PlayerWeapons/Attachments/FlashlightDevice.tscn",
+		"res://Components/PlayerWeapons/Attachments/RedLaserDevice.tscn"
+	]
+	
+	startInventory.reserveAmmo = [50, 0, 200, 0]
+	pass

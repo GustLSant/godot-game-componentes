@@ -33,7 +33,7 @@ class_name PlayerWeapon
 
 var isActive: bool = false
 var selfIdxOnInventory: int = -1
-var attachments: T_WeaponAttachmentsData = T_WeaponAttachmentsData.new()
+var attachments: T_WeaponAttachments = T_WeaponAttachments.new()
 
 # fire rate
 var currentFireCooldown: float = 0.0

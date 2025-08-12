@@ -53,7 +53,7 @@ func handleFireRate() -> void:
 
 
 func spawnShotVfx(_collDistance: float, _collPoint: Vector3) -> void:
-	var vfxInstance: Node3D = load("res://Components/Player/PlayerWeapon/Shot/PlayerShotVfx.tscn").instantiate()
+	var vfxInstance: Node3D = load("res://Components/PlayerWeapons/Shot/PlayerShotVfx.tscn").instantiate()
 	vfxInstance.transform = wpState.barrelNode.global_transform
 	vfxInstance.scale = Vector3.ONE
 	vfxInstance.scale.z = _collDistance

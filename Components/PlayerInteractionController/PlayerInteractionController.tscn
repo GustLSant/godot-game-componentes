@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dso55xewkvp8t"]
 
-[ext_resource type="Script" uid="uid://y6wqkps8bfb7" path="res://Components/Player/PlayerScriptComponents/Pl_InteractionController.gd" id="1_yh3vo"]
+[ext_resource type="Script" uid="uid://y6wqkps8bfb7" path="res://Components/PlayerInteractionController/Pl_InteractionController.gd" id="1_yh3vo"]
 
 [node name="PlayerInteractionController" type="Node3D" node_paths=PackedStringArray("raycast", "labelDescription", "labelActionKey")]
 script = ExtResource("1_yh3vo")

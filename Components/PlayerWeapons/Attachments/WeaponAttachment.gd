@@ -1,8 +1,7 @@
 extends Node
 class_name WeaponAttachment
 
-enum TYPES {SIGHT=0, MAGAZINE=1, GRIP=2, DEVICE_L=3, DEVICE_R=4, BARREL=5}
-@export var type: TYPES = TYPES.SIGHT
+@export var type: int = 0
 
 @export_category("Passive Attachment")
 @export var value: float = 1.0
@@ -16,7 +15,7 @@ var isActive: bool = true
 
 
 func _ready() -> void:
-	set_process(type == TYPES.DEVICE_L or type == TYPES.DEVICE_R)
+	set_process(type == T_AttachmentType.DEVICE_L or type == T_AttachmentType.DEVICE_R)
 	pass
 
 

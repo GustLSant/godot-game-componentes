@@ -11,7 +11,7 @@ func _input(_event: InputEvent) -> void:
 	pass
 
 
-func setCameraMode(_newCameraMode: PlayerState.CAMERA_MODE) -> void:
+func setCameraMode(_newCameraMode: Player.CAMERA_MODE) -> void:
 	player.currentCameraMode = _newCameraMode
 	player.emit_signal("CameraModeChanged")
 	pass

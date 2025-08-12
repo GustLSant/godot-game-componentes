@@ -1,15 +1,15 @@
 [gd_scene load_steps=2 format=3 uid="uid://dmqq5fk6xr18x"]
 
-[ext_resource type="Script" uid="uid://civs403j64aai" path="res://Components/Player/PlayerScriptComponents/AmmoDisplayerController.gd" id="1_qppl7"]
+[ext_resource type="Script" uid="uid://civs403j64aai" path="res://Components/PlayerAmmoDisplayerController/Pl_AmmoDisplayerController.gd" id="1_6amtn"]
 
-[node name="AmmoDisplayer" type="Control" node_paths=PackedStringArray("magAmmoLabel", "reserveAmmoLabel")]
+[node name="PlayerAmmoDisplayer" type="Control" node_paths=PackedStringArray("magAmmoLabel", "reserveAmmoLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_qppl7")
+script = ExtResource("1_6amtn")
 magAmmoLabel = NodePath("HBoxContainer/MagAmmoLabel")
 reserveAmmoLabel = NodePath("HBoxContainer/ReserveAmmoLabel")
 

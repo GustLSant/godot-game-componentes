@@ -37,7 +37,7 @@ signal DamageTaken(_damage: float)
 
 
 # Inventory
-var inventory: T_InventoryData = T_InventoryData.new()
+var inventory: T_Inventory = T_Inventory.new()
 var weaponsInventoryMaxSize: int = 2
 var currentWeapon: PlayerWeapon = null
 signal PickupWeapon(_newWeapon: PlayerWeapon, _spawnOnPlayerModel: bool)

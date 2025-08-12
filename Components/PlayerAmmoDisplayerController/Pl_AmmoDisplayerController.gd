@@ -1,4 +1,5 @@
 extends Control
+class_name Pl_AmmoDisplayerController
 
 @export var magAmmoLabel: Label
 @export var reserveAmmoLabel: Label

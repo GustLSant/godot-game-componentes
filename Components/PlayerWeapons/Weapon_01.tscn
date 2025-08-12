@@ -1,11 +1,11 @@
 [gd_scene load_steps=22 format=4 uid="uid://cx0kso1jvtdxa"]
 
-[ext_resource type="Script" uid="uid://d1q6q2gbtacwq" path="res://Components/Player/PlayerWeapon/Components/PlayerWeapon.gd" id="1_p0npl"]
-[ext_resource type="Script" uid="uid://coo5sgyoljyjq" path="res://Components/Player/PlayerWeapon/Components/PlWp_AimController.gd" id="2_j61ko"]
-[ext_resource type="Script" uid="uid://ep34p3kse2wi" path="res://Components/Player/PlayerWeapon/Components/PlWp_SpreadController.gd" id="3_ywxr6"]
-[ext_resource type="Script" uid="uid://bi4aqrorx82rf" path="res://Components/Player/PlayerWeapon/Components/PlWp_InventoryController.gd" id="4_3emef"]
-[ext_resource type="Script" uid="uid://dmdn0lkoq1e5l" path="res://Components/Player/PlayerWeapon/Components/PlWp_ShootController.gd" id="5_qegdy"]
-[ext_resource type="Script" uid="uid://r3nlpgoy0gdm" path="res://Components/Player/PlayerWeapon/Components/PlWp_ReloadController.gd" id="6_p0npl"]
+[ext_resource type="Script" uid="uid://d1q6q2gbtacwq" path="res://Components/PlayerWeapons/Components/PlayerWeapon.gd" id="1_p0npl"]
+[ext_resource type="Script" uid="uid://coo5sgyoljyjq" path="res://Components/PlayerWeapons/Components/PlWp_AimController.gd" id="2_j61ko"]
+[ext_resource type="Script" uid="uid://ep34p3kse2wi" path="res://Components/PlayerWeapons/Components/PlWp_SpreadController.gd" id="3_ywxr6"]
+[ext_resource type="Script" uid="uid://bi4aqrorx82rf" path="res://Components/PlayerWeapons/Components/PlWp_InventoryController.gd" id="4_3emef"]
+[ext_resource type="Script" uid="uid://dmdn0lkoq1e5l" path="res://Components/PlayerWeapons/Components/PlWp_ShootController.gd" id="5_qegdy"]
+[ext_resource type="Script" uid="uid://r3nlpgoy0gdm" path="res://Components/PlayerWeapons/Components/PlWp_ReloadController.gd" id="6_p0npl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xnrla"]
 
@@ -169,11 +169,15 @@ shadow_mesh = SubResource("ArrayMesh_e8ijh")
 
 [node name="Weapon_01" type="Node3D" node_paths=PackedStringArray("shotRayCast", "barrelNode", "attachmentNodes")]
 script = ExtResource("1_p0npl")
-fireRate = 0.05
+fireRate = 0.1
 reloadTime = 0.5
 shotRayCast = NodePath("ShotRayCast")
 barrelNode = NodePath("BarrelPos")
 attachmentNodes = [NodePath("Weapon/AttachmentSlots/Sight"), NodePath("Weapon/AttachmentSlots/Magazine"), NodePath("Weapon/AttachmentSlots/Grip"), NodePath("Weapon/AttachmentSlots/Device_L"), NodePath("Weapon/AttachmentSlots/Device_R"), NodePath("Weapon/AttachmentSlots/Barrel")]
+armsDefaultPosition = Vector3(0.6, -0.8, -1.2)
+armsAimPosition = Vector3(0, -0.5, -1.2)
+recoilRotXStrength = 5.0
+recoilRotZStrength = 2.5
 id = 1
 ammoId = 2
 
@@ -264,9 +268,3 @@ collide_with_areas = true
 
 [node name="BarrelPos" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -1.8)
-
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, -0.7)
-layers = 3
-spot_range = 10.0
-spot_angle = 30.0

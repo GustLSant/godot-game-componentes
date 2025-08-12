@@ -8,7 +8,6 @@ class_name PlayerFpsCameraController
 func _process(_delta: float) -> void:
 	super._process(_delta)
 	handlePosture()
-	bodyCamera.global_transform = camera.global_transform
 	pass
 
 

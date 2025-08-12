@@ -12,7 +12,7 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	getStartItems()
+	getStartWeapons()
 	pass
 
 
@@ -21,16 +21,11 @@ func _process(_delta: float) -> void:
 	pass
 
 
-func getStartItems() -> void:
-	for w: String in GameplayManager.startInventory["weapons"]:
-		var newWeaponData: PlayerWeapon = load(w).instantiate()
-		newWeaponData.magazineAmmo = GameplayManager.startInventory["magazineAmmo"][0]
+func getStartWeapons() -> void:
+	for i in range(GameplayManager.startInventory["weapons"].size()):
+		var newWeaponData: PlayerWeapon = load(GameplayManager.startInventory["weapons"][i]).instantiate()
 		Nodes.player.inventory.reserveAmmo = GameplayManager.startInventory["reserveAmmo"]
-		
 		Nodes.player.emit_signal("PickupWeapon", newWeaponData, true)
-	
-	for att: String in GameplayManager.startInventory["weaponAttachments"]:
-		Nodes.player.emit_signal("EquipAttachment", load(att).instantiate(), player.inventory.weapons[0].id)
 	pass
 
 

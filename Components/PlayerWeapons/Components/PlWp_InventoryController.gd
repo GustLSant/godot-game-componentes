@@ -15,6 +15,8 @@ func _init() -> void:
 func _ready() -> void:
 	getSelfIdxOnInventory()
 	setActive(wpState.isActive)
+	getStartAttachments()
+	#talvez fosse bom recarregar o pente aqui ja no inicio do jogo, pra n comecar com a arma vazia
 	pass
 
 
@@ -32,6 +34,15 @@ func setActive(_value: bool) -> void:
 	wpState.isActive = _value
 	wpState.visible = _value
 	if(_value): setParametersOnPlayerState()
+	pass
+
+
+func getStartAttachments() -> void:
+	var attachmentsFullString: String =  GameplayManager.startInventory.weaponAttachments[wpState.selfIdxOnInventory]
+	var attachmentPaths: PackedStringArray = attachmentsFullString.split(" ", false)
+	for att: String in attachmentPaths:
+		var attachment: WeaponAttachment = load(att).instantiate()
+		wpState.attachmentNodes[attachment.type].add_child(attachment)
 	pass
 
 

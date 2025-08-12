@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://vb3cyx2rvxhs" path="res://Components/Player/FpsMode/FpsArms.tscn" id="7_eorbh"]
 [ext_resource type="Script" uid="uid://bqwi45676hfsr" path="res://Components/Player/PlayerScriptComponents/Pl_InventoryController.gd" id="7_qij2n"]
 [ext_resource type="Script" uid="uid://bl2t62uejfdxp" path="res://Components/Player/PlayerScriptComponents/Pl_PostureController.gd" id="8_qf1ab"]
-[ext_resource type="PackedScene" uid="uid://dso55xewkvp8t" path="res://Components/Player/PlayerInteractionController.tscn" id="8_qij2n"]
-[ext_resource type="PackedScene" uid="uid://dmqq5fk6xr18x" path="res://Components/Player/PlayerAmmoPisplayer.tscn" id="13_xuja4"]
+[ext_resource type="PackedScene" uid="uid://dso55xewkvp8t" path="res://Components/PlayerInteractionController/PlayerInteractionController.tscn" id="8_qij2n"]
+[ext_resource type="PackedScene" uid="uid://dmqq5fk6xr18x" path="res://Components/PlayerAmmoDisplayerController/PlayerAmmoPisplayer.tscn" id="13_xuja4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_px31v"]
 radius = 0.4
@@ -43,7 +43,7 @@ metadata/_custom_type_script = "uid://bl2t62uejfdxp"
 
 [node name="PlayerInteractionController" parent="Components" instance=ExtResource("8_qij2n")]
 
-[node name="AmmoDisplayer" parent="Components" instance=ExtResource("13_xuja4")]
+[node name="PlayerAmmoDisplayer" parent="Components" instance=ExtResource("13_xuja4")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

@@ -8,9 +8,9 @@ const TWEEN_ATTACK_DURATION: float = 0.05
 const TWEEN_RECOVER_DURATION: float = 0.2
 var tweenRecoil: Tween = null
 
-const BASE_RECOIL_POS_Z: float = 0.125
-const BASE_RECOIL_ROT_X: float = 0.5
-const BASE_RECOIL_ROT_Z: float = 1.25
+const BASE_RECOIL_STRENGTH_POS_Z: float = 0.125
+const BASE_RECOIL_STRENGTH_ROT_X: float = 0.5
+const BASE_RECOIL_STRENGTH_ROT_Z: float = 1.25
 var recoilFactor: float = 0.0
 var recoilRotZSide: float = 1.0
 
@@ -29,10 +29,10 @@ func _process(_delta: float) -> void:
 
 
 func handleRecoilEffect() -> void:
-	pivot.position.z =         BASE_RECOIL_POS_Z * player.recoilPosZStrength * recoilFactor
-	pivot.rotation_degrees.x = BASE_RECOIL_ROT_X * player.recoilRotXStrength * recoilFactor
+	pivot.position.z =         BASE_RECOIL_STRENGTH_POS_Z * player.recoilPosZStrength * recoilFactor
+	pivot.rotation_degrees.x = BASE_RECOIL_STRENGTH_ROT_X * player.recoilRotXStrength * recoilFactor
 	
-	var targetRotZ: float =    BASE_RECOIL_ROT_Z * player.recoilRotZStrength * recoilFactor * recoilRotZSide
+	var targetRotZ: float =    BASE_RECOIL_STRENGTH_ROT_Z * player.recoilRotZStrength * recoilFactor * recoilRotZSide
 	pivot.rotation_degrees.z = lerp(pivot.rotation_degrees.z, targetRotZ, 16.0 * delta)
 	pass
 
