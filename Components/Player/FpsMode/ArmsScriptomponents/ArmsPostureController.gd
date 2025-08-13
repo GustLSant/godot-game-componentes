@@ -29,7 +29,7 @@ func handleCrouchPosition() -> void:
 		int(player.isCrouched) * player.CROUCH_HEIGHT +
 		int(player.isCrouched and not player.isAiming) * 0.15
 	)
-	var targetPosZ: float = int(player.isCrouched and not player.isAiming) * 0.25
+	var targetPosZ: float = int(player.isCrouched and not player.isAiming) * 0.2
 	
 	pivot.position.y = lerp(pivot.position.y, targetPosY, player.CROUCH_SPEED * delta)
 	pivot.position.z = lerp(pivot.position.z, targetPosZ, player.CROUCH_SPEED * delta)

@@ -87,9 +87,8 @@ albedo_color = Color(0.171637, 0.171637, 0.171637, 1)
 
 [node name="RedLaserAttachment" type="Node3D" node_paths=PackedStringArray("animP")]
 script = ExtResource("1_5f2au")
-type = 4
+type = 5
 animP = NodePath("AnimationPlayer")
-key = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 0, 0.05, -25)

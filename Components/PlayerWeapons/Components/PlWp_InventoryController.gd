@@ -38,11 +38,15 @@ func setActive(_value: bool) -> void:
 
 
 func getStartAttachments() -> void:
-	var attachmentsFullString: String =  GameplayManager.startInventory.weaponAttachments[wpState.selfIdxOnInventory]
-	var attachmentPaths: PackedStringArray = attachmentsFullString.split(" ", false)
-	for att: String in attachmentPaths:
-		var attachment: WeaponAttachment = load(att).instantiate()
-		wpState.attachmentNodes[attachment.type].add_child(attachment)
+	print(GameplayManager.startInventory.weaponAttachments[wpState.selfIdxOnInventory].paths)
+	var startWeaponAttachmentsLoadout: T_StartWeaponAttachmentsLoadout = GameplayManager.startInventory.weaponAttachments[wpState.selfIdxOnInventory]
+	
+	for attType: T_AttachmentType.ENUM in startWeaponAttachmentsLoadout.paths.keys():
+		if(startWeaponAttachmentsLoadout.paths[attType]):
+			var att: WeaponAttachment = load(startWeaponAttachmentsLoadout.paths[attType]).instantiate()
+			att.type = attType
+			wpState.attachmentNodes[attType].add_child(att)
+			print('type: ', self.get_parent().get_parent().name)
 	pass
 
 
