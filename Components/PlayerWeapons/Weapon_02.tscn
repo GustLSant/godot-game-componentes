@@ -539,8 +539,7 @@ barrelNode = NodePath("BarrelPos")
 attachmentNodes = [NodePath("Weapon/AttachmentSlots/Sight"), NodePath("Weapon/AttachmentSlots/Magazine"), NodePath("Weapon/AttachmentSlots/Grip"), NodePath("Weapon/AttachmentSlots/Device_L"), NodePath("Weapon/AttachmentSlots/Device_R"), NodePath("Weapon/AttachmentSlots/Barrel")]
 armsDefaultPosition = Vector3(0.6, -0.8, -1.74)
 armsAimPosition = Vector3(0, -0.5, -1.74)
-recoverFactor = 2.0
-recoilRotXStrength = 15.0
+recoilRotXStrength = 4.0
 id = 2
 
 [node name="Components" type="Node" parent="."]

@@ -24,6 +24,7 @@ class_name PlayerWeapon
 @export var cameraRecoilStrength: float = 1.0
 @export var recoilShakeStrength: float = 1.0
 @export var recoilPosZStrength: float = 1.0
+@export var recoilPosYStrength: float = 0.0
 @export var recoilRotXStrength: float = 1.0
 @export var recoilRotZStrength: float = 1.0
 

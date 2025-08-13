@@ -65,6 +65,7 @@ var aimFOV: float = 45.0
 var recoverFactor: float = 1.0
 var recoilShakeStrength: float = 1.0
 var recoilPosZStrength: float = 1.0
+var recoilPosYStrength: float = 1.0
 var recoilRotXStrength: float = 1.0
 var recoilRotZStrength: float = 1.0
 

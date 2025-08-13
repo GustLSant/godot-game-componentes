@@ -72,6 +72,7 @@ func setParametersOnPlayerState() -> void:
 	player.recoverFactor = wpState.recoverFactor
 	player.recoilShakeStrength = wpState.recoilShakeStrength
 	player.recoilPosZStrength = wpState.recoilPosZStrength
+	player.recoilPosYStrength = wpState.recoilPosYStrength
 	player.recoilRotXStrength = wpState.recoilRotXStrength
 	player.recoilRotZStrength = wpState.recoilRotZStrength
 	pass
