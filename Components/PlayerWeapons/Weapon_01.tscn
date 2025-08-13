@@ -174,10 +174,9 @@ reloadTime = 0.5
 shotRayCast = NodePath("ShotRayCast")
 barrelNode = NodePath("BarrelPos")
 attachmentNodes = [NodePath("Weapon/AttachmentSlots/Sight"), NodePath("Weapon/AttachmentSlots/Magazine"), NodePath("Weapon/AttachmentSlots/Grip"), NodePath("Weapon/AttachmentSlots/Device_L"), NodePath("Weapon/AttachmentSlots/Device_R"), NodePath("Weapon/AttachmentSlots/Barrel")]
-armsDefaultPosition = Vector3(0.6, -0.8, -1.2)
-armsAimPosition = Vector3(0, -0.5, -1.2)
-recoilRotXStrength = 5.0
-recoilRotZStrength = 2.5
+armsDefaultPosition = Vector3(0.6, -0.8, -1.1)
+armsAimPosition = Vector3(0, -0.5, -1.1)
+recoilRotXStrength = 2.0
 id = 1
 ammoId = 2
 
