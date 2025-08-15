@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://dy45078cl868a"]
 
-[ext_resource type="Script" uid="uid://28l5esi1stno" path="res://Components/PlayerWeapons/Attachments/DeviceWeaponAttachment.gd" id="1_1xh5r"]
+[ext_resource type="Script" uid="uid://28l5esi1stno" path="res://Components/PlayerWeapons/Attachments/Classes/DeviceWeaponAttachment.gd" id="1_1xh5r"]
 
 [sub_resource type="Gradient" id="Gradient_5f2au"]
 offsets = PackedFloat32Array(0, 0.3)

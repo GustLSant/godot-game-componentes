@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://ddq0b6rtdtr1n"]
 
-[ext_resource type="Script" uid="uid://d0cmpj4qmnqhl" path="res://Components/PlayerWeapons/Attachments/SightWeaponAttachment.gd" id="1_j2bl4"]
+[ext_resource type="Script" uid="uid://d0cmpj4qmnqhl" path="res://Components/PlayerWeapons/Attachments/Classes/SightWeaponAttachment.gd" id="1_j2bl4"]
 [ext_resource type="PackedScene" uid="uid://cbk1d6m60gwdo" path="res://Meshs/Scope.blend" id="2_j2bl4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j2bl4"]
