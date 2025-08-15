@@ -59,8 +59,11 @@ func setParametersOnPlayerState() -> void:
 	player = Nodes.player
 	player.damage = wpState.damage
 	player.fireRate = wpState.fireRate
-	player.magazineSize = wpState.magazineSize
 	player.fireSpread = wpState.fireSpread
+	if(wpState.attachments[T_AttachmentType.ENUM.MAGAZINE]):
+		player.magazineSize = wpState.attachments[T_AttachmentType.ENUM.MAGAZINE].magazineSize
+	else:
+		player.magazineSize = wpState.magazineSize
 	
 	player.armsDefaultPosition = wpState.armsDefaultPosition
 	
