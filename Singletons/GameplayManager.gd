@@ -5,8 +5,9 @@ var startInventory: T_StartInventory = T_StartInventory.new()
 func _ready() -> void:
 	var attLoadout_01: T_StartWeaponAttachmentLoadout = T_StartWeaponAttachmentLoadout.new()
 	attLoadout_01.paths[T_AttachmentType.ENUM.SIGHT] = "res://Components/PlayerWeapons/Attachments/RedDotSight.tscn"
-	attLoadout_01.paths[T_AttachmentType.ENUM.MAGAZINE] = "res://Components/PlayerWeapons/Attachments/DrumMagazine.tscn"
 	#attLoadout_01.paths[T_AttachmentType.ENUM.SIGHT] = "res://Components/PlayerWeapons/Attachments/ScopeSight.tscn"
+	attLoadout_01.paths[T_AttachmentType.ENUM.MAGAZINE] = "res://Components/PlayerWeapons/Attachments/DrumMagazine.tscn"
+	attLoadout_01.paths[T_AttachmentType.ENUM.GRIP] = "res://Components/PlayerWeapons/Attachments/LongGrip.tscn"
 	attLoadout_01.paths[T_AttachmentType.ENUM.DEVICE_R] = "res://Components/PlayerWeapons/Attachments/RedLaserDevice.tscn"
 	attLoadout_01.paths[T_AttachmentType.ENUM.DEVICE_L] = "res://Components/PlayerWeapons/Attachments/FlashlightDevice.tscn"
 	

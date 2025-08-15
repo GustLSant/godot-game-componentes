@@ -46,7 +46,8 @@ func getStartAttachments() -> void:
 			att.attachedWeapon = wpState
 			wpState.attachmentNodes[attType].add_child(att)
 			wpState.attachments[attType] = att
-			print(wpState.attachments)
+	
+	wpState.attachmentsRecoilMultiplierFactor = getAttachmentsRecoilMultiplierFactor()
 	pass
 
 
@@ -77,12 +78,24 @@ func setParametersOnPlayerState() -> void:
 		player.fpsBodyAimFOV = wpState.fpsBodyAimFOV
 	
 	player.recoverFactor = wpState.recoverFactor
-	player.recoilShakeStrength = wpState.recoilShakeStrength
-	player.recoilPosZStrength = wpState.recoilPosZStrength
-	player.recoilPosYStrength = wpState.recoilPosYStrength
-	player.recoilRotXStrength = wpState.recoilRotXStrength
-	player.recoilRotZStrength = wpState.recoilRotZStrength
+	player.recoilShakeStrength = wpState.recoilShakeStrength * wpState.attachmentsRecoilMultiplierFactor
+	player.recoilPosZStrength  = wpState.recoilPosZStrength  * wpState.attachmentsRecoilMultiplierFactor
+	player.recoilPosYStrength  = wpState.recoilPosYStrength  * wpState.attachmentsRecoilMultiplierFactor
+	player.recoilRotXStrength  = wpState.recoilRotXStrength  * wpState.attachmentsRecoilMultiplierFactor
+	player.recoilRotZStrength  = wpState.recoilRotZStrength  * wpState.attachmentsRecoilMultiplierFactor
 	pass
+
+
+func getAttachmentsRecoilMultiplierFactor() -> float:
+	var attRecoilMultiplierFactor: float = 1.0
+	
+	if(wpState.attachments[T_AttachmentType.ENUM.GRIP]):
+		attRecoilMultiplierFactor = wpState.attachments[T_AttachmentType.ENUM.GRIP].recoilMultiplierFactor
+	
+	if(wpState.attachments[T_AttachmentType.ENUM.BARREL]):
+		attRecoilMultiplierFactor -= 1.0 - wpState.attachments[T_AttachmentType.ENUM.BARREL].recoilMultiplierFactor
+	
+	return attRecoilMultiplierFactor
 
 
 func onTreeExiting() -> void:

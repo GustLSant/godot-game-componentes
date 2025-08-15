@@ -28,7 +28,7 @@ func handleShootInput() -> bool:
 
 func shoot() -> void:
 	wpState.magazineAmmo -= 1
-	player.emit_signal("PlayerShot", wpState.cameraRecoilStrength)
+	player.emit_signal("PlayerShot", wpState.cameraRecoilStrength * wpState.attachmentsRecoilMultiplierFactor)
 	wpState.currentFireCooldown = player.fireRate
 	
 	wpState.shotRayCast.global_transform = wpState.barrelNode.global_transform #player.currentCameraController.pivotRot.global_transform
