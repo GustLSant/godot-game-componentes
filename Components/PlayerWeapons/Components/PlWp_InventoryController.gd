@@ -21,7 +21,7 @@ func _ready() -> void:
 
 func getSelfIdxOnInventory() -> void:
 	for i in range(player.inventory.weapons.size()):
-		if(player.inventory.weapons[i].id == wpState.id):
+		if(player.inventory.weapons[i].get_instance_id() == wpState.get_instance_id()):
 			wpState.selfIdxOnInventory = i
 			return
 	
@@ -43,21 +43,15 @@ func getStartAttachments() -> void:
 		if(startWeaponAttachmentsLoadout.paths[attType]):
 			var att: WeaponAttachment = load(startWeaponAttachmentsLoadout.paths[attType]).instantiate()
 			att.type = attType
-			att.attachedWeaponId = wpState.id
+			att.attachedWeapon = wpState
 			wpState.attachmentNodes[attType].add_child(att)
 			wpState.attachments[attType] = att
 			print(wpState.attachments)
 	pass
 
 
-func onChangeWeapon(_newWeaponData: PlayerWeapon) -> void:
-	setActive(wpState.id == _newWeaponData.id)
-	pass
-
-
-func onEquipAttachment(_attachment: WeaponAttachment, _weaponId: int) -> void:
-	if(wpState.id == _weaponId):
-		wpState.attachmentNodes[_attachment.type].add_child(_attachment)
+func onChangeWeapon(_newWeapon: PlayerWeapon) -> void:
+	setActive(wpState.get_instance_id() == _newWeapon.get_instance_id())
 	pass
 
 

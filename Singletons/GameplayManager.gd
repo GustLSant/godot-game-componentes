@@ -10,12 +10,13 @@ func _ready() -> void:
 	attLoadout_01.paths[T_AttachmentType.ENUM.DEVICE_L] = "res://Components/PlayerWeapons/Attachments/FlashlightDevice.tscn"
 	
 	var attLoadout_02: T_StartWeaponAttachmentLoadout = T_StartWeaponAttachmentLoadout.new()
-	attLoadout_02.paths[T_AttachmentType.ENUM.SIGHT] = "res://Components/PlayerWeapons/Attachments/RedDotSight.tscn"
-	attLoadout_02.paths[T_AttachmentType.ENUM.DEVICE_M] = "res://Components/PlayerWeapons/Attachments/RedLaserDevice.tscn"
+	attLoadout_02.paths[T_AttachmentType.ENUM.SIGHT] = "res://Components/PlayerWeapons/Attachments/ScopeSight.tscn"
+	#attLoadout_02.paths[T_AttachmentType.ENUM.SIGHT] = "res://Components/PlayerWeapons/Attachments/RedDotSight.tscn"
+	#attLoadout_02.paths[T_AttachmentType.ENUM.DEVICE_M] = "res://Components/PlayerWeapons/Attachments/RedLaserDevice.tscn"
 	
 	startInventory.weapons = [
 		"res://Components/PlayerWeapons/Weapon_01.tscn",
-		"res://Components/PlayerWeapons/Weapon_02.tscn"
+		"res://Components/PlayerWeapons/Weapon_01.tscn"
 	]
 	startInventory.weaponAttachments = [attLoadout_01, attLoadout_02]
 	

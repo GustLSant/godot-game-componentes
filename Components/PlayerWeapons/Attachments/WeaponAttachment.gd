@@ -2,7 +2,7 @@ extends Node
 class_name WeaponAttachment
 
 var type: T_AttachmentType.ENUM = T_AttachmentType.ENUM.SIGHT
-var attachedWeaponId: int = -1
+var attachedWeapon: PlayerWeapon = null
 
 
 func _init() -> void:
@@ -15,7 +15,7 @@ func _ready() -> void:
 
 
 func checkCanActiveProcess() -> void:
-	var isInTheCurrentWeapon: bool = (Nodes.player.currentWeapon.id == self.attachedWeaponId)
+	var isInTheCurrentWeapon: bool = (Nodes.player.currentWeapon.get_instance_id() == self.attachedWeapon.get_instance_id())
 	set_process(isInTheCurrentWeapon)
 	pass
 
