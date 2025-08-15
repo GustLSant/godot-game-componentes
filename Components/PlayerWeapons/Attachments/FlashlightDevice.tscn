@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://blg0k3ohf8xu0"]
 
-[ext_resource type="Script" uid="uid://da2m0mqvr11xv" path="res://Components/PlayerWeapons/Attachments/WeaponAttachment.gd" id="1_54ky8"]
+[ext_resource type="Script" uid="uid://28l5esi1stno" path="res://Components/PlayerWeapons/Attachments/DeviceWeaponAttachment.gd" id="1_54ky8"]
 
 [sub_resource type="Animation" id="Animation_5f2au"]
 resource_name = "Active"
@@ -61,7 +61,6 @@ albedo_color = Color(0.277528, 0.277528, 0.277528, 1)
 
 [node name="FlashlightAttachment" type="Node3D" node_paths=PackedStringArray("animP")]
 script = ExtResource("1_54ky8")
-type = 3
 animP = NodePath("AnimationPlayer")
 
 [node name="Light" type="SpotLight3D" parent="."]

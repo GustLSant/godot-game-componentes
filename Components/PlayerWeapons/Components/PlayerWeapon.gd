@@ -18,6 +18,7 @@ class_name PlayerWeapon
 @export var armsDefaultPosition: Vector3 = Vector3(0.6, -0.8, -0.2)
 @export var armsAimPosition: Vector3 = Vector3(0.0, -0.5, -0.2)
 @export var aimFOV: float = 45.0
+@export var fpsBodyAimFOV: float = 45.0
 
 @export_category("Recoil Variables")
 @export var recoverFactor: float = 1.0
@@ -34,7 +35,15 @@ class_name PlayerWeapon
 
 var isActive: bool = false
 var selfIdxOnInventory: int = -1
-var attachments: T_WeaponAttachments = T_WeaponAttachments.new()
+var attachments: Dictionary[T_AttachmentType.ENUM, WeaponAttachment] = {
+	T_AttachmentType.ENUM.SIGHT:    null,
+	T_AttachmentType.ENUM.MAGAZINE: null,
+	T_AttachmentType.ENUM.GRIP:     null,
+	T_AttachmentType.ENUM.DEVICE_L: null,
+	T_AttachmentType.ENUM.DEVICE_M: null,
+	T_AttachmentType.ENUM.DEVICE_R: null,
+	T_AttachmentType.ENUM.BARREL:   null,
+}
 
 # fire rate
 var currentFireCooldown: float = 0.0

@@ -18,8 +18,8 @@ func handlePosture() -> void:
 
 
 func handleAimBehaviour() -> void:
-	var targetGeneralFOV:float = int(player.isAiming) * player.aimFOV + int(not player.isAiming) * Settings.defaultFOV
-	var targetBodyFOV:float = int(player.isAiming) * (Settings.defaultFOV - 5.0) + int(not player.isAiming) * Settings.defaultFOV
-	camera.fov = lerp(camera.fov, targetGeneralFOV, 10.0*delta)
-	bodyCamera.fov = lerp(camera.fov, targetBodyFOV, 10.0*delta)
+	var targetGeneralFOV:float = int(player.isAiming) * player.aimFOV        + int(not player.isAiming) * Settings.defaultFOV
+	var targetBodyFOV:float    = int(player.isAiming) * player.fpsBodyAimFOV + int(not player.isAiming) * Settings.defaultFpsBodyFOV
+	camera.fov     = lerp(camera.fov,     targetGeneralFOV, 10.0*delta)
+	bodyCamera.fov = lerp(bodyCamera.fov, targetBodyFOV,    10.0*delta)
 	pass

@@ -242,7 +242,7 @@ skeleton = NodePath("")
 [node name="AttachmentSlots" type="Node3D" parent="Weapon"]
 
 [node name="Sight" type="Node3D" parent="Weapon/AttachmentSlots"]
-transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, -9.53676e-08, 0.3, -0.4)
+transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 0, 0.3, -0.425)
 
 [node name="Magazine" type="Node3D" parent="Weapon/AttachmentSlots"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, -9.53676e-08, -0.45, -0.4)

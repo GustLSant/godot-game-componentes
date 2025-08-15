@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://bej0cor600x0q"]
+
+[ext_resource type="Script" uid="uid://d0cmpj4qmnqhl" path="res://Components/PlayerWeapons/Attachments/SightWeaponAttachment.gd" id="1_7p720"]
+[ext_resource type="PackedScene" uid="uid://bjodoqknsjtqr" path="res://Meshs/Sight.blend" id="2_7p720"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7n0je"]
+albedo_color = Color(0.272655, 0.272655, 0.272655, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7p720"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 10.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_7n0je"]
+
+[node name="RedDotSight" type="Node3D"]
+script = ExtResource("1_7p720")
+
+[node name="Sight" parent="." instance=ExtResource("2_7p720")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.025)
+
+[node name="Cube" parent="Sight" index="0"]
+layers = 2
+material_override = SubResource("StandardMaterial3D_7n0je")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sight"]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0.115, 0.1)
+layers = 2
+material_override = SubResource("StandardMaterial3D_7p720")
+mesh = SubResource("QuadMesh_7n0je")
+
+[editable path="Sight"]

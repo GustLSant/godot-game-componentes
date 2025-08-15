@@ -1,5 +1,5 @@
 extends Node
-class_name T_StartWeaponAttachmentsLoadout
+class_name T_StartWeaponAttachmentLoadout
 
 var paths: Dictionary[T_AttachmentType.ENUM, String] = {
 	T_AttachmentType.ENUM.SIGHT:    "",

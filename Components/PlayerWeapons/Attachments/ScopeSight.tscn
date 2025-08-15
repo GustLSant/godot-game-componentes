@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://ddq0b6rtdtr1n"]
+
+[ext_resource type="Script" uid="uid://d0cmpj4qmnqhl" path="res://Components/PlayerWeapons/Attachments/SightWeaponAttachment.gd" id="1_j2bl4"]
+[ext_resource type="PackedScene" uid="uid://cbk1d6m60gwdo" path="res://Meshs/Scope.blend" id="2_j2bl4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j2bl4"]
+albedo_color = Color(0.128344, 0.128344, 0.128344, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y05po"]
+cull_mode = 2
+albedo_color = Color(0.00820202, 0.00820202, 0.00820202, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nunkr"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 20.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_j2bl4"]
+size = Vector2(0.35, 0.001)
+
+[node name="ScopeSight" type="Node3D"]
+script = ExtResource("1_j2bl4")
+aimFOV = 15.0
+fpsBodyAimFOV = 15.0
+posAimOffsetByWeaponId = Dictionary[int, float]({
+0: 0.0,
+1: -0.225,
+2: -0.16
+})
+aimingSelfScaleMultiplier = 0.1
+
+[node name="Scope" parent="." instance=ExtResource("2_j2bl4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+
+[node name="Cube_001" parent="Scope" index="0"]
+layers = 2
+surface_material_override/0 = SubResource("StandardMaterial3D_j2bl4")
+surface_material_override/1 = SubResource("StandardMaterial3D_y05po")
+
+[node name="Cube_002" parent="Scope" index="1"]
+visible = false
+layers = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.27, 0.45)
+layers = 2
+material_override = SubResource("StandardMaterial3D_nunkr")
+mesh = SubResource("QuadMesh_j2bl4")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.27, 0.45)
+layers = 2
+material_override = SubResource("StandardMaterial3D_nunkr")
+mesh = SubResource("QuadMesh_j2bl4")
+
+[editable path="Scope"]

@@ -7,15 +7,14 @@ class_name PlWp_InventoryController
 
 func _init() -> void:
 	Nodes.player.connect("ChangeWeapon", onChangeWeapon)
-	Nodes.player.connect("EquipAttachment", onEquipAttachment)
 	self.connect("tree_exiting", onTreeExiting)
 	pass
 
 
 func _ready() -> void:
 	getSelfIdxOnInventory()
-	setActive(wpState.isActive)
 	getStartAttachments()
+	setActive(wpState.isActive)
 	#talvez fosse bom recarregar o pente aqui ja no inicio do jogo, pra n comecar com a arma vazia
 	pass
 
@@ -38,15 +37,16 @@ func setActive(_value: bool) -> void:
 
 
 func getStartAttachments() -> void:
-	print(GameplayManager.startInventory.weaponAttachments[wpState.selfIdxOnInventory].paths)
-	var startWeaponAttachmentsLoadout: T_StartWeaponAttachmentsLoadout = GameplayManager.startInventory.weaponAttachments[wpState.selfIdxOnInventory]
+	var startWeaponAttachmentsLoadout: T_StartWeaponAttachmentLoadout = GameplayManager.startInventory.weaponAttachments[wpState.selfIdxOnInventory]
 	
 	for attType: T_AttachmentType.ENUM in startWeaponAttachmentsLoadout.paths.keys():
 		if(startWeaponAttachmentsLoadout.paths[attType]):
 			var att: WeaponAttachment = load(startWeaponAttachmentsLoadout.paths[attType]).instantiate()
 			att.type = attType
+			att.attachedWeaponId = wpState.id
 			wpState.attachmentNodes[attType].add_child(att)
-			print('type: ', self.get_parent().get_parent().name)
+			wpState.attachments[attType] = att
+			print(wpState.attachments)
 	pass
 
 
@@ -62,16 +62,22 @@ func onEquipAttachment(_attachment: WeaponAttachment, _weaponId: int) -> void:
 
 
 func setParametersOnPlayerState() -> void:
-	player = Nodes.player # pq essa funcao pode ser chamada antes do ready
-	
+	player = Nodes.player
 	player.damage = wpState.damage
 	player.fireRate = wpState.fireRate
 	player.magazineSize = wpState.magazineSize
 	player.fireSpread = wpState.fireSpread
 	
 	player.armsDefaultPosition = wpState.armsDefaultPosition
-	player.armsAimPosition = wpState.armsAimPosition
-	player.aimFOV = wpState.aimFOV
+	
+	if(wpState.attachments[T_AttachmentType.ENUM.SIGHT]):
+		player.armsAimPosition = wpState.armsAimPosition + Vector3.UP * wpState.attachments[T_AttachmentType.ENUM.SIGHT].posAimOffsetByWeaponId[wpState.id]
+		player.aimFOV = wpState.attachments[T_AttachmentType.ENUM.SIGHT].aimFOV
+		player.fpsBodyAimFOV = wpState.attachments[T_AttachmentType.ENUM.SIGHT].fpsBodyAimFOV
+	else:
+		player.armsAimPosition = wpState.armsAimPosition
+		player.aimFOV = wpState.aimFOV
+		player.fpsBodyAimFOV = wpState.fpsBodyAimFOV
 	
 	player.recoverFactor = wpState.recoverFactor
 	player.recoilShakeStrength = wpState.recoilShakeStrength

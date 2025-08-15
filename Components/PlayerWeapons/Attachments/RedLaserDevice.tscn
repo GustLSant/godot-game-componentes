@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://dy45078cl868a"]
 
-[ext_resource type="Script" uid="uid://da2m0mqvr11xv" path="res://Components/PlayerWeapons/Attachments/WeaponAttachment.gd" id="1_5f2au"]
+[ext_resource type="Script" uid="uid://28l5esi1stno" path="res://Components/PlayerWeapons/Attachments/DeviceWeaponAttachment.gd" id="1_1xh5r"]
 
 [sub_resource type="Gradient" id="Gradient_5f2au"]
 offsets = PackedFloat32Array(0, 0.3)
@@ -86,8 +86,7 @@ _data = {
 albedo_color = Color(0.171637, 0.171637, 0.171637, 1)
 
 [node name="RedLaserAttachment" type="Node3D" node_paths=PackedStringArray("animP")]
-script = ExtResource("1_5f2au")
-type = 5
+script = ExtResource("1_1xh5r")
 animP = NodePath("AnimationPlayer")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

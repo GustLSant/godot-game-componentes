@@ -7,7 +7,6 @@ class_name Pl_InventoryController
 func _init() -> void:
 	Nodes.player.connect("PickupWeapon", onPickupWeapon)
 	Nodes.player.connect("ChangeWeapon", onChangeWeapon)
-	Nodes.player.connect("EquipAttachment", onEquipAttachment)
 	pass
 
 
@@ -97,9 +96,4 @@ func handleInputChangeWeaponByIdx(_idx: int) -> void:
 
 func onChangeWeapon(_nextCurrentWeapon: PlayerWeapon) -> void:
 	player.currentWeapon = _nextCurrentWeapon
-	pass
-
-
-func onEquipAttachment(_attachment: WeaponAttachment, _weaponIdx: int) -> void:
-	player.inventory.weapons[0].attachments.device_r = _attachment # o idx ta hardcoded
 	pass

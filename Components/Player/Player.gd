@@ -43,7 +43,6 @@ var currentWeapon: PlayerWeapon = null
 signal PickupWeapon(_newWeapon: PlayerWeapon, _spawnOnPlayerModel: bool)
 signal TryChangeWeapon(_newWeapon: PlayerWeapon)
 signal ChangeWeapon(_newWeapon: PlayerWeapon)
-signal EquipAttachment(_attachment: WeaponAttachment, _weaponId: int)
 
 
 # Weapon Controller
@@ -62,6 +61,7 @@ var fireSpread: float = 2.5
 var armsDefaultPosition: Vector3 = Vector3(0.6, -0.8, -0.2)
 var armsAimPosition: Vector3 = Vector3(0.0, -0.5, -0.2)
 var aimFOV: float = 45.0
+var fpsBodyAimFOV: float = 45.0
 var recoverFactor: float = 1.0
 var recoilShakeStrength: float = 1.0
 var recoilPosZStrength: float = 1.0

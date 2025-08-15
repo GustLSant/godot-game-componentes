@@ -536,7 +536,7 @@ magazineSize = 12
 reloadTime = 0.5
 shotRayCast = NodePath("ShotRayCast")
 barrelNode = NodePath("BarrelPos")
-attachmentNodes = [NodePath("Weapon/AttachmentSlots/Sight"), NodePath("Weapon/AttachmentSlots/Magazine"), NodePath("Weapon/AttachmentSlots/Grip"), NodePath("Weapon/AttachmentSlots/Device_L"), NodePath("Weapon/AttachmentSlots/Device_R"), NodePath("Weapon/AttachmentSlots/Barrel")]
+attachmentNodes = [NodePath("Weapon/AttachmentSlots/Sight"), NodePath("Weapon/AttachmentSlots/Magazine"), NodePath("Weapon/AttachmentSlots/Grip"), NodePath("Weapon/AttachmentSlots/Device_L"), NodePath("Weapon/AttachmentSlots/Device_M"), NodePath("Weapon/AttachmentSlots/Device_R"), NodePath("Weapon/AttachmentSlots/Barrel")]
 armsDefaultPosition = Vector3(0.6, -0.8, -1.7)
 armsAimPosition = Vector3(0, -0.5, -1.7)
 recoilRotXStrength = 4.0
@@ -665,7 +665,7 @@ skeleton = NodePath("")
 [node name="AttachmentSlots" type="Node3D" parent="Weapon"]
 
 [node name="Sight" type="Node3D" parent="Weapon/AttachmentSlots"]
-transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, -9.53676e-08, 0.3, -0.4)
+transform = Transform3D(1, -1.05879e-21, -1.13687e-13, 4.23516e-22, 1, -5.04871e-29, 1.13687e-13, -1.00974e-28, 1, -1.98682e-08, 0.233333, -0.0833333)
 
 [node name="Magazine" type="Node3D" parent="Weapon/AttachmentSlots"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, -9.53676e-08, -0.45, -0.4)
@@ -675,6 +675,9 @@ transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, -2.0265
 
 [node name="Device_L" type="Node3D" parent="Weapon/AttachmentSlots"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.15, 0.15, -0.5)
+
+[node name="Device_M" type="Node3D" parent="Weapon/AttachmentSlots"]
+transform = Transform3D(-1, 8.74228e-08, 4.76838e-07, -8.74228e-08, -1, 2.08432e-14, 4.76838e-07, -2.08432e-14, 1, 0, -0.073, -0.417)
 
 [node name="Device_R" type="Node3D" parent="Weapon/AttachmentSlots"]
 transform = Transform3D(-4.37113e-08, 1, 2.38419e-07, -1, -4.37114e-08, 2.38419e-07, 2.38419e-07, -2.38419e-07, 1, 0.15, 0.15, -0.5)
