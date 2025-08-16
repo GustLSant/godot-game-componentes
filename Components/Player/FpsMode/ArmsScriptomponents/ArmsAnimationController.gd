@@ -2,6 +2,7 @@ extends Node
 class_name ArmsAnimationController
 
 @export var animTree: AnimationTree
+@export var methodsAnimP: AnimationPlayer
 @onready var player: Player = Nodes.player
 
 var blendArmed: float = 0.0
@@ -9,11 +10,14 @@ var blendPosture: float = 0.0
 var blendIdleToAiming: float = 0.0
 var blendToSprinting: float = 0.0
 
+var changingNextWeapon: PlayerWeapon = null
+
 var delta: float = 0.016
 
 
 func _init() -> void:
 	Nodes.player.connect("PlayerShot", onPlayerShot)
+	Nodes.player.connect("TryChangeWeapon", onTryChangeWeapon)
 	pass
 
 
@@ -54,4 +58,18 @@ func abortInspectAnimation() -> void:
 
 func onPlayerShot(_recoilStrength: float) -> void:
 	abortInspectAnimation()
+	pass
+
+
+func onTryChangeWeapon(_newWeapon: PlayerWeapon) -> void:
+	if(animTree["parameters/OneShot_ChangeWeapon/active"]): return
+	changingNextWeapon = _newWeapon
+	abortInspectAnimation()
+	animTree["parameters/OneShot_ChangeWeapon/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+	methodsAnimP.play("ChangeWeapon")
+	pass
+
+
+func onMiddleOfChangeWeaponAnimation() -> void:
+	Nodes.player.emit_signal("ChangeWeapon", changingNextWeapon)
 	pass

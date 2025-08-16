@@ -41,7 +41,6 @@ func _process(_delta:float)->void:
 	handleRecoilEffect()
 	handleAimingPos()
 	
-	if(Input.is_action_just_pressed("Test")): addCameraShake(1.0)
 	pivotShakeHands.position = shakePosOffset/4.0
 	
 	if(Input.is_action_just_pressed("Shoot")): addRecoil(0.1, 1.0)

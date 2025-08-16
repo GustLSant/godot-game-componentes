@@ -4,7 +4,7 @@ class_name Pl_PostureController
 var wasCrouching: bool = false
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	handleCrouchInput()
 	handleCrouchPosture()
 	pass

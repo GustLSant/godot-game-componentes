@@ -6,12 +6,7 @@ var attachedWeapon: PlayerWeapon = null
 
 
 func _init() -> void:
-	Nodes.player.connect("ChangeWeapon", onChangeWeapon)
-
-
-func _ready() -> void:
-	checkCanActiveProcess()
-	pass
+	Nodes.player.connect("WeaponChanged", onWeaponChanged)
 
 
 func checkCanActiveProcess() -> void:
@@ -20,6 +15,6 @@ func checkCanActiveProcess() -> void:
 	pass
 
 
-func onChangeWeapon(_newWeapon: PlayerWeapon) -> void:
+func onWeaponChanged(_newWeapon: PlayerWeapon) -> void:
 	checkCanActiveProcess()
 	pass

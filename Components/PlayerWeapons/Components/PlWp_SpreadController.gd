@@ -2,11 +2,11 @@ extends Node
 class_name PlWp_SpreadController
 
 @onready var player: Player = Nodes.player
-@export var wpState: PlayerWeapon
+@export var weapon: PlayerWeapon
 
 
 func _process(_delta: float) -> void:
-	if(not wpState.isActive): return
+	if(not weapon.isActive): return
 	handleFireSpread()
 	pass
 
@@ -17,5 +17,5 @@ func handleFireSpread() -> void:
 	var aimingMultiplier: float =    int(player.isAiming)                  * 0.05 + int(not player.isAiming) * 1.0
 	var crouchMultiplier: float =    int(player.isCrouched)                * 0.5  + int(not player.isCrouched) * 1.0
 	
-	player.fireSpread = wpState.fireSpread * walkingMultiplier * sprintingMultiplier * aimingMultiplier * crouchMultiplier
+	player.fireSpread = weapon.fireSpread * walkingMultiplier * sprintingMultiplier * aimingMultiplier * crouchMultiplier
 	pass

@@ -7,14 +7,11 @@ var currentWeaponIdx: int = 0
 
 
 func _init() -> void:
-	Nodes.player.connect("ChangeWeapon", onChangeWeapon)
+	Nodes.player.connect("WeaponChanged", onWeaponChanged)
 	Nodes.player.connect("PlayerShot", onPlayerShot)
 	Nodes.player.connect("ReloadEnd", onReloadEnd)
 	pass
 
-
-func getCurrentWeaponIdx() -> int:
-	return max(Nodes.player.getCurrentWeaponIdx(), 0) # se nao tiver nenhuma arma, vai pegar o primeiro idx
 
 func updateLabels() -> void:
 	var ammoId: int = Nodes.player.currentWeapon.ammoId if (is_instance_valid(Nodes.player.currentWeapon)) else 0
@@ -23,8 +20,8 @@ func updateLabels() -> void:
 	pass
 
 
-func onChangeWeapon(_newWeaponData: PlayerWeapon) -> void:
-	currentWeaponIdx = getCurrentWeaponIdx()
+func onWeaponChanged(_newWeapon: PlayerWeapon) -> void:
+	currentWeaponIdx = Nodes.player.getWeaponIdxOnInventory(_newWeapon)
 	updateLabels()
 	pass
 

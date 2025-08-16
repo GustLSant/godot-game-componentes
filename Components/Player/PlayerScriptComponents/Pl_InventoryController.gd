@@ -6,7 +6,6 @@ class_name Pl_InventoryController
 
 func _init() -> void:
 	Nodes.player.connect("PickupWeapon", onPickupWeapon)
-	Nodes.player.connect("ChangeWeapon", onChangeWeapon)
 	pass
 
 
@@ -21,8 +20,8 @@ func _process(_delta: float) -> void:
 
 
 func getStartWeapons() -> void:
-	for i in range(GameplayManager.startInventory["weapons"].size()):
-		var newWeaponData: PlayerWeapon = load(GameplayManager.startInventory["weapons"][i]).instantiate()
+	for i in range(GameplayManager.startInventory.weapons.size()):
+		var newWeaponData: PlayerWeapon = load(GameplayManager.startInventory.weapons[i]).instantiate()
 		Nodes.player.inventory.reserveAmmo = GameplayManager.startInventory["reserveAmmo"]
 		Nodes.player.emit_signal("PickupWeapon", newWeaponData, true)
 	pass
@@ -33,7 +32,7 @@ func onPickupWeapon(_newWeapon: PlayerWeapon, _spawnOnPlayerModel: bool) -> void
 		player.inventory.weapons.append(_newWeapon)
 		
 		if(player.inventory.weapons.size() == 1): # se nao tinha arma, ja equipa a que pegou
-			player.emit_signal("ChangeWeapon", player.inventory.weapons[0])
+			player.emit_signal("TryChangeWeapon", player.inventory.weapons[0])
 	else:
 		replaceCurrentWeapon(_newWeapon)
 	pass
@@ -45,12 +44,12 @@ func replaceCurrentWeapon(_newWeapon: PlayerWeapon) -> void:
 	
 	player.currentWeapon.queue_free()
 	player.inventory.weapons[currentWeaponIdx] = _newWeapon
-	player.emit_signal("ChangeWeapon", player.inventory.weapons[currentWeaponIdx])
+	player.emit_signal("TryChangeWeapon", player.inventory.weapons[currentWeaponIdx])
 	
 	var previousPickupWeaponScenePath: String = ""
 	match previousWeaponId:
-		1: previousPickupWeaponScenePath = "res://Components/Player/PlayerWeapon/PickupWeapon_01.tscn"
-		2: previousPickupWeaponScenePath = "res://Components/Player/PlayerWeapon/PickupWeapon_02.tscn"
+		1: previousPickupWeaponScenePath = "res://Components/PlayerWeapons/PickupWeapon_01.tscn"
+		2: previousPickupWeaponScenePath = "res://Components/PlayerWeapons/PickupWeapon_02.tscn"
 	
 	var previousPickupWeaponScene: InteractiveObject = load(previousPickupWeaponScenePath).instantiate()
 	previousPickupWeaponScene.position = Nodes.player.global_position
@@ -69,31 +68,26 @@ func getInputChangeWeapon() -> void:
 
 
 func handleInputChangeWeaponByDirection(_changeDirection: int) -> void:
-	if(player.inventory["weapons"].size() <= 1): return
-	if(player.currentWeapon == null): player.emit_signal("ChangeWeapon", player.inventory["weapons"][0]) # sem nenhuma arma equipada, equipa a primeira do inventario
+	if(player.inventory.weapons.size() <= 1): return
+	if(player.currentWeapon == null): player.emit_signal("TryChangeWeapon", player.inventory.weapons[0]) # sem nenhuma arma equipada, equipa a primeira do inventario
 	
 	var currentWeaponIdx: int = player.getCurrentWeaponIdx()
 	
 	var nextWeaponIdx: int = currentWeaponIdx + _changeDirection
-	if(nextWeaponIdx > player.inventory["weapons"].size()-1):
+	if(nextWeaponIdx > player.inventory.weapons.size()-1):
 		nextWeaponIdx = 0
 	elif(nextWeaponIdx < 0):
-		nextWeaponIdx = player.inventory["weapons"].size()-1
+		nextWeaponIdx = player.inventory.weapons.size()-1
 	
-	player.emit_signal("ChangeWeapon", player.inventory["weapons"][nextWeaponIdx])
+	player.emit_signal("TryChangeWeapon", player.inventory.weapons[nextWeaponIdx])
 	pass
 
 
 func handleInputChangeWeaponByIdx(_idx: int) -> void:
-	if(_idx > player.inventory["weapons"].size()-1): return
+	if(_idx > player.inventory.weapons.size()-1): return
 	
-	if(player.currentWeapon == player.inventory["weapons"][_idx]): return
+	if(player.currentWeapon == player.inventory.weapons[_idx]): return
 	
-	if(player.inventory["weapons"][_idx] != null):
-		player.emit_signal("ChangeWeapon", player.inventory["weapons"][_idx])
-	pass
-
-
-func onChangeWeapon(_nextCurrentWeapon: PlayerWeapon) -> void:
-	player.currentWeapon = _nextCurrentWeapon
+	if(player.inventory.weapons[_idx] != null):
+		player.emit_signal("TryChangeWeapon", player.inventory.weapons[_idx])
 	pass

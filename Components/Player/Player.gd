@@ -43,6 +43,7 @@ var currentWeapon: PlayerWeapon = null
 signal PickupWeapon(_newWeapon: PlayerWeapon, _spawnOnPlayerModel: bool)
 signal TryChangeWeapon(_newWeapon: PlayerWeapon)
 signal ChangeWeapon(_newWeapon: PlayerWeapon)
+signal WeaponChanged(_newWeapon: PlayerWeapon)
 
 
 # Weapon Controller
@@ -73,8 +74,19 @@ var recoilRotZStrength: float = 1.0
 func getCurrentWeaponIdx() -> int:
 	var result: int = -1
 	
-	for i in range(inventory["weapons"].size()):
-		if(inventory["weapons"][i] == currentWeapon):
+	for i in range(inventory.weapons.size()):
+		if(inventory.weapons[i] == currentWeapon):
+			result = i
+			break
+	
+	return result
+
+
+func getWeaponIdxOnInventory(_weapon: PlayerWeapon) -> int:
+	var result: int = -1
+	
+	for i in range(inventory.weapons.size()):
+		if(inventory.weapons[i] == _weapon):
 			result = i
 			break
 	

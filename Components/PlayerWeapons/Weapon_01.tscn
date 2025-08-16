@@ -182,29 +182,29 @@ ammoId = 2
 
 [node name="Components" type="Node" parent="."]
 
-[node name="PlWp_AimController" type="Node" parent="Components" node_paths=PackedStringArray("wpState")]
+[node name="PlWp_AimController" type="Node" parent="Components" node_paths=PackedStringArray("weapon")]
 script = ExtResource("2_j61ko")
-wpState = NodePath("../..")
+weapon = NodePath("../..")
 metadata/_custom_type_script = "uid://coo5sgyoljyjq"
 
-[node name="PlWp_SpreadController" type="Node" parent="Components" node_paths=PackedStringArray("wpState")]
+[node name="PlWp_SpreadController" type="Node" parent="Components" node_paths=PackedStringArray("weapon")]
 script = ExtResource("3_ywxr6")
-wpState = NodePath("../..")
+weapon = NodePath("../..")
 metadata/_custom_type_script = "uid://ep34p3kse2wi"
 
-[node name="PlWp_InventoryController" type="Node" parent="Components" node_paths=PackedStringArray("wpState")]
+[node name="PlWp_InventoryController" type="Node" parent="Components" node_paths=PackedStringArray("weapon")]
 script = ExtResource("4_3emef")
-wpState = NodePath("../..")
+weapon = NodePath("../..")
 metadata/_custom_type_script = "uid://bi4aqrorx82rf"
 
-[node name="PlWp_ShootController" type="Node" parent="Components" node_paths=PackedStringArray("wpState")]
+[node name="PlWp_ShootController" type="Node" parent="Components" node_paths=PackedStringArray("weapon")]
 script = ExtResource("5_qegdy")
-wpState = NodePath("../..")
+weapon = NodePath("../..")
 metadata/_custom_type_script = "uid://dmdn0lkoq1e5l"
 
-[node name="PlWp_ReloadController" type="Node" parent="Components" node_paths=PackedStringArray("wpState")]
+[node name="PlWp_ReloadController" type="Node" parent="Components" node_paths=PackedStringArray("weapon")]
 script = ExtResource("6_p0npl")
-wpState = NodePath("../..")
+weapon = NodePath("../..")
 metadata/_custom_type_script = "uid://r3nlpgoy0gdm"
 
 [node name="Weapon" type="Node3D" parent="."]

@@ -2,11 +2,11 @@ extends Node
 class_name PlWp_AimController
 
 @onready var player: Player = Nodes.player
-@export var wpState: PlayerWeapon
+@export var weapon: PlayerWeapon
 
 
 func _process(_delta: float) -> void:
-	if(not wpState.isActive): return
+	if(not weapon.isActive): return
 	handleAimInput()
 	pass
 
