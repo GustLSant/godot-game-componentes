@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckde2x5k76twm"]
+
+[ext_resource type="Script" uid="uid://yaf1vx4ipvs3" path="res://Components/PlayerWeapons/WeaponPickUpController.gd" id="1_g7twl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l66dl"]
+size = Vector3(1, 0.7, 1)
+
+[node name="GeneralPickupWeapon" type="Node3D"]
+script = ExtResource("1_g7twl")
+weaponScenePath = "res://Components/PlayerWeapons/Weapon_01.tscn"
+description = "Weapon 01"
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+shape = SubResource("BoxShape3D_l66dl")
+
+[node name="WeaponSocket" type="Node3D" parent="Area3D"]
+transform = Transform3D(-4.37114e-08, -1, 1.04216e-14, 1, -4.37114e-08, -2.38419e-07, 2.38419e-07, -5.36445e-22, 1, 0, 0, 0)

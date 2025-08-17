@@ -46,12 +46,18 @@ func replaceCurrentWeapon(_newWeapon: PlayerWeapon) -> void:
 	player.inventory.weapons[currentWeaponIdx] = _newWeapon
 	player.emit_signal("TryChangeWeapon", player.inventory.weapons[currentWeaponIdx])
 	
-	var previousPickupWeaponScenePath: String = ""
-	match previousWeaponId:
-		1: previousPickupWeaponScenePath = "res://Components/PlayerWeapons/PickupWeapon_01.tscn"
-		2: previousPickupWeaponScenePath = "res://Components/PlayerWeapons/PickupWeapon_02.tscn"
+	spawnWeaponPickUp(previousWeaponId)
+	pass
+
+
+func spawnWeaponPickUp(_weaponId: int) -> void:
+	var pickupWeaponScenePath: String = ""
 	
-	var previousPickupWeaponScene: InteractiveObject = load(previousPickupWeaponScenePath).instantiate()
+	match _weaponId:
+		1: pickupWeaponScenePath = "res://Components/PlayerWeapons/PickupWeapon_01.tscn"
+		2: pickupWeaponScenePath = "res://Components/PlayerWeapons/PickupWeapon_02.tscn"
+	
+	var previousPickupWeaponScene: InteractiveObject = load(pickupWeaponScenePath).instantiate()
 	previousPickupWeaponScene.position = Nodes.player.global_position
 	Nodes.mainNode.add_child(previousPickupWeaponScene)
 	pass
