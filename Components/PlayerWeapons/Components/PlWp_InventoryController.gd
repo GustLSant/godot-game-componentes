@@ -42,19 +42,19 @@ func setActive(_value: bool) -> void:
 func getStartAttachments() -> void:
 	var startWeaponAttachmentsLoadout: T_StartWeaponAttachmentLoadout = GameplayManager.startInventory.weaponAttachments[weapon.selfIdxOnInventory]
 	
-	for attType: T_AttachmentType.ENUM in startWeaponAttachmentsLoadout.paths.keys():
-		if(startWeaponAttachmentsLoadout.paths[attType]):
-			var att: WeaponAttachment = load(startWeaponAttachmentsLoadout.paths[attType]).instantiate()
-			addAttachment(att, attType)
+	for attSlot: T_AttachmentSlot.ENUM in startWeaponAttachmentsLoadout.paths.keys():
+		if(startWeaponAttachmentsLoadout.paths[attSlot]):
+			var att: WeaponAttachment = load(startWeaponAttachmentsLoadout.paths[attSlot]).instantiate()
+			addAttachment(att, attSlot)
 	
 	pass
 
 
-func addAttachment(_newAttachment: WeaponAttachment, _attType: T_AttachmentType.ENUM) -> void:
-	_newAttachment.type = _attType
+func addAttachment(_newAttachment: WeaponAttachment, _attSlot: T_AttachmentSlot.ENUM) -> void:
+	_newAttachment.slot = _attSlot
 	_newAttachment.attachedWeapon = weapon
-	weapon.attachmentNodes[_attType].add_child(_newAttachment)
-	weapon.attachments[_attType] = _newAttachment
+	weapon.attachmentNodes[_attSlot].add_child(_newAttachment)
+	weapon.attachments[_attSlot] = _newAttachment
 	pass
 
 

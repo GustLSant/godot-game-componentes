@@ -36,14 +36,14 @@ class_name PlayerWeapon
 
 var isActive: bool = false
 var selfIdxOnInventory: int = -1
-var attachments: Dictionary[T_AttachmentType.ENUM, WeaponAttachment] = {
-	T_AttachmentType.ENUM.SIGHT:    null,
-	T_AttachmentType.ENUM.MAGAZINE: null,
-	T_AttachmentType.ENUM.GRIP:     null,
-	T_AttachmentType.ENUM.DEVICE_L: null,
-	T_AttachmentType.ENUM.DEVICE_M: null,
-	T_AttachmentType.ENUM.DEVICE_R: null,
-	T_AttachmentType.ENUM.BARREL:   null,
+var attachments: Dictionary[T_AttachmentSlot.ENUM, WeaponAttachment] = {
+	T_AttachmentSlot.ENUM.SIGHT:    null,
+	T_AttachmentSlot.ENUM.MAGAZINE: null,
+	T_AttachmentSlot.ENUM.GRIP:     null,
+	T_AttachmentSlot.ENUM.DEVICE_L: null,
+	T_AttachmentSlot.ENUM.DEVICE_M: null,
+	T_AttachmentSlot.ENUM.DEVICE_R: null,
+	T_AttachmentSlot.ENUM.BARREL:   null,
 }
 
 # fire rate

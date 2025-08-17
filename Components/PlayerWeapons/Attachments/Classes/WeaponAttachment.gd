@@ -1,7 +1,7 @@
 extends Node
 class_name WeaponAttachment
 
-var type: T_AttachmentType.ENUM = T_AttachmentType.ENUM.SIGHT
+var slot: T_AttachmentSlot.ENUM = T_AttachmentSlot.ENUM.SIGHT
 var attachedWeapon: PlayerWeapon = null : set = setAttachedWeapon
 
 
@@ -21,7 +21,6 @@ func onWeaponChanged(_newWeapon: PlayerWeapon) -> void:
 
 
 func setAttachedWeapon(_newAttachedWeapon: PlayerWeapon) -> void:
-	print('setter do attachment, name: ', self.name)
 	attachedWeapon = _newAttachedWeapon
 	applyStatsOnWeapon()
 	pass
