@@ -1,17 +1,18 @@
 [gd_scene load_steps=4 format=3 uid="uid://c4te8usk4av80"]
 
-[ext_resource type="Script" uid="uid://bjeyijrclwu7j" path="res://Components/PlayerWeapons/Attachments/Classes/GripWeaponAttachment.gd" id="1_2xd1t"]
+[ext_resource type="Script" uid="uid://dgrisjwgeq2tu" path="res://Components/PlayerWeapons/Attachments/Classes/BarrelWeaponAttachment.gd" id="1_2xd1t"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iygqj"]
-albedo_color = Color(0.407056, 0.407056, 0.407056, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2xd1t"]
+albedo_color = Color(1, 0.407843, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_iygqj"]
 
 [node name="SilencerBarrel" type="Node3D"]
 script = ExtResource("1_2xd1t")
+recoilMultiplierFactor = 0.2
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.212132, 1.28028e-08, 0.212132, 0.212132, -3.09086e-08, -0.212132, 3.84083e-09, 1, -9.27259e-09, -1.28028e-09, -8.08501e-09, -0.5)
 layers = 2
-material_override = SubResource("StandardMaterial3D_iygqj")
+material_override = SubResource("StandardMaterial3D_2xd1t")
 mesh = SubResource("BoxMesh_iygqj")

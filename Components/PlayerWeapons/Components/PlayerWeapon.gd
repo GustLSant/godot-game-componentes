@@ -28,7 +28,7 @@ class_name PlayerWeapon
 @export var recoilPosYStrength: float = 0.0
 @export var recoilRotXStrength: float = 1.0
 @export var recoilRotZStrength: float = 1.0
-var attachmentsRecoilMultiplierFactor: float = 1.0
+
 
 @export_category("ID")
 @export var id: int = 0

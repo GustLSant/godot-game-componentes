@@ -50,7 +50,6 @@ func getStartAttachments() -> void:
 			weapon.attachmentNodes[attType].add_child(att)
 			weapon.attachments[attType] = att
 	
-	weapon.attachmentsRecoilMultiplierFactor = getAttachmentsRecoilMultiplierFactor()
 	pass
 
 
@@ -64,41 +63,20 @@ func setParametersOnPlayerState() -> void:
 	player.damage = weapon.damage
 	player.fireRate = weapon.fireRate
 	player.fireSpread = weapon.fireSpread
-	if(weapon.attachments[T_AttachmentType.ENUM.MAGAZINE]):
-		player.magazineSize = weapon.attachments[T_AttachmentType.ENUM.MAGAZINE].magazineSize
-	else:
-		player.magazineSize = weapon.magazineSize
+	player.magazineSize = weapon.magazineSize
 	
 	player.armsDefaultPosition = weapon.armsDefaultPosition
-	
-	if(weapon.attachments[T_AttachmentType.ENUM.SIGHT]):
-		player.armsAimPosition = weapon.armsAimPosition + Vector3.UP * weapon.attachments[T_AttachmentType.ENUM.SIGHT].posAimOffsetByWeaponId[weapon.id]
-		player.aimFOV = weapon.attachments[T_AttachmentType.ENUM.SIGHT].aimFOV
-		player.fpsBodyAimFOV = weapon.attachments[T_AttachmentType.ENUM.SIGHT].fpsBodyAimFOV
-	else:
-		player.armsAimPosition = weapon.armsAimPosition
-		player.aimFOV = weapon.aimFOV
-		player.fpsBodyAimFOV = weapon.fpsBodyAimFOV
+	player.armsAimPosition = weapon.armsAimPosition
+	player.aimFOV = weapon.aimFOV
+	player.fpsBodyAimFOV = weapon.fpsBodyAimFOV
 	
 	player.recoverFactor = weapon.recoverFactor
-	player.recoilShakeStrength = weapon.recoilShakeStrength * weapon.attachmentsRecoilMultiplierFactor
-	player.recoilPosZStrength  = weapon.recoilPosZStrength  * weapon.attachmentsRecoilMultiplierFactor
-	player.recoilPosYStrength  = weapon.recoilPosYStrength  * weapon.attachmentsRecoilMultiplierFactor
-	player.recoilRotXStrength  = weapon.recoilRotXStrength  * weapon.attachmentsRecoilMultiplierFactor
-	player.recoilRotZStrength  = weapon.recoilRotZStrength  * weapon.attachmentsRecoilMultiplierFactor
+	player.recoilShakeStrength = weapon.recoilShakeStrength
+	player.recoilPosZStrength  = weapon.recoilPosZStrength
+	player.recoilPosYStrength  = weapon.recoilPosYStrength
+	player.recoilRotXStrength  = weapon.recoilRotXStrength
+	player.recoilRotZStrength  = weapon.recoilRotZStrength
 	pass
-
-
-func getAttachmentsRecoilMultiplierFactor() -> float:
-	var attRecoilMultiplierFactor: float = 1.0
-	
-	if(weapon.attachments[T_AttachmentType.ENUM.GRIP]):
-		attRecoilMultiplierFactor = weapon.attachments[T_AttachmentType.ENUM.GRIP].recoilMultiplierFactor
-	
-	if(weapon.attachments[T_AttachmentType.ENUM.BARREL]):
-		attRecoilMultiplierFactor -= 1.0 - weapon.attachments[T_AttachmentType.ENUM.BARREL].recoilMultiplierFactor
-	
-	return attRecoilMultiplierFactor
 
 
 func onTreeExiting() -> void:

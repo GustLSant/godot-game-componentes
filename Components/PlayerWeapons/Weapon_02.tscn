@@ -539,29 +539,35 @@ barrelNode = NodePath("BarrelPos")
 attachmentNodes = [NodePath("Weapon/AttachmentSlots/Sight"), NodePath("Weapon/AttachmentSlots/Magazine"), NodePath("Weapon/AttachmentSlots/Grip"), NodePath("Weapon/AttachmentSlots/Device_L"), NodePath("Weapon/AttachmentSlots/Device_M"), NodePath("Weapon/AttachmentSlots/Device_R"), NodePath("Weapon/AttachmentSlots/Barrel")]
 armsDefaultPosition = Vector3(0.6, -0.8, -1.7)
 armsAimPosition = Vector3(0, -0.5, -1.7)
-recoilRotXStrength = 4.0
+recoilRotXStrength = 3.0
+recoilRotZStrength = 3.0
 id = 2
 
 [node name="Components" type="Node" parent="."]
 
-[node name="PlWp_AimController" type="Node" parent="Components"]
+[node name="PlWp_AimController" type="Node" parent="Components" node_paths=PackedStringArray("weapon")]
 script = ExtResource("2_c6mae")
+weapon = NodePath("../..")
 metadata/_custom_type_script = "uid://coo5sgyoljyjq"
 
-[node name="PlWp_SpreadController" type="Node" parent="Components"]
+[node name="PlWp_SpreadController" type="Node" parent="Components" node_paths=PackedStringArray("weapon")]
 script = ExtResource("3_vrtfw")
+weapon = NodePath("../..")
 metadata/_custom_type_script = "uid://ep34p3kse2wi"
 
-[node name="PlWp_InventoryController" type="Node" parent="Components"]
+[node name="PlWp_InventoryController" type="Node" parent="Components" node_paths=PackedStringArray("weapon")]
 script = ExtResource("4_yum8h")
+weapon = NodePath("../..")
 metadata/_custom_type_script = "uid://bi4aqrorx82rf"
 
-[node name="PlWp_ShootController" type="Node" parent="Components"]
+[node name="PlWp_ShootController" type="Node" parent="Components" node_paths=PackedStringArray("weapon")]
 script = ExtResource("5_5k4qh")
+weapon = NodePath("../..")
 metadata/_custom_type_script = "uid://dmdn0lkoq1e5l"
 
-[node name="PlWp_ReloadController" type="Node" parent="Components"]
+[node name="PlWp_ReloadController" type="Node" parent="Components" node_paths=PackedStringArray("weapon")]
 script = ExtResource("6_lb24a")
+weapon = NodePath("../..")
 metadata/_custom_type_script = "uid://r3nlpgoy0gdm"
 
 [node name="Weapon" type="Node3D" parent="."]
@@ -681,10 +687,10 @@ transform = Transform3D(-4.37113e-08, 1, 2.38419e-07, -1, -4.37114e-08, 2.38419e
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, -2.62261e-07, 0.1, -1.1)
 
 [node name="ShotRayCast" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13, 0.05)
 target_position = Vector3(0, 0, -75)
 collision_mask = 7
 collide_with_areas = true
 
 [node name="BarrelPos" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -1.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13, -0.45)

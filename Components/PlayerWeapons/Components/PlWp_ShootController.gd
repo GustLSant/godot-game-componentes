@@ -28,7 +28,7 @@ func handleShootInput() -> bool:
 
 func shoot() -> void:
 	weapon.magazineAmmo -= 1
-	player.emit_signal("PlayerShot", weapon.cameraRecoilStrength * weapon.attachmentsRecoilMultiplierFactor)
+	player.emit_signal("PlayerShot", weapon.cameraRecoilStrength)
 	weapon.currentFireCooldown = player.fireRate
 	
 	weapon.shotRayCast.global_transform = weapon.barrelNode.global_transform #player.currentCameraController.pivotRot.global_transform
