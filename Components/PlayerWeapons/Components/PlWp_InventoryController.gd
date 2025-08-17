@@ -45,11 +45,16 @@ func getStartAttachments() -> void:
 	for attType: T_AttachmentType.ENUM in startWeaponAttachmentsLoadout.paths.keys():
 		if(startWeaponAttachmentsLoadout.paths[attType]):
 			var att: WeaponAttachment = load(startWeaponAttachmentsLoadout.paths[attType]).instantiate()
-			att.type = attType
-			att.attachedWeapon = weapon
-			weapon.attachmentNodes[attType].add_child(att)
-			weapon.attachments[attType] = att
+			addAttachment(att, attType)
 	
+	pass
+
+
+func addAttachment(_newAttachment: WeaponAttachment, _attType: T_AttachmentType.ENUM) -> void:
+	_newAttachment.type = _attType
+	_newAttachment.attachedWeapon = weapon
+	weapon.attachmentNodes[_attType].add_child(_newAttachment)
+	weapon.attachments[_attType] = _newAttachment
 	pass
 
 
