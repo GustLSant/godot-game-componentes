@@ -5,9 +5,10 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_l66dl"]
 size = Vector3(1, 0.7, 1)
 
-[node name="GeneralPickupWeapon" type="Node3D"]
+[node name="GeneralPickupWeapon" type="Node3D" node_paths=PackedStringArray("weaponSocket")]
 script = ExtResource("1_g7twl")
 weaponScenePath = "res://Components/PlayerWeapons/Weapon_01.tscn"
+weaponSocket = NodePath("Area3D/WeaponSocket")
 description = "Weapon 01"
 
 [node name="Area3D" type="Area3D" parent="."]

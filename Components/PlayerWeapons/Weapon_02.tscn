@@ -530,12 +530,13 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ymwip")
 
 [node name="Weapon_02" type="Node3D" node_paths=PackedStringArray("shotRayCast", "barrelNode", "attachmentNodes")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 script = ExtResource("1_vlsv3")
 magazineSize = 12
 reloadTime = 0.5
 shotRayCast = NodePath("ShotRayCast")
 barrelNode = NodePath("BarrelPos")
-attachmentNodes = [NodePath("Weapon/AttachmentSlots/Sight"), NodePath("Weapon/AttachmentSlots/Magazine"), NodePath("Weapon/AttachmentSlots/Grip"), NodePath("Weapon/AttachmentSlots/Device_L"), NodePath("Weapon/AttachmentSlots/Device_M"), NodePath("Weapon/AttachmentSlots/Device_R"), NodePath("Weapon/AttachmentSlots/Barrel")]
+attachmentNodes = [NodePath("Mesh/AttachmentSlots/Sight"), NodePath("Mesh/AttachmentSlots/Magazine"), NodePath("Mesh/AttachmentSlots/Grip"), NodePath("Mesh/AttachmentSlots/Device_L"), NodePath("Mesh/AttachmentSlots/Device_M"), NodePath("Mesh/AttachmentSlots/Device_R"), NodePath("Mesh/AttachmentSlots/Barrel")]
 armsDefaultPosition = Vector3(0.6, -0.8, -1.7)
 armsAimPosition = Vector3(0, -0.5, -1.7)
 recoilRotXStrength = 3.0
@@ -569,119 +570,119 @@ script = ExtResource("6_lb24a")
 weapon = NodePath("../..")
 metadata/_custom_type_script = "uid://r3nlpgoy0gdm"
 
-[node name="Weapon" type="Node3D" parent="."]
+[node name="Mesh" type="Node3D" parent="."]
 
-[node name="cuboid" type="MeshInstance3D" parent="Weapon"]
+[node name="cuboid" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 0.035, 0.20625, 0.06125)
 layers = 2
 mesh = SubResource("ArrayMesh_vlsv3")
 skeleton = NodePath("")
 
-[node name="cuboid2" type="MeshInstance3D" parent="Weapon"]
+[node name="cuboid2" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, -0.0275, 0.20625, 0.06125)
 layers = 2
 mesh = SubResource("ArrayMesh_c6mae")
 skeleton = NodePath("")
 
-[node name="cuboid3" type="MeshInstance3D" parent="Weapon"]
+[node name="cuboid3" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 0.00374999, 0.159375, -0.12625)
 layers = 2
 mesh = SubResource("ArrayMesh_vrtfw")
 skeleton = NodePath("")
 
-[node name="cuboid4" type="MeshInstance3D" parent="Weapon"]
+[node name="cuboid4" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 1.25956e-28, -2.22094e-29, -1.27899e-28, 0.984808, -0.173648, -1.50463e-36, 0.173648, 0.984808, 0.00374999, 0.003125, -0.0325)
 layers = 2
 mesh = SubResource("ArrayMesh_yum8h")
 skeleton = NodePath("")
 
-[node name="cuboid5" type="MeshInstance3D" parent="Weapon"]
+[node name="cuboid5" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 0.00374999, -0.075, -0.12625)
 layers = 2
 mesh = SubResource("ArrayMesh_5k4qh")
 skeleton = NodePath("")
 
-[node name="cuboid6" type="MeshInstance3D" parent="Weapon"]
+[node name="cuboid6" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 0.00374999, -0.075, -0.12625)
 layers = 2
 mesh = SubResource("ArrayMesh_lb24a")
 skeleton = NodePath("")
 
-[node name="cuboid7" type="MeshInstance3D" parent="Weapon"]
+[node name="cuboid7" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, -1.27899e-28, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0.00374998, -0.090625, 0.0925)
 layers = 2
 mesh = SubResource("ArrayMesh_1r4et")
 skeleton = NodePath("")
 
-[node name="cuboid8" type="MeshInstance3D" parent="Weapon"]
+[node name="cuboid8" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 0.00374999, 0.20625, -0.37625)
 layers = 2
 mesh = SubResource("ArrayMesh_5j6qq")
 skeleton = NodePath("")
 
-[node name="cuboid9" type="MeshInstance3D" parent="Weapon"]
+[node name="cuboid9" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 0.00374999, -0.028125, -0.50125)
 layers = 2
 mesh = SubResource("ArrayMesh_oci5t")
 skeleton = NodePath("")
 
-[node name="cuboid10" type="MeshInstance3D" parent="Weapon"]
+[node name="cuboid10" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 0.00374998, 0.159375, 0.18625)
 layers = 2
 mesh = SubResource("ArrayMesh_axw38")
 skeleton = NodePath("")
 
-[node name="cuboid11" type="MeshInstance3D" parent="Weapon"]
+[node name="cuboid11" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 0.00374998, 0.159375, 0.06125)
 layers = 2
 mesh = SubResource("ArrayMesh_3u470")
 skeleton = NodePath("")
 
-[node name="cuboid12" type="MeshInstance3D" parent="Weapon"]
+[node name="cuboid12" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 0.00374998, 0.20625, 0.06125)
 layers = 2
 mesh = SubResource("ArrayMesh_c26xj")
 skeleton = NodePath("")
 
-[node name="cuboid13" type="MeshInstance3D" parent="Weapon"]
+[node name="cuboid13" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, -1.27899e-28, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0.00374998, -0.090625, 0.0925)
 layers = 2
 mesh = SubResource("ArrayMesh_gvh8b")
 skeleton = NodePath("")
 
-[node name="cuboid14" type="MeshInstance3D" parent="Weapon"]
+[node name="cuboid14" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, -1.27899e-28, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0.00374998, -0.090625, 0.0925)
 layers = 2
 mesh = SubResource("ArrayMesh_wnvm3")
 skeleton = NodePath("")
 
-[node name="cuboid15" type="MeshInstance3D" parent="Weapon"]
+[node name="cuboid15" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, 0.00374999, 0.128125, -0.43875)
 layers = 2
 mesh = SubResource("ArrayMesh_0wsea")
 skeleton = NodePath("")
 
-[node name="AttachmentSlots" type="Node3D" parent="Weapon"]
+[node name="AttachmentSlots" type="Node3D" parent="Mesh"]
 
-[node name="Sight" type="Node3D" parent="Weapon/AttachmentSlots"]
+[node name="Sight" type="Node3D" parent="Mesh/AttachmentSlots"]
 transform = Transform3D(1, -1.05879e-21, -1.13687e-13, 4.23516e-22, 1, -5.04871e-29, 1.13687e-13, -1.00974e-28, 1, 0, 0.2, 0)
 
-[node name="Magazine" type="Node3D" parent="Weapon/AttachmentSlots"]
+[node name="Magazine" type="Node3D" parent="Mesh/AttachmentSlots"]
 transform = Transform3D(1, 3.8097e-09, -1.66334e-10, 3.63684e-09, -0.965926, -0.258819, -1.14669e-09, 0.258819, -0.965926, 0, -0.24, 0.135)
 
-[node name="Grip" type="Node3D" parent="Weapon/AttachmentSlots"]
-transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, -2.02656e-07, -0.12, -0.25)
+[node name="Grip" type="Node3D" parent="Mesh/AttachmentSlots"]
+transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, -2.02656e-07, -0.12, -0.25)
 
-[node name="Device_L" type="Node3D" parent="Weapon/AttachmentSlots"]
+[node name="Device_L" type="Node3D" parent="Mesh/AttachmentSlots"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.06, 0.15, -0.35)
 
-[node name="Device_M" type="Node3D" parent="Weapon/AttachmentSlots"]
+[node name="Device_M" type="Node3D" parent="Mesh/AttachmentSlots"]
 transform = Transform3D(-1, 8.74228e-08, 4.76838e-07, -8.74228e-08, -1, 2.08432e-14, 4.76838e-07, -2.08432e-14, 1, 0, -0.12, -0.31)
 
-[node name="Device_R" type="Node3D" parent="Weapon/AttachmentSlots"]
+[node name="Device_R" type="Node3D" parent="Mesh/AttachmentSlots"]
 transform = Transform3D(-4.37113e-08, 1, 2.38419e-07, -1, -4.37114e-08, 2.38419e-07, 2.38419e-07, -2.38419e-07, 1, 0.065, 0.15, -0.35)
 
-[node name="Barrel" type="Node3D" parent="Weapon/AttachmentSlots"]
+[node name="Barrel" type="Node3D" parent="Mesh/AttachmentSlots"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, -2.62261e-07, 0.125, -0.47)
 
 [node name="ShotRayCast" type="RayCast3D" parent="."]

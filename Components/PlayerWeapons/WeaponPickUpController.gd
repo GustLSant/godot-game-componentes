@@ -1,6 +1,8 @@
 extends InteractiveObject
+class_name PickUpWeapon
 
 @export var weaponScenePath: String
+@export var weaponSocket: Node3D
 
 
 func action() -> void:

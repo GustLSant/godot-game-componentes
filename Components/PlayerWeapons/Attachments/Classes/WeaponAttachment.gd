@@ -1,22 +1,22 @@
-extends Node
+extends Node3D
 class_name WeaponAttachment
 
 var slot: T_AttachmentSlot.ENUM = T_AttachmentSlot.ENUM.SIGHT
-var attachedWeapon: PlayerWeapon = null : set = setAttachedWeapon
+@export var attachedWeapon: PlayerWeapon = null : set = setAttachedWeapon
 
 
 func _init() -> void:
 	Nodes.player.connect("WeaponChanged", onWeaponChanged)
 
 
-func checkCanActiveProcess() -> void:
-	var isInTheCurrentWeapon: bool = (Nodes.player.currentWeapon.get_instance_id() == self.attachedWeapon.get_instance_id())
-	set_process(isInTheCurrentWeapon)
+func onWeaponChanged(_newWeapon: PlayerWeapon) -> void:
+	checkCanActiveProcess()
 	pass
 
 
-func onWeaponChanged(_newWeapon: PlayerWeapon) -> void:
-	checkCanActiveProcess()
+func checkCanActiveProcess() -> void:
+	var isInTheCurrentWeapon: bool = (Nodes.player.currentWeapon.get_instance_id() == self.attachedWeapon.get_instance_id())
+	set_process(isInTheCurrentWeapon)
 	pass
 
 

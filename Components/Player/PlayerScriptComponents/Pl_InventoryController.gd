@@ -42,24 +42,27 @@ func replaceCurrentWeapon(_newWeapon: PlayerWeapon) -> void:
 	var currentWeaponIdx: int = player.getCurrentWeaponIdx()
 	var previousWeaponId: int = player.currentWeapon.id
 	
+	spawnWeaponPickUp(previousWeaponId)
+	
 	player.currentWeapon.queue_free()
 	player.inventory.weapons[currentWeaponIdx] = _newWeapon
 	player.emit_signal("TryChangeWeapon", player.inventory.weapons[currentWeaponIdx])
-	
-	spawnWeaponPickUp(previousWeaponId)
 	pass
 
 
 func spawnWeaponPickUp(_weaponId: int) -> void:
-	var pickupWeaponScenePath: String = ""
+	var weaponScenePath: String = ""
 	
 	match _weaponId:
-		1: pickupWeaponScenePath = "res://Components/PlayerWeapons/PickupWeapon_01.tscn"
-		2: pickupWeaponScenePath = "res://Components/PlayerWeapons/PickupWeapon_02.tscn"
+		1: weaponScenePath = "res://Components/PlayerWeapons/Weapon_01.tscn"
+		2: weaponScenePath = "res://Components/PlayerWeapons/Weapon_02.tscn"
 	
-	var previousPickupWeaponScene: InteractiveObject = load(pickupWeaponScenePath).instantiate()
-	previousPickupWeaponScene.position = Nodes.player.global_position
-	Nodes.mainNode.add_child(previousPickupWeaponScene)
+	#var previousPickupWeaponScene: InteractiveObject = load(pickupWeaponScenePath).instantiate()
+	var pickupWeaponScene: PickUpWeapon = load("res://Components/PlayerWeapons/GeneralPickupWeapon.tscn").instantiate()
+	pickupWeaponScene.weaponScenePath = weaponScenePath
+	pickupWeaponScene.weaponSocket.call_deferred("add_child", player.currentWeapon.get_node("Mesh").duplicate(0))
+	pickupWeaponScene.position = Nodes.player.global_position
+	Nodes.mainNode.add_child(pickupWeaponScene)
 	pass
 
 
