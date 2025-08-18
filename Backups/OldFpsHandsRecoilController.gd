@@ -40,7 +40,7 @@ func addRecoil() -> void:
 	
 	recoilRotZSide = [-1, 1].pick_random()
 	recoilCurveOffset = 1.0
-	var tweenDuration: float = 0.4 / player.recoverFactor
+	var tweenDuration: float = 0.4 / player.recoverDurationMultiplier
 	tweenRecoil.set_trans(Tween.TRANS_CUBIC)
 	tweenRecoil.set_ease(Tween.EASE_OUT)
 	tweenRecoil.tween_property(self, "recoilCurveOffset", 0.0, tweenDuration)

@@ -19,7 +19,7 @@ class_name PlayerWeapon
 @export var fpsBodyAimFOV: float = 45.0
 
 @export_category("Recoil Variables")
-@export var recoverFactor: float = 1.0
+@export var recoverDurationMultiplier: float = 1.0
 @export var cameraRecoilStrength: float = 1.0
 @export var recoilShakeStrength: float = 1.0
 @export var recoilPosZStrength: float = 1.0

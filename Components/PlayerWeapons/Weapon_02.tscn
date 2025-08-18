@@ -537,6 +537,7 @@ reloadTime = 0.5
 attachmentNodes = [NodePath("Mesh/AttachmentSlots/Sight"), NodePath("Mesh/AttachmentSlots/Magazine"), NodePath("Mesh/AttachmentSlots/Grip"), NodePath("Mesh/AttachmentSlots/Device_L"), NodePath("Mesh/AttachmentSlots/Device_M"), NodePath("Mesh/AttachmentSlots/Device_R"), NodePath("Mesh/AttachmentSlots/Barrel")]
 armsDefaultPosition = Vector3(0.6, -0.8, -1.7)
 armsAimPosition = Vector3(0, -0.5, -1.7)
+recoverDurationMultiplier = 0.75
 recoilRotXStrength = 3.0
 recoilRotZStrength = 3.0
 id = 2

@@ -75,7 +75,7 @@ func setParametersOnPlayerState() -> void:
 	player.aimFOV = weapon.aimFOV
 	player.fpsBodyAimFOV = weapon.fpsBodyAimFOV
 	
-	player.recoverFactor = weapon.recoverFactor
+	player.recoverDurationMultiplier = weapon.recoverDurationMultiplier
 	player.recoilShakeStrength = weapon.recoilShakeStrength
 	player.recoilPosZStrength  = weapon.recoilPosZStrength
 	player.recoilPosYStrength  = weapon.recoilPosYStrength

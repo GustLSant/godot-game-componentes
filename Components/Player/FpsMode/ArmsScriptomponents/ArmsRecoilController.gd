@@ -55,7 +55,7 @@ func playeRecoilAttackEffect() -> void:
 	tweenRecoil.tween_property           (self, "recoilFactor", 1.0, TWEEN_ATTACK_DURATION * durationFactor)
 	tweenRecoil.parallel().tween_property(self, "recoilFactor", 1.0, TWEEN_ATTACK_DURATION * durationFactor)
 	
-	tweenRecoil.connect("step_finished", onTweenPosRecoilStepFinished)
+	tweenRecoil.connect("step_finished", onTweenRecoilStepFinished)
 	pass
 
 
@@ -65,17 +65,12 @@ func playRecoilRecoverEffect() -> void:
 	tweenRecoil.set_trans(Tween.TRANS_CUBIC)
 	tweenRecoil.set_ease(Tween.EASE_OUT)
 	
-	tweenRecoil.tween_property           (self, "recoilFactor", 0.0, TWEEN_RECOVER_DURATION * player.recoverFactor)
-	tweenRecoil.parallel().tween_property(self, "recoilFactor", 0.0, TWEEN_RECOVER_DURATION * player.recoverFactor)
+	tweenRecoil.tween_property           (self, "recoilFactor", 0.0, TWEEN_RECOVER_DURATION * player.recoverDurationMultiplier)
+	tweenRecoil.parallel().tween_property(self, "recoilFactor", 0.0, TWEEN_RECOVER_DURATION * player.recoverDurationMultiplier)
 	pass
 
 
-func onTweenPosRecoilStepFinished(_idx: int) -> void:
-	if(recoilFactor == 1):
-		playRecoilRecoverEffect()
-	pass
-
-func onTweenRotRecoilStepFinished(_idx: int) -> void:
+func onTweenRecoilStepFinished(_idx: int) -> void:
 	if(recoilFactor == 1):
 		playRecoilRecoverEffect()
 	pass
