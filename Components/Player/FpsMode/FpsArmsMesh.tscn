@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b4i8ky11wn2rx"]
+[gd_scene load_steps=38 format=3 uid="uid://b4i8ky11wn2rx"]
 
 [ext_resource type="PackedScene" uid="uid://hqgxmcmyw8qj" path="res://Meshs/PlayerArm.blend" id="1_456j5"]
 [ext_resource type="Script" uid="uid://d153bq7wvkbki" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsAnimationController.gd" id="1_ri7q4"]
@@ -11,7 +11,6 @@ texture_repeat = false
 
 [sub_resource type="Animation" id="Animation_qpcjw"]
 resource_name = "ChangeWeapon"
-length = 0.75
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -20,10 +19,10 @@ tracks/0/path = NodePath("ArmsLengthOffset/Bone_Base:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.35, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, -0.6, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, -0.6, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -32,10 +31,10 @@ tracks/1/path = NodePath("ArmsLengthOffset/Bone_Base:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.35, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-1.0472, 0, 0), Vector3(0, 0, 0)]
+"values": [Vector3(-1.0472, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_ktocl"]
@@ -884,6 +883,8 @@ _data = {
 &"Unarmed": SubResource("Animation_fad1k")
 }
 
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_ri7q4"]
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bs67h"]
 animation = &"ChangeWeapon"
 
@@ -928,18 +929,16 @@ animation = &"Short_Idle"
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_lvli1"]
 
-[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_ktocl"]
-filter_enabled = true
-filters = ["ArmsLengthOffset/Bone_Base:position", "ArmsLengthOffset/Bone_Base:rotation", "Bone_Base:position", "Bone_Base:rotation"]
-
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_01e8d"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_so5p0"]
-graph_offset = Vector2(588.959, 777.849)
+graph_offset = Vector2(789.216, 632.921)
+nodes/Add_ChangeWeapon/node = SubResource("AnimationNodeAdd2_ri7q4")
+nodes/Add_ChangeWeapon/position = Vector2(1493.33, 773.333)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_ainnh")
 nodes/Animation/position = Vector2(-826.667, -186.667)
 "nodes/Animation 10/node" = SubResource("AnimationNodeAnimation_bs67h")
-"nodes/Animation 10/position" = Vector2(1253.33, 1013.33)
+"nodes/Animation 10/position" = Vector2(1226.67, 906.667)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_ri7q4")
 "nodes/Animation 2/position" = Vector2(-826.667, 26.6667)
 "nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_4iqv5")
@@ -970,36 +969,10 @@ nodes/Blend_Posture_4/node = SubResource("AnimationNodeBlend2_bs67h")
 nodes/Blend_Posture_4/position = Vector2(533.333, 1093.33)
 nodes/Blend_Sprinting/node = SubResource("AnimationNodeBlend2_lvli1")
 nodes/Blend_Sprinting/position = Vector2(160, 586.667)
-nodes/OneShot_ChangeWeapon/node = SubResource("AnimationNodeOneShot_ktocl")
-nodes/OneShot_ChangeWeapon/position = Vector2(1573.33, 773.333)
 nodes/OneShot_Inspect/node = SubResource("AnimationNodeOneShot_01e8d")
 nodes/OneShot_Inspect/position = Vector2(906.667, 773.333)
 nodes/output/position = Vector2(2240, 746.667)
-node_connections = [&"Blend_Armed", 0, &"Animation 8", &"Blend_Armed", 1, &"OneShot_ChangeWeapon", &"Blend_IdleAiming", 0, &"Blend_Posture_1", &"Blend_IdleAiming", 1, &"Blend_Posture_2", &"Blend_Posture_1", 0, &"Animation", &"Blend_Posture_1", 1, &"Animation 2", &"Blend_Posture_2", 0, &"Animation 6", &"Blend_Posture_2", 1, &"Animation 7", &"Blend_Posture_3", 0, &"Animation 4", &"Blend_Posture_3", 1, &"Animation 3", &"Blend_Posture_4", 0, &"Animation 5", &"Blend_Posture_4", 1, &"Animation 9", &"Blend_Sprinting", 0, &"Blend_IdleAiming", &"Blend_Sprinting", 1, &"Blend_Posture_3", &"OneShot_ChangeWeapon", 0, &"OneShot_Inspect", &"OneShot_ChangeWeapon", 1, &"Animation 10", &"OneShot_Inspect", 0, &"Blend_Sprinting", &"OneShot_Inspect", 1, &"Blend_Posture_4", &"output", 0, &"Blend_Armed"]
-
-[sub_resource type="Animation" id="Animation_ep36w"]
-resource_name = "ChangeWeapon"
-length = 0.75
-step = 0.05
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Components/ArmsAnimationController")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.35),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"onMiddleOfChangeWeaponAnimation"
-}]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_2owla"]
-_data = {
-&"ChangeWeapon": SubResource("Animation_ep36w")
-}
+node_connections = [&"Add_ChangeWeapon", 0, &"OneShot_Inspect", &"Add_ChangeWeapon", 1, &"Animation 10", &"Blend_Armed", 0, &"Animation 8", &"Blend_Armed", 1, &"Add_ChangeWeapon", &"Blend_IdleAiming", 0, &"Blend_Posture_1", &"Blend_IdleAiming", 1, &"Blend_Posture_2", &"Blend_Posture_1", 0, &"Animation", &"Blend_Posture_1", 1, &"Animation 2", &"Blend_Posture_2", 0, &"Animation 6", &"Blend_Posture_2", 1, &"Animation 7", &"Blend_Posture_3", 0, &"Animation 4", &"Blend_Posture_3", 1, &"Animation 3", &"Blend_Posture_4", 0, &"Animation 5", &"Blend_Posture_4", 1, &"Animation 9", &"Blend_Sprinting", 0, &"Blend_IdleAiming", &"Blend_Sprinting", 1, &"Blend_Posture_3", &"OneShot_Inspect", 0, &"Blend_Sprinting", &"OneShot_Inspect", 1, &"Blend_Posture_4", &"output", 0, &"Blend_Armed"]
 
 [node name="FpsArmsMesh" type="Node3D"]
 
@@ -1008,7 +981,7 @@ _data = {
 [node name="ArmsAnimationController" type="Node" parent="Components" node_paths=PackedStringArray("animTree", "methodsAnimP")]
 script = ExtResource("1_ri7q4")
 animTree = NodePath("../../AnimationTree")
-methodsAnimP = NodePath("../../MethodsAnimP")
+methodsAnimP = NodePath("")
 metadata/_custom_type_script = "uid://d153bq7wvkbki"
 
 [node name="ArmsLengthOffset" type="Node3D" parent="."]
@@ -1049,6 +1022,7 @@ autoplay = "Unarmed"
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeBlendTree_so5p0")
 anim_player = NodePath("../AnimationPlayer")
+parameters/Add_ChangeWeapon/add_amount = 0.0
 parameters/Blend_Armed/blend_amount = false
 parameters/Blend_IdleAiming/blend_amount = false
 parameters/Blend_Posture_1/blend_amount = false
@@ -1056,17 +1030,9 @@ parameters/Blend_Posture_2/blend_amount = 0
 parameters/Blend_Posture_3/blend_amount = 0
 parameters/Blend_Posture_4/blend_amount = 0.0
 parameters/Blend_Sprinting/blend_amount = false
-parameters/OneShot_ChangeWeapon/active = 0.0
-parameters/OneShot_ChangeWeapon/internal_active = 0.0
-parameters/OneShot_ChangeWeapon/request = 0
 parameters/OneShot_Inspect/active = false
 parameters/OneShot_Inspect/internal_active = false
 parameters/OneShot_Inspect/request = 0
-
-[node name="MethodsAnimP" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_2owla")
-}
 
 [editable path="ArmsLengthOffset/Bone_Base/Bone_ArmR/PlayerArm"]
 [editable path="ArmsLengthOffset/Bone_Base/Bone_ArmL/PlayerArm"]

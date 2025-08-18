@@ -10,6 +10,8 @@ var blendPosture: float = 0.0
 var blendIdleToAiming: float = 0.0
 var blendToSprinting: float = 0.0
 
+var tweenChangeWeapon: Tween
+var changeWeaponFactor: float = 0.0
 var changingNextWeapon: PlayerWeapon = null
 
 var delta: float = 0.016
@@ -23,12 +25,13 @@ func _init() -> void:
 
 func _process(_delta: float) -> void:
 	delta = _delta
-	handleAnimations()
-	handleInspect()
+	handleBlendAnimations()
+	handleInspectAnimation()
+	handleChangeAnimation()
 	pass
 
 
-func handleAnimations() -> void:
+func handleBlendAnimations() -> void:
 	blendArmed        = lerp(blendArmed,        float(is_instance_valid(player.currentWeapon)), 10.0 * delta)
 	blendPosture      = lerp(blendPosture,      float(player.currentWeapon and player.currentWeapon.ammoId > 0), 10.0 * delta)
 	blendIdleToAiming = lerp(blendIdleToAiming, float(player.isAiming),    10.0 * delta)
@@ -45,9 +48,14 @@ func handleAnimations() -> void:
 	pass
 
 
-func handleInspect() -> void:
-	if(Input.is_action_just_pressed("InspectWeapon") and not player.isAiming and not player.isSprinting):
+func handleInspectAnimation() -> void:
+	if(Input.is_action_just_pressed("InspectWeapon") and not player.isAiming and not player.isSprinting and not animTree["parameters/OneShot_Inspect/active"]):
 		animTree["parameters/OneShot_Inspect/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+	pass
+
+
+func handleChangeAnimation() -> void:
+	animTree["parameters/Add_ChangeWeapon/add_amount"] = changeWeaponFactor
 	pass
 
 
@@ -62,14 +70,16 @@ func onPlayerShot(_recoilStrength: float) -> void:
 
 
 func onTryChangeWeapon(_newWeapon: PlayerWeapon) -> void:
-	if(animTree["parameters/OneShot_ChangeWeapon/active"]): return
+	if(changeWeaponFactor > 0.0): return
+	
 	changingNextWeapon = _newWeapon
-	abortInspectAnimation()
-	animTree["parameters/OneShot_ChangeWeapon/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
-	methodsAnimP.play("ChangeWeapon")
-	pass
-
-
-func onMiddleOfChangeWeaponAnimation() -> void:
-	Nodes.player.emit_signal("ChangeWeapon", changingNextWeapon)
+	if(tweenChangeWeapon): tweenChangeWeapon.kill()
+	tweenChangeWeapon = get_tree().create_tween()
+	
+	tweenChangeWeapon.tween_property(self, 'changeWeaponFactor', 1.0, 0.25)
+	tweenChangeWeapon.tween_callback(
+		func(): Nodes.player.emit_signal("ChangeWeapon", changingNextWeapon)
+		)
+	tweenChangeWeapon.tween_property(self, 'changeWeaponFactor', 0.0, 0.25)
+	tweenChangeWeapon.play()
 	pass
