@@ -18,7 +18,7 @@ func handlePosition() -> void:
 	var targetYPos: float = int(player.isAiming) * player.armsAimPosition.y + int(not player.isAiming) * player.armsDefaultPosition.y #+ crouchedPosOffset
 	var targetZPos: float = int(player.isAiming) * player.armsAimPosition.z + int(not player.isAiming) * player.armsDefaultPosition.z
 	
-	pivot.position.x = lerp(pivot.position.x, targetXPos, 10.0 * delta)
-	pivot.position.y = lerp(pivot.position.y, targetYPos, 10.0 * delta)
-	pivot.position.z = lerp(pivot.position.z, targetZPos, 10.0 * delta)
+	pivot.position.x = lerp(pivot.position.x, targetXPos, player.AIM_SPEED * delta)
+	pivot.position.y = lerp(pivot.position.y, targetYPos, player.AIM_SPEED * delta)
+	pivot.position.z = lerp(pivot.position.z, targetZPos, player.AIM_SPEED * delta)
 	pass

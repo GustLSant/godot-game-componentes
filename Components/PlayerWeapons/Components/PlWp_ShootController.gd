@@ -3,6 +3,9 @@ class_name PlWp_ShootController
 
 @onready var player: Player = Nodes.player
 @export var weapon: PlayerWeapon
+@export var barrelNode: Node3D
+@export var socketShotRaycastDefaultPos: Node3D
+@export var shotRaycast: RayCast3D
 
 var delta: float = 0.016
 
@@ -12,7 +15,18 @@ func _physics_process(_delta: float) -> void:
 	
 	delta = _delta
 	handleFireRate()
+	handleShotRaycastAimBBehaviour()
 	if(handleShootInput()): shoot()
+	pass
+
+
+func handleShotRaycastAimBBehaviour() -> void:
+	var targetPos: Vector3 = (
+		int(player.isAiming) * player.currentCameraController.camera.global_position + 
+		int(not player.isAiming) * socketShotRaycastDefaultPos.global_position
+	)
+	
+	shotRaycast.global_position = lerp(shotRaycast.global_position, targetPos, player.AIM_SPEED * 2.0 * delta)
 	pass
 
 
@@ -31,19 +45,17 @@ func shoot() -> void:
 	player.emit_signal("PlayerShot", weapon.cameraRecoilStrength)
 	weapon.currentFireCooldown = player.fireRate
 	
-	weapon.shotRayCast.global_transform = weapon.barrelNode.global_transform #player.currentCameraController.pivotRot.global_transform
-	weapon.shotRayCast.rotation_degrees.x += randf_range(-player.fireSpread, player.fireSpread)
-	weapon.shotRayCast.rotation_degrees.y += randf_range(-player.fireSpread, player.fireSpread)
+	#shotRaycast.global_transform = barrelNode.global_transform #player.currentCameraController.pivotRot.global_transform
+	shotRaycast.rotation_degrees.x += randf_range(-player.fireSpread, player.fireSpread)
+	shotRaycast.rotation_degrees.y += randf_range(-player.fireSpread, player.fireSpread)
 	
-	weapon.shotRayCast.force_raycast_update()
-	var collider: Object = weapon.shotRayCast.get_collider()
-	var distance: float = 99.0
-	var collisionPoint: Vector3 = weapon.shotRayCast.global_position - weapon.shotRayCast.global_transform.basis.z * distance
+	shotRaycast.force_raycast_update()
+	var collider: Object = shotRaycast.get_collider()
+	var collisionPoint: Vector3 = shotRaycast.global_position - shotRaycast.global_transform.basis.z * 99.0
 	if(collider != null): 
-		collisionPoint = weapon.shotRayCast.get_collision_point()
-		distance = weapon.barrelNode.global_position.distance_to(collisionPoint)
+		collisionPoint = shotRaycast.get_collision_point()
 	
-	spawnShotVfx(distance, collisionPoint)
+	spawnShotVfx(collisionPoint)
 	pass
 
 
@@ -52,11 +64,11 @@ func handleFireRate() -> void:
 	pass
 
 
-func spawnShotVfx(_collDistance: float, _collPoint: Vector3) -> void:
+func spawnShotVfx(_collPoint: Vector3) -> void:
 	var vfxInstance: Node3D = load("res://Components/PlayerWeapons/Shot/PlayerShotVfx.tscn").instantiate()
-	vfxInstance.transform = weapon.barrelNode.global_transform
+	vfxInstance.transform = barrelNode.global_transform
 	vfxInstance.scale = Vector3.ONE
-	vfxInstance.scale.z = _collDistance
+	vfxInstance.scale.z = barrelNode.global_position.distance_to(_collPoint)
 	
 	vfxInstance.call_deferred("look_at", _collPoint)
 	Nodes.mainNode.add_child(vfxInstance)

@@ -51,6 +51,7 @@ var isAiming: bool = false
 var isReloading: bool = false
 var currentReloadTime: float = 0.0
 const AIM_MULTIPLIER_FACTOR: float = 0.5
+const AIM_SPEED: float = 10.0
 signal PlayerShot(_recoilStrength: float)
 signal ReloadEnd()
 

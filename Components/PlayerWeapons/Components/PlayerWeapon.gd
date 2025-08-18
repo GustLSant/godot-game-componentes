@@ -10,8 +10,6 @@ class_name PlayerWeapon
 @export var reloadTime: float = 2.5
 
 @export_category("Nodes")
-@export var shotRayCast: RayCast3D
-@export var barrelNode: Node3D
 @export var attachmentNodes: Array[Node3D]
 
 @export_category("Aim Variables")

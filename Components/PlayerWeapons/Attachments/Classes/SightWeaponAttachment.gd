@@ -13,7 +13,7 @@ class_name SightWeaponAttachment
 
 func _process(delta: float) -> void:
 	var targetScale: float = float(Nodes.player.isAiming) * aimingSelfScaleMultiplier + float(not Nodes.player.isAiming) * 1.0
-	self.scale.z = lerp(self.scale.z, targetScale, 10.0 * delta)
+	self.scale.z = lerp(self.scale.z, targetScale, Nodes.player.AIM_SPEED * delta)
 	pass
 
 

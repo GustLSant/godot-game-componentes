@@ -167,12 +167,10 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_e8ijh")
 
-[node name="Weapon_01" type="Node3D" node_paths=PackedStringArray("shotRayCast", "barrelNode", "attachmentNodes")]
+[node name="Weapon_01" type="Node3D" node_paths=PackedStringArray("attachmentNodes")]
 script = ExtResource("1_p0npl")
 fireRate = 0.1
 reloadTime = 0.5
-shotRayCast = NodePath("ShotRayCast")
-barrelNode = NodePath("BarrelPos")
 attachmentNodes = [NodePath("Mesh/AttachmentSlots/Sight"), NodePath("Mesh/AttachmentSlots/Magazine"), NodePath("Mesh/AttachmentSlots/Grip"), NodePath("Mesh/AttachmentSlots/Device_L"), NodePath("Mesh/AttachmentSlots/Device_M"), NodePath("Mesh/AttachmentSlots/Device_R"), NodePath("Mesh/AttachmentSlots/Barrel")]
 armsDefaultPosition = Vector3(0.6, -0.8, -1.1)
 armsAimPosition = Vector3(0, -0.5, -1.1)
@@ -196,9 +194,12 @@ script = ExtResource("4_3emef")
 weapon = NodePath("../..")
 metadata/_custom_type_script = "uid://bi4aqrorx82rf"
 
-[node name="PlWp_ShootController" type="Node" parent="Components" node_paths=PackedStringArray("weapon")]
+[node name="PlWp_ShootController" type="Node" parent="Components" node_paths=PackedStringArray("weapon", "barrelNode", "socketShotRaycastDefaultPos", "shotRaycast")]
 script = ExtResource("5_qegdy")
 weapon = NodePath("../..")
+barrelNode = NodePath("../../BarrelPos")
+socketShotRaycastDefaultPos = NodePath("../../SocketShotRaycastDefaultPos")
+shotRaycast = NodePath("../../ShotRaycast")
 metadata/_custom_type_script = "uid://dmdn0lkoq1e5l"
 
 [node name="PlWp_ReloadController" type="Node" parent="Components" node_paths=PackedStringArray("weapon")]
@@ -263,11 +264,14 @@ transform = Transform3D(-4.37113e-08, 1, 2.38419e-07, -1, -4.37114e-08, 2.38419e
 [node name="Barrel" type="Node3D" parent="Mesh/AttachmentSlots"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, -2.38419e-07, 0.05, -1)
 
-[node name="ShotRayCast" type="RayCast3D" parent="."]
+[node name="BarrelPos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -1.8)
+
+[node name="SocketShotRaycastDefaultPos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+
+[node name="ShotRaycast" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 target_position = Vector3(0, 0, -75)
 collision_mask = 7
 collide_with_areas = true
-
-[node name="BarrelPos" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -1.8)
