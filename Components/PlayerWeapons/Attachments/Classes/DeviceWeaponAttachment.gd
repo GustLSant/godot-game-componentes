@@ -13,6 +13,7 @@ const dictSlotToInput: Dictionary = {
 
 func _ready() -> void:
 	featureNode.visible = true
+	print('wdaawd laser!!')
 	pass
 
 
