@@ -85,8 +85,9 @@ _data = {
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1xh5r"]
 albedo_color = Color(0.171637, 0.171637, 0.171637, 1)
 
-[node name="RedLaserAttachment" type="Node3D" node_paths=PackedStringArray("animP")]
+[node name="RedLaserAttachment" type="Node3D" node_paths=PackedStringArray("featureNode", "animP")]
 script = ExtResource("1_1xh5r")
+featureNode = NodePath("MeshInstance3D")
 animP = NodePath("AnimationPlayer")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

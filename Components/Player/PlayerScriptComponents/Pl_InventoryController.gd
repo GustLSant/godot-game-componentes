@@ -61,8 +61,12 @@ func spawnWeaponPickUp(_weaponId: int) -> void:
 	var pickupWeaponScene: PickUpWeapon = load("res://Components/PlayerWeapons/GeneralPickupWeapon.tscn").instantiate()
 	pickupWeaponScene.weaponScenePath = weaponScenePath
 	pickupWeaponScene.weaponSocket.call_deferred("add_child", player.currentWeapon.get_node("Mesh").duplicate(0))
+	pickupWeaponScene.attachments = player.currentWeapon.attachments.duplicate(true)
 	pickupWeaponScene.position = Nodes.player.global_position
 	Nodes.mainNode.add_child(pickupWeaponScene)
+	
+	await get_tree().create_timer(1.0).timeout
+	print(pickupWeaponScene.attachments)
 	pass
 
 

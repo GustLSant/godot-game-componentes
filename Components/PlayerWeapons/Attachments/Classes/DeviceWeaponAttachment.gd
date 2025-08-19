@@ -1,6 +1,7 @@
 extends WeaponAttachment
 class_name DeviceWeaponAttachment
 
+@export var featureNode: Node3D
 @export var animP: AnimationPlayer
 var isActive: bool = true
 const dictSlotToInput: Dictionary = {
@@ -8,6 +9,12 @@ const dictSlotToInput: Dictionary = {
 	T_AttachmentSlot.ENUM.DEVICE_M: "ToggleDevice_M",
 	T_AttachmentSlot.ENUM.DEVICE_R: "ToggleDevice_R",
 }
+
+
+func _ready() -> void:
+	featureNode.visible = true
+	pass
+
 
 
 func _process(_delta: float) -> void:
