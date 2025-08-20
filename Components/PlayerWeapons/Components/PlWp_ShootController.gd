@@ -26,7 +26,8 @@ func handleShotRaycastAimBBehaviour() -> void:
 		int(not player.isAiming) * socketShotRaycastDefaultPos.global_position
 	)
 	
-	shotRaycast.global_position = lerp(shotRaycast.global_position, targetPos, player.AIM_SPEED * 2.0 * delta)
+	#shotRaycast.global_position = lerp(shotRaycast.global_position, targetPos, player.AIM_SPEED * 2.0 * delta)
+	shotRaycast.global_position = targetPos
 	pass
 
 
@@ -46,8 +47,8 @@ func shoot() -> void:
 	weapon.currentFireCooldown = player.fireRate
 	
 	#shotRaycast.global_transform = barrelNode.global_transform #player.currentCameraController.pivotRot.global_transform
-	shotRaycast.rotation_degrees.x += randf_range(-player.fireSpread, player.fireSpread)
-	shotRaycast.rotation_degrees.y += randf_range(-player.fireSpread, player.fireSpread)
+	shotRaycast.rotation_degrees.x = randf_range(-player.fireSpread, player.fireSpread)
+	shotRaycast.rotation_degrees.y = randf_range(-player.fireSpread, player.fireSpread)
 	
 	shotRaycast.force_raycast_update()
 	var collider: Object = shotRaycast.get_collider()
