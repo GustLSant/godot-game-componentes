@@ -59,9 +59,8 @@ _data = {
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_54ky8"]
 albedo_color = Color(0.277528, 0.277528, 0.277528, 1)
 
-[node name="FlashlightAttachment" type="Node3D" node_paths=PackedStringArray("featureNode", "animP")]
+[node name="FlashlightAttachment" type="Node3D" node_paths=PackedStringArray("animP")]
 script = ExtResource("1_54ky8")
-featureNode = NodePath("Light")
 animP = NodePath("AnimationPlayer")
 
 [node name="Light" type="SpotLight3D" parent="."]

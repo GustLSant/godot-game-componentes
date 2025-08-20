@@ -26,3 +26,28 @@ func getValueFraction(maxValue: float, currentFactor: float, maxFactor: float) -
 func getRemaningFraction(_maxValue: float, _currentValue: float) -> float:
 	var result = (_maxValue - _currentValue) / _maxValue
 	return result
+
+
+func getNodeVisualCopy(_node: Node3D, _visualLayer: int = 1) -> Node3D:
+	var newNode: Node3D = _node.duplicate(0)
+	var nodeList = getAllChildren(newNode)
+	
+	for c: Node in nodeList:
+		if(c is VisualInstance3D): c.layers = _visualLayer
+		if(
+			c is RayCast3D or
+			c is Light3D or
+			c is AnimationPlayer or
+			c.name == "Laser"
+		):
+			c.queue_free()
+	
+	return newNode
+
+
+func getAllChildren(root: Node) -> Array[Node]:
+	var out: Array[Node] = []
+	for child in root.get_children(true):
+		out.append(child)
+		out += getAllChildren(child)
+	return out

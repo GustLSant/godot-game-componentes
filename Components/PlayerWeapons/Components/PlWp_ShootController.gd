@@ -26,8 +26,8 @@ func handleShotRaycastAimBBehaviour() -> void:
 		int(not player.isAiming) * socketShotRaycastDefaultPos.global_position
 	)
 	
-	#shotRaycast.global_position = lerp(shotRaycast.global_position, targetPos, player.AIM_SPEED * 2.0 * delta)
-	shotRaycast.global_position = targetPos
+	shotRaycast.global_position = lerp(shotRaycast.global_position, targetPos, player.AIM_SPEED * 2.0 * delta)
+	#shotRaycast.global_position = targetPos
 	pass
 
 
