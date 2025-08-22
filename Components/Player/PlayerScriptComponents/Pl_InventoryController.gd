@@ -24,11 +24,11 @@ func getStartWeapons() -> void:
 		var newWeaponData: PlayerWeapon = load(GameplayManager.startInventory.weapons[i]).instantiate()
 		newWeaponData.startWeaponAttachmentsLoadout = GameplayManager.startInventory.weaponAttachments[i]
 		Nodes.player.inventory.reserveAmmo = GameplayManager.startInventory["reserveAmmo"]
-		Nodes.player.emit_signal("PickupWeapon", newWeaponData, true)
+		Nodes.player.emit_signal("PickupWeapon", newWeaponData)
 	pass
 
 
-func onPickupWeapon(_newWeapon: PlayerWeapon, _spawnOnPlayerModel: bool) -> void:
+func onPickupWeapon(_newWeapon: PlayerWeapon) -> void:
 	if(player.inventory.weapons.size() < player.weaponsInventoryMaxSize):
 		player.inventory.weapons.append(_newWeapon)
 		

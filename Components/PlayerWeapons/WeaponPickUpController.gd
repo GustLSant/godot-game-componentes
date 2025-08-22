@@ -45,7 +45,7 @@ func action() -> void:
 	
 	var w: PlayerWeapon = load(weaponScenePath).instantiate()
 	w.startWeaponAttachmentsLoadout = startAttachments
-	Nodes.player.emit_signal("PickupWeapon", w, true)
+	Nodes.player.emit_signal("PickupWeapon", w)
 	
 	self.queue_free()
 	pass

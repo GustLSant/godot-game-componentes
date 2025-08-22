@@ -9,7 +9,6 @@ func _init() -> void:
 	pass
 
 
-func onPickupWeapon(_newWeapon: PlayerWeapon, _spawnOnPlayerModel: bool) -> void:
-	if(_spawnOnPlayerModel):
-		weaponSocket.call_deferred("add_child", _newWeapon)
+func onPickupWeapon(_newWeapon: PlayerWeapon) -> void:
+	weaponSocket.call_deferred("add_child", _newWeapon)
 	pass

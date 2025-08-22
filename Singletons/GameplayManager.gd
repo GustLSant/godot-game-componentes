@@ -19,7 +19,7 @@ func _ready() -> void:
 	
 	startInventory.weapons = [
 		"res://Components/PlayerWeapons/Weapon_01.tscn",
-		"res://Components/PlayerWeapons/Weapon_02.tscn"
+		#"res://Components/PlayerWeapons/Weapon_02.tscn"
 	]
 	startInventory.weaponAttachments = [attLoadout_01, attLoadout_02]
 	
