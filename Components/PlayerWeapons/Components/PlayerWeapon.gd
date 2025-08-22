@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 class_name PlayerWeapon
 
 @onready var player: Player = Nodes.player
@@ -43,6 +43,7 @@ var attachments: Dictionary[T_AttachmentSlot.ENUM, WeaponAttachment] = {
 	T_AttachmentSlot.ENUM.DEVICE_R: null,
 	T_AttachmentSlot.ENUM.BARREL:   null,
 }
+var startWeaponAttachmentsLoadout: T_StartWeaponAttachmentLoadout = null
 
 # fire rate
 var currentFireCooldown: float = 0.0

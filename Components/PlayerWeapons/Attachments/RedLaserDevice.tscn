@@ -92,7 +92,6 @@ animP = NodePath("AnimationPlayer")
 [node name="Laser" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 0, 0.05, -25)
 visible = false
-layers = 3
 material_override = SubResource("StandardMaterial3D_vj432")
 mesh = SubResource("BoxMesh_5f2au")
 skeleton = NodePath("")

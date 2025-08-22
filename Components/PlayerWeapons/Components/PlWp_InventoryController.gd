@@ -29,6 +29,23 @@ func getSelfIdxOnInventory() -> void:
 	pass
 
 
+func getStartAttachments() -> void:
+	if(not weapon.startWeaponAttachmentsLoadout): return
+	for attSlot: T_AttachmentSlot.ENUM in weapon.startWeaponAttachmentsLoadout.paths.keys():
+		if(weapon.startWeaponAttachmentsLoadout.paths[attSlot]):
+			var att: WeaponAttachment = load(weapon.startWeaponAttachmentsLoadout.paths[attSlot]).instantiate()
+			addAttachment(att, attSlot)
+	pass
+
+
+func addAttachment(_newAttachment: WeaponAttachment, _attSlot: T_AttachmentSlot.ENUM) -> void:
+	_newAttachment.slot = _attSlot
+	_newAttachment.attachedWeapon = weapon
+	weapon.attachmentNodes[_attSlot].call_deferred("add_child", _newAttachment)
+	weapon.attachments[_attSlot] = _newAttachment
+	pass
+
+
 func setActive(_value: bool) -> void:
 	weapon.isActive = _value
 	weapon.visible = _value
@@ -36,25 +53,6 @@ func setActive(_value: bool) -> void:
 		Nodes.player.currentWeapon = weapon
 		Nodes.player.emit_signal("WeaponChanged", weapon)
 		setParametersOnPlayerState()
-	pass
-
-
-func getStartAttachments() -> void:
-	var startWeaponAttachmentsLoadout: T_StartWeaponAttachmentLoadout = GameplayManager.startInventory.weaponAttachments[weapon.selfIdxOnInventory]
-	
-	for attSlot: T_AttachmentSlot.ENUM in startWeaponAttachmentsLoadout.paths.keys():
-		if(startWeaponAttachmentsLoadout.paths[attSlot]):
-			var att: WeaponAttachment = load(startWeaponAttachmentsLoadout.paths[attSlot]).instantiate()
-			addAttachment(att, attSlot)
-	
-	pass
-
-
-func addAttachment(_newAttachment: WeaponAttachment, _attSlot: T_AttachmentSlot.ENUM) -> void:
-	_newAttachment.slot = _attSlot
-	_newAttachment.attachedWeapon = weapon
-	weapon.attachmentNodes[_attSlot].add_child(_newAttachment)
-	weapon.attachments[_attSlot] = _newAttachment
 	pass
 
 

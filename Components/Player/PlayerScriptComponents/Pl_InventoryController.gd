@@ -22,6 +22,7 @@ func _process(_delta: float) -> void:
 func getStartWeapons() -> void:
 	for i in range(GameplayManager.startInventory.weapons.size()):
 		var newWeaponData: PlayerWeapon = load(GameplayManager.startInventory.weapons[i]).instantiate()
+		newWeaponData.startWeaponAttachmentsLoadout = GameplayManager.startInventory.weaponAttachments[i]
 		Nodes.player.inventory.reserveAmmo = GameplayManager.startInventory["reserveAmmo"]
 		Nodes.player.emit_signal("PickupWeapon", newWeaponData, true)
 	pass
@@ -51,8 +52,8 @@ func replaceCurrentWeapon(_newWeapon: PlayerWeapon) -> void:
 
 
 func spawnWeaponPickUp(_weaponId: int) -> void:
-	var pickupWeaponScene: WeaponPickupController = load("res://Components/PlayerWeapons/GeneralWeaponPickup.tscn").instantiate()
-	pickupWeaponScene.setup(player.currentWeapon)
+	var pickupWeaponScene: WeaponPickupController = load("res://Components/PlayerWeapons/WeaponPickup.tscn").instantiate()
+	pickupWeaponScene.referenceWeapon = player.currentWeapon
 	Nodes.mainNode.add_child(pickupWeaponScene)
 	pass
 
