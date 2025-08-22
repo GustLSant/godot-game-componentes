@@ -79,7 +79,7 @@ func onTryChangeWeapon(_newWeapon: PlayerWeapon) -> void:
 	tweenChangeWeapon.tween_property(self, 'changeWeaponFactor', 1.0, 0.25)
 	tweenChangeWeapon.tween_callback(
 		func(): Nodes.player.emit_signal("ChangeWeapon", changingNextWeapon)
-		)
+	)
 	tweenChangeWeapon.tween_property(self, 'changeWeaponFactor', 0.0, 0.25)
 	tweenChangeWeapon.play()
 	pass
