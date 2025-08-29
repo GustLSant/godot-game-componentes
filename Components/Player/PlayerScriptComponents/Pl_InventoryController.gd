@@ -31,6 +31,7 @@ func getStartWeapons() -> void:
 func onPickupWeapon(_newWeapon: PlayerWeapon) -> void:
 	if(player.inventory.weapons.size() < player.weaponsInventoryMaxSize):
 		player.inventory.weapons.append(_newWeapon)
+		for socket: Node3D in player.weaponSockets: socket.add_child(_newWeapon)
 		
 		if(player.inventory.weapons.size() == 1): # se nao tinha arma, ja equipa a que pegou
 			player.emit_signal("TryChangeWeapon", player.inventory.weapons[0])

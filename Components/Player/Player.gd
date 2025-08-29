@@ -37,6 +37,7 @@ signal DamageTaken(_damage: float)
 
 
 # Inventory
+@export var weaponSockets: Array[Node3D] = []
 var inventory: T_Inventory = T_Inventory.new()
 var weaponsInventoryMaxSize: int = 2
 var currentWeapon: PlayerWeapon = null

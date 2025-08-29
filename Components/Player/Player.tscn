@@ -14,10 +14,11 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_px31v"]
 radius = 0.4
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weaponSockets")]
 collision_layer = 8
 collision_mask = 3
 script = ExtResource("1_qij2n")
+weaponSockets = [NodePath("FPS/FpsArms/PivotRot/PivotPosture/Scaler/PivotSway/PivotPosAim/PivotRecoil/FpsArmsMesh/ArmsLengthOffset/Bone_Base/Bone_ArmR/PlayerArm/WeaponsSocket")]
 
 [node name="Components" type="Node3D" parent="."]
 

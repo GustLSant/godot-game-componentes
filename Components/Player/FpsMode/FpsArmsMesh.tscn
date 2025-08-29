@@ -1,7 +1,7 @@
 [gd_scene load_steps=38 format=3 uid="uid://b4i8ky11wn2rx"]
 
 [ext_resource type="PackedScene" uid="uid://hqgxmcmyw8qj" path="res://Meshs/PlayerArm.blend" id="1_456j5"]
-[ext_resource type="Script" uid="uid://d153bq7wvkbki" path="res://Components/Player/FpsMode/ArmsScriptomponents/ArmsAnimationController.gd" id="1_ri7q4"]
+[ext_resource type="Script" uid="uid://d153bq7wvkbki" path="res://Components/Player/FpsMode/ArmsScriptComponents/ArmsAnimationController.gd" id="1_ri7q4"]
 [ext_resource type="Texture2D" uid="uid://yhvpso6ngpww" path="res://Meshs/PlayerArm_Tex.png" id="2_ainnh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ri7q4"]
