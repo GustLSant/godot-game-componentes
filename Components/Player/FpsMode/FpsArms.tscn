@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://vb3cyx2rvxhs"]
+[gd_scene load_steps=9 format=3 uid="uid://vb3cyx2rvxhs"]
 
 [ext_resource type="Script" uid="uid://unh5h1rg5hdv" path="res://Components/Player/FpsMode/ArmsScriptComponents/ArmsRotationController.gd" id="2_3t2y8"]
 [ext_resource type="Script" uid="uid://3e2u3bcqakmn" path="res://Components/Player/FpsMode/ArmsScriptComponents/ArmsRecoilController.gd" id="2_cjgvy"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://d4gq313cxbjdg" path="res://Components/Player/FpsMode/ArmsScriptComponents/ArmsPostureController.gd" id="4_m1cbt"]
 [ext_resource type="Script" uid="uid://dh0vpy7ovjx2" path="res://Components/Player/FpsMode/ArmsScriptComponents/ArmsTiltController.gd" id="5_dd5bv"]
 [ext_resource type="Script" uid="uid://c3ggovm0hxyf" path="res://Components/Player/FpsMode/ArmsScriptComponents/ArmsPositionController.gd" id="6_6sold"]
+[ext_resource type="Script" uid="uid://cyhq6fp8f8xnd" path="res://Components/Player/FpsMode/ArmsScriptComponents/ArmsLeadController.gd" id="7_3t2y8"]
 [ext_resource type="PackedScene" uid="uid://b4i8ky11wn2rx" path="res://Components/Player/FpsMode/FpsArmsMesh.tscn" id="7_mukl3"]
 
 [node name="FpsArms" type="Node3D"]
@@ -42,10 +43,16 @@ script = ExtResource("2_cjgvy")
 pivot = NodePath("../../PivotRot/PivotPosture/Scaler/PivotSway/PivotPosAim/PivotRecoil")
 metadata/_custom_type_script = "uid://3e2u3bcqakmn"
 
+[node name="ArmsLeadController" type="Node" parent="Components" node_paths=PackedStringArray("pivot")]
+script = ExtResource("7_3t2y8")
+pivot = NodePath("../../PivotRot/PivotPosture")
+metadata/_custom_type_script = "uid://cyhq6fp8f8xnd"
+
 [node name="PivotRot" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="PivotPosture" type="Marker3D" parent="PivotRot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Scaler" type="Node3D" parent="PivotRot/PivotPosture"]
 editor_description = "Serve para nao deixar o vfx dos tiros muito longe do jogador - devido ao tamanho dos braços e armas do jogador"
