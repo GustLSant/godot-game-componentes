@@ -1,5 +1,5 @@
 extends InteractiveObject
-class_name WeaponPickupController
+class_name WeaponPickup
 
 @export var weaponScenePath: String
 @export var weaponSocket: Node3D

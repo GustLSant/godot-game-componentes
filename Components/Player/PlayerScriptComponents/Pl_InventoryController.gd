@@ -53,7 +53,7 @@ func replaceCurrentWeapon(_newWeapon: PlayerWeapon) -> void:
 
 
 func spawnWeaponPickUp(_weaponId: int) -> void:
-	var pickupWeaponScene: WeaponPickupController = load("res://Components/PlayerWeapons/WeaponPickup.tscn").instantiate()
+	var pickupWeaponScene: WeaponPickup = load("res://Components/PlayerWeapons/WeaponPickup.tscn").instantiate()
 	pickupWeaponScene.referenceWeapon = player.currentWeapon
 	Nodes.mainNode.add_child(pickupWeaponScene)
 	pass

@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=4 uid="uid://c8djk1ns80fn1"]
 
-[ext_resource type="Script" uid="uid://yaf1vx4ipvs3" path="res://Components/PlayerWeapons/WeaponPickUpController.gd" id="1_eokgg"]
+[ext_resource type="Script" uid="uid://yaf1vx4ipvs3" path="res://Components/PlayerWeapons/WeaponPickUp.gd" id="1_eokgg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_l66dl"]
 size = Vector3(1, 1, 2.6)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=39 format=4 uid="uid://cnsif2ol7kkv5"]
 
-[ext_resource type="Script" uid="uid://yaf1vx4ipvs3" path="res://Components/PlayerWeapons/WeaponPickUpController.gd" id="1_sxmxp"]
+[ext_resource type="Script" uid="uid://yaf1vx4ipvs3" path="res://Components/PlayerWeapons/WeaponPickUp.gd" id="1_sxmxp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eokgg"]
 
