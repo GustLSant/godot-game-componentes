@@ -41,11 +41,12 @@ signal DamageTaken(_damage: float)
 var inventory: T_Inventory = T_Inventory.new()
 var weaponsInventoryMaxSize: int = 2
 var currentWeapon: PlayerWeapon = null
-signal TryPickupWeapon (_request: T_WeaponPickupRequest)
-signal PickupWeapon    (_request: T_WeaponPickupRequest)
-signal TryChangeWeapon (_request: T_WeaponChangeRequest)
-signal ChangeWeapon    (_request: T_WeaponChangeRequest)
-signal WeaponChanged   (_request: T_WeaponChangeRequest)
+signal TryPickupWeapon   (_request: T_WeaponPickupRequest)
+signal PickupWeapon      (_request: T_WeaponPickupRequest)
+signal WeaponPickedUp    (_request: T_WeaponPickupRequest)
+signal StartChangeWeapon (_request: T_WeaponChangeRequest)
+signal ChangeWeapon      (_request: T_WeaponChangeRequest)
+signal WeaponChanged     (_newWeapon: PlayerWeapon)
 
 
 # Weapon Controller

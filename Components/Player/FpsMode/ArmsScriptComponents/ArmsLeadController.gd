@@ -17,11 +17,13 @@ func _input(_event: InputEvent) -> void:
 
 
 func _process(_delta: float) -> void:
-	effectAmount = lerp(effectAmount, amount, 5.0 * _delta)
+	var aimingSpeedMultiplier: float = int(Nodes.player.isAiming) * 3 + int(not Nodes.player.isAiming) * 1.0
+	effectAmount = lerp(effectAmount, amount, 5.0 * aimingSpeedMultiplier * _delta)
 	
 	clampEffect()
-	pivot.rotation_degrees.x = -effectAmount.y * STRENGTH_MULTIPLIER
-	pivot.rotation_degrees.y = -effectAmount.x * STRENGTH_MULTIPLIER
+	var aimingAmountMultiplier: float = int(Nodes.player.isAiming) * 0.2 + int(not Nodes.player.isAiming) * 1.0
+	pivot.rotation_degrees.x = -effectAmount.y * STRENGTH_MULTIPLIER * aimingAmountMultiplier
+	pivot.rotation_degrees.y = -effectAmount.x * STRENGTH_MULTIPLIER * aimingAmountMultiplier
 	
 	amount = lerp(amount, Vector2.ZERO, 10.0 * _delta)
 	pass

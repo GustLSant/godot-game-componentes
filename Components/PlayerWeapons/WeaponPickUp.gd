@@ -12,11 +12,13 @@ var attachmentPaths: Dictionary[T_AttachmentSlot.ENUM, String] = {
 	T_AttachmentSlot.ENUM.DEVICE_R: "",
 	T_AttachmentSlot.ENUM.BARREL:   "",
 }
-var referenceWeapon: Node3D = null
+var referenceWeapon: PlayerWeapon = null
 
 
 func _ready() -> void:
 	setupVisualAndAttachments()
+	Nodes.player.connect("WeaponPickedUp", onWeaponPickedUp)
+	Nodes.player.connect("ChangeWeapon", onWeaponChange)
 	pass
 
 
@@ -43,9 +45,22 @@ func action() -> void:
 	var startAttachments: T_StartWeaponAttachmentLoadout = T_StartWeaponAttachmentLoadout.new()
 	startAttachments.paths = attachmentPaths
 	
-	var w: PlayerWeapon = load(weaponScenePath).instantiate()
-	w.startWeaponAttachmentsLoadout = startAttachments
-	Nodes.player.emit_signal("PickupWeapon", w)
+	var newWeapon: PlayerWeapon = load(weaponScenePath).instantiate()
+	newWeapon.startWeaponAttachmentsLoadout = startAttachments
 	
-	self.queue_free()
+	var request: T_WeaponPickupRequest = T_WeaponPickupRequest.new()
+	request.newWeapon = newWeapon
+	request.weaponPickup = self
+	
+	Nodes.player.emit_signal("TryPickupWeapon", request)
+	pass
+
+
+func onWeaponPickedUp(_request: T_WeaponPickupRequest) -> void:
+	if(not _request.isReplacement and _request.weaponPickup == self): self.queue_free()
+	pass
+
+
+func onWeaponChange(_request: T_WeaponChangeRequest) -> void:
+	if(_request.weaponPickupToBeDeleted == self): self.queue_free()
 	pass

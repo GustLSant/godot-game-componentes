@@ -1,4 +1,4 @@
-extends Node
+extends Object
 class_name T_Inventory
 
 var weapons: Array[PlayerWeapon] = []     # esse tipo PlayerWeapon ja possui a magazineAmmo e os attachments

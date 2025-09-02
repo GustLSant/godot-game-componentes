@@ -13,7 +13,7 @@ class_name PlayerWeapon
 @export var attachmentNodes: Array[Node3D]
 
 @export_category("Aim Variables")
-@export var armsDefaultPosition: Vector3 = Vector3(0.6, -0.8, -0.2)
+@export var armsDefaultPosition: Vector3 = Vector3(0.5, -0.8, -0.2)
 @export var armsAimPosition: Vector3 = Vector3(0.0, -0.5, -0.2)
 @export var aimFOV: float = 45.0
 @export var fpsBodyAimFOV: float = 45.0

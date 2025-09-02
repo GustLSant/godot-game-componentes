@@ -1,5 +1,5 @@
-extends Node
+extends Object
 class_name T_WeaponChangeRequest
 
-var newWeaponScene: PlayerWeapon
+var newWeapon: PlayerWeapon
 var weaponPickupToBeDeleted: WeaponPickup = null

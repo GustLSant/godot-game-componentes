@@ -5,6 +5,7 @@ class_name Pl_InventoryController
 
 
 func _init() -> void:
+	Nodes.player.connect("TryPickupWeapon", onTryPickupWeapon)
 	Nodes.player.connect("PickupWeapon", onPickupWeapon)
 	pass
 
@@ -20,41 +21,63 @@ func _process(_delta: float) -> void:
 
 
 func getStartWeapons() -> void:
+	Nodes.player.inventory.reserveAmmo = GameplayManager.startInventory["reserveAmmo"]
+	
 	for i in range(GameplayManager.startInventory.weapons.size()):
 		var newWeaponData: PlayerWeapon = load(GameplayManager.startInventory.weapons[i]).instantiate()
 		newWeaponData.startWeaponAttachmentsLoadout = GameplayManager.startInventory.weaponAttachments[i]
-		Nodes.player.inventory.reserveAmmo = GameplayManager.startInventory["reserveAmmo"]
-		Nodes.player.emit_signal("PickupWeapon", newWeaponData)
+		
+		var request: T_WeaponPickupRequest = T_WeaponPickupRequest.new()
+		request.newWeapon = newWeaponData
+		
+		Nodes.player.emit_signal("PickupWeapon", request)
 	pass
 
 
-func onPickupWeapon(_newWeapon: PlayerWeapon) -> void:
+func onTryPickupWeapon(_request: T_WeaponPickupRequest) -> void:
 	if(player.inventory.weapons.size() < player.weaponsInventoryMaxSize):
-		player.inventory.weapons.append(_newWeapon)
-		for socket: Node3D in player.weaponSockets: socket.add_child(_newWeapon)
+		Nodes.player.emit_signal("PickupWeapon", _request)
+	else:
+		_request.isReplacement = true
+		Nodes.player.emit_signal("PickupWeapon", _request)
+	pass
+
+
+func onPickupWeapon(_request: T_WeaponPickupRequest) -> void:
+	if(not _request.isReplacement):
+		player.inventory.weapons.append(_request.newWeapon)
+		for socket: Node3D in player.weaponSockets: socket.add_child(_request.newWeapon)
+		player.emit_signal("WeaponPickedUp", _request)
 		
 		if(player.inventory.weapons.size() == 1): # se nao tinha arma, ja equipa a que pegou
-			player.emit_signal("TryChangeWeapon", player.inventory.weapons[0])
+			var changeRequest: T_WeaponChangeRequest = T_WeaponChangeRequest.new()
+			changeRequest.newWeapon = _request.newWeapon
+			changeRequest.weaponPickupToBeDeleted = _request.weaponPickup
+			player.emit_signal("StartChangeWeapon", changeRequest)
 	else:
-		replaceCurrentWeapon(_newWeapon)
+		replaceCurrentWeapon(_request)
 	pass
 
 
-func replaceCurrentWeapon(_newWeapon: PlayerWeapon) -> void:
+func replaceCurrentWeapon(_request: T_WeaponPickupRequest) -> void:
 	var currentWeaponIdx: int = player.getCurrentWeaponIdx()
-	var previousWeaponId: int = player.currentWeapon.id
 	
-	spawnWeaponPickUp(previousWeaponId)
-	
+	spawnWeaponPickUp(player.currentWeapon)
 	player.currentWeapon.queue_free()
-	player.inventory.weapons[currentWeaponIdx] = _newWeapon
-	player.emit_signal("TryChangeWeapon", player.inventory.weapons[currentWeaponIdx])
+	
+	player.inventory.weapons[currentWeaponIdx] = _request.newWeapon
+	for socket: Node3D in player.weaponSockets: socket.add_child(_request.newWeapon)
+	
+	var changeRequest: T_WeaponChangeRequest = T_WeaponChangeRequest.new()
+	changeRequest.newWeapon = _request.newWeapon
+	changeRequest.weaponPickupToBeDeleted = _request.weaponPickup
+	player.emit_signal("StartChangeWeapon", changeRequest)
 	pass
 
 
-func spawnWeaponPickUp(_weaponId: int) -> void:
+func spawnWeaponPickUp(_replacedWeapon: PlayerWeapon) -> void:
 	var pickupWeaponScene: WeaponPickup = load("res://Components/PlayerWeapons/WeaponPickup.tscn").instantiate()
-	pickupWeaponScene.referenceWeapon = player.currentWeapon
+	pickupWeaponScene.referenceWeapon = _replacedWeapon
 	Nodes.mainNode.add_child(pickupWeaponScene)
 	pass
 
@@ -71,7 +94,10 @@ func getInputChangeWeapon() -> void:
 
 func handleInputChangeWeaponByDirection(_changeDirection: int) -> void:
 	if(player.inventory.weapons.size() <= 1): return
-	if(player.currentWeapon == null): player.emit_signal("TryChangeWeapon", player.inventory.weapons[0]) # sem nenhuma arma equipada, equipa a primeira do inventario
+	if(player.currentWeapon == null):
+		var request: T_WeaponChangeRequest = T_WeaponChangeRequest.new()
+		request.newWeapon = player.inventory.weapons[0]
+		player.emit_signal("StartChangeWeapon", request) # sem nenhuma arma equipada, equipa a primeira do inventario
 	
 	var currentWeaponIdx: int = player.getCurrentWeaponIdx()
 	
@@ -81,7 +107,9 @@ func handleInputChangeWeaponByDirection(_changeDirection: int) -> void:
 	elif(nextWeaponIdx < 0):
 		nextWeaponIdx = player.inventory.weapons.size()-1
 	
-	player.emit_signal("TryChangeWeapon", player.inventory.weapons[nextWeaponIdx])
+	var request: T_WeaponChangeRequest = T_WeaponChangeRequest.new()
+	request.newWeapon = player.inventory.weapons[nextWeaponIdx]
+	player.emit_signal("StartChangeWeapon", request)
 	pass
 
 
@@ -91,5 +119,7 @@ func handleInputChangeWeaponByIdx(_idx: int) -> void:
 	if(player.currentWeapon == player.inventory.weapons[_idx]): return
 	
 	if(player.inventory.weapons[_idx] != null):
-		player.emit_signal("TryChangeWeapon", player.inventory.weapons[_idx])
+		var request: T_WeaponChangeRequest = T_WeaponChangeRequest.new()
+		request.newWeapon = player.inventory.weapons[_idx]
+		player.emit_signal("StartChangeWeapon", request)
 	pass

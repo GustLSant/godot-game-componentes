@@ -56,8 +56,8 @@ func setActive(_value: bool) -> void:
 	pass
 
 
-func onChangeWeapon(_newWeapon: PlayerWeapon) -> void:
-	setActive(weapon.get_instance_id() == _newWeapon.get_instance_id())
+func onChangeWeapon(_request: T_WeaponChangeRequest) -> void:
+	setActive(_request.newWeapon.get_instance_id() == weapon.get_instance_id())
 	pass
 
 
