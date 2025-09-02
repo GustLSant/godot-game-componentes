@@ -18,7 +18,7 @@ var referenceWeapon: PlayerWeapon = null
 func _ready() -> void:
 	setupVisualAndAttachments()
 	Nodes.player.connect("WeaponPickedUp", onWeaponPickedUp)
-	Nodes.player.connect("ChangeWeapon", onWeaponChange)
+	Nodes.player.connect("ChangeWeapon", onChangeWeapon)
 	pass
 
 
@@ -61,6 +61,6 @@ func onWeaponPickedUp(_request: T_WeaponPickupRequest) -> void:
 	pass
 
 
-func onWeaponChange(_request: T_WeaponChangeRequest) -> void:
+func onChangeWeapon(_request: T_WeaponChangeRequest) -> void:
 	if(_request.weaponPickupToBeDeleted == self): self.queue_free()
 	pass
