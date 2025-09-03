@@ -58,6 +58,7 @@ func setActive(_value: bool) -> void:
 
 func onChangeWeapon(_request: T_WeaponChangeRequest) -> void:
 	setActive(_request.newWeapon.get_instance_id() == weapon.get_instance_id())
+	if(_request.weaponToBeDeleted == weapon): weapon.queue_free()
 	pass
 
 

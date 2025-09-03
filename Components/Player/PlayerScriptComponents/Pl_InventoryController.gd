@@ -62,15 +62,16 @@ func onPickupWeapon(_request: T_WeaponPickupRequest) -> void:
 func replaceCurrentWeapon(_request: T_WeaponPickupRequest) -> void:
 	var currentWeaponIdx: int = player.getCurrentWeaponIdx()
 	
+	var changeRequest: T_WeaponChangeRequest = T_WeaponChangeRequest.new()
+	changeRequest.newWeapon = _request.newWeapon
+	changeRequest.weaponPickupToBeDeleted = _request.weaponPickup
+	
 	spawnWeaponPickUp(player.currentWeapon)
-	player.currentWeapon.queue_free()
+	changeRequest.weaponToBeDeleted = player.currentWeapon
 	
 	player.inventory.weapons[currentWeaponIdx] = _request.newWeapon
 	for socket: Node3D in player.weaponSockets: socket.add_child(_request.newWeapon)
 	
-	var changeRequest: T_WeaponChangeRequest = T_WeaponChangeRequest.new()
-	changeRequest.newWeapon = _request.newWeapon
-	changeRequest.weaponPickupToBeDeleted = _request.weaponPickup
 	player.emit_signal("StartChangeWeapon", changeRequest)
 	pass
 
