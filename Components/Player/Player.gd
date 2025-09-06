@@ -46,6 +46,7 @@ signal TryPickupWeapon     (_request: T_WeaponPickupRequest)
 signal PickupWeapon        (_request: T_WeaponPickupRequest)
 signal WeaponPickedUp      (_request: T_WeaponPickupRequest)
 signal ChangeWeapon        (_request: T_WeaponChangeRequest)
+signal ReplaceWeapon       (_request: T_WeaponReplaceRequest)
 signal WeaponChanged       (_newWeapon: PlayerWeapon)
 
 

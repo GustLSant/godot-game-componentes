@@ -7,6 +7,7 @@ class_name Pl_InventoryController
 func _init() -> void:
 	Nodes.player.connect("TryPickupWeapon", onTryPickupWeapon)
 	Nodes.player.connect("PickupWeapon", onPickupWeapon)
+	Nodes.player.connect("ReplaceWeapon", onReplaceWeapon)
 	pass
 
 
@@ -52,27 +53,39 @@ func onPickupWeapon(_request: T_WeaponPickupRequest) -> void:
 		if(player.inventory.weapons.size() == 1): # se nao tinha arma, ja equipa a que pegou
 			var changeRequest: T_WeaponChangeRequest = T_WeaponChangeRequest.new()
 			changeRequest.newWeapon = _request.newWeapon
-			changeRequest.weaponPickupToBeDeleted = _request.weaponPickup
 			requestWeaponChange(changeRequest)
 	else:
-		replaceCurrentWeapon(_request)
+		requestReplaceWeapon(_request, player.getCurrentWeaponIdx())
 	pass
 
 
-func replaceCurrentWeapon(_request: T_WeaponPickupRequest) -> void:
-	var currentWeaponIdx: int = player.getCurrentWeaponIdx()
+func requestReplaceWeapon(_pickupRequest: T_WeaponPickupRequest, _idx: int) -> void:
+	var replaceRequest: T_WeaponReplaceRequest = T_WeaponReplaceRequest.new()
+	
+	replaceRequest.idx = _idx
+	replaceRequest.newWeapon = _pickupRequest.newWeapon
+	replaceRequest.oldWeapon = player.inventory.weapons[_idx]
+	
+	player.emit_signal(
+		"RequestInteractAnim",
+		func():
+			player.emit_signal("WeaponPickedUp", _pickupRequest)
+			player.emit_signal("ReplaceWeapon", replaceRequest)
+	)
+	pass
+
+
+func onReplaceWeapon(_request: T_WeaponReplaceRequest) -> void:
+	spawnWeaponPickUp(player.inventory.weapons[_request.idx])
+	
+	player.inventory.weapons[_request.idx] = _request.newWeapon
+	
+	for s in player.weaponSockets:
+		s.add_child(_request.newWeapon)
 	
 	var changeRequest: T_WeaponChangeRequest = T_WeaponChangeRequest.new()
 	changeRequest.newWeapon = _request.newWeapon
-	changeRequest.weaponPickupToBeDeleted = _request.weaponPickup
-	
-	spawnWeaponPickUp(player.currentWeapon)
-	changeRequest.weaponToBeDeleted = player.currentWeapon
-	
-	player.inventory.weapons[currentWeaponIdx] = _request.newWeapon
-	for socket: Node3D in player.weaponSockets: socket.add_child(_request.newWeapon)
-	
-	requestWeaponChange(changeRequest)
+	player.emit_signal("ChangeWeapon", changeRequest) # para equipar a nova arma
 	pass
 
 

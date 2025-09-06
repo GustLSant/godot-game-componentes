@@ -7,6 +7,7 @@ class_name PlWp_InventoryController
 
 func _init() -> void:
 	Nodes.player.connect("ChangeWeapon", onChangeWeapon)
+	Nodes.player.connect("ReplaceWeapon", onReplaceWeapon)
 	self.connect("tree_exiting", onTreeExiting)
 	pass
 
@@ -57,8 +58,12 @@ func setActive(_value: bool) -> void:
 
 
 func onChangeWeapon(_request: T_WeaponChangeRequest) -> void:
-	setActive(_request.newWeapon.get_instance_id() == weapon.get_instance_id())
-	if(_request.weaponToBeDeleted == weapon): weapon.queue_free()
+	setActive(_request.newWeapon == weapon)
+	pass
+
+
+func onReplaceWeapon(_request: T_WeaponReplaceRequest) -> void:
+	if(_request.oldWeapon == weapon): weapon.queue_free()
 	pass
 
 
