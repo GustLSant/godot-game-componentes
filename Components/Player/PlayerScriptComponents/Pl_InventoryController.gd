@@ -53,7 +53,7 @@ func onPickupWeapon(_request: T_WeaponPickupRequest) -> void:
 			var changeRequest: T_WeaponChangeRequest = T_WeaponChangeRequest.new()
 			changeRequest.newWeapon = _request.newWeapon
 			changeRequest.weaponPickupToBeDeleted = _request.weaponPickup
-			player.emit_signal("StartChangeWeapon", changeRequest)
+			requestWeaponChange(changeRequest)
 	else:
 		replaceCurrentWeapon(_request)
 	pass
@@ -72,7 +72,7 @@ func replaceCurrentWeapon(_request: T_WeaponPickupRequest) -> void:
 	player.inventory.weapons[currentWeaponIdx] = _request.newWeapon
 	for socket: Node3D in player.weaponSockets: socket.add_child(_request.newWeapon)
 	
-	player.emit_signal("StartChangeWeapon", changeRequest)
+	requestWeaponChange(changeRequest)
 	pass
 
 
@@ -98,7 +98,7 @@ func handleInputChangeWeaponByDirection(_changeDirection: int) -> void:
 	if(player.currentWeapon == null):
 		var request: T_WeaponChangeRequest = T_WeaponChangeRequest.new()
 		request.newWeapon = player.inventory.weapons[0]
-		player.emit_signal("StartChangeWeapon", request) # sem nenhuma arma equipada, equipa a primeira do inventario
+		requestWeaponChange(request) # sem nenhuma arma equipada, equipa a primeira do inventario
 	
 	var currentWeaponIdx: int = player.getCurrentWeaponIdx()
 	
@@ -110,7 +110,7 @@ func handleInputChangeWeaponByDirection(_changeDirection: int) -> void:
 	
 	var request: T_WeaponChangeRequest = T_WeaponChangeRequest.new()
 	request.newWeapon = player.inventory.weapons[nextWeaponIdx]
-	player.emit_signal("StartChangeWeapon", request)
+	requestWeaponChange(request)
 	pass
 
 
@@ -122,5 +122,13 @@ func handleInputChangeWeaponByIdx(_idx: int) -> void:
 	if(player.inventory.weapons[_idx] != null):
 		var request: T_WeaponChangeRequest = T_WeaponChangeRequest.new()
 		request.newWeapon = player.inventory.weapons[_idx]
-		player.emit_signal("StartChangeWeapon", request)
+		requestWeaponChange(request)
+	pass
+
+
+func requestWeaponChange(_request) -> void:
+	player.emit_signal(
+		"RequestInteractAnim",
+		func(): player.emit_signal("ChangeWeapon", _request)
+	)
 	pass

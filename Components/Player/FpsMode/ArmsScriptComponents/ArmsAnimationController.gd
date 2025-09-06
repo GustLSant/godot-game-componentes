@@ -12,14 +12,13 @@ var blendToSprinting: float = 0.0
 
 var tweenChangeWeapon: Tween
 var changeWeaponFactor: float = 0.0
-var changingNextWeapon: PlayerWeapon = null
 
 var delta: float = 0.016
 
 
 func _init() -> void:
+	Nodes.player.connect("RequestInteractAnim", onRequestInteractAnim)
 	Nodes.player.connect("PlayerShot", onPlayerShot)
-	Nodes.player.connect("StartChangeWeapon", onStartChangeWeapon)
 	pass
 
 
@@ -64,22 +63,19 @@ func abortInspectAnimation() -> void:
 	pass
 
 
-func onPlayerShot(_recoilStrength: float) -> void:
-	abortInspectAnimation()
-	pass
-
-
-func onStartChangeWeapon(_request: T_WeaponChangeRequest) -> void:
+func onRequestInteractAnim(_callback: Callable) -> void:
 	if(changeWeaponFactor > 0.0): return
 	
-	changingNextWeapon = _request.newWeapon
 	if(tweenChangeWeapon): tweenChangeWeapon.kill()
 	tweenChangeWeapon = get_tree().create_tween()
 	
 	tweenChangeWeapon.tween_property(self, 'changeWeaponFactor', 1.0, 0.25)
-	tweenChangeWeapon.tween_callback(
-		func(): Nodes.player.emit_signal("ChangeWeapon", _request)
-	)
+	tweenChangeWeapon.tween_callback(_callback)
 	tweenChangeWeapon.tween_property(self, 'changeWeaponFactor', 0.0, 0.25)
 	tweenChangeWeapon.play()
+	pass
+
+
+func onPlayerShot(_recoilStrength: float) -> void:
+	abortInspectAnimation()
 	pass
