@@ -91,7 +91,8 @@ func onReplaceWeapon(_request: T_WeaponReplaceRequest) -> void:
 
 func spawnWeaponPickUp(_replacedWeapon: PlayerWeapon) -> void:
 	var pickupWeaponScene: WeaponPickup = load("res://Components/PlayerWeapons/WeaponPickup.tscn").instantiate()
-	pickupWeaponScene.referenceWeapon = _replacedWeapon
+	pickupWeaponScene.referenceWeapon = _replacedWeapon # o ready do WeaponPickup roda nesse mesmo frame, entao nao tem perigo da arma se destruir antes do WeaponPickup tentar acessar os dados dela
+	
 	Nodes.mainNode.add_child(pickupWeaponScene)
 	pass
 

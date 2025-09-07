@@ -16,6 +16,7 @@ var referenceWeapon: PlayerWeapon = null
 
 
 func _ready() -> void:
+	getAttachmentPaths()
 	setupVisualAndAttachments()
 	Nodes.player.connect("WeaponPickedUp", onWeaponPickedUp)
 	pass
@@ -25,7 +26,6 @@ func setupVisualAndAttachments() -> void:
 	if(not referenceWeapon): return
 	
 	weaponScenePath = referenceWeapon.scene_file_path
-	getAttachmentPaths(referenceWeapon)
 	weaponSocket.call_deferred("add_child", Utils.getNodeVisualCopy(referenceWeapon.get_node("Mesh")))
 	self.set_deferred("global_position", Nodes.player.global_position)
 	
@@ -33,10 +33,12 @@ func setupVisualAndAttachments() -> void:
 	pass
 
 
-func getAttachmentPaths(_weapon: PlayerWeapon) -> void:
+func getAttachmentPaths() -> void:
+	if(not referenceWeapon): return
+	
 	for attSlot: T_AttachmentSlot.ENUM in attachmentPaths:
-		if(_weapon.attachments[attSlot]):
-			attachmentPaths[attSlot] = _weapon.attachments[attSlot].scene_file_path
+		if(referenceWeapon.attachments[attSlot]):
+			attachmentPaths[attSlot] = referenceWeapon.attachments[attSlot].scene_file_path
 	pass
 
 
