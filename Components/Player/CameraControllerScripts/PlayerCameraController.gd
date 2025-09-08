@@ -127,6 +127,7 @@ func addRecoil(_strength: float) -> void:
 func onPlayerShot(_recoilStrength: float) -> void:
 	if(player.currentCameraMode == selfMode):
 		addRecoil(_recoilStrength)
+		#addShake()
 	pass
 
 

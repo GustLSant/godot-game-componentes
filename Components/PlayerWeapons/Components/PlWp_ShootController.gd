@@ -46,17 +46,18 @@ func shoot() -> void:
 	player.emit_signal("PlayerShot", weapon.cameraRecoilStrength)
 	weapon.currentFireCooldown = player.fireRate
 	
-	#shotRaycast.global_transform = barrelNode.global_transform #player.currentCameraController.pivotRot.global_transform
-	shotRaycast.rotation_degrees.x = randf_range(-player.fireSpread, player.fireSpread)
-	shotRaycast.rotation_degrees.y = randf_range(-player.fireSpread, player.fireSpread)
-	
-	shotRaycast.force_raycast_update()
-	var collider: Object = shotRaycast.get_collider()
-	var collisionPoint: Vector3 = shotRaycast.global_position - shotRaycast.global_transform.basis.z * 99.0
-	if(collider != null): 
-		collisionPoint = shotRaycast.get_collision_point()
-	
-	spawnShotVfx(collisionPoint)
+	for i in range(weapon.shotsCount):
+		#shotRaycast.global_transform = barrelNode.global_transform #player.currentCameraController.pivotRot.global_transform
+		shotRaycast.rotation_degrees.x = randf_range(-player.fireSpread - weapon.inheritFireSpread, player.fireSpread + weapon.inheritFireSpread)
+		shotRaycast.rotation_degrees.y = randf_range(-player.fireSpread - weapon.inheritFireSpread, player.fireSpread + weapon.inheritFireSpread)
+		
+		shotRaycast.force_raycast_update()
+		var collider: Object = shotRaycast.get_collider()
+		var collisionPoint: Vector3 = shotRaycast.global_position - shotRaycast.global_transform.basis.z * 99.0
+		if(collider != null): 
+			collisionPoint = shotRaycast.get_collision_point()
+		
+		spawnShotVfx(collisionPoint)
 	pass
 
 

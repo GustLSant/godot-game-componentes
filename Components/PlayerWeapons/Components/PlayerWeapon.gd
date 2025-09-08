@@ -8,6 +8,8 @@ class_name PlayerWeapon
 @export var magazineSize: int = 30
 @export var fireSpread: float = 2.5
 @export var reloadTime: float = 2.5
+@export var shotsCount: int = 1
+@export var inheritFireSpread: float = 0.0
 
 @export_category("Nodes")
 @export var attachmentNodes: Array[Node3D]

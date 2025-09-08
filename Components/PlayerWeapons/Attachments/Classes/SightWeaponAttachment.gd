@@ -6,7 +6,8 @@ class_name SightWeaponAttachment
 @export var yPosAimOffsetByWeaponId: Dictionary[int, float] = {
 	0: 0.0,
 	1: -0.07,
-	2: -0.16
+	2: -0.16,
+	3: -0.22
 }
 @export var aimingSelfScaleMultiplier: float = 1.0
 
