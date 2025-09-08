@@ -22,7 +22,7 @@ func updateLabels() -> void:
 
 func onWeaponChanged(_newWeapon: PlayerWeapon) -> void:
 	currentWeaponIdx = Nodes.player.getWeaponIdxOnInventory(_newWeapon)
-	updateLabels()
+	call_deferred("updateLabels") # precisa ser deferred pq quando a arma é trocada, ela emite o WeaponChanged antes de ser destruida, e a arma so devolve a municao para o inventario quando ela está se destruindo
 	pass
 
 func onPlayerShot(_recoilStrength: float) -> void:

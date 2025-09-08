@@ -7,6 +7,7 @@ var slot: T_AttachmentSlot.ENUM = T_AttachmentSlot.ENUM.SIGHT
 
 func _init() -> void:
 	Nodes.player.connect("WeaponChanged", onWeaponChanged)
+	pass
 
 
 func onWeaponChanged(_newWeapon: PlayerWeapon) -> void:
@@ -15,7 +16,7 @@ func onWeaponChanged(_newWeapon: PlayerWeapon) -> void:
 
 
 func checkCanActiveProcess() -> void:
-	var isInTheCurrentWeapon: bool = (Nodes.player.currentWeapon.get_instance_id() == self.attachedWeapon.get_instance_id())
+	var isInTheCurrentWeapon: bool = (Nodes.player.currentWeapon == self.attachedWeapon)
 	set_process(isInTheCurrentWeapon)
 	pass
 

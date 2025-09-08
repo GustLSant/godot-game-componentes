@@ -133,7 +133,7 @@ func handleInputChangeWeaponByIdx(_idx: int) -> void:
 	
 	if(player.currentWeapon == player.inventory.weapons[_idx]): return
 	
-	if(player.inventory.weapons[_idx] != null):
+	if(is_instance_valid(player.inventory.weapons[_idx])):
 		var request: T_WeaponChangeRequest = T_WeaponChangeRequest.new()
 		request.newWeapon = player.inventory.weapons[_idx]
 		requestWeaponChange(request)
