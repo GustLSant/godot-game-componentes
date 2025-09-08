@@ -7,6 +7,12 @@ class_name PlWp_ReloadController
 var delta: float = 0.016
 
 
+func _ready() -> void:
+	if(insertAmmoOnMagazine()): # para ja comecar o jogo com o pente cheio
+		player.emit_signal("ReloadEnd")
+	pass
+
+
 func _process(_delta: float) -> void:
 	if(not weapon.isActive): return
 	delta = _delta
@@ -26,17 +32,25 @@ func handleReload() -> void:
 	else:
 		if(weapon.canTriggerReloadEndSignal):
 			player.isReloading = false
-			var ammoAmount: int = getAmmoAmountOnReload()
-			weapon.magazineAmmo += ammoAmount
-			player.inventory["reserveAmmo"][weapon.ammoId] -= ammoAmount
+			insertAmmoOnMagazine()
 			player.emit_signal("ReloadEnd")
 			weapon.canTriggerReloadEndSignal = false
 	pass
 
 
+func insertAmmoOnMagazine() -> bool:
+	var ammoAmount: int = getAmmoAmountOnReload()
+	var hasInsertedAnyAmmo: bool = (ammoAmount > 0)
+	
+	weapon.magazineAmmo += ammoAmount
+	player.inventory["reserveAmmo"][weapon.ammoId] -= ammoAmount
+	
+	return hasInsertedAnyAmmo
+
+
 func checkCannotReload() -> bool:
-	return (player.isReloading or weapon.magazineAmmo >= player.magazineSize or player.inventory["reserveAmmo"][weapon.ammoId] <= 0)
+	return (player.isReloading or weapon.magazineAmmo >= weapon.magazineSize or player.inventory["reserveAmmo"][weapon.ammoId] <= 0)
 
 
 func getAmmoAmountOnReload() -> int:
-	return min(abs(player.magazineSize - weapon.magazineAmmo), player.inventory["reserveAmmo"][weapon.ammoId])
+	return min(abs(weapon.magazineSize - weapon.magazineAmmo), player.inventory["reserveAmmo"][weapon.ammoId])

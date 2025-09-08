@@ -16,7 +16,6 @@ func _ready() -> void:
 	getSelfIdxOnInventory()
 	getStartAttachments()
 	setActive(weapon.isActive)
-	#talvez fosse bom recarregar o pente aqui ja no inicio do jogo, pra n comecar com a arma vazia
 	pass
 
 
