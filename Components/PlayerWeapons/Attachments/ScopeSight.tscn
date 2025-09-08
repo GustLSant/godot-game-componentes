@@ -26,7 +26,8 @@ fpsBodyAimFOV = 15.0
 yPosAimOffsetByWeaponId = Dictionary[int, float]({
 0: 0.0,
 1: -0.22,
-2: -0.38
+2: -0.38,
+3: -0.393
 })
 aimingSelfScaleMultiplier = 0.1
 
