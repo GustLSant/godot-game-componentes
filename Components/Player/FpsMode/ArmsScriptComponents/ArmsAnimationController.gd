@@ -76,6 +76,6 @@ func onRequestInteractAnim(_callback: Callable) -> void:
 	pass
 
 
-func onPlayerShot(_recoilStrength: float) -> void:
+func onPlayerShot(_payload: T_PlayerShotPayload) -> void:
 	abortInspectAnimation()
 	pass

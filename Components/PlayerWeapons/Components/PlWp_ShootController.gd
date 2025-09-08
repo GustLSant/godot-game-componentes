@@ -43,7 +43,12 @@ func handleShootInput() -> bool:
 
 func shoot() -> void:
 	weapon.magazineAmmo -= 1
-	player.emit_signal("PlayerShot", weapon.cameraRecoilStrength)
+	
+	var payload: T_PlayerShotPayload = T_PlayerShotPayload.new()
+	payload.cameraRecoilRotStrength = weapon.cameraRecoilRotStrength
+	payload.cameraRecoilShakeStrength = weapon.cameraRecoilShakeStrength
+	player.emit_signal("PlayerShot", payload)
+	
 	weapon.currentFireCooldown = player.fireRate
 	
 	for i in range(weapon.shotsCount):

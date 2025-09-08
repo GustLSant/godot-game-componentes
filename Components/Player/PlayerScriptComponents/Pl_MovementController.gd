@@ -77,6 +77,6 @@ func handleMovement() -> void:
 	pass
 
 
-func onPlayerShot(_recoilStrength: float) -> void:
+func onPlayerShot(_payload: T_PlayerShotPayload) -> void:
 	player.isSprinting = false
 	pass

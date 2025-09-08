@@ -5,8 +5,8 @@ class_name GripWeaponAttachment
 
 
 func applyStatsOnWeapon() -> void:
-	attachedWeapon.cameraRecoilStrength *= recoilMultiplierFactor
-	attachedWeapon.recoilShakeStrength *= recoilMultiplierFactor
+	attachedWeapon.cameraRecoilRotStrength *= recoilMultiplierFactor
+	attachedWeapon.cameraRecoilShakeStrength *= recoilMultiplierFactor
 	attachedWeapon.recoilPosZStrength *= recoilMultiplierFactor
 	attachedWeapon.recoilPosYStrength *= recoilMultiplierFactor
 	attachedWeapon.recoilRotXStrength *= recoilMultiplierFactor

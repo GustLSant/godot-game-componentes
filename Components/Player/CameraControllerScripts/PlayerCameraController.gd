@@ -59,7 +59,9 @@ func _process(_delta: float) -> void:
 
 
 func handleShakeEffect() -> void:
-	currentShakeStrength = lerp(currentShakeStrength, 0.0, 14 * delta)
+	var lerpFactor: float = min(24 * delta, 1.0)
+	
+	currentShakeStrength = lerp(currentShakeStrength, 0.0, lerpFactor)
 	
 	shakePosOffset = Vector3(
 		shakeNoise.get_noise_1d(Time.get_ticks_msec()) * currentShakeStrength,
@@ -67,8 +69,7 @@ func handleShakeEffect() -> void:
 		shakeNoise.get_noise_1d(Time.get_ticks_msec() + 400) * currentShakeStrength
 	)
 	
-	var lerpFactor: float = 14 * delta
-	pivotShake.position = lerp(pivotShake.position, shakePosOffset, min(lerpFactor, 1.0))
+	pivotShake.position = lerp(pivotShake.position, shakePosOffset, lerpFactor)
 	pass
 
 func addShake(_amount:float) -> void:
@@ -124,10 +125,10 @@ func addRecoil(_strength: float) -> void:
 	pass
 
 
-func onPlayerShot(_recoilStrength: float) -> void:
+func onPlayerShot(_payload: T_PlayerShotPayload) -> void:
 	if(player.currentCameraMode == selfMode):
-		addRecoil(_recoilStrength)
-		#addShake()
+		addRecoil(_payload.cameraRecoilRotStrength)
+		addShake(_payload.cameraRecoilShakeStrength)
 	pass
 
 

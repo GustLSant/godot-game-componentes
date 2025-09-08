@@ -22,8 +22,8 @@ class_name PlayerWeapon
 
 @export_category("Recoil Variables")
 @export var recoverDurationMultiplier: float = 1.0
-@export var cameraRecoilStrength: float = 1.0
-@export var recoilShakeStrength: float = 1.0
+@export var cameraRecoilRotStrength: float = 1.0
+@export var cameraRecoilShakeStrength: float = 0.0
 @export var recoilPosZStrength: float = 1.0
 @export var recoilPosYStrength: float = 0.0
 @export var recoilRotXStrength: float = 1.0

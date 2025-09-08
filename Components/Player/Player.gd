@@ -56,7 +56,7 @@ var isReloading: bool = false
 var currentReloadTime: float = 0.0
 const AIM_MULTIPLIER_FACTOR: float = 0.5
 const AIM_SPEED: float = 10.0
-signal PlayerShot(_recoilStrength: float)
+signal PlayerShot(_request: T_PlayerShotPayload)
 signal ReloadEnd()
 
 # Weapons Parameters
@@ -69,7 +69,6 @@ var armsAimPosition: Vector3 = Vector3(0.0, -0.5, -0.2)
 var aimFOV: float = 45.0
 var fpsBodyAimFOV: float = 45.0
 var recoverDurationMultiplier: float = 1.0
-var recoilShakeStrength: float = 1.0
 var recoilPosZStrength: float = 1.0
 var recoilPosYStrength: float = 1.0
 var recoilRotXStrength: float = 1.0

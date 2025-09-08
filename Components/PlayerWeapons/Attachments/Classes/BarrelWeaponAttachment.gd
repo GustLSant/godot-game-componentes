@@ -10,8 +10,8 @@ class_name BarrelWeaponAttachment
 func applyStatsOnWeapon() -> void:
 	attachedWeapon.fireSpread *= fireSpreadMultiplierFactor
 	
-	attachedWeapon.cameraRecoilStrength *= recoilMultiplierFactor
-	attachedWeapon.recoilShakeStrength *= recoilMultiplierFactor
+	attachedWeapon.cameraRecoilRotStrength *= recoilMultiplierFactor
+	attachedWeapon.cameraRecoilShakeStrength *= recoilMultiplierFactor
 	attachedWeapon.recoilPosZStrength *= recoilMultiplierFactor
 	attachedWeapon.recoilPosYStrength *= recoilMultiplierFactor
 	attachedWeapon.recoilRotXStrength *= recoilMultiplierFactor

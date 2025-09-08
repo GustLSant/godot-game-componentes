@@ -82,6 +82,6 @@ func getRestartedTween(_tween: Tween) -> Tween:
 	return get_tree().create_tween()
 
 
-func onPlayerShot(_recoilStrength: float) -> void:
+func onPlayerShot(_payload: T_PlayerShotPayload) -> void:
 	addRecoil()
 	pass
