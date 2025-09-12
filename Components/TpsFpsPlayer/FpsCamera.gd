@@ -122,8 +122,8 @@ func handleTiltEffect()->void:
 	targetRotZ *= int(player.isMoving) # so aplica o efeito se o jogador estiver se movimentando
 	
 	var targetRotX:float = 0.0
-	targetRotX -= EFFECT_STRENGTH/2.0 * Input.get_action_strength("MoveFoward")
-	targetRotX += EFFECT_STRENGTH/2.0 * Input.get_action_strength("MoveBackwards")
+	targetRotX -= EFFECT_STRENGTH/2.0 * Input.get_action_strength("MoveForward")
+	targetRotX += EFFECT_STRENGTH/2.0 * Input.get_action_strength("MoveBackward")
 	targetRotX *= int(player.isMoving) # so aplica o efeito se o jogador estiver se movimentando
 	
 	pivotTilt.rotation_degrees.z = lerp(pivotTilt.rotation_degrees.z, targetRotZ, 10*delta)

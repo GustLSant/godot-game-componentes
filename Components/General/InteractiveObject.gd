@@ -6,7 +6,7 @@ class_name InteractiveObject
 
 
 func checkAction() -> void:
-	if(Input.is_action_just_pressed('Interaction')):
+	if(Input.is_action_just_pressed('Interact')):
 		action()
 	pass
 

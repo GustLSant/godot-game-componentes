@@ -65,10 +65,10 @@ func handleMovement()->void:
 		cam_x.y = 0
 		cam_z.y = 0
 		vecMovement = (Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft")) * cam_x
-		vecMovement += (Input.get_action_strength("MoveBackwards") - Input.get_action_strength("MoveFoward")) * cam_z
+		vecMovement += (Input.get_action_strength("MoveBackward") - Input.get_action_strength("MoveForward")) * cam_z
 	else:
 		vecMovement = (Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft")) * tpsCamera.pivotRot.global_transform.basis.x
-		vecMovement += (Input.get_action_strength("MoveBackwards") - Input.get_action_strength("MoveFoward")) * tpsCamera.pivotRot.global_transform.basis.z
+		vecMovement += (Input.get_action_strength("MoveBackward") - Input.get_action_strength("MoveForward")) * tpsCamera.pivotRot.global_transform.basis.z
 	vecMovement = vecMovement.normalized()
 	vecMovement.y = 0.0
 	

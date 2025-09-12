@@ -7,9 +7,14 @@ var currentWeaponIdx: int = 0
 
 
 func _init() -> void:
-	Nodes.player.connect("WeaponChanged", onWeaponChanged)
-	Nodes.player.connect("PlayerShot", onPlayerShot)
-	Nodes.player.connect("ReloadEnd", onReloadEnd)
+	GameplayManager.connect('GameStarted', onGameStarted)
+	pass
+
+
+func onGameStarted() -> void:
+	Nodes.player.call_deferred('connect', "WeaponChanged", onWeaponChanged)
+	Nodes.player.call_deferred('connect', "PlayerShot", onPlayerShot)
+	Nodes.player.call_deferred('connect', "ReloadEnd", onReloadEnd)
 	pass
 
 

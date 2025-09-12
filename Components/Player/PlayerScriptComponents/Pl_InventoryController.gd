@@ -110,9 +110,9 @@ func getInputChangeWeapon() -> void:
 func handleInputChangeWeaponByDirection(_changeDirection: int) -> void:
 	if(player.inventory.weapons.size() <= 1): return
 	if(player.currentWeapon == null):
-		var request: T_WeaponChangeRequest = T_WeaponChangeRequest.new()
-		request.newWeapon = player.inventory.weapons[0]
-		requestWeaponChange(request) # sem nenhuma arma equipada, equipa a primeira do inventario
+		var changeRequest: T_WeaponChangeRequest = T_WeaponChangeRequest.new()
+		changeRequest.newWeapon = player.inventory.weapons[0]
+		requestWeaponChange(changeRequest) # sem nenhuma arma equipada, equipa a primeira do inventario
 	
 	var currentWeaponIdx: int = player.getCurrentWeaponIdx()
 	

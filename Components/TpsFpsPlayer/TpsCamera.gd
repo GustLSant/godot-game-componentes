@@ -91,7 +91,7 @@ func handlePosDamping()->void:
 	var targetPos:Vector3 = Vector3(
 		Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft"),
 		0.0,
-		Input.get_action_strength("MoveBackwards") - Input.get_action_strength("MoveFoward")
+		Input.get_action_strength("MoveBackward") - Input.get_action_strength("MoveForward")
 	)
 	targetPos = targetPos.normalized() * int(player.vecMovement != Vector3.ZERO) # só aplica o efeito se o jogador estiver se movendo
 	targetPos *= -1 * POS_DAMPING_STRENGTH * (1.0*int(not player.isAiming) + 0.5*int(player.isAiming)) # invertendo e aplicando a forca (aplica a força somente se o jogador não estiver mirando

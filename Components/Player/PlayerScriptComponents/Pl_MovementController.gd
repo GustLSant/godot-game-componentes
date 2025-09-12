@@ -25,7 +25,7 @@ func _physics_process(_delta: float) -> void:
 
 func getMoveInputs() -> void:
 	player.inputVecMovement.x = Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft")
-	player.inputVecMovement.y = Input.get_action_strength("MoveBackwards") - Input.get_action_strength("MoveFoward")
+	player.inputVecMovement.y = Input.get_action_strength("MoveBackward") - Input.get_action_strength("MoveForward")
 	pass
 
 

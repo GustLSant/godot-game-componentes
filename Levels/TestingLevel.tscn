@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=4 uid="uid://dks3d7428wa0s"]
+[gd_scene load_steps=61 format=4 uid="uid://dks3d7428wa0s"]
 
 [ext_resource type="PackedScene" uid="uid://dc54qhrcohy5m" path="res://Components/Crosshair/Crosshair.tscn" id="1_frkwp"]
 [ext_resource type="Texture2D" uid="uid://drrabfgnrn6db" path="res://Meshs/Weapons_2.png" id="2_eo1b1"]
@@ -8,7 +8,6 @@
 [ext_resource type="MeshLibrary" uid="uid://dhx4dqc5hxu41" path="res://testecityMeshLib.tres" id="5_1dcsj"]
 [ext_resource type="PackedScene" uid="uid://c8djk1ns80fn1" path="res://Components/PlayerWeapons/PickupWeapon_01.tscn" id="6_s8r7n"]
 [ext_resource type="PackedScene" uid="uid://cnsif2ol7kkv5" path="res://Components/PlayerWeapons/PickupWeapon_02.tscn" id="7_5nn8l"]
-[ext_resource type="PackedScene" uid="uid://dqojp2t7bfo6w" path="res://Components/General/PauseController.tscn" id="8_s8r7n"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s8r7n"]
 size = Vector3(20, 10.37, 13.65)
@@ -667,8 +666,6 @@ size = Vector3(1, 2, 1)
 [node name="Player" parent="." instance=ExtResource("3_5nn8l")]
 
 [node name="Crosshair" parent="." instance=ExtResource("1_frkwp")]
-
-[node name="PauseController" parent="." instance=ExtResource("8_s8r7n")]
 
 [node name="Cubes" type="Node3D" parent="."]
 

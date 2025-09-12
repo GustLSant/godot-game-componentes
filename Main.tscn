@@ -1,7 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://bvjwiank6nnwe"]
+[gd_scene load_steps=11 format=3 uid="uid://bvjwiank6nnwe"]
 
 [ext_resource type="Script" uid="uid://3e3wx6xwne52" path="res://Main.gd" id="1_2yxtq"]
-[ext_resource type="PackedScene" uid="uid://dks3d7428wa0s" path="res://Levels/TestingLevel.tscn" id="2_uu6xs"]
+[ext_resource type="Script" uid="uid://ck8j48jrjgsv5" path="res://Components/UI/UIRoot.gd" id="3_cm0pq"]
+[ext_resource type="Script" uid="uid://u04od53045ib" path="res://Components/UI/Screens/UI_MainMenu.gd" id="4_cm0pq"]
+[ext_resource type="Script" uid="uid://bpwkom014n5c2" path="res://Components/UI/Screens/UI_Settings.gd" id="5_fos0i"]
+[ext_resource type="Script" uid="uid://dmug1lmun66w2" path="res://Components/UI/Screens/UI_ActionRebindingMenu.gd" id="5_lgr22"]
+[ext_resource type="Script" uid="uid://d37ocptcvm86s" path="res://Components/UI/Screens/UI_HUD.gd" id="7_trn2v"]
+[ext_resource type="Script" uid="uid://1gx0npq643tu" path="res://Components/UI/Screens/UI_PauseMenu.gd" id="9_03owx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lgr22"]
 
@@ -11,24 +16,6 @@ sky_material = SubResource("ProceduralSkyMaterial_lgr22")
 [sub_resource type="Environment" id="Environment_03owx"]
 background_mode = 2
 sky = SubResource("Sky_trn2v")
-
-[sub_resource type="GDScript" id="GDScript_uu6xs"]
-script/source = "extends Control
-
-var isActive: bool = false
-
-func _ready() -> void:
-	self.visible = isActive
-
-func _process(delta: float) -> void:
-	if(Input.is_action_just_pressed(\"Test\")):
-		isActive = not isActive
-		self.visible = isActive
-	
-	if(isActive):
-		$VBoxContainer/HBoxWeapons/LabelWeapons.text = str(Nodes.player.inventory.weapons)
-		$VBoxContainer/HBoxCurrentWeapon/LabelCurrentWeapon.text = str(Nodes.player.currentWeapon)
-"
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_2yxtq")
@@ -41,38 +28,202 @@ transform = Transform3D(0.965926, -0.12941, 0.224144, 1.49012e-08, 0.866025, 0.5
 layers = 3
 metadata/_edit_lock_ = true
 
-[node name="TestingLevel" parent="." instance=ExtResource("2_uu6xs")]
-
-[node name="Control" type="Control" parent="."]
+[node name="UIRoot" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = SubResource("GDScript_uu6xs")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_cm0pq")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="MainMenu" type="Control" parent="UIRoot"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_cm0pq")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
-[node name="HBoxWeapons" type="HBoxContainer" parent="Control/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UIRoot/MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -20.0
+offset_right = 44.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UIRoot/MainMenu/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 20
+size_flags_horizontal = 4
+text = "Main Menu"
 
-[node name="Label" type="Label" parent="Control/VBoxContainer/HBoxWeapons"]
+[node name="PlayBtn" type="Button" parent="UIRoot/MainMenu/VBoxContainer"]
 layout_mode = 2
-text = "Weapons:"
+size_flags_horizontal = 4
+text = "Play Game"
 
-[node name="LabelWeapons" type="Label" parent="Control/VBoxContainer/HBoxWeapons"]
+[node name="SettingsBtn" type="Button" parent="UIRoot/MainMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Settings"
+
+[node name="Settings" type="Control" parent="UIRoot"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_fos0i")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIRoot/Settings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -29.0
+offset_right = 44.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UIRoot/Settings/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Settings"
+
+[node name="RebindingMenu" type="Button" parent="UIRoot/Settings/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Rebind Keys"
+
+[node name="ReturnButton" type="Button" parent="UIRoot/Settings/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Return"
+
+[node name="ActionRebindingMenu" type="Control" parent="UIRoot" node_paths=PackedStringArray("container")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_lgr22")
+container = NodePath("MarginContainer/ContentContainer/ScrollContainer/ActionsContainer")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="UIRoot/ActionRebindingMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ContentContainer" type="VBoxContainer" parent="UIRoot/ActionRebindingMenu/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxCurrentWeapon" type="HBoxContainer" parent="Control/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UIRoot/ActionRebindingMenu/MarginContainer/ContentContainer"]
 layout_mode = 2
-theme_override_constants/separation = 20
+size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="Control/VBoxContainer/HBoxCurrentWeapon"]
+[node name="ActionsContainer" type="VBoxContainer" parent="UIRoot/ActionRebindingMenu/MarginContainer/ContentContainer/ScrollContainer"]
 layout_mode = 2
-text = "Current Weapon:"
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="LabelCurrentWeapon" type="Label" parent="Control/VBoxContainer/HBoxCurrentWeapon"]
+[node name="ReturnButton" type="Button" parent="UIRoot/ActionRebindingMenu/MarginContainer/ContentContainer"]
 layout_mode = 2
+size_flags_horizontal = 8
+text = "Return"
+
+[node name="HUD" type="Control" parent="UIRoot"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_trn2v")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="PauseMenu" type="Control" parent="UIRoot"]
+process_mode = 3
+visible = false
+z_index = 999
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_03owx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIRoot/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -20.0
+offset_right = 44.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UIRoot/PauseMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Pause Menu"
+
+[node name="ResumeBtn" type="Button" parent="UIRoot/PauseMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Resume Game"
+
+[node name="SettingsBtn" type="Button" parent="UIRoot/PauseMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="UIRoot/PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "Quit to Main Menu"
+
+[connection signal="pressed" from="UIRoot/MainMenu/VBoxContainer/PlayBtn" to="UIRoot/MainMenu" method="_on_play_btn_pressed"]
+[connection signal="pressed" from="UIRoot/MainMenu/VBoxContainer/SettingsBtn" to="UIRoot/MainMenu" method="_on_settings_button_pressed"]
+[connection signal="pressed" from="UIRoot/Settings/VBoxContainer/RebindingMenu" to="UIRoot/Settings" method="_on_rebinding_menu_pressed"]
+[connection signal="pressed" from="UIRoot/Settings/VBoxContainer/ReturnButton" to="UIRoot/Settings" method="_on_return_button_pressed"]
+[connection signal="pressed" from="UIRoot/ActionRebindingMenu/MarginContainer/ContentContainer/ReturnButton" to="UIRoot/ActionRebindingMenu" method="_on_return_button_pressed"]
+[connection signal="pressed" from="UIRoot/PauseMenu/VBoxContainer/ResumeBtn" to="UIRoot/PauseMenu" method="_on_resume_btn_pressed"]
+[connection signal="pressed" from="UIRoot/PauseMenu/VBoxContainer/SettingsBtn" to="UIRoot/PauseMenu" method="_on_settings_btn_pressed"]
+[connection signal="pressed" from="UIRoot/PauseMenu/VBoxContainer/QuitButton" to="UIRoot/PauseMenu" method="_on_quit_button_pressed"]
