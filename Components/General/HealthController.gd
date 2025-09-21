@@ -9,6 +9,7 @@ signal Died()
 
 
 func takeDamage(_damage: float, _from: Vector3 = Vector3.ZERO, _impactStrength: float = 0.0):
+	if(life <= 0.0): return
 	life -= _damage
 	self.emit_signal('DamageTaken', _from, _impactStrength)
 	if(life <= 0.0): emit_signal('Died')
