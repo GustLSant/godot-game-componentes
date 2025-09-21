@@ -165,6 +165,10 @@ Return={
 3d_physics/layer_4="Player"
 3d_physics/layer_5="Enemies"
 3d_physics/layer_6="Interactive"
+3d_physics/layer_7="PlayerHitbox"
+3d_physics/layer_8="PlayerHurtbox"
+3d_physics/layer_9="EnemyHitbox"
+3d_physics/layer_10="EnemyHurtbox"
 
 [physics]
 

@@ -1260,5 +1260,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.05)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.05)
 enabled = false
 target_position = Vector3(0, 0, -75)
-collision_mask = 7
+collision_mask = 519
 collide_with_areas = true

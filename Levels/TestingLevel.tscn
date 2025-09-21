@@ -8,6 +8,7 @@
 [ext_resource type="MeshLibrary" uid="uid://dhx4dqc5hxu41" path="res://testecityMeshLib.tres" id="5_1dcsj"]
 [ext_resource type="PackedScene" uid="uid://c8djk1ns80fn1" path="res://Components/PlayerWeapons/PickupWeapon_01.tscn" id="6_s8r7n"]
 [ext_resource type="PackedScene" uid="uid://cnsif2ol7kkv5" path="res://Components/PlayerWeapons/PickupWeapon_02.tscn" id="7_5nn8l"]
+[ext_resource type="PackedScene" uid="uid://bea8tgjwkbdrw" path="res://Components/Enemies/Enemy_01.tscn" id="9_5nn8l"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s8r7n"]
 size = Vector3(20, 10.37, 13.65)
@@ -658,9 +659,6 @@ uv1_world_triplanar = true
 [sub_resource type="PlaneMesh" id="PlaneMesh_ncnre"]
 size = Vector2(200, 200)
 
-[sub_resource type="BoxMesh" id="BoxMesh_kndwg"]
-size = Vector3(1, 2, 1)
-
 [node name="TestingLevel" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("3_5nn8l")]
@@ -864,6 +862,5 @@ transform = Transform3D(0.642788, 0, -0.766044, 0, 1, 0, 0.766044, 0, 0.642788, 
 [node name="PickupWeapon04" parent="." instance=ExtResource("7_5nn8l")]
 transform = Transform3D(0.996195, 0, -0.0871557, 0, 1, 0, 0.0871557, 0, 0.996195, -3.01073, 0, -9.91992)
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 1, 2.55)
-mesh = SubResource("BoxMesh_kndwg")
+[node name="Enemy_01" parent="." instance=ExtResource("9_5nn8l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7, 0, 0)

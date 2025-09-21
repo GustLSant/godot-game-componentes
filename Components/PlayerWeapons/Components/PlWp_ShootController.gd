@@ -61,6 +61,9 @@ func shoot() -> void:
 		var collisionPoint: Vector3 = shotRaycast.global_position - shotRaycast.global_transform.basis.z * 99.0
 		if(collider != null): 
 			collisionPoint = shotRaycast.get_collision_point()
+			if(collider is Hurtbox):
+				print('asdasd')
+				collider.healthController.takeDamage(weapon.damage)
 		
 		spawnShotVfx(collisionPoint)
 	pass

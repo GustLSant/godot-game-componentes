@@ -1,0 +1,90 @@
+[gd_scene load_steps=12 format=3 uid="uid://bea8tgjwkbdrw"]
+
+[ext_resource type="Script" uid="uid://cd7s38uv52gtx" path="res://Components/Enemies/StateActions/Sa_SurroundSight.gd" id="1_f5i62"]
+[ext_resource type="Script" uid="uid://bsgqtwopbiade" path="res://Components/StateMachine/StateMachine.gd" id="1_iltev"]
+[ext_resource type="Script" uid="uid://br4wg6odigk7k" path="res://Components/StateMachine/MachineState.gd" id="2_iltev"]
+[ext_resource type="Script" uid="uid://dc780vqw4dwii" path="res://Components/Enemies/StateActions/Sa_SurroundMovement.gd" id="3_ccvso"]
+[ext_resource type="Script" uid="uid://cphuke6o88a2k" path="res://Components/Enemies/StateActions/Sa_ChaseMovement.gd" id="5_m7lb0"]
+[ext_resource type="Script" uid="uid://j7guq6oqfvtx" path="res://Components/Enemies/StateActions/Sa_LoseSightDistance.gd" id="6_l8db7"]
+[ext_resource type="Script" uid="uid://brm2bijac0c4o" path="res://Components/General/HealthController.gd" id="7_810sl"]
+[ext_resource type="Script" uid="uid://cyyf74wg6aspc" path="res://Components/General/Hurtbox.gd" id="8_nydsv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iltev"]
+size = Vector3(1, 2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ccvso"]
+size = Vector3(1, 2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nydsv"]
+size = Vector3(1.1, 2.05, 1.05)
+
+[node name="Enemy_01" type="CharacterBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_iltev")
+
+[node name="Components" type="Node3D" parent="."]
+
+[node name="StateMachine" type="Node3D" parent="Components" node_paths=PackedStringArray("initialState", "states", "healthController")]
+script = ExtResource("1_iltev")
+initialState = NodePath("IdleState")
+states = [NodePath("IdleState"), NodePath("ChasingState")]
+healthController = NodePath("../HealthController")
+metadata/_custom_type_script = "uid://bsgqtwopbiade"
+
+[node name="IdleState" type="Node3D" parent="Components/StateMachine" node_paths=PackedStringArray("actions")]
+script = ExtResource("2_iltev")
+actions = [NodePath("Sa_SurroundMovement"), NodePath("Sa_SurroundSight")]
+metadata/_custom_type_script = "uid://br4wg6odigk7k"
+
+[node name="Sa_SurroundMovement" type="Node3D" parent="Components/StateMachine/IdleState" node_paths=PackedStringArray("character", "stateMachine")]
+script = ExtResource("3_ccvso")
+character = NodePath("../../../..")
+stateMachine = NodePath("../..")
+metadata/_custom_type_script = "uid://dc780vqw4dwii"
+
+[node name="Sa_SurroundSight" type="Node3D" parent="Components/StateMachine/IdleState" node_paths=PackedStringArray("stateMachine")]
+script = ExtResource("1_f5i62")
+stateMachine = NodePath("../..")
+metadata/_custom_type_script = "uid://cd7s38uv52gtx"
+
+[node name="ChasingState" type="Node3D" parent="Components/StateMachine" node_paths=PackedStringArray("actions")]
+script = ExtResource("2_iltev")
+actions = [NodePath("Sa_ChaseMovement"), NodePath("Sa_LoseSightDistance")]
+metadata/_custom_type_script = "uid://br4wg6odigk7k"
+
+[node name="Sa_ChaseMovement" type="Node3D" parent="Components/StateMachine/ChasingState" node_paths=PackedStringArray("character", "stateMachine")]
+script = ExtResource("5_m7lb0")
+character = NodePath("../../../..")
+stateMachine = NodePath("../..")
+metadata/_custom_type_script = "uid://cphuke6o88a2k"
+
+[node name="Sa_LoseSightDistance" type="Node3D" parent="Components/StateMachine/ChasingState" node_paths=PackedStringArray("targetState", "stateMachine")]
+script = ExtResource("6_l8db7")
+targetState = NodePath("../../IdleState")
+stateMachine = NodePath("../..")
+metadata/_custom_type_script = "uid://j7guq6oqfvtx"
+
+[node name="DeadState" type="Node3D" parent="Components/StateMachine"]
+script = ExtResource("2_iltev")
+metadata/_custom_type_script = "uid://br4wg6odigk7k"
+
+[node name="HealthController" type="Node" parent="Components"]
+script = ExtResource("7_810sl")
+metadata/_custom_type_script = "uid://brm2bijac0c4o"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_ccvso")
+
+[node name="Hurtbox" type="Area3D" parent="." node_paths=PackedStringArray("healthController")]
+collision_layer = 512
+collision_mask = 0
+script = ExtResource("8_nydsv")
+healthController = NodePath("../Components/HealthController")
+metadata/_custom_type_script = "uid://cyyf74wg6aspc"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.96046e-08, 1.025, 0.025)
+shape = SubResource("BoxShape3D_nydsv")
