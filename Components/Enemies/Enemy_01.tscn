@@ -1,12 +1,12 @@
 [gd_scene load_steps=12 format=3 uid="uid://bea8tgjwkbdrw"]
 
 [ext_resource type="Script" uid="uid://cd7s38uv52gtx" path="res://Components/Enemies/StateActions/Sa_SurroundSight.gd" id="1_f5i62"]
-[ext_resource type="Script" uid="uid://bsgqtwopbiade" path="res://Components/StateMachine/StateMachine.gd" id="1_iltev"]
 [ext_resource type="Script" uid="uid://br4wg6odigk7k" path="res://Components/StateMachine/MachineState.gd" id="2_iltev"]
 [ext_resource type="Script" uid="uid://dc780vqw4dwii" path="res://Components/Enemies/StateActions/Sa_SurroundMovement.gd" id="3_ccvso"]
 [ext_resource type="Script" uid="uid://cphuke6o88a2k" path="res://Components/Enemies/StateActions/Sa_ChaseMovement.gd" id="5_m7lb0"]
 [ext_resource type="Script" uid="uid://j7guq6oqfvtx" path="res://Components/Enemies/StateActions/Sa_LoseSightDistance.gd" id="6_l8db7"]
 [ext_resource type="Script" uid="uid://brm2bijac0c4o" path="res://Components/General/HealthController.gd" id="7_810sl"]
+[ext_resource type="Script" uid="uid://cp2wwri0lf58c" path="res://Components/Enemies/ScriptComponents/En_StateMachine.gd" id="8_5lpbf"]
 [ext_resource type="Script" uid="uid://cyyf74wg6aspc" path="res://Components/General/Hurtbox.gd" id="8_nydsv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iltev"]
@@ -26,12 +26,11 @@ shape = SubResource("BoxShape3D_iltev")
 
 [node name="Components" type="Node3D" parent="."]
 
-[node name="StateMachine" type="Node3D" parent="Components" node_paths=PackedStringArray("initialState", "states", "healthController")]
-script = ExtResource("1_iltev")
-initialState = NodePath("IdleState")
-states = [NodePath("IdleState"), NodePath("ChasingState")]
+[node name="StateMachine" type="Node3D" parent="Components" node_paths=PackedStringArray("healthController", "initialState")]
+script = ExtResource("8_5lpbf")
 healthController = NodePath("../HealthController")
-metadata/_custom_type_script = "uid://bsgqtwopbiade"
+initialState = NodePath("IdleState")
+metadata/_custom_type_script = "uid://cp2wwri0lf58c"
 
 [node name="IdleState" type="Node3D" parent="Components/StateMachine" node_paths=PackedStringArray("actions")]
 script = ExtResource("2_iltev")
