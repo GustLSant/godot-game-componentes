@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://djs7kn3e5265l"]
 
-[ext_resource type="Script" uid="uid://26p6imivw231" path="res://Components/VFX/VfxInstance.gd" id="1_2p7yt"]
+[ext_resource type="Script" uid="uid://e14eh0qvibkm" path="res://Components/General/Pool/PoolItem.gd" id="1_2p7yt"]
 
 [sub_resource type="Gradient" id="Gradient_xutbw"]
 offsets = PackedFloat32Array(0, 0.5)
@@ -60,22 +60,6 @@ alpha_curve = SubResource("CurveTexture_2p7yt")
 
 [sub_resource type="QuadMesh" id="QuadMesh_61ics"]
 
-[sub_resource type="Animation" id="Animation_2p7yt"]
-resource_name = "Vfx"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GPUParticles3D:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="Animation" id="Animation_vuopy"]
 length = 0.001
 tracks/0/type = "value"
@@ -91,15 +75,32 @@ tracks/0/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_2p7yt"]
+resource_name = "Effect"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles3D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ifke4"]
 _data = {
-&"RESET": SubResource("Animation_vuopy"),
-&"Vfx": SubResource("Animation_2p7yt")
+&"Effect": SubResource("Animation_2p7yt"),
+&"RESET": SubResource("Animation_vuopy")
 }
 
 [node name="BloodSplash" type="Node3D" node_paths=PackedStringArray("animPlayer")]
 script = ExtResource("1_2p7yt")
 animPlayer = NodePath("AnimationPlayer")
+metadata/_custom_type_script = "uid://e14eh0qvibkm"
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_vuopy")

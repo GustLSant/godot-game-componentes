@@ -4,10 +4,15 @@
 [ext_resource type="Script" uid="uid://d153bq7wvkbki" path="res://Components/Player/FpsMode/ArmsScriptComponents/ArmsAnimationController.gd" id="1_ri7q4"]
 [ext_resource type="Texture2D" uid="uid://yhvpso6ngpww" path="res://Meshs/PlayerArm_Tex.png" id="2_ainnh"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ri7q4"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4iqv5"]
+resource_name = "PlayerArm_Mat"
+cull_mode = 2
 albedo_texture = ExtResource("2_ainnh")
-texture_filter = 0
-texture_repeat = false
+roughness = 0.5
+texture_filter = 2
+use_z_clip_scale = true
+z_clip_scale = 0.9
+use_fov_override = true
 
 [sub_resource type="Animation" id="Animation_qpcjw"]
 resource_name = "ChangeWeapon"
@@ -933,6 +938,7 @@ animation = &"Short_Idle"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_so5p0"]
 graph_offset = Vector2(107.738, 315.64)
+nodes/output/position = Vector2(2240, 746.667)
 nodes/Add_ChangeWeapon/node = SubResource("AnimationNodeAdd2_ri7q4")
 nodes/Add_ChangeWeapon/position = Vector2(1493.33, 773.333)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_ainnh")
@@ -971,8 +977,7 @@ nodes/Blend_Sprinting/node = SubResource("AnimationNodeBlend2_lvli1")
 nodes/Blend_Sprinting/position = Vector2(160, 586.667)
 nodes/OneShot_Inspect/node = SubResource("AnimationNodeOneShot_01e8d")
 nodes/OneShot_Inspect/position = Vector2(906.667, 773.333)
-nodes/output/position = Vector2(2240, 746.667)
-node_connections = [&"Add_ChangeWeapon", 0, &"OneShot_Inspect", &"Add_ChangeWeapon", 1, &"Animation 10", &"Blend_Armed", 0, &"Animation 8", &"Blend_Armed", 1, &"Add_ChangeWeapon", &"Blend_IdleAiming", 0, &"Blend_Posture_1", &"Blend_IdleAiming", 1, &"Blend_Posture_2", &"Blend_Posture_1", 0, &"Animation", &"Blend_Posture_1", 1, &"Animation 2", &"Blend_Posture_2", 0, &"Animation 6", &"Blend_Posture_2", 1, &"Animation 7", &"Blend_Posture_3", 0, &"Animation 4", &"Blend_Posture_3", 1, &"Animation 3", &"Blend_Posture_4", 0, &"Animation 5", &"Blend_Posture_4", 1, &"Animation 9", &"Blend_Sprinting", 0, &"Blend_IdleAiming", &"Blend_Sprinting", 1, &"Blend_Posture_3", &"OneShot_Inspect", 0, &"Blend_Sprinting", &"OneShot_Inspect", 1, &"Blend_Posture_4", &"output", 0, &"Blend_Armed"]
+node_connections = [&"output", 0, &"Blend_Armed", &"Add_ChangeWeapon", 0, &"OneShot_Inspect", &"Add_ChangeWeapon", 1, &"Animation 10", &"Blend_Armed", 0, &"Animation 8", &"Blend_Armed", 1, &"Add_ChangeWeapon", &"Blend_IdleAiming", 0, &"Blend_Posture_1", &"Blend_IdleAiming", 1, &"Blend_Posture_2", &"Blend_Posture_1", 0, &"Animation", &"Blend_Posture_1", 1, &"Animation 2", &"Blend_Posture_2", 0, &"Animation 6", &"Blend_Posture_2", 1, &"Animation 7", &"Blend_Posture_3", 0, &"Animation 4", &"Blend_Posture_3", 1, &"Animation 3", &"Blend_Posture_4", 0, &"Animation 5", &"Blend_Posture_4", 1, &"Animation 9", &"Blend_Sprinting", 0, &"Blend_IdleAiming", &"Blend_Sprinting", 1, &"Blend_Posture_3", &"OneShot_Inspect", 0, &"Blend_Sprinting", &"OneShot_Inspect", 1, &"Blend_Posture_4"]
 
 [node name="FpsArmsMesh" type="Node3D"]
 
@@ -996,7 +1001,7 @@ metadata/_edit_group_ = true
 [node name="PlayerArm" parent="ArmsLengthOffset/Bone_Base/Bone_ArmR" instance=ExtResource("1_456j5")]
 
 [node name="Cube" parent="ArmsLengthOffset/Bone_Base/Bone_ArmR/PlayerArm" index="0"]
-layers = 2
+material_override = SubResource("StandardMaterial3D_4iqv5")
 
 [node name="WeaponsSocket" type="Node3D" parent="ArmsLengthOffset/Bone_Base/Bone_ArmR/PlayerArm"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -0.9)
@@ -1009,8 +1014,7 @@ metadata/_edit_group_ = true
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Cube" parent="ArmsLengthOffset/Bone_Base/Bone_ArmL/PlayerArm" index="0"]
-layers = 2
-material_override = SubResource("StandardMaterial3D_ri7q4")
+material_override = SubResource("StandardMaterial3D_4iqv5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -1023,12 +1027,12 @@ tree_root = SubResource("AnimationNodeBlendTree_so5p0")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Add_ChangeWeapon/add_amount = 0.0
 parameters/Blend_Armed/blend_amount = 1.0
-parameters/Blend_IdleAiming/blend_amount = false
-parameters/Blend_Posture_1/blend_amount = false
-parameters/Blend_Posture_2/blend_amount = 0
-parameters/Blend_Posture_3/blend_amount = 0
+parameters/Blend_IdleAiming/blend_amount = 0.0
+parameters/Blend_Posture_1/blend_amount = 0.0
+parameters/Blend_Posture_2/blend_amount = 0.0
+parameters/Blend_Posture_3/blend_amount = 0.0
 parameters/Blend_Posture_4/blend_amount = 0.0
-parameters/Blend_Sprinting/blend_amount = false
+parameters/Blend_Sprinting/blend_amount = 0.0
 parameters/OneShot_Inspect/active = false
 parameters/OneShot_Inspect/internal_active = false
 parameters/OneShot_Inspect/request = 0

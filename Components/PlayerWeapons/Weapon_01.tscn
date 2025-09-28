@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://cx0kso1jvtdxa"]
+[gd_scene load_steps=23 format=4 uid="uid://cx0kso1jvtdxa"]
 
 [ext_resource type="Script" uid="uid://d1q6q2gbtacwq" path="res://Components/PlayerWeapons/Components/PlayerWeapon.gd" id="1_p0npl"]
 [ext_resource type="Script" uid="uid://coo5sgyoljyjq" path="res://Components/PlayerWeapons/Components/PlWp_AimController.gd" id="2_j61ko"]
@@ -6,6 +6,12 @@
 [ext_resource type="Script" uid="uid://bi4aqrorx82rf" path="res://Components/PlayerWeapons/Components/PlWp_InventoryController.gd" id="4_3emef"]
 [ext_resource type="Script" uid="uid://dmdn0lkoq1e5l" path="res://Components/PlayerWeapons/Components/PlWp_ShootController.gd" id="5_qegdy"]
 [ext_resource type="Script" uid="uid://r3nlpgoy0gdm" path="res://Components/PlayerWeapons/Components/PlWp_ReloadController.gd" id="6_p0npl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cywov"]
+albedo_color = Color(0.48439813, 0.4843982, 0.48439813, 1)
+use_z_clip_scale = true
+z_clip_scale = 0.9
+use_fov_override = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xnrla"]
 
@@ -212,31 +218,31 @@ transform = Transform3D(1, -3.55271e-15, -2.38419e-07, 3.55271e-15, 1, -3.10588e
 
 [node name="Cube" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 2.38419e-08, -0.05, 0.1)
-layers = 2
+material_override = SubResource("StandardMaterial3D_cywov")
 mesh = SubResource("ArrayMesh_3emef")
 skeleton = NodePath("")
 
 [node name="Cube_004" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 2.38419e-08, 0.05, -1.1)
-layers = 2
+material_override = SubResource("StandardMaterial3D_cywov")
 mesh = SubResource("ArrayMesh_qegdy")
 skeleton = NodePath("")
 
 [node name="Cube_006" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, -0.05, 0, 0.83742)
-layers = 2
+material_override = SubResource("StandardMaterial3D_cywov")
 mesh = SubResource("ArrayMesh_p0npl")
 skeleton = NodePath("")
 
 [node name="Cube_011" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 2.38419e-08, -0.05, 0.0874101)
-layers = 2
+material_override = SubResource("StandardMaterial3D_cywov")
 mesh = SubResource("ArrayMesh_ig83e")
 skeleton = NodePath("")
 
 [node name="Cube_001" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 2.38419e-08, -0.383333, 0.25408)
-layers = 2
+material_override = SubResource("StandardMaterial3D_cywov")
 mesh = SubResource("ArrayMesh_48ska")
 skeleton = NodePath("")
 

@@ -1,58 +1,39 @@
 extends Node
 class_name PoolManager
 
-# cada idx desses arrays eh referente a um item
-var pathInstances: Array[String] = []
-var instancesCount: Array[int] = []
-var instancesNames: Array[String] = []
-
-# estrutura do dicionario: [name: String, array[PoolItem]]
-var instancesDict: Dictionary = {}
+var instancePath: String
+var instances: Array[PoolItem] = []
 
 
-func _init() -> void:
+func _init(_instancePath: String, _initialAmount: int = 100) -> void:
+	instancePath = _instancePath
 	Nodes.mainNode.call_deferred('add_child', self)
+	self.call_deferred('setupInstances', _initialAmount)
 	pass
 
 
-# MODELO DE READY A SER SEGUIDO:
-#func _ready() -> void:
-	#pathInstances = ["res://Components/VFX/BloodSplash.tscn"]
-	#instancesCount = [10]
-	#instancesNames = ['bloodSplash']
-	#setupVisualInstances()
-	#pass
-
-
-func setupVisualInstances() -> void:
-	for idx in range(pathInstances.size()):
-		addInstances(pathInstances[idx], instancesCount[idx], instancesNames[idx])
-	pass
-
-
-func addInstances(_path: String, _count: int, _name: String) -> void:
-	instancesDict[_name] = []
-	
-	for i in _count:
-		var instance: PoolItem = load(_path).instantiate()
-		instancesDict[_name].append(instance)
+func setupInstances(_initialAmount: int) -> void:
+	for idx in range(_initialAmount):
+		var instance: PoolItem = load(instancePath).instantiate()
+		instances.append(instance)
 		self.call_deferred('add_child', instance)
 	pass
 
 
-func requestInstance(_name: String, _amount: int, _pos: Vector3) -> void:
+func requestInstance(_amount: int, _trans: Transform3D) -> void:
 	for i in _amount:
-		var instance: PoolItem = getAvailableInstance(_name)
-		instance.position = _pos
-		instance.active()
+		var instance: PoolItem = getAvailableInstance()
+		instance.transform = _trans
+		instance.call_deferred('active')
 	pass
 
 
-func getAvailableInstance(_name: String) -> PoolItem:
-	for i: PoolItem in instancesDict[_name]:
+func getAvailableInstance() -> PoolItem:
+	for i: PoolItem in instances:
 		if(not i.isBusy):
 			return i
 	
-	var newInstance: PoolItem = instancesDict[_name][0].duplicate()
-	instancesDict[_name].append(newInstance)
+	var newInstance: PoolItem = load(instancePath).instantiate()
+	instances.append(newInstance)
+	self.call_deferred('add_child', newInstance)
 	return newInstance

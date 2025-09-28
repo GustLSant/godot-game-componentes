@@ -12,13 +12,14 @@ func _ready() -> void:
 
 func active() -> void:
 	if(isBusy): return
-	activeOperation()
+	playEffect()
 	isBusy = true
 	pass
 
 
 # funcao a ser sobrescrita
-func activeOperation() -> void:
+func playEffect() -> void:
+	animPlayer.play('Effect')
 	pass
 
 

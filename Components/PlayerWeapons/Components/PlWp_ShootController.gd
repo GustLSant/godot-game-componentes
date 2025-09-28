@@ -63,7 +63,8 @@ func shoot() -> void:
 			collisionPoint = shotRaycast.get_collision_point()
 			if(collider is Hurtbox): collider.healthController.takeDamage(weapon.damage, collisionPoint)
 		
-		spawnShotVfx(collisionPoint)
+		Nodes.playerShotVfxManager.requestInstance(1, barrelNode.global_transform)
+		#spawnShotVfx(collisionPoint)
 	pass
 
 
@@ -76,7 +77,7 @@ func spawnShotVfx(_collPoint: Vector3) -> void:
 	var vfxInstance: Node3D = load("res://Components/PlayerWeapons/Shot/PlayerShotVfx.tscn").instantiate()
 	vfxInstance.transform = barrelNode.global_transform
 	vfxInstance.scale = Vector3.ONE
-	vfxInstance.scale.z = barrelNode.global_position.distance_to(_collPoint)
+	#vfxInstance.scale.z = barrelNode.global_position.distance_to(_collPoint)
 	
 	vfxInstance.call_deferred("look_at", _collPoint)
 	Nodes.mainNode.add_child(vfxInstance)

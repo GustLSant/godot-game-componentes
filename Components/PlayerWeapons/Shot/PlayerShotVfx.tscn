@@ -1,10 +1,256 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwubipyt374vu"]
+[gd_scene load_steps=25 format=4 uid="uid://bwubipyt374vu"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_cg43f"]
-size = Vector3(0.1, 0.1, 1)
+[ext_resource type="Script" uid="uid://e14eh0qvibkm" path="res://Components/General/Pool/PoolItem.gd" id="1_l5bgc"]
 
-[node name="PlayerShotVfx" type="Node3D"]
+[sub_resource type="Gradient" id="Gradient_yjdfa"]
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vlpqe"]
+gradient = SubResource("Gradient_yjdfa")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qh1ui"]
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("GradientTexture2D_vlpqe")
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_515ej"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_3vdda"]
+_surfaces = [{
+"aabb": AABB(-0.5, -0.5, -1, 1, 1, 1),
+"format": 34896613377,
+"index_count": 30,
+"index_data": PackedByteArray("AAABAAIAAwACAAEAAAAEAAEAAwAFAAIABQAAAAIABQADAAYABwAEAAAABQAHAAAABwAGAAQABQAGAAcA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("/////wAAAAAAAP////8AAAAA//8AAAAAAAAAAP//AAD///////8AAAAAAAAAAAAA//8AAP//AAD//wAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_l5bgc"]
+resource_name = "GradientCube_ToR_Cube"
+_surfaces = [{
+"aabb": AABB(-0.5, -0.5, -1, 1, 1, 1),
+"attribute_data": PackedByteArray("//////9//3////9//3////9///////9//3//f/////////9//3//////////f/9///////9//3////9//3///97//7/e//+/3v//v97//78="),
+"format": 34896613399,
+"index_count": 30,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEA"),
+"material": SubResource("StandardMaterial3D_515ej"),
+"primitive": 3,
+"uv_scale": Vector4(2, 2, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("/////wAAVNUAAP////9U1QAA//8AAFTV////////VNUAAAAA//8AAAAA//8AAAAAAAD/////AAAAAAAAAAAAAAAAAAAAAKoq//8AAP//qir//wAAAACqKgAAAAD//6oq//8AAAAA/7//////////v/////8AAP+///8AAP///78AAAAAAAAAAP////8AAAAAAAD//wAAAAD//wAAAAAAAFTVqipU1aoqVNWqKlTVqir/P/9//z//f/8//3//P/9/VFVUVVRVVFVUVVRVVFVUVf9/AAD/fwAA/38AAP9/AAD///9/////f////3////9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_3vdda")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l5bgc"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.5, 0.5, 0.5, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_yjdfa"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_vlpqe"]
+curve = SubResource("Curve_yjdfa")
+
+[sub_resource type="Curve" id="Curve_vlpqe"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 3), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_qh1ui"]
+curve = SubResource("Curve_vlpqe")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a28tf"]
+angle_min = -44.99999
+angle_max = 45.00001
+direction = Vector3(0, 1, 0)
+spread = 90.0
+gravity = Vector3(0, 2, 0)
+damping_min = 2.0
+damping_max = 4.0
+scale_min = 0.25
+scale_max = 0.75
+scale_curve = SubResource("CurveTexture_qh1ui")
+color = Color(1, 1, 1, 0.05)
+alpha_curve = SubResource("CurveTexture_vlpqe")
+
+[sub_resource type="QuadMesh" id="QuadMesh_l5bgc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yjdfa"]
+albedo_color = Color(1, 0.78431374, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.39215687, 0, 1)
+emission_energy_multiplier = 2000.0
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_l5bgc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_yjdfa"]
+curve = SubResource("Curve_l5bgc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vlpqe"]
+angle_min = -44.99999
+angle_max = 45.00001
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 1.25
+initial_velocity_max = 1.5
+gravity = Vector3(0, 0, 0)
+scale_min = 0.14999999
+scale_max = 0.25
+scale_curve = SubResource("CurveTexture_yjdfa")
+
+[sub_resource type="QuadMesh" id="QuadMesh_qh1ui"]
+
+[sub_resource type="Animation" id="Animation_l5bgc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SmokeParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TrailMesh:transparency")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SparksParticles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_a28tf"]
+resource_name = "Effect"
+length = 5.0
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SmokeParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TrailMesh:transparency")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SparksParticles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yjdfa"]
+_data = {
+&"Effect": SubResource("Animation_a28tf"),
+&"RESET": SubResource("Animation_l5bgc")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vlpqe"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_qh1ui"]
+
+[node name="PlayerShotVfx" type="Node3D" node_paths=PackedStringArray("animPlayer")]
+script = ExtResource("1_l5bgc")
+animPlayer = NodePath("AnimationPlayer")
+metadata/_custom_type_script = "uid://e14eh0qvibkm"
+
+[node name="TrailMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_qh1ui")
+mesh = SubResource("ArrayMesh_l5bgc")
+skeleton = NodePath("")
+
+[node name="SmokeParticles" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_l5bgc")
+emitting = false
+amount = 2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_a28tf")
+draw_pass_1 = SubResource("QuadMesh_l5bgc")
+
+[node name="SparksParticles" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_yjdfa")
+emitting = false
+amount = 4
+lifetime = 0.75
+one_shot = true
+speed_scale = 7.5
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_vlpqe")
+draw_pass_1 = SubResource("QuadMesh_qh1ui")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_yjdfa")
+}
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
-mesh = SubResource("BoxMesh_cg43f")
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_vlpqe")
+mesh = SubResource("SphereMesh_qh1ui")
