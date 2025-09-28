@@ -9,7 +9,7 @@ signal Died()
 
 
 func takeDamage(_damage: float, _pos:Vector3 = Vector3.ZERO, _from: Vector3 = Vector3.ZERO, _impactStrength: float = 0.0):
-	Nodes.goreVfxManager.requestInstance(2, Transform3D(Basis(), _pos))
+	Nodes.goreVfxManager.requestInstance(2, _pos)
 	
 	if(life <= 0.0): return
 	

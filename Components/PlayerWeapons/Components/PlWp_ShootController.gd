@@ -52,7 +52,6 @@ func shoot() -> void:
 	weapon.currentFireCooldown = player.fireRate
 	
 	for i in range(weapon.shotsCount):
-		#shotRaycast.global_transform = barrelNode.global_transform #player.currentCameraController.pivotRot.global_transform
 		shotRaycast.rotation_degrees.x = randf_range(-player.fireSpread - weapon.inheritFireSpread, player.fireSpread + weapon.inheritFireSpread)
 		shotRaycast.rotation_degrees.y = randf_range(-player.fireSpread - weapon.inheritFireSpread, player.fireSpread + weapon.inheritFireSpread)
 		
@@ -63,22 +62,10 @@ func shoot() -> void:
 			collisionPoint = shotRaycast.get_collision_point()
 			if(collider is Hurtbox): collider.healthController.takeDamage(weapon.damage, collisionPoint)
 		
-		Nodes.playerShotVfxManager.requestInstance(1, barrelNode.global_transform)
-		#spawnShotVfx(collisionPoint)
+		Nodes.playerShotVfxManager.requestInstance(1, barrelNode.global_position, shotRaycast.global_rotation_degrees, [barrelNode.global_position.distance_to(collisionPoint)])
 	pass
 
 
 func handleFireRate() -> void:
 	weapon.currentFireCooldown -= 1 * delta
-	pass
-
-
-func spawnShotVfx(_collPoint: Vector3) -> void:
-	var vfxInstance: Node3D = load("res://Components/PlayerWeapons/Shot/PlayerShotVfx.tscn").instantiate()
-	vfxInstance.transform = barrelNode.global_transform
-	vfxInstance.scale = Vector3.ONE
-	#vfxInstance.scale.z = barrelNode.global_position.distance_to(_collPoint)
-	
-	vfxInstance.call_deferred("look_at", _collPoint)
-	Nodes.mainNode.add_child(vfxInstance)
 	pass

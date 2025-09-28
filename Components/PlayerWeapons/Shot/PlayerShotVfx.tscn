@@ -1,9 +1,9 @@
-[gd_scene load_steps=25 format=4 uid="uid://bwubipyt374vu"]
+[gd_scene load_steps=23 format=4 uid="uid://bwubipyt374vu"]
 
-[ext_resource type="Script" uid="uid://e14eh0qvibkm" path="res://Components/General/Pool/PoolItem.gd" id="1_l5bgc"]
+[ext_resource type="Script" uid="uid://dho43uhjt73e3" path="res://Components/PlayerWeapons/Shot/PlayerShotVfx.gd" id="1_l5bgc"]
 
 [sub_resource type="Gradient" id="Gradient_yjdfa"]
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+colors = PackedColorArray(0.5, 0.5, 0.5, 0, 0.5, 0.5, 0.5, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_vlpqe"]
 gradient = SubResource("Gradient_yjdfa")
@@ -85,7 +85,7 @@ damping_max = 4.0
 scale_min = 0.25
 scale_max = 0.75
 scale_curve = SubResource("CurveTexture_qh1ui")
-color = Color(1, 1, 1, 0.05)
+color = Color(1, 1, 1, 0.030000001)
 alpha_curve = SubResource("CurveTexture_vlpqe")
 
 [sub_resource type="QuadMesh" id="QuadMesh_l5bgc"]
@@ -117,11 +117,52 @@ spread = 180.0
 initial_velocity_min = 1.25
 initial_velocity_max = 1.5
 gravity = Vector3(0, 0, 0)
-scale_min = 0.14999999
-scale_max = 0.25
+scale_min = 0.049999997
+scale_max = 0.14999999
 scale_curve = SubResource("CurveTexture_yjdfa")
 
 [sub_resource type="QuadMesh" id="QuadMesh_qh1ui"]
+
+[sub_resource type="Animation" id="Animation_a28tf"]
+resource_name = "Effect"
+length = 4.0
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SmokeParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TrailMesh:transparency")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SparksParticles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_l5bgc"]
 length = 0.001
@@ -162,62 +203,17 @@ tracks/2/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_a28tf"]
-resource_name = "Effect"
-length = 5.0
-step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SmokeParticles:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TrailMesh:transparency")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 1.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("SparksParticles:emitting")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yjdfa"]
 _data = {
 &"Effect": SubResource("Animation_a28tf"),
 &"RESET": SubResource("Animation_l5bgc")
 }
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vlpqe"]
-albedo_color = Color(0, 1, 0, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_qh1ui"]
-
-[node name="PlayerShotVfx" type="Node3D" node_paths=PackedStringArray("animPlayer")]
+[node name="PlayerShotVfx" type="Node3D" node_paths=PackedStringArray("trailMesh", "animPlayer")]
 script = ExtResource("1_l5bgc")
+trailMesh = NodePath("TrailMesh")
 animPlayer = NodePath("AnimationPlayer")
-metadata/_custom_type_script = "uid://e14eh0qvibkm"
+metadata/_custom_type_script = "uid://dho43uhjt73e3"
 
 [node name="TrailMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0)
@@ -249,8 +245,3 @@ draw_pass_1 = SubResource("QuadMesh_qh1ui")
 libraries = {
 &"": SubResource("AnimationLibrary_yjdfa")
 }
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_vlpqe")
-mesh = SubResource("SphereMesh_qh1ui")
