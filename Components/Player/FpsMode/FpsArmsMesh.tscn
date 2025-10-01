@@ -10,9 +10,6 @@ cull_mode = 2
 albedo_texture = ExtResource("2_ainnh")
 roughness = 0.5
 texture_filter = 2
-use_z_clip_scale = true
-z_clip_scale = 0.9
-use_fov_override = true
 
 [sub_resource type="Animation" id="Animation_qpcjw"]
 resource_name = "ChangeWeapon"
@@ -1001,6 +998,7 @@ metadata/_edit_group_ = true
 [node name="PlayerArm" parent="ArmsLengthOffset/Bone_Base/Bone_ArmR" instance=ExtResource("1_456j5")]
 
 [node name="Cube" parent="ArmsLengthOffset/Bone_Base/Bone_ArmR/PlayerArm" index="0"]
+layers = 2
 material_override = SubResource("StandardMaterial3D_4iqv5")
 
 [node name="WeaponsSocket" type="Node3D" parent="ArmsLengthOffset/Bone_Base/Bone_ArmR/PlayerArm"]
@@ -1014,6 +1012,7 @@ metadata/_edit_group_ = true
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Cube" parent="ArmsLengthOffset/Bone_Base/Bone_ArmL/PlayerArm" index="0"]
+layers = 2
 material_override = SubResource("StandardMaterial3D_4iqv5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

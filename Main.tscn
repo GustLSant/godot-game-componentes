@@ -17,6 +17,8 @@ sky_material = SubResource("ProceduralSkyMaterial_lgr22")
 [sub_resource type="Environment" id="Environment_03owx"]
 background_mode = 2
 sky = SubResource("Sky_trn2v")
+glow_enabled = true
+volumetric_fog_density = 0.015
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_2yxtq")
