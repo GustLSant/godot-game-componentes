@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://cx0kso1jvtdxa"]
+[gd_scene load_steps=26 format=4 uid="uid://cx0kso1jvtdxa"]
 
 [ext_resource type="Script" uid="uid://d1q6q2gbtacwq" path="res://Components/PlayerWeapons/Components/PlayerWeapon.gd" id="1_p0npl"]
 [ext_resource type="Script" uid="uid://coo5sgyoljyjq" path="res://Components/PlayerWeapons/Components/PlWp_AimController.gd" id="2_j61ko"]
@@ -173,6 +173,38 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_e8ijh")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_515ej"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_3vdda"]
+_surfaces = [{
+"aabb": AABB(-0.5, -0.5, -1, 1, 1, 1),
+"format": 34896613377,
+"index_count": 30,
+"index_data": PackedByteArray("AAABAAIAAwACAAEAAAAEAAEAAwAFAAIABQAAAAIABQADAAYABwAEAAAABQAHAAAABwAGAAQABQAGAAcA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("/////wAAAAAAAP////8AAAAA//8AAAAAAAAAAP//AAD///////8AAAAAAAAAAAAA//8AAP//AAD//wAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_cywov"]
+resource_name = "GradientCube_ToR_Cube"
+_surfaces = [{
+"aabb": AABB(-0.5, -0.5, -1, 1, 1, 1),
+"attribute_data": PackedByteArray("//////9//3////9//3////9///////9//3//f/////////9//3//////////f/9///////9//3////9//3///97//7/e//+/3v//v97//78="),
+"format": 34896613399,
+"index_count": 30,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEA"),
+"material": SubResource("StandardMaterial3D_515ej"),
+"primitive": 3,
+"uv_scale": Vector4(2, 2, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("/////wAAVNUAAP////9U1QAA//8AAFTV////////VNUAAAAA//8AAAAA//8AAAAAAAD/////AAAAAAAAAAAAAAAAAAAAAKoq//8AAP//qir//wAAAACqKgAAAAD//6oq//8AAAAA/7//////////v/////8AAP+///8AAP///78AAAAAAAAAAP////8AAAAAAAD//wAAAAD//wAAAAAAAFTVqipU1aoqVNWqKlTVqir/P/9//z//f/8//3//P/9/VFVUVVRVVFVUVVRVVFVUVf9/AAD/fwAA/38AAP9/AAD///9/////f////3////9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_3vdda")
+
 [node name="Weapon_01" type="Node3D" node_paths=PackedStringArray("attachmentNodes")]
 script = ExtResource("1_p0npl")
 fireRate = 0.1
@@ -282,3 +314,8 @@ enabled = false
 target_position = Vector3(0, 0, -75)
 collision_mask = 519
 collide_with_areas = true
+
+[node name="TrailMesh" type="MeshInstance3D" parent="ShotRaycast"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 23.155, 0, 0, 0)
+mesh = SubResource("ArrayMesh_cywov")
+skeleton = NodePath("")

@@ -5,18 +5,18 @@
 [sub_resource type="Gradient" id="Gradient_yjdfa"]
 colors = PackedColorArray(0.5, 0.5, 0.5, 0, 0.5, 0.5, 0.5, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_vlpqe"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_l5bgc"]
 gradient = SubResource("Gradient_yjdfa")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qh1ui"]
 transparency = 1
 shading_mode = 0
-albedo_texture = SubResource("GradientTexture2D_vlpqe")
+albedo_texture = SubResource("GradientTexture2D_l5bgc")
 texture_repeat = false
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_515ej"]
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_3vdda"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_yjdfa"]
 _surfaces = [{
 "aabb": AABB(-0.5, -0.5, -1, 1, 1, 1),
 "format": 34896613377,
@@ -44,7 +44,7 @@ _surfaces = [{
 "vertex_data": PackedByteArray("/////wAAVNUAAP////9U1QAA//8AAFTV////////VNUAAAAA//8AAAAA//8AAAAAAAD/////AAAAAAAAAAAAAAAAAAAAAKoq//8AAP//qir//wAAAACqKgAAAAD//6oq//8AAAAA/7//////////v/////8AAP+///8AAP///78AAAAAAAAAAP////8AAAAAAAD//wAAAAD//wAAAAAAAFTVqipU1aoqVNWqKlTVqir/P/9//z//f/8//3//P/9/VFVUVVRVVFVUVVRVVFVUVf9/AAD/fwAA/38AAP9/AAD///9/////f////3////9/")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_3vdda")
+shadow_mesh = SubResource("ArrayMesh_yjdfa")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l5bgc"]
 transparency = 1

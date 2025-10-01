@@ -62,7 +62,12 @@ func shoot() -> void:
 			collisionPoint = shotRaycast.get_collision_point()
 			if(collider is Hurtbox): collider.healthController.takeDamage(weapon.damage, collisionPoint)
 		
-		Nodes.playerShotVfxManager.requestInstance(1, barrelNode.global_position, shotRaycast.global_rotation_degrees, [barrelNode.global_position.distance_to(collisionPoint)])
+		Nodes.playerShotVfxManager.requestInstance(
+			1,
+			barrelNode.global_position,
+			player.currentPivotRot.global_rotation_degrees + shotRaycast.rotation_degrees,
+			[barrelNode.global_position.distance_to(collisionPoint)]
+		)
 	pass
 
 
