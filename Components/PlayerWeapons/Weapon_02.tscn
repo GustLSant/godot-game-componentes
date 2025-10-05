@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://b75h7nbj3l6k0"]
+[gd_scene load_steps=44 format=4 uid="uid://b75h7nbj3l6k0"]
 
 [ext_resource type="Script" uid="uid://d1q6q2gbtacwq" path="res://Components/PlayerWeapons/Components/PlayerWeapon.gd" id="1_vlsv3"]
 [ext_resource type="Script" uid="uid://coo5sgyoljyjq" path="res://Components/PlayerWeapons/Components/PlWp_AimController.gd" id="2_c6mae"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bi4aqrorx82rf" path="res://Components/PlayerWeapons/Components/PlWp_InventoryController.gd" id="4_yum8h"]
 [ext_resource type="Script" uid="uid://dmdn0lkoq1e5l" path="res://Components/PlayerWeapons/Components/PlWp_ShootController.gd" id="5_5k4qh"]
 [ext_resource type="Script" uid="uid://r3nlpgoy0gdm" path="res://Components/PlayerWeapons/Components/PlWp_ReloadController.gd" id="6_lb24a"]
+[ext_resource type="PackedScene" uid="uid://cgaynglf4vcux" path="res://Meshs/Weapons.blend" id="7_2sot6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pmg3h"]
 resource_name = "material_0"
@@ -530,7 +531,6 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ymwip")
 
 [node name="Weapon_02" type="Node3D" node_paths=PackedStringArray("attachmentNodes")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 script = ExtResource("1_vlsv3")
 magazineSize = 12
 reloadTime = 0.5
@@ -573,6 +573,7 @@ weapon = NodePath("../..")
 metadata/_custom_type_script = "uid://r3nlpgoy0gdm"
 
 [node name="Mesh" type="Node3D" parent="."]
+visible = false
 
 [node name="cuboid" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, -1.27899e-28, 0, -1.27899e-28, 1, 0, 0, 0, 1, 0.035, 0.20625, 0.06125)
@@ -699,3 +700,26 @@ enabled = false
 target_position = Vector3(0, 0, -75)
 collision_mask = 519
 collide_with_areas = true
+
+[node name="Weapons" parent="." instance=ExtResource("7_2sot6")]
+
+[node name="BaseMesh" parent="Weapons" index="0"]
+visible = false
+layers = 2
+
+[node name="DefaultMag" parent="Weapons" index="1"]
+visible = false
+layers = 2
+
+[node name="DrumMag" parent="Weapons" index="2"]
+visible = false
+layers = 2
+
+[node name="ExtendedMag" parent="Weapons" index="3"]
+visible = false
+layers = 2
+
+[node name="Cube" parent="Weapons" index="4"]
+layers = 2
+
+[editable path="Weapons"]

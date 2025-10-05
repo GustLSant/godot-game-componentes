@@ -22,12 +22,12 @@ func _init() -> void:
 
 func _ready() -> void:
 	var attLoadout_01: T_StartWeaponAttachmentLoadout = T_StartWeaponAttachmentLoadout.new()
-	attLoadout_01.paths[T_AttachmentSlot.ENUM.SIGHT] = "res://Components/PlayerWeapons/Attachments/RedDotSight.tscn"
+	#attLoadout_01.paths[T_AttachmentSlot.ENUM.SIGHT] = "res://Components/PlayerWeapons/Attachments/RedDotSight.tscn"
 	#attLoadout_01.paths[T_AttachmentSlot.ENUM.SIGHT] = "res://Components/PlayerWeapons/Attachments/ScopeSight.tscn"
 	attLoadout_01.paths[T_AttachmentSlot.ENUM.MAGAZINE] = "res://Components/PlayerWeapons/Attachments/DrumMagazine.tscn"
 	#attLoadout_01.paths[T_AttachmentSlot.ENUM.GRIP] = "res://Components/PlayerWeapons/Attachments/LongGrip.tscn"
 	attLoadout_01.paths[T_AttachmentSlot.ENUM.DEVICE_R] = "res://Components/PlayerWeapons/Attachments/RedLaserDevice.tscn"
-	attLoadout_01.paths[T_AttachmentSlot.ENUM.DEVICE_L] = "res://Components/PlayerWeapons/Attachments/FlashlightDevice.tscn"
+	#attLoadout_01.paths[T_AttachmentSlot.ENUM.DEVICE_L] = "res://Components/PlayerWeapons/Attachments/FlashlightDevice.tscn"
 	#attLoadout_01.paths[T_AttachmentSlot.ENUM.BARREL] = "res://Components/PlayerWeapons/Attachments/SilencerBarrel.tscn"
 	
 	var attLoadout_02: T_StartWeaponAttachmentLoadout = T_StartWeaponAttachmentLoadout.new()
