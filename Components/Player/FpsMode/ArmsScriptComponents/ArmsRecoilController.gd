@@ -8,7 +8,7 @@ const TWEEN_ATTACK_DURATION: float = 0.05
 const TWEEN_RECOVER_DURATION: float = 0.2
 var tweenRecoil: Tween = null
 
-const BASE_RECOIL_STRENGTH_POS_Z: float = 0.125
+const BASE_RECOIL_STRENGTH_POS_Z: float = 0.15
 const BASE_RECOIL_STRENGTH_POS_Y: float = 0.125
 const BASE_RECOIL_STRENGTH_ROT_X: float = 3.0
 const BASE_RECOIL_STRENGTH_ROT_Z: float = 1.25

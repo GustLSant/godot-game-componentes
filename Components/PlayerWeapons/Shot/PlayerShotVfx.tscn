@@ -1,6 +1,8 @@
-[gd_scene load_steps=23 format=4 uid="uid://bwubipyt374vu"]
+[gd_scene load_steps=39 format=4 uid="uid://bwubipyt374vu"]
 
 [ext_resource type="Script" uid="uid://dho43uhjt73e3" path="res://Components/PlayerWeapons/Shot/PlayerShotVfx.gd" id="1_l5bgc"]
+[ext_resource type="ArrayMesh" uid="uid://cco1qu3cpkkh8" path="res://Meshs/muzzleFlash_02-0.obj" id="2_yjdfa"]
+[ext_resource type="Texture2D" uid="uid://bhe37sfm3y0io" path="res://Textures/MuzzelFlashOutside.png" id="3_vlpqe"]
 
 [sub_resource type="Gradient" id="Gradient_yjdfa"]
 colors = PackedColorArray(0.5, 0.5, 0.5, 0, 0.5, 0.5, 0.5, 1)
@@ -45,6 +47,104 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_yjdfa")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vlpqe"]
+albedo_color = Color(1, 0.5372549, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.5372549, 0, 1)
+emission_energy_multiplier = 20.0
+
+[sub_resource type="Gradient" id="Gradient_lgyyv"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.8)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lgyyv"]
+gradient = SubResource("Gradient_lgyyv")
+width = 256
+height = 256
+fill_from = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_qh1ui"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.7)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vlpqe"]
+gradient = SubResource("Gradient_qh1ui")
+width = 256
+height = 256
+fill_from = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18xj4"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(1, 0.5882353, 0, 1)
+albedo_texture = SubResource("GradientTexture2D_lgyyv")
+emission_enabled = true
+emission = Color(1, 0.5882353, 0, 1)
+emission_energy_multiplier = 20.0
+emission_operator = 1
+emission_texture = SubResource("GradientTexture2D_vlpqe")
+texture_filter = 0
+texture_repeat = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ymp7"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_d0r28"]
+_surfaces = [{
+"aabb": AABB(-0.031999998, -3.7252903e-09, -0.12830126, 0.063999996, 0.1222243, 0.12830126),
+"format": 34359742465,
+"index_count": 12,
+"index_data": PackedByteArray("AAABAAIAAgABAAMABAABAAAAAwABAAQA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 5,
+"vertex_data": PackedByteArray("bhIDPfmmhT3RfIm9JwcYo4edoj2IDFm9x7Vqo7xQ+j1oYQO+bhIDvfmmhT3RfIm9avZ3FQAAgLHXs92x")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_vlpqe"]
+resource_name = "Weapons_Plane"
+_surfaces = [{
+"aabb": AABB(-0.031999998, -3.7252903e-09, -0.12830126, 0.063999996, 0.1222243, 0.12830126),
+"attribute_data": PackedByteArray("AABAPwAAAD8AAAA/AAAAPwAAAD8AAAAAAACAPgAAAD8AAAA/AAAAPwAAAD8AAIA/AAAAPwAAAAAAAAA/AAAAPwAAgD4AAAA/AAAAPwAAgD8AAAA/AAAAPwAAQD8AAAA/"),
+"format": 34359742487,
+"index_count": 12,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABgAHAAgACQAKAAsA"),
+"material": SubResource("StandardMaterial3D_3ymp7"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("bhIDPfmmhT3RfIm9JwcYo4edoj2IDFm9x7Vqo7xQ+j1oYQO+bhIDvfmmhT3RfIm9JwcYo4edoj2IDFm9avZ3FQAAgLHXs92xx7Vqo7xQ+j1oYQO+JwcYo4edoj2IDFm9bhIDvfmmhT3RfIm9avZ3FQAAgLHXs92xJwcYo4edoj2IDFm9bhIDPfmmhT3RfIm9OaeXuPfh96E5p5e49+H3oTmnl7j34fehxFiHo/DDAs/EWIej8MMCz8RYh6PwwwLPxViXuPDDAs/FWJe48MMCz8VYl7jwwwLPOqeHo/fh96E6p4ej9+H3oTqnh6P34feh")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_d0r28")
+
+[sub_resource type="Gradient" id="Gradient_vlpqe"]
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qh1ui"]
+gradient = SubResource("Gradient_vlpqe")
+width = 16
+height = 16
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lgyyv"]
+transparency = 1
+albedo_color = Color(1, 0.19607843, 0, 1)
+albedo_texture = ExtResource("3_vlpqe")
+emission_enabled = true
+emission = Color(1, 0.19607843, 0, 1)
+emission_energy_multiplier = 100.0
+emission_operator = 1
+emission_texture = SubResource("GradientTexture2D_qh1ui")
+texture_filter = 0
+texture_repeat = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_18xj4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l5bgc"]
 transparency = 1
@@ -123,10 +223,18 @@ scale_curve = SubResource("CurveTexture_yjdfa")
 
 [sub_resource type="QuadMesh" id="QuadMesh_qh1ui"]
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qh1ui"]
+particle_flag_rotate_y = true
+angle_min = -479.19998
+angle_max = 426.00003
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 5.0
+
 [sub_resource type="Animation" id="Animation_a28tf"]
 resource_name = "Effect"
 length = 4.0
-step = 0.25
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -158,6 +266,30 @@ tracks/2/path = NodePath("SparksParticles:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MuzzleOrigin/MuzzleFlash:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SparksParticles2:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -202,6 +334,30 @@ tracks/2/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MuzzleOrigin/MuzzleFlash:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SparksParticles2:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yjdfa"]
 _data = {
@@ -220,6 +376,87 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_qh1ui")
 mesh = SubResource("ArrayMesh_l5bgc")
 skeleton = NodePath("")
+
+[node name="MuzzleOrigin" type="Marker3D" parent="."]
+
+[node name="MuzzleFlash" type="MeshInstance3D" parent="MuzzleOrigin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, -0.35, -0.6)
+visible = false
+material_override = SubResource("StandardMaterial3D_vlpqe")
+transparency = 1.0
+mesh = ExtResource("2_yjdfa")
+skeleton = NodePath("../..")
+
+[node name="Flashes" type="Node3D" parent="MuzzleOrigin/MuzzleFlash"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0.05, 0.35, 0.6)
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MuzzleOrigin/MuzzleFlash/Flashes"]
+transform = Transform3D(0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_18xj4")
+cast_shadow = 0
+mesh = SubResource("ArrayMesh_vlpqe")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MuzzleOrigin/MuzzleFlash/Flashes"]
+transform = Transform3D(-0.70710677, -0.70710677, 0, 0.70710677, -0.70710677, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_18xj4")
+cast_shadow = 0
+mesh = SubResource("ArrayMesh_vlpqe")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="MuzzleOrigin/MuzzleFlash/Flashes"]
+transform = Transform3D(-0.70710677, 0.70710677, 0, -0.70710677, -0.70710677, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_18xj4")
+cast_shadow = 0
+mesh = SubResource("ArrayMesh_vlpqe")
+skeleton = NodePath("../../../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="MuzzleOrigin/MuzzleFlash/Flashes"]
+transform = Transform3D(0.7071067, 0.7071068, 0, -0.7071068, 0.7071067, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_18xj4")
+cast_shadow = 0
+mesh = SubResource("ArrayMesh_vlpqe")
+skeleton = NodePath("../../../..")
+
+[node name="Marker3D6" type="Marker3D" parent="MuzzleOrigin/MuzzleFlash/Flashes"]
+transform = Transform3D(-0.7071068, -0.7071067, 0, 0.7071067, -0.7071068, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+
+[node name="Marker3D" type="Marker3D" parent="MuzzleOrigin/MuzzleFlash/Flashes/Marker3D6"]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MuzzleOrigin/MuzzleFlash/Flashes/Marker3D6/Marker3D"]
+transform = Transform3D(0.25, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.25, 0)
+material_override = SubResource("StandardMaterial3D_lgyyv")
+mesh = SubResource("QuadMesh_18xj4")
+skeleton = NodePath("../../../../../..")
+
+[node name="Marker3D7" type="Marker3D" parent="MuzzleOrigin/MuzzleFlash/Flashes"]
+transform = Transform3D(-0.7071067, 0.7071068, 0, -0.7071068, -0.7071067, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+
+[node name="Marker3D" type="Marker3D" parent="MuzzleOrigin/MuzzleFlash/Flashes/Marker3D7"]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MuzzleOrigin/MuzzleFlash/Flashes/Marker3D7/Marker3D"]
+transform = Transform3D(0.25, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.25, 0)
+material_override = SubResource("StandardMaterial3D_lgyyv")
+mesh = SubResource("QuadMesh_18xj4")
+skeleton = NodePath("../../../../../..")
+
+[node name="Marker3D8" type="Marker3D" parent="MuzzleOrigin/MuzzleFlash/Flashes"]
+transform = Transform3D(0.7071067, 0.7071068, 0, -0.7071068, 0.7071067, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+
+[node name="Marker3D" type="Marker3D" parent="MuzzleOrigin/MuzzleFlash/Flashes/Marker3D8"]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MuzzleOrigin/MuzzleFlash/Flashes/Marker3D8/Marker3D"]
+transform = Transform3D(0.25, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.25, 0)
+material_override = SubResource("StandardMaterial3D_lgyyv")
+mesh = SubResource("QuadMesh_18xj4")
+skeleton = NodePath("../../../../../..")
 
 [node name="SmokeParticles" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_l5bgc")
@@ -241,6 +478,19 @@ speed_scale = 7.5
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_vlpqe")
 draw_pass_1 = SubResource("QuadMesh_qh1ui")
+
+[node name="SparksParticles2" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_18xj4")
+emitting = false
+amount = 12
+lifetime = 0.5
+one_shot = true
+speed_scale = 7.5
+explosiveness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_qh1ui")
+draw_pass_1 = SubResource("ArrayMesh_vlpqe")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

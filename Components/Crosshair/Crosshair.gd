@@ -1,7 +1,6 @@
 class_name Crosshair
 extends Control
 
-var player: Player = Nodes.player
 var color:Color = Color.WHITE
 
 # Render
@@ -30,6 +29,9 @@ func _ready()->void:
 
 
 func _process(_delta:float)->void:
+	var player = Nodes.player
+	if(not is_instance_valid(player)): color.a = 0.0; return;
+	
 	color.a = lerp(
 		color.a,
 		int(player.isAiming or player.isSprinting) * 0.0 + int(not player.isAiming) * 1.0,
@@ -47,11 +49,11 @@ func _process(_delta:float)->void:
 
 
 func _draw()->void:
-	#draw_circle(
-		#centerPos,
-		#DOT_RADIUS,
-		#color
-	#)
+	draw_circle(
+		centerPos,
+		DOT_RADIUS,
+		color
+	)
 	
 	# linha de cima
 	draw_line(

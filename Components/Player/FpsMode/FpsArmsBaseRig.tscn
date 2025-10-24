@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5ou6b04mqob1"]
+
+[ext_resource type="PackedScene" uid="uid://hqgxmcmyw8qj" path="res://Meshs/PlayerArm.blend" id="1_spf1j"]
+[ext_resource type="Texture2D" uid="uid://yhvpso6ngpww" path="res://Meshs/PlayerArm_Tex.png" id="2_uvltp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gqqcn"]
+resource_name = "PlayerArm_Mat"
+cull_mode = 2
+albedo_texture = ExtResource("2_uvltp")
+roughness = 0.5
+texture_filter = 2
+
+[node name="FpsArmsBaseRig" type="Node3D"]
+
+[node name="ArmsLengthOffset" type="Node3D" parent="."]
+editor_description = "Serve para deixar o meio da mao direita no centro da cena"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.79999995)
+
+[node name="Bone_Base" type="Marker3D" parent="ArmsLengthOffset"]
+
+[node name="Bone_ArmR" type="Marker3D" parent="ArmsLengthOffset/Bone_Base"]
+metadata/_edit_group_ = true
+
+[node name="PlayerArm" parent="ArmsLengthOffset/Bone_Base/Bone_ArmR" instance=ExtResource("1_spf1j")]
+
+[node name="Cube" parent="ArmsLengthOffset/Bone_Base/Bone_ArmR/PlayerArm" index="0"]
+layers = 2
+material_override = SubResource("StandardMaterial3D_gqqcn")
+
+[node name="WeaponsSocket" type="Node3D" parent="ArmsLengthOffset/Bone_Base/Bone_ArmR/PlayerArm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -0.9)
+
+[node name="Bone_ArmL" type="Marker3D" parent="ArmsLengthOffset/Bone_Base"]
+transform = Transform3D(0.69636434, -0.6963641, -0.17364825, 0.70710665, 0.7071069, 0, 0.12278788, -0.12278783, 0.9848077, -0.45, -0.2, 0.15)
+metadata/_edit_group_ = true
+
+[node name="PlayerArm" parent="ArmsLengthOffset/Bone_Base/Bone_ArmL" instance=ExtResource("1_spf1j")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Cube" parent="ArmsLengthOffset/Bone_Base/Bone_ArmL/PlayerArm" index="0"]
+layers = 2
+material_override = SubResource("StandardMaterial3D_gqqcn")
+
+[editable path="ArmsLengthOffset/Bone_Base/Bone_ArmR/PlayerArm"]
+[editable path="ArmsLengthOffset/Bone_Base/Bone_ArmL/PlayerArm"]

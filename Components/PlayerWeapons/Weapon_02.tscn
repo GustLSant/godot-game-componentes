@@ -537,9 +537,6 @@ reloadTime = 0.5
 attachmentNodes = [NodePath("Mesh/AttachmentSlots/Sight"), NodePath("Mesh/AttachmentSlots/Magazine"), NodePath("Mesh/AttachmentSlots/Grip"), NodePath("Mesh/AttachmentSlots/Device_L"), NodePath("Mesh/AttachmentSlots/Device_M"), NodePath("Mesh/AttachmentSlots/Device_R"), NodePath("Mesh/AttachmentSlots/Barrel")]
 armsDefaultPosition = Vector3(0.5, -0.8, -1.7)
 armsAimPosition = Vector3(0, -0.5, -1.7)
-recoverDurationMultiplier = 0.75
-recoilRotXStrength = 3.0
-recoilRotZStrength = 3.0
 id = 2
 
 [node name="Components" type="Node" parent="."]
@@ -573,6 +570,7 @@ weapon = NodePath("../..")
 metadata/_custom_type_script = "uid://r3nlpgoy0gdm"
 
 [node name="Mesh" type="Node3D" parent="."]
+transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, -0.004744768, 0.0008969605, 0.0016905069)
 visible = false
 
 [node name="cuboid" type="MeshInstance3D" parent="Mesh"]
@@ -703,23 +701,23 @@ collide_with_areas = true
 
 [node name="Weapons" parent="." instance=ExtResource("7_2sot6")]
 
-[node name="BaseMesh" parent="Weapons" index="0"]
+[node name="BaseMesh" parent="Weapons" index="1"]
 visible = false
 layers = 2
 
-[node name="DefaultMag" parent="Weapons" index="1"]
+[node name="DefaultMag" parent="Weapons" index="2"]
 visible = false
 layers = 2
 
-[node name="DrumMag" parent="Weapons" index="2"]
+[node name="DrumMag" parent="Weapons" index="3"]
 visible = false
 layers = 2
 
-[node name="ExtendedMag" parent="Weapons" index="3"]
+[node name="ExtendedMag" parent="Weapons" index="4"]
 visible = false
 layers = 2
 
-[node name="Cube" parent="Weapons" index="4"]
-layers = 2
+[node name="rifle" parent="Weapons" index="6"]
+visible = false
 
 [editable path="Weapons"]

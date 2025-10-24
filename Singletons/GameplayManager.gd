@@ -24,7 +24,7 @@ func _ready() -> void:
 	var attLoadout_01: T_StartWeaponAttachmentLoadout = T_StartWeaponAttachmentLoadout.new()
 	#attLoadout_01.paths[T_AttachmentSlot.ENUM.SIGHT] = "res://Components/PlayerWeapons/Attachments/RedDotSight.tscn"
 	#attLoadout_01.paths[T_AttachmentSlot.ENUM.SIGHT] = "res://Components/PlayerWeapons/Attachments/ScopeSight.tscn"
-	attLoadout_01.paths[T_AttachmentSlot.ENUM.MAGAZINE] = "res://Components/PlayerWeapons/Attachments/DrumMagazine.tscn"
+	#attLoadout_01.paths[T_AttachmentSlot.ENUM.MAGAZINE] = "res://Components/PlayerWeapons/Attachments/DrumMagazine.tscn"
 	#attLoadout_01.paths[T_AttachmentSlot.ENUM.GRIP] = "res://Components/PlayerWeapons/Attachments/LongGrip.tscn"
 	attLoadout_01.paths[T_AttachmentSlot.ENUM.DEVICE_R] = "res://Components/PlayerWeapons/Attachments/RedLaserDevice.tscn"
 	#attLoadout_01.paths[T_AttachmentSlot.ENUM.DEVICE_L] = "res://Components/PlayerWeapons/Attachments/FlashlightDevice.tscn"
@@ -36,8 +36,8 @@ func _ready() -> void:
 	attLoadout_02.paths[T_AttachmentSlot.ENUM.DEVICE_M] = "res://Components/PlayerWeapons/Attachments/RedLaserDevice.tscn"
 	
 	startInventory.weapons = [
-		"res://Components/PlayerWeapons/Weapon_01.tscn",
-		"res://Components/PlayerWeapons/Weapon_03.tscn"
+		"res://Components/PlayerWeapons/Weapon_04.tscn",
+		"res://Components/PlayerWeapons/Weapon_01.tscn"
 	]
 	startInventory.weaponAttachments = [attLoadout_01, attLoadout_02]
 	
