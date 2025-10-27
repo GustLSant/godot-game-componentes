@@ -9,8 +9,8 @@
 [ext_resource type="Script" uid="uid://cp2wwri0lf58c" path="res://Components/Enemies/ScriptComponents/En_StateMachine.gd" id="8_5lpbf"]
 [ext_resource type="Script" uid="uid://cyyf74wg6aspc" path="res://Components/General/Hurtbox.gd" id="8_nydsv"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_iltev"]
-size = Vector3(1, 2, 1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_nydsv"]
+size = Vector3(1, 2, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_olcdx"]
 
@@ -229,14 +229,14 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_3gedd")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_nydsv"]
-size = Vector3(1.1, 2.05, 1.05)
+[sub_resource type="BoxShape3D" id="BoxShape3D_5lpbf"]
+size = Vector3(1.1, 2.05, 0.6)
 
 [node name="Enemy_01" type="CharacterBody3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("BoxShape3D_iltev")
+shape = SubResource("BoxShape3D_nydsv")
 
 [node name="Components" type="Node3D" parent="."]
 
@@ -334,5 +334,5 @@ healthController = NodePath("../Components/HealthController")
 metadata/_custom_type_script = "uid://cyyf74wg6aspc"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.96046e-08, 1.025, 0.025)
-shape = SubResource("BoxShape3D_nydsv")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.96046e-08, 1.025, 2.2351742e-08)
+shape = SubResource("BoxShape3D_5lpbf")

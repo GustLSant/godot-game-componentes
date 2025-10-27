@@ -535,8 +535,8 @@ script = ExtResource("1_vlsv3")
 magazineSize = 12
 reloadTime = 0.5
 attachmentNodes = [NodePath("Mesh/AttachmentSlots/Sight"), NodePath("Mesh/AttachmentSlots/Magazine"), NodePath("Mesh/AttachmentSlots/Grip"), NodePath("Mesh/AttachmentSlots/Device_L"), NodePath("Mesh/AttachmentSlots/Device_M"), NodePath("Mesh/AttachmentSlots/Device_R"), NodePath("Mesh/AttachmentSlots/Barrel")]
-armsDefaultPosition = Vector3(0.5, -0.8, -1.7)
-armsAimPosition = Vector3(0, -0.5, -1.7)
+armsDefaultPosition = Vector3(0.5, -0.8, -1.5)
+armsAimPosition = Vector3(0, -0.5, -1.5)
 id = 2
 
 [node name="Components" type="Node" parent="."]
@@ -701,23 +701,48 @@ collide_with_areas = true
 
 [node name="Weapons" parent="." instance=ExtResource("7_2sot6")]
 
-[node name="BaseMesh" parent="Weapons" index="1"]
+[node name="pistol_large" parent="Weapons" index="0"]
+visible = false
+
+[node name="rifle" parent="Weapons" index="1"]
+visible = false
+
+[node name="MuzzleFlash" parent="Weapons" index="2"]
+visible = false
+
+[node name="BaseMesh" parent="Weapons" index="4"]
 visible = false
 layers = 2
 
-[node name="DefaultMag" parent="Weapons" index="2"]
+[node name="DefaultMag" parent="Weapons" index="5"]
 visible = false
 layers = 2
 
-[node name="DrumMag" parent="Weapons" index="3"]
+[node name="DrumMag" parent="Weapons" index="6"]
 visible = false
 layers = 2
 
-[node name="ExtendedMag" parent="Weapons" index="4"]
+[node name="ExtendedMag" parent="Weapons" index="7"]
 visible = false
 layers = 2
 
-[node name="rifle" parent="Weapons" index="6"]
+[node name="Body" parent="Weapons" index="8"]
 visible = false
+
+[node name="rifle_large_test" parent="Weapons" index="9"]
+visible = false
+
+[node name="pistol_large_test" parent="Weapons" index="10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02000003, 0)
+visible = false
+layers = 2
+
+[node name="M4" parent="Weapons" index="11"]
+visible = false
+layers = 2
+
+[node name="pistol_smal_001" parent="Weapons" index="12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+layers = 2
 
 [editable path="Weapons"]
