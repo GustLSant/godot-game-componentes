@@ -10,7 +10,7 @@ func _ready() -> void:
 	pass
 
 
-func active(_pos: Vector3, _rot: Vector3, _extraValues: Array[float]) -> void:
+func active(_pos: Vector3, _rot: Vector3, _extraValues: Array) -> void:
 	if(isBusy): return
 	position = _pos
 	rotation_degrees = _rot
@@ -20,11 +20,16 @@ func active(_pos: Vector3, _rot: Vector3, _extraValues: Array[float]) -> void:
 
 
 # funcao a ser sobrescrita
-func playEffect(_extraValues: Array[float]) -> void:
+func playEffect(_extraValues: Array) -> void:
 	animPlayer.play('Effect')
+	pass
+
+# funcao a ser sobrescrita
+func endEffect() -> void:
 	pass
 
 
 func onAnimationFinished(_animName: String) -> void:
 	isBusy = false
+	endEffect()
 	pass

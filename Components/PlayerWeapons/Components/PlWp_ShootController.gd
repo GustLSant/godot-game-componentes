@@ -66,7 +66,7 @@ func shoot() -> void:
 			1,
 			barrelNode.global_position,
 			player.currentPivotRot.global_rotation_degrees + shotRaycast.rotation_degrees,
-			[barrelNode.global_position.distance_to(collisionPoint)]
+			[barrelNode.global_position.distance_to(collisionPoint), barrelNode]
 		)
 	pass
 

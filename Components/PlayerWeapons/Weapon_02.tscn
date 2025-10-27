@@ -710,6 +710,10 @@ visible = false
 [node name="MuzzleFlash" parent="Weapons" index="2"]
 visible = false
 
+[node name="pistol_smal_001" parent="Weapons" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+layers = 2
+
 [node name="BaseMesh" parent="Weapons" index="4"]
 visible = false
 layers = 2
@@ -726,23 +730,19 @@ layers = 2
 visible = false
 layers = 2
 
-[node name="Body" parent="Weapons" index="8"]
+[node name="Body" parent="Weapons" index="9"]
 visible = false
 
-[node name="rifle_large_test" parent="Weapons" index="9"]
+[node name="rifle_large_test" parent="Weapons" index="10"]
 visible = false
 
-[node name="pistol_large_test" parent="Weapons" index="10"]
+[node name="pistol_large_test" parent="Weapons" index="11"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02000003, 0)
 visible = false
 layers = 2
 
-[node name="M4" parent="Weapons" index="11"]
+[node name="M4" parent="Weapons" index="12"]
 visible = false
-layers = 2
-
-[node name="pistol_smal_001" parent="Weapons" index="12"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 layers = 2
 
 [editable path="Weapons"]
