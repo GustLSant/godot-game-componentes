@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://vb3cyx2rvxhs"]
+[gd_scene load_steps=10 format=3 uid="uid://vb3cyx2rvxhs"]
 
 [ext_resource type="Script" uid="uid://unh5h1rg5hdv" path="res://Components/Player/FpsMode/ArmsScriptComponents/ArmsRotationController.gd" id="2_3t2y8"]
 [ext_resource type="Script" uid="uid://3e2u3bcqakmn" path="res://Components/Player/FpsMode/ArmsScriptComponents/ArmsRecoilController.gd" id="2_cjgvy"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://c3ggovm0hxyf" path="res://Components/Player/FpsMode/ArmsScriptComponents/ArmsPositionController.gd" id="6_6sold"]
 [ext_resource type="Script" uid="uid://cyhq6fp8f8xnd" path="res://Components/Player/FpsMode/ArmsScriptComponents/ArmsLeadController.gd" id="7_3t2y8"]
 [ext_resource type="PackedScene" uid="uid://b4i8ky11wn2rx" path="res://Components/Player/FpsMode/FpsArmsMesh.tscn" id="7_mukl3"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_3t2y8"]
 
 [node name="FpsArms" type="Node3D"]
 
@@ -55,7 +57,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="Scaler" type="Node3D" parent="PivotRot/PivotPosture"]
 editor_description = "Serve para nao deixar o vfx dos tiros muito longe do jogador - devido ao tamanho dos braços e armas do jogador"
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.19209e-07, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="PivotSway" type="Marker3D" parent="PivotRot/PivotPosture/Scaler"]
 
@@ -64,6 +66,9 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -1.19209e-07, 0)
 [node name="PivotRecoil" type="Marker3D" parent="PivotRot/PivotPosture/Scaler/PivotSway/PivotPosAim"]
 
 [node name="FpsArmsMesh" parent="PivotRot/PivotPosture/Scaler/PivotSway/PivotPosAim/PivotRecoil" instance=ExtResource("7_mukl3")]
-editor_description = "Está deslocado assim para o pivotRot ficar no local do gatilho da arma, e o efeito de recuo ficar mais natural
 
-1.0 é a distancia do centro do ombro da mesh, até a ponta da mao no FpsArmsMesh -> talvez seja uma boa no futuro deixar a ponta da mao no (0,0,0) pra poder retirar esse offset daqui"
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PivotRot/PivotPosture/Scaler/PivotSway/PivotPosAim"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -1.6)
+visible = false
+mesh = SubResource("SphereMesh_3t2y8")
+skeleton = NodePath("../../../../..")

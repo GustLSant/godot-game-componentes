@@ -32,11 +32,11 @@ func _process(_delta:float)->void:
 	var player = Nodes.player
 	if(not is_instance_valid(player)): color.a = 0.0; return;
 	
-	color.a = lerp(
-		color.a,
-		int(player.isAiming or player.isSprinting) * 0.0 + int(not player.isAiming) * 1.0,
-		TRANS_TIME*_delta
-		)
+	color.a = 1.0#lerp(
+		#color.a,
+		#int(player.isAiming or player.isSprinting) * 0.0 + int(not player.isAiming) * 1.0,
+		#TRANS_TIME*_delta
+		#)
 	
 	currentDistanceToCenter = lerp(
 		currentDistanceToCenter,

@@ -23,12 +23,7 @@ size = Vector2(0.35, 0.001)
 script = ExtResource("1_j2bl4")
 aimFOV = 15.0
 fpsBodyAimFOV = 15.0
-yPosAimOffsetByWeaponId = Dictionary[int, float]({
-0: 0.0,
-1: -0.22,
-2: -0.38,
-3: -0.393
-})
+yPosAimOffset = -0.22
 aimingSelfScaleMultiplier = 0.1
 
 [node name="Scope" parent="." instance=ExtResource("2_j2bl4")]
@@ -54,5 +49,10 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.2
 layers = 2
 material_override = SubResource("StandardMaterial3D_nunkr")
 mesh = SubResource("QuadMesh_j2bl4")
+
+[node name="Regua" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.050000012, 0.13499999, 0)
+visible = false
+size = Vector3(0.1, 0.26999998, 0.1)
 
 [editable path="Scope"]

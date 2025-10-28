@@ -981,7 +981,6 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ymwip")
 
 [node name="Weapon_03" type="Node3D" node_paths=PackedStringArray("attachmentNodes")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 script = ExtResource("1_t0iya")
 magazineSize = 6
 fireSpread = 5.0
@@ -990,7 +989,7 @@ shotsCount = 6
 inheritFireSpread = 1.5
 attachmentNodes = [NodePath("Mesh/AttachmentSlots/Sight"), NodePath("Mesh/AttachmentSlots/Magazine"), NodePath("Mesh/AttachmentSlots/Grip"), NodePath("Mesh/AttachmentSlots/Device_L"), NodePath("Mesh/AttachmentSlots/Device_M"), NodePath("Mesh/AttachmentSlots/Device_R"), NodePath("Mesh/AttachmentSlots/Barrel")]
 armsDefaultPosition = Vector3(0.5, -0.8, -1.1)
-armsAimPosition = Vector3(0, -0.55, -1.1)
+armsAimPosition = Vector3(0, -0.5, -1.1)
 recoverDurationMultiplier = 3.0
 cameraRecoilRotStrength = 5.0
 cameraRecoilShakeStrength = 0.5

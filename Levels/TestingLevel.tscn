@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=4 uid="uid://dks3d7428wa0s"]
+[gd_scene load_steps=70 format=4 uid="uid://dks3d7428wa0s"]
 
 [ext_resource type="Texture2D" uid="uid://drrabfgnrn6db" path="res://Meshs/Weapons_2.png" id="2_eo1b1"]
 [ext_resource type="PackedScene" uid="uid://bqshrdvp6bnlg" path="res://Components/Player/Player.tscn" id="3_5nn8l"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://ep34p3kse2wi" path="res://Components/PlayerWeapons/Components/PlWp_SpreadController.gd" id="11_lydx2"]
 [ext_resource type="Script" uid="uid://dmdn0lkoq1e5l" path="res://Components/PlayerWeapons/Components/PlWp_ShootController.gd" id="12_86pdr"]
 [ext_resource type="Script" uid="uid://r3nlpgoy0gdm" path="res://Components/PlayerWeapons/Components/PlWp_ReloadController.gd" id="13_1ycvb"]
+[ext_resource type="PackedScene" uid="uid://eqxbn8351nqg" path="res://Components/PlayerWeapons/PickupWeapon_03.tscn" id="14_aluge"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s8r7n"]
 size = Vector3(20, 10.37, 13.65)
@@ -695,6 +696,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_i73ma")
 
+[sub_resource type="BoxMesh" id="BoxMesh_aluge"]
+
 [node name="TestingLevel" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("3_5nn8l")]
@@ -981,3 +984,10 @@ enabled = false
 target_position = Vector3(0, 0, -75)
 collision_mask = 519
 collide_with_areas = true
+
+[node name="PickupWeapon05" parent="." instance=ExtResource("14_aluge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2205043, 0.028124765, -8.895603)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.11, 0, 0, 0, 0.11, 0, 0, 0, 0.11, 9.5, 2.25, 5.8)
+mesh = SubResource("BoxMesh_aluge")

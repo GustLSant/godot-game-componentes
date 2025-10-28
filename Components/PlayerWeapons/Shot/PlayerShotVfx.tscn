@@ -298,7 +298,7 @@ alpha_curve = SubResource("CurveTexture_vlpqe")
 albedo_color = Color(1, 0.39215687, 0, 1)
 emission_enabled = true
 emission = Color(1, 0.19607843, 0, 1)
-emission_energy_multiplier = 10.0
+emission_energy_multiplier = 100.0
 texture_filter = 0
 texture_repeat = false
 billboard_mode = 3
@@ -323,8 +323,8 @@ spread = 180.0
 initial_velocity_min = 1.25
 initial_velocity_max = 1.5
 gravity = Vector3(0, 0, 0)
-scale_min = 0.099999994
-scale_max = 0.19999999
+scale_min = 0.049999997
+scale_max = 0.099999994
 scale_curve = SubResource("CurveTexture_yjdfa")
 
 [sub_resource type="QuadMesh" id="QuadMesh_qh1ui"]

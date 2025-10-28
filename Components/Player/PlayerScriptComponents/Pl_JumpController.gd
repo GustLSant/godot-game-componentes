@@ -14,12 +14,12 @@ func _physics_process(_delta: float) -> void:
 	pDelta = _delta
 	handleGravity()
 	handleJump()
-	Nodes.player.velocity.y = currentVerticalMovement
+	player.velocity.y = currentVerticalMovement
 	pass
 
 
 func handleGravity() -> void:
-	player.isOnFloor = Nodes.player.is_on_floor()
+	player.isOnFloor = player.is_on_floor()
 	
 	if(player.isOnFloor):
 		if(currentVerticalMovement <= -15.0): player.emit_signal("DamageTaken", Utils.getValueFraction(20.0, currentVerticalMovement, -20.0))

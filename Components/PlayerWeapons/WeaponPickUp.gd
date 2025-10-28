@@ -12,6 +12,7 @@ var attachmentPaths: Dictionary[T_AttachmentSlot.ENUM, String] = {
 	T_AttachmentSlot.ENUM.DEVICE_R: "",
 	T_AttachmentSlot.ENUM.BARREL:   "",
 }
+
 var referenceWeapon: PlayerWeapon = null
 
 
