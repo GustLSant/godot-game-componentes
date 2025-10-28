@@ -60,12 +60,13 @@ func shoot() -> void:
 		var collisionPoint: Vector3 = shotRaycast.global_position - shotRaycast.global_transform.basis.z * 99.0
 		if(collider != null): 
 			collisionPoint = shotRaycast.get_collision_point()
+			$"../../MeshInstance3D".global_position = collisionPoint
 			if(collider is Hurtbox): collider.healthController.takeDamage(weapon.damage, collisionPoint)
 		
 		Nodes.playerShotVfxManager.requestInstance(
 			1,
 			barrelNode.global_position,
-			player.currentPivotRot.global_rotation_degrees + shotRaycast.rotation_degrees,
+			shotRaycast.global_rotation_degrees,
 			[barrelNode.global_position.distance_to(collisionPoint), barrelNode]
 		)
 	pass

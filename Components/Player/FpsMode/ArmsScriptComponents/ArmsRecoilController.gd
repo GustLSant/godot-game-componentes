@@ -4,8 +4,8 @@ class_name ArmsRecoilController
 @export var pivot: Node3D
 @onready var player: Player = Nodes.player
 
-const TWEEN_ATTACK_DURATION: float = 0.05
-const TWEEN_RECOVER_DURATION: float = 0.2
+const TWEEN_ATTACK_DURATION: float = 0.03
+const TWEEN_RECOVER_DURATION: float = 0.15
 var tweenRecoil: Tween = null
 
 const BASE_RECOIL_STRENGTH_POS_Z: float = 0.15

@@ -12,9 +12,11 @@ func _ready() -> void:
 
 func active(_pos: Vector3, _rot: Vector3, _extraValues: Array) -> void:
 	if(isBusy): return
+	
 	position = _pos
 	rotation_degrees = _rot
 	self.call_deferred('playEffect', _extraValues)
+	
 	isBusy = true
 	pass
 
