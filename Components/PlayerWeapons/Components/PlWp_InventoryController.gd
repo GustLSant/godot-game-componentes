@@ -75,6 +75,8 @@ func setParametersOnPlayerState() -> void:
 	
 	player.armsDefaultPosition = weapon.armsDefaultPosition
 	player.armsAimPosition = weapon.armsAimPosition
+	player.ironSightHeight = weapon.ironSightHeight
+	player.sightAttachmentSlotHeight = weapon.sightAttachmentSlotHeight
 	player.aimFOV = weapon.aimFOV
 	player.fpsBodyAimFOV = weapon.fpsBodyAimFOV
 	

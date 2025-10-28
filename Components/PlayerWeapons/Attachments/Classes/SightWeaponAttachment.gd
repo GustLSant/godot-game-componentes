@@ -3,13 +3,12 @@ class_name SightWeaponAttachment
 
 @export var aimFOV: float = 45.0
 @export var fpsBodyAimFOV: float = 45.0
-@export var yPosAimOffsetByWeaponId: Dictionary[int, float] = {
-	0: 0.0,
-	1: -0.07,
-	2: -0.16,
-	3: -0.22
-}
+@export var centerHeight: float = 0.25
 @export var aimingSelfScaleMultiplier: float = 1.0
+
+
+# Calculo da altura do centerHeight:
+	# altura da base da mesh até o centro de foco dela
 
 
 func _process(delta: float) -> void:
@@ -19,7 +18,7 @@ func _process(delta: float) -> void:
 
 
 func applyStatsOnWeapon() -> void:
-	attachedWeapon.armsAimPosition.y += yPosAimOffsetByWeaponId[attachedWeapon.id]
+	attachedWeapon.armsAimPosition.y -= centerHeight
 	attachedWeapon.aimFOV = aimFOV
 	attachedWeapon.fpsBodyAimFOV = fpsBodyAimFOV
 	pass

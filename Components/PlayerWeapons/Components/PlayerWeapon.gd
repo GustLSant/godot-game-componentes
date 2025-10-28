@@ -15,8 +15,11 @@ class_name PlayerWeapon
 @export var attachmentNodes: Array[Node3D]
 
 @export_category("Aim Variables")
-@export var armsDefaultPosition: Vector3 = Vector3(0.5, -0.8, -0.2)
-@export var armsAimPosition: Vector3 = Vector3(0.0, -0.5, -0.2)
+
+@export var armsDefaultPosition: Vector3 = Vector3(0.5, -0.8, -0.2) ## Default weapon position.
+@export var armsAimPosition: Vector3 = Vector3(0.0, -0.5, -0.2)     ## Weapon position when aiming. The Y value must be the top limit of the weapon's frame, do not include the iron sight's height..
+@export var ironSightHeight: float = 0.025                          ## It's the height of the iron sight's center.
+@export var sightAttachmentSlotHeight: float = 0.0                  ## It's the height of the trail that is used as a slot to sight attachments.
 @export var aimFOV: float = 45.0
 @export var fpsBodyAimFOV: float = 45.0
 
