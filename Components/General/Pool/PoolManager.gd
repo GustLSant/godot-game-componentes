@@ -20,10 +20,10 @@ func setupInstances(_initialAmount: int) -> void:
 	pass
 
 
-func requestInstance(_amount: int, _pos: Vector3, _rot: Vector3 = Vector3.ZERO, _extraValues: Array = []) -> void:
+func requestInstance(_amount: int, _extraValues: Array = []) -> void:
 	for i in _amount:
 		var instance: PoolItem = getAvailableInstance()
-		instance.active(_pos, _rot, _extraValues)
+		instance.active(_extraValues)
 	pass
 
 

@@ -14,12 +14,19 @@ func _ready() -> void:
 
 
 func playEffect(_extraValues: Array) -> void:
+	var _origin: Vector3 = _extraValues[0]
+	var _target: Vector3 = _extraValues[1]
+	var _weaponBarrel: Node3D = _extraValues[2]
+	
+	position = _origin
+	self.call_deferred('look_at', _target)
+	
 	animPlayer.play('Effect')
 	
-	trailMesh.scale.z = _extraValues[0]
+	trailMesh.scale.z = _origin.distance_to(_target)
 	muzzleFlash.rotation_degrees.z = randf_range(-90.0, 90.0)
 	
-	weaponBarrel = _extraValues[1]
+	weaponBarrel = _weaponBarrel
 	set_process(true)
 	pass
 

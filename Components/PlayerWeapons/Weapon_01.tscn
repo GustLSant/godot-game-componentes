@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://cx0kso1jvtdxa"]
+[gd_scene load_steps=26 format=4 uid="uid://cx0kso1jvtdxa"]
 
 [ext_resource type="Script" uid="uid://d1q6q2gbtacwq" path="res://Components/PlayerWeapons/Components/PlayerWeapon.gd" id="1_p0npl"]
 [ext_resource type="Script" uid="uid://coo5sgyoljyjq" path="res://Components/PlayerWeapons/Components/PlWp_AimController.gd" id="2_j61ko"]
@@ -202,11 +202,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_3r5gp")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pl8w6"]
-albedo_color = Color(0, 1, 0, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_qpd0i"]
-
 [node name="Weapon_01" type="Node3D" node_paths=PackedStringArray("attachmentNodes")]
 editor_description = "0.5 -0.8 -1.1
 0.0 -0.5 -1.1"
@@ -336,9 +331,3 @@ enabled = false
 target_position = Vector3(0, 0, -75)
 collision_mask = 519
 collide_with_areas = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
-top_level = true
-material_override = SubResource("StandardMaterial3D_pl8w6")
-mesh = SubResource("SphereMesh_qpd0i")

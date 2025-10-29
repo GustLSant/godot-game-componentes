@@ -10,23 +10,24 @@ func _ready() -> void:
 	pass
 
 
-func active(_pos: Vector3, _rot: Vector3, _extraValues: Array) -> void:
+# can override
+func active(_extraValues: Array) -> void:
 	if(isBusy): return
-	
-	position = _pos
-	rotation_degrees = _rot
 	self.call_deferred('playEffect', _extraValues)
-	
 	isBusy = true
 	pass
 
 
-# funcao a ser sobrescrita
+# can override
 func playEffect(_extraValues: Array) -> void:
+	var _pos: Vector3 = _extraValues[0]
+	
+	position = _pos
+	
 	animPlayer.play('Effect')
 	pass
 
-# funcao a ser sobrescrita
+# can override
 func endEffect() -> void:
 	pass
 
