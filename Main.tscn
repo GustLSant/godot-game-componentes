@@ -1,14 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://bvjwiank6nnwe"]
+[gd_scene format=3 uid="uid://bvjwiank6nnwe"]
 
 [ext_resource type="Script" uid="uid://3e3wx6xwne52" path="res://Main.gd" id="1_2yxtq"]
-[ext_resource type="Script" uid="uid://ck8j48jrjgsv5" path="res://Components/UI/UIRoot.gd" id="3_cm0pq"]
-[ext_resource type="Script" uid="uid://u04od53045ib" path="res://Components/UI/Screens/UI_MainMenu.gd" id="4_cm0pq"]
-[ext_resource type="Script" uid="uid://bpwkom014n5c2" path="res://Components/UI/Screens/UI_Settings.gd" id="5_fos0i"]
-[ext_resource type="Script" uid="uid://dmug1lmun66w2" path="res://Components/UI/Screens/UI_ActionRebindingMenu.gd" id="5_lgr22"]
-[ext_resource type="PackedScene" uid="uid://dmqq5fk6xr18x" path="res://Components/PlayerAmmoDisplayerController/PlayerAmmoPisplayer.tscn" id="7_03owx"]
-[ext_resource type="Script" uid="uid://d37ocptcvm86s" path="res://Components/UI/Screens/UI_HUD.gd" id="7_trn2v"]
-[ext_resource type="PackedScene" uid="uid://dc54qhrcohy5m" path="res://Components/Crosshair/Crosshair.tscn" id="8_03owx"]
-[ext_resource type="Script" uid="uid://1gx0npq643tu" path="res://Components/UI/Screens/UI_PauseMenu.gd" id="9_03owx"]
+[ext_resource type="Script" uid="uid://ck8j48jrjgsv5" path="res://backup/Components/UI/UIRoot.gd" id="3_cm0pq"]
+[ext_resource type="Script" uid="uid://u04od53045ib" path="res://backup/Components/UI/Screens/UI_MainMenu.gd" id="4_cm0pq"]
+[ext_resource type="Script" uid="uid://bpwkom014n5c2" path="res://backup/Components/UI/Screens/UI_Settings.gd" id="5_fos0i"]
+[ext_resource type="Script" uid="uid://dmug1lmun66w2" path="res://backup/Components/UI/Screens/UI_ActionRebindingMenu.gd" id="5_lgr22"]
+[ext_resource type="PackedScene" uid="uid://dmqq5fk6xr18x" path="res://backup/Components/PlayerAmmoDisplayerController/PlayerAmmoPisplayer.tscn" id="7_03owx"]
+[ext_resource type="Script" uid="uid://d37ocptcvm86s" path="res://backup/Components/UI/Screens/UI_HUD.gd" id="7_trn2v"]
+[ext_resource type="PackedScene" uid="uid://dc54qhrcohy5m" path="res://backup/Components/Crosshair/Crosshair.tscn" id="8_03owx"]
+[ext_resource type="Script" uid="uid://1gx0npq643tu" path="res://backup/Components/UI/Screens/UI_PauseMenu.gd" id="9_03owx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lgr22"]
 
@@ -21,18 +21,18 @@ sky = SubResource("Sky_trn2v")
 glow_enabled = true
 volumetric_fog_density = 0.015
 
-[node name="Main" type="Node3D"]
+[node name="Main" type="Node3D" unique_id=1045863430]
 script = ExtResource("1_2yxtq")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=321542388]
 environment = SubResource("Environment_03owx")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1723302665]
 transform = Transform3D(0.965926, -0.12941, 0.224144, 1.49012e-08, 0.866025, 0.5, -0.258819, -0.482963, 0.836516, 0, -2, 0)
 layers = 3
 metadata/_edit_lock_ = true
 
-[node name="UIRoot" type="Control" parent="."]
+[node name="UIRoot" type="Control" parent="." unique_id=84498077]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,7 +43,7 @@ script = ExtResource("3_cm0pq")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="MainMenu" type="Control" parent="UIRoot"]
+[node name="MainMenu" type="Control" parent="UIRoot" unique_id=747271771]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -52,10 +52,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_cm0pq")
+prevScreen = null
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UIRoot/MainMenu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UIRoot/MainMenu" unique_id=949127077]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -69,22 +70,22 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="UIRoot/MainMenu/VBoxContainer"]
+[node name="Label" type="Label" parent="UIRoot/MainMenu/VBoxContainer" unique_id=1704304719]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Main Menu"
 
-[node name="PlayBtn" type="Button" parent="UIRoot/MainMenu/VBoxContainer"]
+[node name="PlayBtn" type="Button" parent="UIRoot/MainMenu/VBoxContainer" unique_id=95490860]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Play Game"
 
-[node name="SettingsBtn" type="Button" parent="UIRoot/MainMenu/VBoxContainer"]
+[node name="SettingsBtn" type="Button" parent="UIRoot/MainMenu/VBoxContainer" unique_id=923312575]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Settings"
 
-[node name="Settings" type="Control" parent="UIRoot"]
+[node name="Settings" type="Control" parent="UIRoot" unique_id=471794998]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -93,10 +94,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("5_fos0i")
+prevScreen = null
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UIRoot/Settings"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UIRoot/Settings" unique_id=1170095297]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -110,22 +112,22 @@ offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="UIRoot/Settings/VBoxContainer"]
+[node name="Label" type="Label" parent="UIRoot/Settings/VBoxContainer" unique_id=140457513]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Settings"
 
-[node name="RebindingMenu" type="Button" parent="UIRoot/Settings/VBoxContainer"]
+[node name="RebindingMenu" type="Button" parent="UIRoot/Settings/VBoxContainer" unique_id=2083166650]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Rebind Keys"
 
-[node name="ReturnButton" type="Button" parent="UIRoot/Settings/VBoxContainer"]
+[node name="ReturnButton" type="Button" parent="UIRoot/Settings/VBoxContainer" unique_id=1164512775]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Return"
 
-[node name="ActionRebindingMenu" type="Control" parent="UIRoot" node_paths=PackedStringArray("container")]
+[node name="ActionRebindingMenu" type="Control" parent="UIRoot" unique_id=1967849819 node_paths=PackedStringArray("container")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -134,10 +136,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("5_lgr22")
 container = NodePath("MarginContainer/ContentContainer/ScrollContainer/ActionsContainer")
+prevScreen = null
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="UIRoot/ActionRebindingMenu"]
+[node name="MarginContainer" type="MarginContainer" parent="UIRoot/ActionRebindingMenu" unique_id=724300814]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -149,24 +152,24 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="ContentContainer" type="VBoxContainer" parent="UIRoot/ActionRebindingMenu/MarginContainer"]
+[node name="ContentContainer" type="VBoxContainer" parent="UIRoot/ActionRebindingMenu/MarginContainer" unique_id=1106374732]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UIRoot/ActionRebindingMenu/MarginContainer/ContentContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UIRoot/ActionRebindingMenu/MarginContainer/ContentContainer" unique_id=1012874179]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ActionsContainer" type="VBoxContainer" parent="UIRoot/ActionRebindingMenu/MarginContainer/ContentContainer/ScrollContainer"]
+[node name="ActionsContainer" type="VBoxContainer" parent="UIRoot/ActionRebindingMenu/MarginContainer/ContentContainer/ScrollContainer" unique_id=736042732]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ReturnButton" type="Button" parent="UIRoot/ActionRebindingMenu/MarginContainer/ContentContainer"]
+[node name="ReturnButton" type="Button" parent="UIRoot/ActionRebindingMenu/MarginContainer/ContentContainer" unique_id=1638156623]
 layout_mode = 2
 size_flags_horizontal = 8
 text = "Return"
 
-[node name="HUD" type="Control" parent="UIRoot"]
+[node name="HUD" type="Control" parent="UIRoot" unique_id=1437374363]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -175,16 +178,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("7_trn2v")
+prevScreen = null
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="PlayerAmmoDisplayer" parent="UIRoot/HUD" instance=ExtResource("7_03owx")]
+[node name="PlayerAmmoDisplayer" parent="UIRoot/HUD" unique_id=399545982 instance=ExtResource("7_03owx")]
 layout_mode = 1
 
-[node name="Crosshair" parent="UIRoot/HUD" instance=ExtResource("8_03owx")]
+[node name="Crosshair" parent="UIRoot/HUD" unique_id=1593251632 instance=ExtResource("8_03owx")]
 layout_mode = 1
 
-[node name="PauseMenu" type="Control" parent="UIRoot"]
+[node name="PauseMenu" type="Control" parent="UIRoot" unique_id=1249162020]
 process_mode = 3
 visible = false
 z_index = 999
@@ -195,8 +199,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_03owx")
+prevScreen = null
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UIRoot/PauseMenu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UIRoot/PauseMenu" unique_id=1183427620]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -210,22 +215,22 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="UIRoot/PauseMenu/VBoxContainer"]
+[node name="Label" type="Label" parent="UIRoot/PauseMenu/VBoxContainer" unique_id=299087415]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Pause Menu"
 
-[node name="ResumeBtn" type="Button" parent="UIRoot/PauseMenu/VBoxContainer"]
+[node name="ResumeBtn" type="Button" parent="UIRoot/PauseMenu/VBoxContainer" unique_id=79263351]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Resume Game"
 
-[node name="SettingsBtn" type="Button" parent="UIRoot/PauseMenu/VBoxContainer"]
+[node name="SettingsBtn" type="Button" parent="UIRoot/PauseMenu/VBoxContainer" unique_id=1294895301]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Settings"
 
-[node name="QuitButton" type="Button" parent="UIRoot/PauseMenu/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="UIRoot/PauseMenu/VBoxContainer" unique_id=1923743900]
 layout_mode = 2
 text = "Quit to Main Menu"
 

@@ -1,7 +1,8 @@
-[gd_resource type="MeshLibrary" load_steps=25 format=4 uid="uid://dhx4dqc5hxu41"]
+[gd_resource type="MeshLibrary" format=4 uid="uid://dhx4dqc5hxu41"]
 
-[ext_resource type="Material" uid="uid://bd6kmaulilf0p" path="res://Materials/DarkGrey.tres" id="1_p5c33"]
-[ext_resource type="Material" uid="uid://frdf4om8ddpe" path="res://Materials/LightGrey.tres" id="2_xygdm"]
+[ext_resource type="Material" uid="uid://bd6kmaulilf0p" path="res://backup/Materials/DarkGrey.tres" id="1_p5c33"]
+[ext_resource type="Material" uid="uid://frdf4om8ddpe" path="res://backup/Materials/LightGrey.tres" id="2_xygdm"]
+
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_n6umm"]
 _surfaces = [{

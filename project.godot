@@ -8,20 +8,24 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Game Componentes"
 run/main_scene="res://Main.tscn"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 run/max_fps=60
 config/icon="res://icon.svg"
 
 [autoload]
 
-Utils="*res://Singletons/Utils.gd"
-Settings="*res://Singletons/Settings.gd"
-Nodes="*res://Singletons/Nodes.gd"
-GameplayManager="*res://Singletons/GameplayManager.gd"
+Utils="*res://backup/Singletons/Utils.gd"
+Settings="*res://backup/Singletons/Settings.gd"
+Nodes="*res://backup/Singletons/Nodes.gd"
+GameplayManager="*res://backup/Singletons/GameplayManager.gd"
 
 [display]
 
@@ -30,8 +34,8 @@ window/vsync/vsync_mode=0
 [file_customization]
 
 folder_colors={
-"res://Components/": "blue",
-"res://Types/": "teal"
+"res://backup/Components/": "blue",
+"res://backup/Types/": "teal"
 }
 
 [input]
