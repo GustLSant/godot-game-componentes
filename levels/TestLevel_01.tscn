@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://xch3di2r76ea" path="res://components/controllers/WalkController.gd" id="2_6b0sv"]
 [ext_resource type="Script" uid="uid://8aa0vbfv2gaq" path="res://components/controllers/SprintController.gd" id="3_eetvn"]
 [ext_resource type="Script" uid="uid://cbqo3htvrywpk" path="res://components/contexts/PlayerCameraContext.gd" id="4_eetvn"]
+[ext_resource type="Script" uid="uid://b8tjj0vtcc1ol" path="res://components/controllers/JumpController.gd" id="4_rd8ns"]
 [ext_resource type="Script" uid="uid://cuu7ebd8mwkkr" path="res://components/controllers/FpsCameraRotController.gd" id="5_rd8ns"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18gsl"]
@@ -53,10 +54,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
 [node name="Components" type="Node3D" parent="Player" unique_id=2040820082]
 
-[node name="PlayerMovementContext" type="Node" parent="Player/Components" unique_id=1432944117 node_paths=PackedStringArray("walkController", "sprintController", "player", "pivotRot")]
+[node name="PlayerMovementContext" type="Node" parent="Player/Components" unique_id=1432944117 node_paths=PackedStringArray("walkController", "sprintController", "jumpController", "player", "pivotRot")]
 script = ExtResource("1_8pmiw")
 walkController = NodePath("WalkController")
 sprintController = NodePath("SprintController")
+jumpController = NodePath("JumpController")
 player = NodePath("../..")
 pivotRot = NodePath("../../PivotRot")
 metadata/_custom_type_script = "uid://ijve7knyinpg"
@@ -68,6 +70,10 @@ metadata/_custom_type_script = "uid://xch3di2r76ea"
 [node name="SprintController" type="Node" parent="Player/Components/PlayerMovementContext" unique_id=1112667605]
 script = ExtResource("3_eetvn")
 metadata/_custom_type_script = "uid://8aa0vbfv2gaq"
+
+[node name="JumpController" type="Node" parent="Player/Components/PlayerMovementContext" unique_id=1958825641]
+script = ExtResource("4_rd8ns")
+metadata/_custom_type_script = "uid://b8tjj0vtcc1ol"
 
 [node name="PlayerCameraContext" type="Node" parent="Player/Components" unique_id=2137657292 node_paths=PackedStringArray("fpsCameraRotController", "pivotRot")]
 script = ExtResource("4_eetvn")
