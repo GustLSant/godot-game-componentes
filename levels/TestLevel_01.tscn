@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://ijve7knyinpg" path="res://components/contexts/PlayerMovementContext.gd" id="1_8pmiw"]
 [ext_resource type="Script" uid="uid://xch3di2r76ea" path="res://components/controllers/WalkController.gd" id="2_6b0sv"]
 [ext_resource type="Script" uid="uid://8aa0vbfv2gaq" path="res://components/controllers/SprintController.gd" id="3_eetvn"]
+[ext_resource type="Script" uid="uid://cbqo3htvrywpk" path="res://components/contexts/PlayerCameraContext.gd" id="4_eetvn"]
+[ext_resource type="Script" uid="uid://cuu7ebd8mwkkr" path="res://components/controllers/FpsCameraRotController.gd" id="5_rd8ns"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18gsl"]
 albedo_color = Color(0.24719188, 0.2471919, 0.24719188, 1)
@@ -14,6 +16,11 @@ size = Vector3(91, 1, 91)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_18gsl"]
 size = Vector3(1, 2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eetvn"]
+albedo_color = Color(0.6522269, 2.7675183e-06, 4.3317675e-07, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rd8ns"]
 
 [node name="TestLevel01" type="Node3D" unique_id=131623360]
 
@@ -29,24 +36,24 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_0ii8u")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1338959818]
-transform = Transform3D(0.74724287, -0.41048887, 0.52261555, 0, 0.7864189, 0.6176935, -0.6645511, -0.46156704, 0.58764595, 11.296068, 12.30871, 10.32465)
+[node name="Player" type="CharacterBody3D" parent="." unique_id=101343484]
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=101343484]
-
-[node name="MeshInstance3D" type="CSGBox3D" parent="CharacterBody3D" unique_id=5986684]
+[node name="MeshInstance3D" type="CSGBox3D" parent="Player" unique_id=5986684]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 size = Vector3(1, 2, 1)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1299000942]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=1299000942]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_18gsl")
 
-[node name="PivotRot" type="Marker3D" parent="CharacterBody3D" unique_id=174584589]
+[node name="PivotRot" type="Marker3D" parent="Player" unique_id=174584589]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
-[node name="Components" type="Node3D" parent="CharacterBody3D" unique_id=2040820082]
+[node name="Camera3D" type="Camera3D" parent="Player/PivotRot" unique_id=1338959818]
 
-[node name="PlayerMovementContext" type="Node" parent="CharacterBody3D/Components" unique_id=1432944117 node_paths=PackedStringArray("walkController", "sprintController", "player", "pivotRot")]
+[node name="Components" type="Node3D" parent="Player" unique_id=2040820082]
+
+[node name="PlayerMovementContext" type="Node" parent="Player/Components" unique_id=1432944117 node_paths=PackedStringArray("walkController", "sprintController", "player", "pivotRot")]
 script = ExtResource("1_8pmiw")
 walkController = NodePath("WalkController")
 sprintController = NodePath("SprintController")
@@ -54,10 +61,106 @@ player = NodePath("../..")
 pivotRot = NodePath("../../PivotRot")
 metadata/_custom_type_script = "uid://ijve7knyinpg"
 
-[node name="WalkController" type="Node" parent="CharacterBody3D/Components/PlayerMovementContext" unique_id=1729538667]
+[node name="WalkController" type="Node" parent="Player/Components/PlayerMovementContext" unique_id=1729538667]
 script = ExtResource("2_6b0sv")
 metadata/_custom_type_script = "uid://xch3di2r76ea"
 
-[node name="SprintController" type="Node" parent="CharacterBody3D/Components/PlayerMovementContext" unique_id=1112667605]
+[node name="SprintController" type="Node" parent="Player/Components/PlayerMovementContext" unique_id=1112667605]
 script = ExtResource("3_eetvn")
 metadata/_custom_type_script = "uid://8aa0vbfv2gaq"
+
+[node name="PlayerCameraContext" type="Node" parent="Player/Components" unique_id=2137657292 node_paths=PackedStringArray("fpsCameraRotController", "pivotRot")]
+script = ExtResource("4_eetvn")
+fpsCameraRotController = NodePath("FpsCameraRotController")
+pivotRot = NodePath("../../PivotRot")
+metadata/_custom_type_script = "uid://cbqo3htvrywpk"
+
+[node name="FpsCameraRotController" type="Node" parent="Player/Components/PlayerCameraContext" unique_id=271552748]
+script = ExtResource("5_rd8ns")
+metadata/_custom_type_script = "uid://cuu7ebd8mwkkr"
+
+[node name="Environment" type="Node3D" parent="." unique_id=243767993]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment" unique_id=2129492804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.748523, 0.5, 6.0003023)
+material_override = SubResource("StandardMaterial3D_eetvn")
+mesh = SubResource("BoxMesh_rd8ns")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Environment" unique_id=1522529514]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.453864, 0.5, 4.9000273)
+material_override = SubResource("StandardMaterial3D_eetvn")
+mesh = SubResource("BoxMesh_rd8ns")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Environment" unique_id=1014343313]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1197968, 0.5, 15.817624)
+material_override = SubResource("StandardMaterial3D_eetvn")
+mesh = SubResource("BoxMesh_rd8ns")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Environment" unique_id=1716770992]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.511251, 0.5, 19.974323)
+material_override = SubResource("StandardMaterial3D_eetvn")
+mesh = SubResource("BoxMesh_rd8ns")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Environment" unique_id=1542191711]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.030386, 0.4999981, -5.1247196)
+material_override = SubResource("StandardMaterial3D_eetvn")
+mesh = SubResource("BoxMesh_rd8ns")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Environment" unique_id=1448224631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.017559, 0.4999981, -13.996732)
+material_override = SubResource("StandardMaterial3D_eetvn")
+mesh = SubResource("BoxMesh_rd8ns")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Environment" unique_id=596989644]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.65351963, 0.4999981, -8.090589)
+material_override = SubResource("StandardMaterial3D_eetvn")
+mesh = SubResource("BoxMesh_rd8ns")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Environment" unique_id=1198040434]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.970249, 0.4999981, -13.22423)
+material_override = SubResource("StandardMaterial3D_eetvn")
+mesh = SubResource("BoxMesh_rd8ns")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="Environment" unique_id=899945047]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5286455, 0.4999981, -5.7776384)
+material_override = SubResource("StandardMaterial3D_eetvn")
+mesh = SubResource("BoxMesh_rd8ns")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="Environment" unique_id=852012181]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.987364, 0.4999981, 6.231394)
+material_override = SubResource("StandardMaterial3D_eetvn")
+mesh = SubResource("BoxMesh_rd8ns")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="Environment" unique_id=882567782]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.815275, 0.4999981, 11.483583)
+material_override = SubResource("StandardMaterial3D_eetvn")
+mesh = SubResource("BoxMesh_rd8ns")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="Environment" unique_id=13860365]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.2801075, 0.4999981, -15.59113)
+material_override = SubResource("StandardMaterial3D_eetvn")
+mesh = SubResource("BoxMesh_rd8ns")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D13" type="MeshInstance3D" parent="Environment" unique_id=460204023]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1354904, 0.4999981, -19.947588)
+material_override = SubResource("StandardMaterial3D_eetvn")
+mesh = SubResource("BoxMesh_rd8ns")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D14" type="MeshInstance3D" parent="Environment" unique_id=1159720693]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.706213, 0.4999981, -13.379758)
+material_override = SubResource("StandardMaterial3D_eetvn")
+mesh = SubResource("BoxMesh_rd8ns")
+skeleton = NodePath("../..")
