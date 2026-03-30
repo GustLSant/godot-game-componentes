@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://ci6nx020r3yfe"]
+
+[ext_resource type="Script" uid="uid://ijve7knyinpg" path="res://components/contexts/PlayerMovementContext.gd" id="1_8pmiw"]
+[ext_resource type="Script" uid="uid://xch3di2r76ea" path="res://components/controllers/WalkController.gd" id="2_6b0sv"]
+[ext_resource type="Script" uid="uid://8aa0vbfv2gaq" path="res://components/controllers/SprintController.gd" id="3_eetvn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18gsl"]
+albedo_color = Color(0.24719188, 0.2471919, 0.24719188, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0ii8u"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0ii8u"]
+size = Vector3(91, 1, 91)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_18gsl"]
+size = Vector3(1, 2, 1)
+
+[node name="TestLevel01" type="Node3D" unique_id=131623360]
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=1395577070]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1847481842]
+transform = Transform3D(45.83, 0, 0, 0, 45.83, 0, 0, 0, 45.83, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_18gsl")
+mesh = SubResource("PlaneMesh_0ii8u")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=792902494]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_0ii8u")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1338959818]
+transform = Transform3D(0.74724287, -0.41048887, 0.52261555, 0, 0.7864189, 0.6176935, -0.6645511, -0.46156704, 0.58764595, 11.296068, 12.30871, 10.32465)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=101343484]
+
+[node name="MeshInstance3D" type="CSGBox3D" parent="CharacterBody3D" unique_id=5986684]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+size = Vector3(1, 2, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1299000942]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_18gsl")
+
+[node name="PivotRot" type="Marker3D" parent="CharacterBody3D" unique_id=174584589]
+
+[node name="Components" type="Node3D" parent="CharacterBody3D" unique_id=2040820082]
+
+[node name="PlayerMovementContext" type="Node" parent="CharacterBody3D/Components" unique_id=1432944117 node_paths=PackedStringArray("walkController", "sprintController", "player", "pivotRot")]
+script = ExtResource("1_8pmiw")
+walkController = NodePath("WalkController")
+sprintController = NodePath("SprintController")
+player = NodePath("../..")
+pivotRot = NodePath("../../PivotRot")
+metadata/_custom_type_script = "uid://ijve7knyinpg"
+
+[node name="WalkController" type="Node" parent="CharacterBody3D/Components/PlayerMovementContext" unique_id=1729538667]
+script = ExtResource("2_6b0sv")
+metadata/_custom_type_script = "uid://xch3di2r76ea"
+
+[node name="SprintController" type="Node" parent="CharacterBody3D/Components/PlayerMovementContext" unique_id=1112667605]
+script = ExtResource("3_eetvn")
+metadata/_custom_type_script = "uid://8aa0vbfv2gaq"

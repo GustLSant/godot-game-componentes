@@ -10,49 +10,48 @@
 [ext_resource type="Script" uid="uid://bl2t62uejfdxp" path="res://backup/Components/Player/PlayerScriptComponents/Pl_PostureController.gd" id="8_qf1ab"]
 [ext_resource type="PackedScene" uid="uid://dso55xewkvp8t" path="res://backup/Components/PlayerInteractionController/PlayerInteractionController.tscn" id="8_qij2n"]
 
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_px31v"]
 radius = 0.4
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weaponSockets")]
+[node name="Player" type="CharacterBody3D" unique_id=919566315 node_paths=PackedStringArray("weaponSockets")]
 collision_layer = 8
 collision_mask = 3
 script = ExtResource("1_qij2n")
 weaponSockets = [NodePath("FPS/FpsArms/PivotRot/PivotPosture/Scaler/PivotSway/PivotPosAim/PivotRecoil/FpsArmsMesh/ArmsLengthOffset/Bone_Base/Bone_ArmR/PlayerArm/WeaponsSocket")]
 
-[node name="Components" type="Node3D" parent="."]
+[node name="Components" type="Node3D" parent="." unique_id=68955011]
 
-[node name="Pl_JumpController" type="Node" parent="Components"]
+[node name="Pl_JumpController" type="Node" parent="Components" unique_id=1503989871]
 script = ExtResource("3_cyqth")
 metadata/_custom_type_script = "uid://c8vevuqro0x0o"
 
-[node name="Pl_MovementController" type="Node" parent="Components"]
+[node name="Pl_MovementController" type="Node" parent="Components" unique_id=599833325]
 script = ExtResource("2_8qe71")
 metadata/_custom_type_script = "uid://c7alstv6ddk1m"
 
-[node name="Pl_HealthController" type="Node" parent="Components"]
+[node name="Pl_HealthController" type="Node" parent="Components" unique_id=649761138]
 script = ExtResource("6_px31v")
 metadata/_custom_type_script = "uid://dv6lvx2d5aiug"
 
-[node name="Pl_InventoryController" type="Node" parent="Components"]
+[node name="Pl_InventoryController" type="Node" parent="Components" unique_id=674881311]
 script = ExtResource("7_qij2n")
 metadata/_custom_type_script = "uid://bqwi45676hfsr"
 
-[node name="Pl_PostureController" type="Node" parent="Components"]
+[node name="Pl_PostureController" type="Node" parent="Components" unique_id=2091060087]
 script = ExtResource("8_qf1ab")
 metadata/_custom_type_script = "uid://bl2t62uejfdxp"
 
-[node name="PlayerInteractionController" parent="Components" instance=ExtResource("8_qij2n")]
+[node name="PlayerInteractionController" parent="Components" unique_id=416323495 instance=ExtResource("8_qij2n")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=40773039]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_px31v")
 metadata/_edit_lock_ = true
 
-[node name="FPS" type="Node3D" parent="."]
+[node name="FPS" type="Node3D" parent="." unique_id=390426673]
 metadata/_edit_lock_ = true
 
-[node name="FpsCamera" parent="FPS" instance=ExtResource("5_71y7e")]
+[node name="FpsCamera" parent="FPS" unique_id=273644456 instance=ExtResource("5_71y7e")]
 metadata/_edit_lock_ = true
 
-[node name="FpsArms" parent="FPS" instance=ExtResource("7_eorbh")]
+[node name="FpsArms" parent="FPS" unique_id=814866209 instance=ExtResource("7_eorbh")]

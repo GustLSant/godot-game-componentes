@@ -7,15 +7,15 @@ func _init() -> void:
 
 
 func _on_play_btn_pressed() -> void:
-	GameplayManager.emit_signal('StartGame')
+	GameplayManager.startGame()
 	pass
 
 
 func _on_settings_button_pressed() -> void:
-	requestChangeScreen('Settings', self.name)
+	#requestChangeScreen('Settings', self.name)
 	pass
 
 
 func onGameStarted() -> void:
-	requestChangeScreen('HUD')
+	#requestChangeScreen('HUD')
 	pass

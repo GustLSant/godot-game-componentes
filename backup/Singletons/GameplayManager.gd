@@ -2,7 +2,6 @@ extends Node
 
 var currentLevel: Node3D = null
 
-signal StartGame()
 signal GameStarted()
 signal PauseGame()
 signal ResumeGame()
@@ -12,7 +11,6 @@ var startInventory: T_StartInventory = T_StartInventory.new()
 
 
 func _init() -> void:
-	self.connect('StartGame', onStartGame)
 	self.connect('GameStarted', onGameStarted)
 	self.connect('PauseGame', onPauseGame)
 	self.connect('ResumeGame', onResumeGame)
@@ -45,8 +43,8 @@ func _ready() -> void:
 	pass
 
 
-func onStartGame() -> void:
-	currentLevel = load("res://Levels/TestingLevel.tscn").instantiate()
+func startGame() -> void:
+	currentLevel = load("res://levels/TestLevel_01.tscn").instantiate()
 	Nodes.mainNode.add_child(currentLevel)
 	Nodes.mainNode.move_child(currentLevel, 0)
 	emit_signal('GameStarted')

@@ -7,7 +7,7 @@ var currentWeaponIdx: int = 0
 
 
 func _init() -> void:
-	GameplayManager.connect('GameStarted', onGameStarted)
+	#GameplayManager.connect('GameStarted', onGameStarted)
 	pass
 
 

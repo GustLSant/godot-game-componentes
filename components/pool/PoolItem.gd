@@ -19,12 +19,12 @@ func active(_pos: Vector3, _rot: Vector3, _extraValues: Array) -> void:
 	pass
 
 
-# funcao a ser sobrescrita
+# override
 func playEffect(_extraValues: Array) -> void:
 	animPlayer.play('Effect')
 	pass
 
-# funcao a ser sobrescrita
+# override
 func endEffect() -> void:
 	pass
 

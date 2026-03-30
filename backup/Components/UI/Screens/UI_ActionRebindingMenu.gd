@@ -38,18 +38,18 @@ var actionsText: Array[String] = [
 func _ready() -> void:
 	super._ready()
 	
-	for i in range(actions.size()):
-		var element: ActionRebindElement = load("res://Components/UI/Elements/ActionRebindElement.tscn").instantiate()
-		element.action = actions[i]
-		element.actionText = actionsText[i]
-		container.add_child(element)
-		pass
+	#for i in range(actions.size()):
+		#var element: ActionRebindElement = load("res://Components/UI/Elements/ActionRebindElement.tscn").instantiate()
+		#element.action = actions[i]
+		#element.actionText = actionsText[i]
+		#container.add_child(element)
+		#pass
 	
 	pass
 
 
 func returnScreen() -> void:
-	requestChangeScreen('Settings')
+	#requestChangeScreen('Settings')
 	pass
 
 
