@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://8aa0vbfv2gaq" path="res://components/controllers/SprintController.gd" id="3_eetvn"]
 [ext_resource type="Script" uid="uid://cbqo3htvrywpk" path="res://components/contexts/PlayerCameraContext.gd" id="4_eetvn"]
 [ext_resource type="Script" uid="uid://b8tjj0vtcc1ol" path="res://components/controllers/JumpController.gd" id="4_rd8ns"]
+[ext_resource type="Script" uid="uid://b11da8cfch8gr" path="res://components/controllers/CrouchController.gd" id="5_4t4h5"]
 [ext_resource type="Script" uid="uid://cuu7ebd8mwkkr" path="res://components/controllers/FpsCameraRotController.gd" id="5_rd8ns"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18gsl"]
@@ -54,11 +55,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
 [node name="Components" type="Node3D" parent="Player" unique_id=2040820082]
 
-[node name="PlayerMovementContext" type="Node" parent="Player/Components" unique_id=1432944117 node_paths=PackedStringArray("walkController", "sprintController", "jumpController", "player", "pivotRot")]
+[node name="PlayerMovementContext" type="Node" parent="Player/Components" unique_id=1432944117 node_paths=PackedStringArray("walkController", "sprintController", "jumpController", "crouchController", "player", "pivotRot")]
 script = ExtResource("1_8pmiw")
 walkController = NodePath("WalkController")
 sprintController = NodePath("SprintController")
 jumpController = NodePath("JumpController")
+crouchController = NodePath("CrouchController")
 player = NodePath("../..")
 pivotRot = NodePath("../../PivotRot")
 metadata/_custom_type_script = "uid://ijve7knyinpg"
@@ -74,6 +76,10 @@ metadata/_custom_type_script = "uid://8aa0vbfv2gaq"
 [node name="JumpController" type="Node" parent="Player/Components/PlayerMovementContext" unique_id=1958825641]
 script = ExtResource("4_rd8ns")
 metadata/_custom_type_script = "uid://b8tjj0vtcc1ol"
+
+[node name="CrouchController" type="Node" parent="Player/Components/PlayerMovementContext" unique_id=1614022174]
+script = ExtResource("5_4t4h5")
+metadata/_custom_type_script = "uid://b11da8cfch8gr"
 
 [node name="PlayerCameraContext" type="Node" parent="Player/Components" unique_id=2137657292 node_paths=PackedStringArray("fpsCameraRotController", "pivotRot")]
 script = ExtResource("4_eetvn")
