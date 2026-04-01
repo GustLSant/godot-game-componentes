@@ -8,10 +8,12 @@ class State:
 class Actions:
 	var changeSprinting: Callable
 
+signal SprintChanged(_newValue: bool)
+
 const BASE_SPEED_MULTIPLIER: float = 1.0
 const SPRINT_SPEED_MUlTIPLIER: float = 2.0
 
-signal SprintChanged(_newValue: bool)
+const LERP_FACTOR: float = 12.0
 
 var state: State = State.new()
 var actions: Actions = Actions.new()
@@ -49,7 +51,7 @@ func handleSprint(_inputVecMovement: Vector2, _delta: float) -> void:
 	state.speedMultiplier = lerp(
 		state.speedMultiplier,
 		int(state.isSprinting) * SPRINT_SPEED_MUlTIPLIER + int(not state.isSprinting) * BASE_SPEED_MULTIPLIER,
-		10 * _delta
+		LERP_FACTOR * _delta
 	)
 	pass
 

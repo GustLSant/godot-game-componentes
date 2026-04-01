@@ -9,6 +9,8 @@ class State:
 class Actions:
 	var changeCrouch: Callable
 
+signal CrouchChanged(_newState: bool)
+
 const BASE_SPEED_MUTLIPLIER: float = 1.0
 const CROUCH_SPEED_MULTIPLIER: float = 0.5
 
@@ -16,8 +18,6 @@ const BASE_HEIGHT_OFFSET: float = 0.0
 const CROUCH_HEIGHT_OFFSET: float = -0.2
 
 const LERP_FACTOR: float = 12.0
-
-signal CrouchChanged(_newState: bool)
 
 var state:State = State.new()
 var actions:Actions = Actions.new()

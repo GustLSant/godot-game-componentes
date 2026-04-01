@@ -1,12 +1,14 @@
 [gd_scene format=3 uid="uid://ci6nx020r3yfe"]
 
-[ext_resource type="Script" uid="uid://ijve7knyinpg" path="res://components/contexts/PlayerMovementContext.gd" id="1_8pmiw"]
+[ext_resource type="Script" uid="uid://c2r7cjqdaex0e" path="res://components/contexts/PlayerContext.gd" id="1_2qii2"]
 [ext_resource type="Script" uid="uid://xch3di2r76ea" path="res://components/controllers/WalkController.gd" id="2_6b0sv"]
 [ext_resource type="Script" uid="uid://8aa0vbfv2gaq" path="res://components/controllers/SprintController.gd" id="3_eetvn"]
-[ext_resource type="Script" uid="uid://cbqo3htvrywpk" path="res://components/contexts/PlayerCameraContext.gd" id="4_eetvn"]
 [ext_resource type="Script" uid="uid://b8tjj0vtcc1ol" path="res://components/controllers/JumpController.gd" id="4_rd8ns"]
 [ext_resource type="Script" uid="uid://b11da8cfch8gr" path="res://components/controllers/CrouchController.gd" id="5_4t4h5"]
 [ext_resource type="Script" uid="uid://cuu7ebd8mwkkr" path="res://components/controllers/FpsCameraRotController.gd" id="5_rd8ns"]
+[ext_resource type="Script" uid="uid://cl1dsaei4tudu" path="res://components/controllers/StrafeController.gd" id="7_ep5s3"]
+[ext_resource type="Script" uid="uid://bnpgisg7fga1b" path="res://components/handlers/PlayerCameraHandler.gd" id="8_2qii2"]
+[ext_resource type="Script" uid="uid://utjs8w0vpjtp" path="res://components/handlers/PlayerMovementHandler.gd" id="9_ep5s3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18gsl"]
 albedo_color = Color(0.24719188, 0.2471919, 0.24719188, 1)
@@ -23,6 +25,36 @@ size = Vector3(1, 2, 1)
 albedo_color = Color(0.6522269, 2.7675183e-06, 4.3317675e-07, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_rd8ns"]
+
+[sub_resource type="GDScript" id="GDScript_ep5s3"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	self.text = str($\"../../Player/Components/PlayerContext\".sprintController.state.isSprinting)
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_2qii2"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	self.text = str($\"../../Player/Components/PlayerContext\".crouchController.state.isCrouched)
+	pass
+"
 
 [node name="TestLevel01" type="Node3D" unique_id=131623360]
 
@@ -51,45 +83,62 @@ shape = SubResource("BoxShape3D_18gsl")
 [node name="PivotRot" type="Marker3D" parent="Player" unique_id=174584589]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Player/PivotRot" unique_id=1338959818]
+[node name="PivotStrafe" type="Marker3D" parent="Player/PivotRot" unique_id=530741314]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player/PivotRot/PivotStrafe" unique_id=1338959818]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 
 [node name="Components" type="Node3D" parent="Player" unique_id=2040820082]
 
-[node name="PlayerMovementContext" type="Node" parent="Player/Components" unique_id=1432944117 node_paths=PackedStringArray("walkController", "sprintController", "jumpController", "crouchController", "player", "pivotRot")]
-script = ExtResource("1_8pmiw")
+[node name="PlayerContext" type="Node" parent="Player/Components" unique_id=1085948232 node_paths=PackedStringArray("walkController", "sprintController", "jumpController", "crouchController", "strafeController", "fpsCameraRotController", "player", "pivotRot")]
+script = ExtResource("1_2qii2")
 walkController = NodePath("WalkController")
 sprintController = NodePath("SprintController")
 jumpController = NodePath("JumpController")
 crouchController = NodePath("CrouchController")
+strafeController = NodePath("StrafeController")
+fpsCameraRotController = NodePath("FpsCameraRotController")
 player = NodePath("../..")
 pivotRot = NodePath("../../PivotRot")
-metadata/_custom_type_script = "uid://ijve7knyinpg"
+metadata/_custom_type_script = "uid://c2r7cjqdaex0e"
 
-[node name="WalkController" type="Node" parent="Player/Components/PlayerMovementContext" unique_id=1729538667]
+[node name="WalkController" type="Node" parent="Player/Components/PlayerContext" unique_id=1729538667]
 script = ExtResource("2_6b0sv")
 metadata/_custom_type_script = "uid://xch3di2r76ea"
 
-[node name="SprintController" type="Node" parent="Player/Components/PlayerMovementContext" unique_id=1112667605]
+[node name="SprintController" type="Node" parent="Player/Components/PlayerContext" unique_id=1112667605]
 script = ExtResource("3_eetvn")
 metadata/_custom_type_script = "uid://8aa0vbfv2gaq"
 
-[node name="JumpController" type="Node" parent="Player/Components/PlayerMovementContext" unique_id=1958825641]
+[node name="JumpController" type="Node" parent="Player/Components/PlayerContext" unique_id=1958825641]
 script = ExtResource("4_rd8ns")
 metadata/_custom_type_script = "uid://b8tjj0vtcc1ol"
 
-[node name="CrouchController" type="Node" parent="Player/Components/PlayerMovementContext" unique_id=1614022174]
+[node name="CrouchController" type="Node" parent="Player/Components/PlayerContext" unique_id=1614022174]
 script = ExtResource("5_4t4h5")
 metadata/_custom_type_script = "uid://b11da8cfch8gr"
 
-[node name="PlayerCameraContext" type="Node" parent="Player/Components" unique_id=2137657292 node_paths=PackedStringArray("fpsCameraRotController", "pivotRot")]
-script = ExtResource("4_eetvn")
-fpsCameraRotController = NodePath("FpsCameraRotController")
-pivotRot = NodePath("../../PivotRot")
-metadata/_custom_type_script = "uid://cbqo3htvrywpk"
-
-[node name="FpsCameraRotController" type="Node" parent="Player/Components/PlayerCameraContext" unique_id=271552748]
+[node name="FpsCameraRotController" type="Node" parent="Player/Components/PlayerContext" unique_id=271552748]
 script = ExtResource("5_rd8ns")
 metadata/_custom_type_script = "uid://cuu7ebd8mwkkr"
+
+[node name="StrafeController" type="Node" parent="Player/Components/PlayerContext" unique_id=453294278]
+script = ExtResource("7_ep5s3")
+metadata/_custom_type_script = "uid://cl1dsaei4tudu"
+
+[node name="PlayerMovementHandler" type="Node" parent="Player/Components" unique_id=1014660560 node_paths=PackedStringArray("context", "player")]
+script = ExtResource("9_ep5s3")
+context = NodePath("../PlayerContext")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://utjs8w0vpjtp"
+
+[node name="PlayerCameraHandler" type="Node" parent="Player/Components" unique_id=1472961679 node_paths=PackedStringArray("context", "camera", "pivotStrafe")]
+script = ExtResource("8_2qii2")
+context = NodePath("../PlayerContext")
+camera = NodePath("../../PivotRot/PivotStrafe/Camera3D")
+pivotStrafe = NodePath("../../PivotRot/PivotStrafe")
+metadata/_custom_type_script = "uid://bnpgisg7fga1b"
 
 [node name="Environment" type="Node3D" parent="." unique_id=243767993]
 
@@ -176,3 +225,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.706213, 0.4999981, -13.379
 material_override = SubResource("StandardMaterial3D_eetvn")
 mesh = SubResource("BoxMesh_rd8ns")
 skeleton = NodePath("../..")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1587732489]
+offset_left = 18.0
+offset_right = 149.0
+offset_bottom = 40.0
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=2007457702]
+layout_mode = 2
+text = "is sprinting:"
+
+[node name="Label2" type="Label" parent="HBoxContainer" unique_id=1627573184]
+layout_mode = 2
+text = "false"
+script = SubResource("GDScript_ep5s3")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=758137304]
+offset_left = 18.0
+offset_top = 41.0
+offset_right = 152.0
+offset_bottom = 81.0
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="HBoxContainer2" unique_id=1002312556]
+layout_mode = 2
+text = "is crouched:"
+
+[node name="Label3" type="Label" parent="HBoxContainer2" unique_id=847673047]
+layout_mode = 2
+text = "false"
+script = SubResource("GDScript_2qii2")
