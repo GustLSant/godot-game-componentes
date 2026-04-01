@@ -15,7 +15,7 @@ const BASE_SPEED_MUTLIPLIER: float = 1.0
 const CROUCH_SPEED_MULTIPLIER: float = 0.5
 
 const BASE_HEIGHT_OFFSET: float = 0.0
-const CROUCH_HEIGHT_OFFSET: float = -0.2
+const CROUCH_HEIGHT_OFFSET: float = -0.4
 
 const LERP_FACTOR: float = 12.0
 
@@ -28,13 +28,15 @@ func _ready() -> void:
 	pass
 
 
-func run(_crouchHoldMode: bool, _delta: float) -> void:
-	handleInput(_crouchHoldMode)
+func run(_crouchHoldMode: bool, _canStand: bool, _delta: float) -> void:
+	handleInput(_crouchHoldMode, _canStand)
 	handleCrouch(_delta)
 	pass
 
 
-func handleInput(_crouchHoldMode: bool) -> void:
+func handleInput(_crouchHoldMode: bool, _canStand: bool) -> void:
+	if (state.isCrouched and not _canStand): return
+	
 	var oldCrouchState: bool = state.isCrouched
 	
 	if (_crouchHoldMode):
@@ -59,6 +61,7 @@ func handleCrouch(_delta: float) -> void:
 		LERP_FACTOR * _delta
 	)
 	pass
+
 
 func changeCrouch(_newValue: bool) -> void:
 	state.isCrouched = _newValue
