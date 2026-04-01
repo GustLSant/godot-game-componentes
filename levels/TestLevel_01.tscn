@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ci6nx020r3yfe"]
 
 [ext_resource type="Script" uid="uid://c2r7cjqdaex0e" path="res://components/contexts/PlayerContext.gd" id="1_2qii2"]
-[ext_resource type="Script" uid="uid://xch3di2r76ea" path="res://components/controllers/WalkController.gd" id="2_6b0sv"]
+[ext_resource type="Script" uid="uid://xch3di2r76ea" path="res://components/controllers/FpsWalkController.gd" id="2_6b0sv"]
 [ext_resource type="Script" uid="uid://8aa0vbfv2gaq" path="res://components/controllers/SprintController.gd" id="3_eetvn"]
 [ext_resource type="Script" uid="uid://b8tjj0vtcc1ol" path="res://components/controllers/JumpController.gd" id="4_rd8ns"]
 [ext_resource type="Script" uid="uid://b11da8cfch8gr" path="res://components/controllers/CrouchController.gd" id="5_4t4h5"]
@@ -91,9 +91,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 
 [node name="Components" type="Node3D" parent="Player" unique_id=2040820082]
 
-[node name="PlayerContext" type="Node" parent="Player/Components" unique_id=1085948232 node_paths=PackedStringArray("walkController", "sprintController", "jumpController", "crouchController", "strafeController", "fpsCameraRotController", "player", "pivotRot")]
+[node name="PlayerContext" type="Node" parent="Player/Components" unique_id=1085948232 node_paths=PackedStringArray("fpsWalkController", "sprintController", "jumpController", "crouchController", "strafeController", "fpsCameraRotController", "player", "pivotRot")]
 script = ExtResource("1_2qii2")
-walkController = NodePath("WalkController")
+fpsWalkController = NodePath("FpsWalkController")
 sprintController = NodePath("SprintController")
 jumpController = NodePath("JumpController")
 crouchController = NodePath("CrouchController")
@@ -103,7 +103,7 @@ player = NodePath("../..")
 pivotRot = NodePath("../../PivotRot")
 metadata/_custom_type_script = "uid://c2r7cjqdaex0e"
 
-[node name="WalkController" type="Node" parent="Player/Components/PlayerContext" unique_id=1729538667]
+[node name="FpsWalkController" type="Node" parent="Player/Components/PlayerContext" unique_id=1729538667]
 script = ExtResource("2_6b0sv")
 metadata/_custom_type_script = "uid://xch3di2r76ea"
 

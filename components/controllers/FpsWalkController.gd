@@ -1,4 +1,4 @@
-class_name WalkController
+class_name FpsWalkController
 extends Node
 
 class State:

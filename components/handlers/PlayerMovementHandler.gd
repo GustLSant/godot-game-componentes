@@ -12,7 +12,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	player.velocity = context.walkController.state.walkVec
+	player.velocity = context.fpsWalkController.state.walkVec
 	player.velocity *= context.sprintController.state.speedMultiplier
 	player.velocity *= context.crouchController.state.speedMultiplier
 	player.velocity.y = context.jumpController.state.yMotion

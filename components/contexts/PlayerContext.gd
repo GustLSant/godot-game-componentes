@@ -2,7 +2,7 @@ class_name PlayerContext
 extends Node
 
 # controllers
-@export var walkController: WalkController
+@export var fpsWalkController: FpsWalkController
 @export var sprintController: SprintController
 @export var jumpController: JumpController
 @export var crouchController: CrouchController
@@ -15,8 +15,8 @@ extends Node
 
 
 func _physics_process(_delta: float) -> void:
-	walkController.run(pivotRot.global_transform)
-	sprintController.run(player.is_on_floor(), Settings.sprintHoldMode, walkController.state.inputVec, _delta)
+	fpsWalkController.run(pivotRot.global_transform)
+	sprintController.run(player.is_on_floor(), Settings.sprintHoldMode, fpsWalkController.state.inputVec, _delta)
 	jumpController.run(player.is_on_floor(), _delta)
 	crouchController.run(Settings.crouchHoldMode, _delta)
 	strafeController.run(true, _delta)
