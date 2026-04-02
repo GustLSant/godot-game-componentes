@@ -5,7 +5,7 @@ class State:
 	var yMotion: float = 0.0
 
 const JUMP_FORCE: float = 5.0
-const GRAVITY_SPEED: float = 20.0
+const GRAVITY_STRENGTH: float = 20.0
 
 var state: State = State.new()
 
@@ -17,7 +17,7 @@ func run(_isPlayerOnFloor: bool, _delta: float) -> void:
 
 
 func handleGravity(_isPlayerOnFloor: bool, _delta: float) -> void:
-	if (!_isPlayerOnFloor): state.yMotion -= GRAVITY_SPEED * _delta
+	if (!_isPlayerOnFloor): state.yMotion -= GRAVITY_STRENGTH * _delta
 	else: state.yMotion = 0.0
 	pass
 
