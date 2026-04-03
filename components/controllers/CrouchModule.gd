@@ -17,8 +17,8 @@ var heightOffset: float = 0.0
 
 
 
-func run(crouchHoldMode: bool, canStand: bool, delta: float) -> void:
-	_handleInput(crouchHoldMode, canStand)
+func run(crouchHoldMode: bool, canStand: bool, delta: float, canHandleInput: bool = true) -> void:
+	if (canHandleInput): _handleInput(crouchHoldMode, canStand)
 	_handleCrouch(delta)
 	pass
 

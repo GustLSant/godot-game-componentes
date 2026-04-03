@@ -12,8 +12,8 @@ var speedMultiplier: float = 1.0
 var isSprinting: bool = false
 
 
-func run(isPlayerOnFloor: bool, sprintHoldMode: bool, inputVecMovement: Vector2, delta: float) -> void:
-	_handleInput(isPlayerOnFloor, sprintHoldMode)
+func run(isPlayerOnFloor: bool, sprintHoldMode: bool, inputVecMovement: Vector2, delta: float, canHandleInput: bool = true) -> void:
+	if (canHandleInput): _handleInput(isPlayerOnFloor, sprintHoldMode)
 	_handleSprint(inputVecMovement, delta)
 	pass
 

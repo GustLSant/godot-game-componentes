@@ -8,8 +8,8 @@ var walkVec: Vector3 = Vector3.ZERO
 var walkSpeed: float = BASE_MOVE_SPEED
 
 
-func run(pivotRotTransform: Transform3D) -> void:
-	_getMoveInputs()
+func run(pivotRotTransform: Transform3D, canHandleInput: bool = true) -> void:
+	if (canHandleInput): _getMoveInputs()
 	_handleMovement(pivotRotTransform)
 	pass
 

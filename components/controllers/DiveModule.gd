@@ -31,24 +31,24 @@ var currentColliderHeight: float = INITIAL_COLLIDER_HEIGHT
 var motion: Vector3 = Vector3.ZERO
 
 
-func run(moveVec: Vector3, isPlayerOnFloor: bool) -> void:
-	_handleMachineState(moveVec, isPlayerOnFloor)
+func run(moveVec: Vector3, isPlayerOnFloor: bool, canHandleInput: bool = true) -> void:
+	_handleMachineState(moveVec, isPlayerOnFloor, canHandleInput)
 	pass
 
 
-func _handleMachineState(moveVec: Vector3, isPlayerOnFloor: bool) -> void:
+func _handleMachineState(moveVec: Vector3, isPlayerOnFloor: bool, canHandleInput: bool) -> void:
 	match currentState:
-		DIVE_STATE.IDLE: _handleIdleState(moveVec)
+		DIVE_STATE.IDLE: _handleIdleState(moveVec, canHandleInput)
 		DIVE_STATE.FALLING: _handleFallingState(isPlayerOnFloor)
 		DIVE_STATE.STANDING: _handleStandingState()
 	pass
 
 
-func _handleIdleState(moveVec: Vector3) -> void:
+func _handleIdleState(moveVec: Vector3, canHandleInput: bool) -> void:
 	var isIdle: bool = currentState == DIVE_STATE.IDLE
 	var isMoving: bool = abs(moveVec.length()) > 0.0
 	
-	if (isIdle and isMoving and Input.is_action_just_pressed("Dive")):
+	if (isIdle and isMoving and canHandleInput and Input.is_action_just_pressed("Dive")):
 		_setFallingState(moveVec)
 	pass
 

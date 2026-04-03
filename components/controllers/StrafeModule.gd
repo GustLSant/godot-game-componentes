@@ -14,8 +14,8 @@ var currentArmsAngle: float = 0.0
 var currentPosOffset: Vector2 = Vector2.ZERO
 
 
-func run(_strafeHoldMode: bool, _delta: float) -> void:
-	_handleInput(_strafeHoldMode)
+func run(_strafeHoldMode: bool, _delta: float, canHandleInput: bool = true) -> void:
+	if (canHandleInput): _handleInput(_strafeHoldMode)
 	_handleStrafe(_delta)
 	pass
 

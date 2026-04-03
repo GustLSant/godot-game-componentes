@@ -13,7 +13,8 @@ var _joystickSmoothed: Vector2 = Vector2.ZERO
 var targetRotation: Vector3 = Vector3.ZERO
 
 
-func run(currentRotaion: Vector3, xCamSensi: float, yCamSensi: float, xCamJoystickSensi: float, yCamJoystickSensi: float, delta: float) -> void:
+func run(currentRotaion: Vector3, xCamSensi: float, yCamSensi: float, xCamJoystickSensi: float, yCamJoystickSensi: float, delta: float, canHandleInput: bool = true) -> void:
+	if (not canHandleInput): return
 	targetRotation = currentRotaion
 	_handleRotationByMouse(xCamSensi, yCamSensi)
 	_handleRotationByJoystick(xCamJoystickSensi, yCamJoystickSensi, delta)
