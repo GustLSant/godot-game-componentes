@@ -8,10 +8,13 @@
 [ext_resource type="Script" uid="uid://cuu7ebd8mwkkr" path="res://components/controllers/FpsCameraRotController.gd" id="5_rd8ns"]
 [ext_resource type="Script" uid="uid://cl1dsaei4tudu" path="res://components/controllers/StrafeController.gd" id="7_ep5s3"]
 [ext_resource type="Script" uid="uid://bnpgisg7fga1b" path="res://components/handlers/PlayerCameraHandler.gd" id="8_2qii2"]
+[ext_resource type="Script" uid="uid://pcpnpw3f4drq" path="res://components/controllers/DiveController.gd" id="8_wil6e"]
 [ext_resource type="Script" uid="uid://utjs8w0vpjtp" path="res://components/handlers/PlayerMovementHandler.gd" id="9_ep5s3"]
+[ext_resource type="Script" uid="uid://ba1cfrnyjex1u" path="res://components/controllers/GravityController.gd" id="9_tm2wl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18gsl"]
-albedo_color = Color(0.24719188, 0.2471919, 0.24719188, 1)
+transparency = 1
+albedo_color = Color(0.24705882, 0.24705882, 0.24705882, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0ii8u"]
 
@@ -20,6 +23,24 @@ size = Vector3(91, 1, 91)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_18gsl"]
 size = Vector3(1, 2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tm2wl"]
+size = Vector3(1, 1.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_it08m"]
+size = Vector3(1, 2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ep5s3"]
+no_depth_test = true
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_wil6e"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wil6e"]
+no_depth_test = true
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wil6e"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eetvn"]
 albedo_color = Color(0.6522269, 2.7675183e-06, 4.3317675e-07, 1)
@@ -56,6 +77,9 @@ func _process(delta: float) -> void:
 	pass
 "
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_eny6h"]
+size = Vector3(5, 1, 5)
+
 [node name="TestLevel01" type="Node3D" unique_id=131623360]
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=1395577070]
@@ -71,39 +95,78 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_0ii8u")
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=101343484]
+collision_layer = 8
+collision_mask = 7
 
 [node name="MeshInstance3D" type="CSGBox3D" parent="Player" unique_id=5986684]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-size = Vector3(1, 2, 1)
+size = Vector3(0.9, 2, 0.9)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=1299000942]
+[node name="StandingCollider" type="CollisionShape3D" parent="Player" unique_id=1299000942]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_18gsl")
+
+[node name="CrouchCollider" type="CollisionShape3D" parent="Player" unique_id=950099214]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("BoxShape3D_tm2wl")
+disabled = true
+
+[node name="DiveCollider" type="CollisionShape3D" parent="Player" unique_id=1705192143]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_it08m")
+debug_color = Color(0.94834834, 4.5242905e-06, 0.5810974, 0.41960785)
 
 [node name="PivotRot" type="Marker3D" parent="Player" unique_id=174584589]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
-[node name="PivotStrafe" type="Marker3D" parent="Player/PivotRot" unique_id=530741314]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+[node name="PivotCrouch" type="Marker3D" parent="Player/PivotRot" unique_id=39784660]
 
-[node name="Camera3D" type="Camera3D" parent="Player/PivotRot/PivotStrafe" unique_id=1338959818]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+[node name="PivotStrafe" type="Marker3D" parent="Player/PivotRot/PivotCrouch" unique_id=530741314]
 
-[node name="Components" type="Node3D" parent="Player" unique_id=2040820082]
+[node name="Camera3D" type="Camera3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe" unique_id=1338959818]
 
-[node name="PlayerContext" type="Node" parent="Player/Components" unique_id=1085948232 node_paths=PackedStringArray("fpsWalkController", "sprintController", "jumpController", "crouchController", "strafeController", "fpsCameraRotController", "player", "pivotRot")]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/Camera3D" unique_id=1036436499]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_ep5s3")
+mesh = SubResource("SphereMesh_wil6e")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe" unique_id=2127305808]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2351742e-08, 0.29999995, -2.2351742e-08)
+visible = false
+material_override = SubResource("StandardMaterial3D_wil6e")
+size = Vector3(0.2, 0.6, 0.2)
+
+[node name="Components" type="Node3D" parent="Player" unique_id=139323464]
+
+[node name="StandShapeCast3D" type="ShapeCast3D" parent="Player/Components" unique_id=27402126]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_wil6e")
+target_position = Vector3(0, 1.05, 0)
+max_results = 4
+collision_mask = 6
+
+[node name="PlayerContext" type="Node3D" parent="Player/Components" unique_id=1231610375 node_paths=PackedStringArray("gravityController", "fpsWalkController", "sprintController", "jumpController", "crouchController", "diveController", "strafeController", "fpsCameraRotController", "player", "camera", "pivotRot", "standShapeCast3D")]
 script = ExtResource("1_2qii2")
+gravityController = NodePath("GravityController")
 fpsWalkController = NodePath("FpsWalkController")
 sprintController = NodePath("SprintController")
 jumpController = NodePath("JumpController")
 crouchController = NodePath("CrouchController")
+diveController = NodePath("DiveController")
 strafeController = NodePath("StrafeController")
 fpsCameraRotController = NodePath("FpsCameraRotController")
 player = NodePath("../..")
+camera = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/Camera3D")
 pivotRot = NodePath("../../PivotRot")
+standShapeCast3D = NodePath("../StandShapeCast3D")
 metadata/_custom_type_script = "uid://c2r7cjqdaex0e"
 
-[node name="FpsWalkController" type="Node" parent="Player/Components/PlayerContext" unique_id=1729538667]
+[node name="GravityController" type="Node" parent="Player/Components/PlayerContext" unique_id=382258380]
+script = ExtResource("9_tm2wl")
+metadata/_custom_type_script = "uid://ba1cfrnyjex1u"
+
+[node name="FpsWalkController" type="Node" parent="Player/Components/PlayerContext" unique_id=653054185]
 script = ExtResource("2_6b0sv")
 metadata/_custom_type_script = "uid://xch3di2r76ea"
 
@@ -115,9 +178,13 @@ metadata/_custom_type_script = "uid://8aa0vbfv2gaq"
 script = ExtResource("4_rd8ns")
 metadata/_custom_type_script = "uid://b8tjj0vtcc1ol"
 
-[node name="CrouchController" type="Node" parent="Player/Components/PlayerContext" unique_id=1614022174]
+[node name="CrouchController" type="Node" parent="Player/Components/PlayerContext" unique_id=96221326]
 script = ExtResource("5_4t4h5")
 metadata/_custom_type_script = "uid://b11da8cfch8gr"
+
+[node name="DiveController" type="Node" parent="Player/Components/PlayerContext" unique_id=1944181804]
+script = ExtResource("8_wil6e")
+metadata/_custom_type_script = "uid://pcpnpw3f4drq"
 
 [node name="FpsCameraRotController" type="Node" parent="Player/Components/PlayerContext" unique_id=271552748]
 script = ExtResource("5_rd8ns")
@@ -127,17 +194,17 @@ metadata/_custom_type_script = "uid://cuu7ebd8mwkkr"
 script = ExtResource("7_ep5s3")
 metadata/_custom_type_script = "uid://cl1dsaei4tudu"
 
-[node name="PlayerMovementHandler" type="Node" parent="Player/Components" unique_id=1014660560 node_paths=PackedStringArray("context", "player")]
+[node name="PlayerMovementHandler" type="Node" parent="Player/Components" unique_id=1014660560 node_paths=PackedStringArray("context", "player", "pivotCrouch")]
 script = ExtResource("9_ep5s3")
 context = NodePath("../PlayerContext")
 player = NodePath("../..")
+pivotCrouch = NodePath("../../PivotRot/PivotCrouch")
 metadata/_custom_type_script = "uid://utjs8w0vpjtp"
 
-[node name="PlayerCameraHandler" type="Node" parent="Player/Components" unique_id=1472961679 node_paths=PackedStringArray("context", "camera", "pivotStrafe")]
+[node name="PlayerCameraHandler" type="Node" parent="Player/Components" unique_id=1472961679 node_paths=PackedStringArray("context", "pivotStrafe")]
 script = ExtResource("8_2qii2")
 context = NodePath("../PlayerContext")
-camera = NodePath("../../PivotRot/PivotStrafe/Camera3D")
-pivotStrafe = NodePath("../../PivotRot/PivotStrafe")
+pivotStrafe = NodePath("../../PivotRot/PivotCrouch/PivotStrafe")
 metadata/_custom_type_script = "uid://bnpgisg7fga1b"
 
 [node name="Environment" type="Node3D" parent="." unique_id=243767993]
@@ -256,3 +323,47 @@ text = "is crouched:"
 layout_mode = 2
 text = "false"
 script = SubResource("GDScript_2qii2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1505974370]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.5, -6)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StaticBody3D" unique_id=1924407130]
+size = Vector3(5, 1, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1943306955]
+shape = SubResource("BoxShape3D_eny6h")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="." unique_id=63694483]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.2, -6)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StaticBody3D2" unique_id=574297709]
+size = Vector3(5, 1, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2" unique_id=1669317427]
+shape = SubResource("BoxShape3D_eny6h")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="." unique_id=1958685349]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.2, -10)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StaticBody3D3" unique_id=2117708851]
+size = Vector3(5, 1, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3" unique_id=601838365]
+shape = SubResource("BoxShape3D_eny6h")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="." unique_id=1463375398]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -4)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StaticBody3D4" unique_id=1218639276]
+size = Vector3(5, 1, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4" unique_id=877719869]
+shape = SubResource("BoxShape3D_eny6h")
