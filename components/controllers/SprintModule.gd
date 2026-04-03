@@ -33,8 +33,10 @@ func _handleInput(isPlayerOnFloor: bool, sprintHoldMode: bool) -> void:
 
 
 func _handleSprint(inputVecMovement: Vector2, delta: float) -> void:
-	isSprinting = isSprinting and inputVecMovement != Vector2.ZERO
-	isSprinting = isSprinting and inputVecMovement.y <= 0.0 # moving fowards
+	var isMoving: bool = inputVecMovement != Vector2.ZERO
+	var isMovingFowards: bool = inputVecMovement.y <= 0.0
+	
+	isSprinting = isSprinting and isMoving and isMovingFowards
 	
 	speedMultiplier = lerp(
 		speedMultiplier,
