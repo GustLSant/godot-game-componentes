@@ -22,8 +22,8 @@ func _physics_process(_delta: float) -> void:
 	gravityModule.run(player.is_on_floor(), _delta)
 	fpsWalkModule.run(pivotRot.global_transform)
 	strafeModule.run(true, _delta)
-	fpsCameraRotModule.run(pivotRot, Settings.cameraSensitivity, Settings.cameraSensitivity, 200.0, 200.0, _delta)
-	diveModule.run(fpsWalkModule.walkVec, player.is_on_floor(), _delta)
+	fpsCameraRotModule.run(pivotRot.rotation_degrees, Settings.cameraSensitivity, Settings.cameraSensitivity, 200.0, 200.0, _delta)
+	diveModule.run(fpsWalkModule.walkVec, player.is_on_floor())
 	
 	if (not diveModule.isDiving):
 		sprintModule.run(player.is_on_floor(), Settings.sprintHoldMode, fpsWalkModule.inputVec, _delta)

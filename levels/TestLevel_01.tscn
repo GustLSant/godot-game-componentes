@@ -200,9 +200,10 @@ manager = NodePath("../PlayerManager")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://utjs8w0vpjtp"
 
-[node name="PlayerCameraMapper" type="Node" parent="Player/Components" unique_id=1472961679 node_paths=PackedStringArray("manager", "pivotStrafe", "pivotCrouch")]
+[node name="PlayerCameraMapper" type="Node" parent="Player/Components" unique_id=1472961679 node_paths=PackedStringArray("manager", "pivotRot", "pivotStrafe", "pivotCrouch")]
 script = ExtResource("8_2qii2")
 manager = NodePath("../PlayerManager")
+pivotRot = NodePath("../../PivotRot")
 pivotStrafe = NodePath("../../PivotRot/PivotCrouch/PivotStrafe")
 pivotCrouch = NodePath("../../PivotRot/PivotCrouch")
 metadata/_custom_type_script = "uid://bnpgisg7fga1b"
