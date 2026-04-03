@@ -1,4 +1,4 @@
-class_name DiveController
+class_name DiveModule
 extends Node
 
 enum DIVE_STATE { IDLE, FALLING, STANDING }

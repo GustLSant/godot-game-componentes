@@ -1,4 +1,4 @@
-class_name SprintController
+class_name SprintModule
 extends Node
 
 class State:

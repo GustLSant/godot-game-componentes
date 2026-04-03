@@ -7,34 +7,32 @@ extends Node
 
 
 func _ready() -> void:
-	context.crouchController.connect("CrouchChanged", handleCrouchChanged)
-	context.sprintController.connect("SprintChanged", handleSprintChanged)
-	
-	
+	context.crouchModule.connect("CrouchChanged", handleCrouchChanged)
+	context.sprintModule.connect("SprintChanged", handleSprintChanged)
 	pass
 
 
 func _physics_process(_delta: float) -> void:
 	player.velocity = Vector3.ZERO
 	
-	pivotCrouch.position.y = context.crouchController.state.heightOffset
+	pivotCrouch.position.y = context.crouchModule.state.heightOffset
 	
-	$"../../StandingCollider".disabled = context.crouchController.state.isCrouched or context.diveController.isDiving
-	$"../../CrouchCollider".disabled = not context.crouchController.state.isCrouched
-	$"../../DiveCollider".disabled = not context.diveController.isDiving
-	#if (context.diveController.state.isDiving): print($"../../DiveCollider".shape.size)
-	#if (context.diveController.state.isDiving): print($"../../DiveCollider".position.y); print('')
+	$"../../StandingCollider".disabled = context.crouchModule.state.isCrouched or context.diveModule.isDiving
+	$"../../CrouchCollider".disabled = not context.crouchModule.state.isCrouched
+	$"../../DiveCollider".disabled = not context.diveModule.isDiving
+	#if (context.diveModule.state.isDiving): print($"../../DiveCollider".shape.size)
+	#if (context.diveModule.state.isDiving): print($"../../DiveCollider".position.y); print('')
 	
-	$"../../DiveCollider".shape.size = context.diveController.currentColliderSize
-	$"../../DiveCollider".position.y = context.diveController.currentColliderHeight
+	$"../../DiveCollider".shape.size = context.diveModule.currentColliderSize
+	$"../../DiveCollider".position.y = context.diveModule.currentColliderHeight
 	
-	player.velocity += context.fpsWalkController.state.walkVec
-	player.velocity.y += context.gravityController.state.motion
+	player.velocity += context.fpsWalkModule.state.walkVec
+	player.velocity.y += context.gravityModule.motion
 	
 	# PROBLEMA:
 		# TEM QUE TER A VELOCIDADE DO SPRINT NA ADIÇÃO DO DIVE, MAS NAO PODE TER MUDANÇA DE INPUT DE SPRINT DURANTE O DIVE
 	# raiz do problema:
-		# o handler nao tem acesso a quando o SprintController executará
+		# o handler nao tem acesso a quando o SprintModule executará
 	# impedimento que causa o problema: 
 		# a ideia era ter varios handlers, um para cada sistema, porem alguns controllers afetarão
 		# mais de um sistema (ex: crouch que mexe na velocidade de movimento e altura da camera) e nao é
@@ -59,22 +57,22 @@ func _physics_process(_delta: float) -> void:
 		# ter um script de resolucao de conflitos e orquestração de quem q vai executar e quando (poderia ser o context?)
 		# e ter um script para usar de fato os valores resolvidos pelos controllers
 	
-	if (not context.diveController.isDiving):
-		player.velocity *= context.sprintController.state.speedMultiplier
-		player.velocity *= context.crouchController.state.speedMultiplier
-		player.velocity.y += context.jumpController.state.motion
+	if (not context.diveModule.isDiving):
+		player.velocity *= context.sprintModule.state.speedMultiplier
+		player.velocity *= context.crouchModule.state.speedMultiplier
+		player.velocity.y += context.jumpModule.motion
 	else:
-		player.velocity += context.diveController.motion
+		player.velocity += context.diveModule.motion
 	
 	player.move_and_slide()
 	pass
 
 
 func handleCrouchChanged(_newState: bool) -> void:
-	if (_newState): context.sprintController.actions.changeSprinting.call(false)
+	if (_newState): context.sprintModule.actions.changeSprinting.call(false)
 	pass
 
 
 func handleSprintChanged(_newState: bool) -> void:
-	if (_newState): context.crouchController.actions.changeCrouch.call(false)
+	if (_newState): context.crouchModule.actions.changeCrouch.call(false)
 	pass

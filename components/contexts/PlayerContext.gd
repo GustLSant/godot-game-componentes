@@ -2,14 +2,14 @@ class_name PlayerContext
 extends Node3D
 
 # controllers
-@export var gravityController: GravityController
-@export var fpsWalkController: FpsWalkController
-@export var sprintController: SprintController
-@export var jumpController: JumpController
-@export var crouchController: CrouchController
-@export var diveController: DiveController
-@export var strafeController: StrafeController
-@export var fpsCameraRotController: FpsCameraRotController
+@export var gravityModule: GravityModule
+@export var fpsWalkModule: FpsWalkModule
+@export var sprintModule: SprintModule
+@export var jumpModule: JumpModule
+@export var crouchModule: CrouchModule
+@export var diveModule: DiveModule
+@export var strafeModule: StrafeModule
+@export var fpsCameraRotModule: FpsCameraRotModule
 
 # dados
 @export var player: CharacterBody3D
@@ -19,12 +19,12 @@ extends Node3D
 
 
 func _physics_process(_delta: float) -> void:
-	gravityController.run(player.is_on_floor(), _delta)
-	fpsWalkController.run(pivotRot.global_transform)
-	sprintController.run(player.is_on_floor(), Settings.sprintHoldMode, fpsWalkController.state.inputVec, _delta)
-	jumpController.run(player.is_on_floor(), _delta)
-	crouchController.run(Settings.crouchHoldMode, not standShapeCast3D.is_colliding(), _delta)
-	diveController.run(fpsWalkController.state.walkVec, player.is_on_floor(), _delta)
-	strafeController.run(true, _delta)
-	fpsCameraRotController.run(pivotRot, Settings.cameraSensitivity, Settings.cameraSensitivity, 200.0, 200.0, _delta)
+	gravityModule.run(player.is_on_floor(), _delta)
+	fpsWalkModule.run(pivotRot.global_transform)
+	sprintModule.run(player.is_on_floor(), Settings.sprintHoldMode, fpsWalkModule.state.inputVec, _delta)
+	jumpModule.run(player.is_on_floor(), _delta)
+	crouchModule.run(Settings.crouchHoldMode, not standShapeCast3D.is_colliding(), _delta)
+	diveModule.run(fpsWalkModule.state.walkVec, player.is_on_floor(), _delta)
+	strafeModule.run(true, _delta)
+	fpsCameraRotModule.run(pivotRot, Settings.cameraSensitivity, Settings.cameraSensitivity, 200.0, 200.0, _delta)
 	pass

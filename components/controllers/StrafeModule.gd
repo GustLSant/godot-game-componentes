@@ -1,4 +1,4 @@
-class_name StrafeController
+class_name StrafeModule
 extends Node
 
 class State:

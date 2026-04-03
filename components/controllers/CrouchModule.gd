@@ -1,4 +1,4 @@
-class_name CrouchController
+class_name CrouchModule
 extends Node
 
 class State:

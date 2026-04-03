@@ -1,4 +1,4 @@
-class_name FpsCameraRotController
+class_name FpsCameraRotModule
 extends Node
 
 const MAX_LOOK_ANGLE: float = 80.0
