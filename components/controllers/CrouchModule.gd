@@ -1,14 +1,6 @@
 class_name CrouchModule
 extends Node
 
-class State:
-	var isCrouched: bool = false
-	var speedMultiplier: float = 1.0
-	var heightOffset: float = 0.0
-
-class Actions:
-	var changeCrouch: Callable
-
 signal CrouchChanged(_newState: bool)
 
 const BASE_SPEED_MUTLIPLIER: float = 1.0
@@ -19,50 +11,47 @@ const CROUCH_HEIGHT_OFFSET: float = -0.4
 
 const LERP_FACTOR: float = 12.0
 
-var state:State = State.new()
-var actions:Actions = Actions.new()
+var isCrouched: bool = false
+var speedMultiplier: float = 1.0
+var heightOffset: float = 0.0
 
 
-func _ready() -> void:
-	actions.changeCrouch = changeCrouch
+
+func run(crouchHoldMode: bool, canStand: bool, delta: float) -> void:
+	_handleInput(crouchHoldMode, canStand)
+	_handleCrouch(delta)
 	pass
 
 
-func run(_crouchHoldMode: bool, _canStand: bool, _delta: float) -> void:
-	handleInput(_crouchHoldMode, _canStand)
-	handleCrouch(_delta)
-	pass
-
-
-func handleInput(_crouchHoldMode: bool, _canStand: bool) -> void:
-	if (state.isCrouched and not _canStand): return
+func _handleInput(crouchHoldMode: bool, canStand: bool) -> void:
+	if (isCrouched and not canStand): return
 	
-	var oldCrouchState: bool = state.isCrouched
+	var oldCrouchState: bool = isCrouched
 	
-	if (_crouchHoldMode):
-		state.isCrouched = Input.is_action_pressed("Crouch")
+	if (crouchHoldMode):
+		isCrouched = Input.is_action_pressed("Crouch")
 	else:
-		if (Input.is_action_just_pressed("Crouch")): state.isCrouched = !state.isCrouched
+		if (Input.is_action_just_pressed("Crouch")): isCrouched = !isCrouched
 	
-	if (state.isCrouched != oldCrouchState): emit_signal("CrouchChanged", state.isCrouched)
+	if (isCrouched != oldCrouchState): emit_signal("CrouchChanged", isCrouched)
 	pass
 
 
-func handleCrouch(_delta: float) -> void:
-	state.speedMultiplier = lerp(
-		state.speedMultiplier,
-		int(state.isCrouched) * CROUCH_SPEED_MULTIPLIER + int(not state.isCrouched) * BASE_SPEED_MUTLIPLIER,
-		LERP_FACTOR * _delta
+func _handleCrouch(delta: float) -> void:
+	speedMultiplier = lerp(
+		speedMultiplier,
+		int(isCrouched) * CROUCH_SPEED_MULTIPLIER + int(not isCrouched) * BASE_SPEED_MUTLIPLIER,
+		LERP_FACTOR * delta
 	)
 	
-	state.heightOffset = lerp(
-		state.heightOffset,
-		int(state.isCrouched) * CROUCH_HEIGHT_OFFSET + int(not state.isCrouched) * BASE_HEIGHT_OFFSET,
-		LERP_FACTOR * _delta
+	heightOffset = lerp(
+		heightOffset,
+		int(isCrouched) * CROUCH_HEIGHT_OFFSET + int(not isCrouched) * BASE_HEIGHT_OFFSET,
+		LERP_FACTOR * delta
 	)
 	pass
 
 
-func changeCrouch(_newValue: bool) -> void:
-	state.isCrouched = _newValue
+func changeCrouch(newValue: bool) -> void:
+	isCrouched = newValue
 	pass

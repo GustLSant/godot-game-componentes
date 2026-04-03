@@ -11,9 +11,9 @@ var lastMouseMotion: Vector2 = Vector2.ZERO
 var joystickSmoothed: Vector2 = Vector2.ZERO
 
 
-func run(_pivotRot: Node3D, _xCamSensi: float, _yCamSensi: float, _xCamJoystickSensi: float, _yCamJoystickSensi: float, _delta: float) -> void:
-	handleRotationByMouse(_pivotRot, _xCamSensi, _yCamSensi)
-	handleRotationByJoystick(_pivotRot, _xCamJoystickSensi, _yCamJoystickSensi, _delta)
+func run(pivotRot: Node3D, xCamSensi: float, yCamSensi: float, xCamJoystickSensi: float, yCamJoystickSensi: float, delta: float) -> void:
+	_handleRotationByMouse(pivotRot, xCamSensi, yCamSensi)
+	_handleRotationByJoystick(pivotRot, xCamJoystickSensi, yCamJoystickSensi, delta)
 	pass
 
 
@@ -24,21 +24,16 @@ func _input(event):
 	return
 
 
-func handleRotationByMouse(_pivotRot: Node3D, _xCamSensi: float, _yCamSensi: float) -> void:
-	_pivotRot.rotation_degrees.x -= lastMouseMotion.y * _yCamSensi
-	_pivotRot.rotation_degrees.y -= lastMouseMotion.x * _xCamSensi
+func _handleRotationByMouse(pivotRot: Node3D, xCamSensi: float, yCamSensi: float) -> void:
+	pivotRot.rotation_degrees.x -= lastMouseMotion.y * yCamSensi
+	pivotRot.rotation_degrees.y -= lastMouseMotion.x * xCamSensi
 	lastMouseMotion = Vector2.ZERO
 	
-	_pivotRot.rotation_degrees.x = clamp(_pivotRot.rotation_degrees.x, MIN_LOOK_ANGLE, MAX_LOOK_ANGLE)
+	pivotRot.rotation_degrees.x = clamp(pivotRot.rotation_degrees.x, MIN_LOOK_ANGLE, MAX_LOOK_ANGLE)
 	pass
 
 
-
-
-
-
-
-func handleRotationByJoystick(_pivotRot: Node3D, _xCamJoystickSensi: float, _yCamJoystickSensi: float, _delta: float) -> void:
+func _handleRotationByJoystick(_pivotRot: Node3D, _xCamJoystickSensi: float, _yCamJoystickSensi: float, _delta: float) -> void:
 	var inputVec: Vector2 = Vector2(
 		Input.get_action_strength("LookLeft") - Input.get_action_strength("LookRight"),
 		Input.get_action_strength("LookUp") - Input.get_action_strength("LookDown")

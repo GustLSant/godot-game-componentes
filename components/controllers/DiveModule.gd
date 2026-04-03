@@ -50,8 +50,8 @@ func _handleIdleState(moveVec: Vector3) -> void:
 	pass
 
 
-func _handleFallingState(_isPlayerOnFloor: bool, _delta: float) -> void:
-	if (_isPlayerOnFloor): _setStandingState()
+func _handleFallingState(isPlayerOnFloor: bool, delta: float) -> void:
+	if (isPlayerOnFloor): _setStandingState()
 	pass
 
 

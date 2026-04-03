@@ -15,18 +15,18 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	player.velocity = Vector3.ZERO
 	
-	pivotCrouch.position.y = context.crouchModule.state.heightOffset
+	pivotCrouch.position.y = context.crouchModule.heightOffset
 	
-	$"../../StandingCollider".disabled = context.crouchModule.state.isCrouched or context.diveModule.isDiving
-	$"../../CrouchCollider".disabled = not context.crouchModule.state.isCrouched
+	$"../../StandingCollider".disabled = context.crouchModule.isCrouched or context.diveModule.isDiving
+	$"../../CrouchCollider".disabled = not context.crouchModule.isCrouched
 	$"../../DiveCollider".disabled = not context.diveModule.isDiving
-	#if (context.diveModule.state.isDiving): print($"../../DiveCollider".shape.size)
-	#if (context.diveModule.state.isDiving): print($"../../DiveCollider".position.y); print('')
+	#if (context.diveModule.isDiving): print($"../../DiveCollider".shape.size)
+	#if (context.diveModule.isDiving): print($"../../DiveCollider".position.y); print('')
 	
 	$"../../DiveCollider".shape.size = context.diveModule.currentColliderSize
 	$"../../DiveCollider".position.y = context.diveModule.currentColliderHeight
 	
-	player.velocity += context.fpsWalkModule.state.walkVec
+	player.velocity += context.fpsWalkModule.walkVec
 	player.velocity.y += context.gravityModule.motion
 	
 	# PROBLEMA:
@@ -58,8 +58,8 @@ func _physics_process(_delta: float) -> void:
 		# e ter um script para usar de fato os valores resolvidos pelos controllers
 	
 	if (not context.diveModule.isDiving):
-		player.velocity *= context.sprintModule.state.speedMultiplier
-		player.velocity *= context.crouchModule.state.speedMultiplier
+		player.velocity *= context.sprintModule.speedMultiplier
+		player.velocity *= context.crouchModule.speedMultiplier
 		player.velocity.y += context.jumpModule.motion
 	else:
 		player.velocity += context.diveModule.motion
@@ -69,10 +69,10 @@ func _physics_process(_delta: float) -> void:
 
 
 func handleCrouchChanged(_newState: bool) -> void:
-	if (_newState): context.sprintModule.actions.changeSprinting.call(false)
+	if (_newState): context.sprintModule.changeSprinting(false)
 	pass
 
 
 func handleSprintChanged(_newState: bool) -> void:
-	if (_newState): context.crouchModule.actions.changeCrouch.call(false)
+	if (_newState): context.crouchModule.changeCrouch(false)
 	pass

@@ -1,36 +1,34 @@
 class_name FpsWalkModule
 extends Node
 
-class State:
-	var inputVec: Vector2 = Vector2.ZERO
-	var walkVec: Vector3 = Vector3.ZERO
-	var walkSpeed: float = BASE_MOVE_SPEED
-
 const BASE_MOVE_SPEED: float = 4.0
-var state: State = State.new()
+
+var inputVec: Vector2 = Vector2.ZERO
+var walkVec: Vector3 = Vector3.ZERO
+var walkSpeed: float = BASE_MOVE_SPEED
 
 
-func run(_pivotRotTransform: Transform3D) -> void:
-	getMoveInputs()
-	handleMovement(_pivotRotTransform)
+func run(pivotRotTransform: Transform3D) -> void:
+	_getMoveInputs()
+	_handleMovement(pivotRotTransform)
 	pass
 
 
-func getMoveInputs() -> void:
-	state.inputVec.x = Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft")
-	state.inputVec.y = Input.get_action_strength("MoveBackward") - Input.get_action_strength("MoveForward")
+func _getMoveInputs() -> void:
+	inputVec.x = Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft")
+	inputVec.y = Input.get_action_strength("MoveBackward") - Input.get_action_strength("MoveForward")
 	pass
 
 
-func handleMovement(_pivotRotTransform: Transform3D) -> void:
-	var forward: Vector3 = _pivotRotTransform.basis.z
-	var right: Vector3 = _pivotRotTransform.basis.x
+func _handleMovement(pivotRotTransform: Transform3D) -> void:
+	var forward: Vector3 = pivotRotTransform.basis.z
+	var right: Vector3 = pivotRotTransform.basis.x
 	forward.y = 0
 	right.y = 0
 	forward = forward.normalized()
 	right = right.normalized()
 	
-	var vecMovement: Vector3 = (state.inputVec.x * right + state.inputVec.y * forward).normalized()
+	var vecMovement: Vector3 = (inputVec.x * right + inputVec.y * forward).normalized()
 	
-	state.walkVec = Vector3(vecMovement.x, 0.0, vecMovement.z) * state.walkSpeed
+	walkVec = Vector3(vecMovement.x, 0.0, vecMovement.z) * walkSpeed
 	pass
