@@ -1,4 +1,4 @@
-class_name PlayerContext
+class_name PlayerManager
 extends Node3D
 
 # controllers
@@ -21,10 +21,12 @@ extends Node3D
 func _physics_process(_delta: float) -> void:
 	gravityModule.run(player.is_on_floor(), _delta)
 	fpsWalkModule.run(pivotRot.global_transform)
-	sprintModule.run(player.is_on_floor(), Settings.sprintHoldMode, fpsWalkModule.inputVec, _delta)
-	jumpModule.run(player.is_on_floor())
-	crouchModule.run(Settings.crouchHoldMode, not standShapeCast3D.is_colliding(), _delta)
-	diveModule.run(fpsWalkModule.walkVec, player.is_on_floor(), _delta)
 	strafeModule.run(true, _delta)
 	fpsCameraRotModule.run(pivotRot, Settings.cameraSensitivity, Settings.cameraSensitivity, 200.0, 200.0, _delta)
+	diveModule.run(fpsWalkModule.walkVec, player.is_on_floor(), _delta)
+	
+	if (not diveModule.isDiving):
+		sprintModule.run(player.is_on_floor(), Settings.sprintHoldMode, fpsWalkModule.inputVec, _delta)
+		jumpModule.run(player.is_on_floor())
+		crouchModule.run(Settings.crouchHoldMode, not standShapeCast3D.is_colliding(), _delta)
 	pass

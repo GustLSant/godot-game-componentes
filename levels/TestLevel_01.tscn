@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://ci6nx020r3yfe"]
 
-[ext_resource type="Script" uid="uid://c2r7cjqdaex0e" path="res://components/contexts/PlayerContext.gd" id="1_2qii2"]
+[ext_resource type="Script" uid="uid://c2r7cjqdaex0e" path="res://components/managers/PlayerManager.gd" id="1_2qii2"]
 [ext_resource type="Script" uid="uid://xch3di2r76ea" path="res://components/controllers/FpsWalkModule.gd" id="2_6b0sv"]
 [ext_resource type="Script" uid="uid://8aa0vbfv2gaq" path="res://components/controllers/SprintModule.gd" id="3_eetvn"]
 [ext_resource type="Script" uid="uid://b8tjj0vtcc1ol" path="res://components/controllers/JumpModule.gd" id="4_rd8ns"]
 [ext_resource type="Script" uid="uid://b11da8cfch8gr" path="res://components/controllers/CrouchModule.gd" id="5_4t4h5"]
 [ext_resource type="Script" uid="uid://cuu7ebd8mwkkr" path="res://components/controllers/FpsCameraRotModule.gd" id="5_rd8ns"]
 [ext_resource type="Script" uid="uid://cl1dsaei4tudu" path="res://components/controllers/StrafeModule.gd" id="7_ep5s3"]
-[ext_resource type="Script" uid="uid://bnpgisg7fga1b" path="res://components/handlers/PlayerCameraHandler.gd" id="8_2qii2"]
+[ext_resource type="Script" uid="uid://bnpgisg7fga1b" path="res://components/handlers/PlayerCameraMapper.gd" id="8_2qii2"]
 [ext_resource type="Script" uid="uid://pcpnpw3f4drq" path="res://components/controllers/DiveModule.gd" id="8_wil6e"]
-[ext_resource type="Script" uid="uid://utjs8w0vpjtp" path="res://components/handlers/PlayerMovementHandler.gd" id="9_ep5s3"]
+[ext_resource type="Script" uid="uid://utjs8w0vpjtp" path="res://components/handlers/PlayerMovementMapper.gd" id="9_ep5s3"]
 [ext_resource type="Script" uid="uid://ba1cfrnyjex1u" path="res://components/controllers/GravityModule.gd" id="9_tm2wl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18gsl"]
@@ -58,7 +58,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	self.text = str($\"../../Player/Components/PlayerContext\".sprintModule.isSprinting)
+	self.text = str($\"../../Player/Components/PlayerManager\".sprintModule.isSprinting)
 	pass
 "
 
@@ -73,7 +73,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	self.text = str($\"../../Player/Components/PlayerContext\".crouchModule.isCrouched)
+	self.text = str($\"../../Player/Components/PlayerManager\".crouchModule.isCrouched)
 	pass
 "
 
@@ -146,7 +146,7 @@ target_position = Vector3(0, 1.05, 0)
 max_results = 4
 collision_mask = 6
 
-[node name="PlayerContext" type="Node3D" parent="Player/Components" unique_id=1231610375 node_paths=PackedStringArray("gravityModule", "fpsWalkModule", "sprintModule", "jumpModule", "crouchModule", "diveModule", "strafeModule", "fpsCameraRotModule", "player", "camera", "pivotRot", "standShapeCast3D")]
+[node name="PlayerManager" type="Node3D" parent="Player/Components" unique_id=1231610375 node_paths=PackedStringArray("gravityModule", "fpsWalkModule", "sprintModule", "jumpModule", "crouchModule", "diveModule", "strafeModule", "fpsCameraRotModule", "player", "camera", "pivotRot", "standShapeCast3D")]
 script = ExtResource("1_2qii2")
 gravityModule = NodePath("GravityModule")
 fpsWalkModule = NodePath("FpsWalkModule")
@@ -162,49 +162,49 @@ pivotRot = NodePath("../../PivotRot")
 standShapeCast3D = NodePath("../StandShapeCast3D")
 metadata/_custom_type_script = "uid://c2r7cjqdaex0e"
 
-[node name="GravityModule" type="Node" parent="Player/Components/PlayerContext" unique_id=382258380]
+[node name="GravityModule" type="Node" parent="Player/Components/PlayerManager" unique_id=382258380]
 script = ExtResource("9_tm2wl")
 metadata/_custom_type_script = "uid://ba1cfrnyjex1u"
 
-[node name="FpsWalkModule" type="Node" parent="Player/Components/PlayerContext" unique_id=653054185]
+[node name="FpsWalkModule" type="Node" parent="Player/Components/PlayerManager" unique_id=653054185]
 script = ExtResource("2_6b0sv")
 metadata/_custom_type_script = "uid://xch3di2r76ea"
 
-[node name="SprintModule" type="Node" parent="Player/Components/PlayerContext" unique_id=1112667605]
+[node name="SprintModule" type="Node" parent="Player/Components/PlayerManager" unique_id=1112667605]
 script = ExtResource("3_eetvn")
 metadata/_custom_type_script = "uid://8aa0vbfv2gaq"
 
-[node name="JumpModule" type="Node" parent="Player/Components/PlayerContext" unique_id=1958825641]
+[node name="JumpModule" type="Node" parent="Player/Components/PlayerManager" unique_id=1958825641]
 script = ExtResource("4_rd8ns")
 metadata/_custom_type_script = "uid://b8tjj0vtcc1ol"
 
-[node name="CrouchModule" type="Node" parent="Player/Components/PlayerContext" unique_id=96221326]
+[node name="CrouchModule" type="Node" parent="Player/Components/PlayerManager" unique_id=96221326]
 script = ExtResource("5_4t4h5")
 metadata/_custom_type_script = "uid://b11da8cfch8gr"
 
-[node name="DiveModule" type="Node" parent="Player/Components/PlayerContext" unique_id=1944181804]
+[node name="DiveModule" type="Node" parent="Player/Components/PlayerManager" unique_id=1944181804]
 script = ExtResource("8_wil6e")
 metadata/_custom_type_script = "uid://pcpnpw3f4drq"
 
-[node name="FpsCameraRotModule" type="Node" parent="Player/Components/PlayerContext" unique_id=271552748]
+[node name="FpsCameraRotModule" type="Node" parent="Player/Components/PlayerManager" unique_id=271552748]
 script = ExtResource("5_rd8ns")
 metadata/_custom_type_script = "uid://cuu7ebd8mwkkr"
 
-[node name="StrafeModule" type="Node" parent="Player/Components/PlayerContext" unique_id=453294278]
+[node name="StrafeModule" type="Node" parent="Player/Components/PlayerManager" unique_id=453294278]
 script = ExtResource("7_ep5s3")
 metadata/_custom_type_script = "uid://cl1dsaei4tudu"
 
-[node name="PlayerMovementHandler" type="Node" parent="Player/Components" unique_id=1014660560 node_paths=PackedStringArray("context", "player", "pivotCrouch")]
+[node name="PlayerMovementMapper" type="Node" parent="Player/Components" unique_id=1014660560 node_paths=PackedStringArray("manager", "player")]
 script = ExtResource("9_ep5s3")
-context = NodePath("../PlayerContext")
+manager = NodePath("../PlayerManager")
 player = NodePath("../..")
-pivotCrouch = NodePath("../../PivotRot/PivotCrouch")
 metadata/_custom_type_script = "uid://utjs8w0vpjtp"
 
-[node name="PlayerCameraHandler" type="Node" parent="Player/Components" unique_id=1472961679 node_paths=PackedStringArray("context", "pivotStrafe")]
+[node name="PlayerCameraMapper" type="Node" parent="Player/Components" unique_id=1472961679 node_paths=PackedStringArray("manager", "pivotStrafe", "pivotCrouch")]
 script = ExtResource("8_2qii2")
-context = NodePath("../PlayerContext")
+manager = NodePath("../PlayerManager")
 pivotStrafe = NodePath("../../PivotRot/PivotCrouch/PivotStrafe")
+pivotCrouch = NodePath("../../PivotRot/PivotCrouch")
 metadata/_custom_type_script = "uid://bnpgisg7fga1b"
 
 [node name="Environment" type="Node3D" parent="." unique_id=243767993]
