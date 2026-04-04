@@ -22,12 +22,15 @@ func _physics_process(_delta: float) -> void:
 	$"../../DiveCollider".position.y = manager.diveModule.currentColliderHeight
 	
 	player.velocity += manager.fpsWalkModule.walkVec
-	player.velocity.y += manager.gravityModule.motion
 	
 	player.velocity *= manager.sprintModule.speedMultiplier
 	player.velocity *= manager.crouchModule.speedMultiplier
+	player.velocity *= manager.strafeModule.speedMultiplier
+	
 	player.velocity.y += manager.jumpModule.motion
 	player.velocity += manager.diveModule.motion
+	
+	player.velocity.y += manager.gravityModule.motion
 	
 	player.move_and_slide()
 	

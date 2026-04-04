@@ -20,12 +20,9 @@ signal DiveFinished()
 
 var _standingTween: Tween
 
-var isDiving: bool = false
-var currentState: DIVE_STATE = DIVE_STATE.IDLE :
-	set(newValue):
-		isDiving = newValue != DIVE_STATE.IDLE
-		currentState = newValue
-		return
+var isDiving: bool :
+	get: return currentState != DIVE_STATE.IDLE
+var currentState: DIVE_STATE = DIVE_STATE.IDLE
 var currentColliderSize: Vector3 = INITIAL_COLLIDER_SIZE
 var currentColliderHeight: float = INITIAL_COLLIDER_HEIGHT
 var motion: Vector3 = Vector3.ZERO
@@ -38,17 +35,17 @@ func run(moveVec: Vector3, isPlayerOnFloor: bool, canHandleInput: bool = true) -
 
 func _handleMachineState(moveVec: Vector3, isPlayerOnFloor: bool, canHandleInput: bool) -> void:
 	match currentState:
-		DIVE_STATE.IDLE: _handleIdleState(moveVec, canHandleInput)
+		DIVE_STATE.IDLE: _handleIdleState(moveVec, isPlayerOnFloor, canHandleInput)
 		DIVE_STATE.FALLING: _handleFallingState(isPlayerOnFloor)
 		DIVE_STATE.STANDING: _handleStandingState()
 	pass
 
 
-func _handleIdleState(moveVec: Vector3, canHandleInput: bool) -> void:
+func _handleIdleState(moveVec: Vector3, isPlayerOnFloor: bool, canHandleInput: bool) -> void:
 	var isIdle: bool = currentState == DIVE_STATE.IDLE
 	var isMoving: bool = abs(moveVec.length()) > 0.0
 	
-	if (isIdle and isMoving and canHandleInput and Input.is_action_just_pressed("Dive")):
+	if (isIdle and isPlayerOnFloor and isMoving and canHandleInput and Input.is_action_just_pressed("Dive")):
 		_setFallingState(moveVec)
 	pass
 
