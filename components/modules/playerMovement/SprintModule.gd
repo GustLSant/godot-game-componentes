@@ -8,8 +8,8 @@ const LERP_FACTOR: float = 12.0
 
 signal SprintChanged(_newValue: bool)
 
-var speedMultiplier: float = 1.0
 var isSprinting: bool = false
+var speedMultiplier: float = 1.0
 
 
 func run(isPlayerOnFloor: bool, sprintHoldMode: bool, inputVecMovement: Vector2, delta: float, canHandleInput: bool = true) -> void:

@@ -18,6 +18,12 @@ extends Node3D
 @export var standShapeCast3D: ShapeCast3D
 
 
+func _ready() -> void:
+	crouchModule.connect("CrouchChanged", handleCrouchChanged)
+	sprintModule.connect("SprintChanged", handleSprintChanged)
+	pass
+
+
 func _physics_process(_delta: float) -> void:
 	gravityModule.run(player.is_on_floor(), _delta)
 	fpsWalkModule.run(pivotRot.global_transform)
@@ -29,4 +35,14 @@ func _physics_process(_delta: float) -> void:
 		sprintModule.run(player.is_on_floor(), Settings.sprintHoldMode, fpsWalkModule.inputVec, _delta)
 		jumpModule.run(player.is_on_floor())
 		crouchModule.run(Settings.crouchHoldMode, not standShapeCast3D.is_colliding(), _delta)
+	pass
+
+
+func handleCrouchChanged(_newState: bool) -> void:
+	#if (_newState): sprintModule.changeSprinting(false)
+	pass
+
+
+func handleSprintChanged(_newState: bool) -> void:
+	#if (_newState): crouchModule.changeCrouch(false)
 	pass
