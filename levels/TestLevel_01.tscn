@@ -11,6 +11,9 @@
 [ext_resource type="Script" uid="uid://pcpnpw3f4drq" path="res://components/modules/playerMovement/DiveModule.gd" id="8_wil6e"]
 [ext_resource type="Script" uid="uid://utjs8w0vpjtp" path="res://components/handlers/PlayerMovementMapper.gd" id="9_ep5s3"]
 [ext_resource type="Script" uid="uid://ba1cfrnyjex1u" path="res://components/modules/GravityModule.gd" id="9_tm2wl"]
+[ext_resource type="Script" uid="uid://v6ny4aiuuigb" path="res://components/modules/ShakeModule.gd" id="10_it08m"]
+[ext_resource type="Script" uid="uid://cwqe8rb1k0vhq" path="res://components/modules/SineSwayModule.gd" id="11_eny6h"]
+[ext_resource type="Script" uid="uid://bwtta1iglpx6p" path="res://components/modules/NoiseSwayModule.gd" id="12_q6ibj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18gsl"]
 transparency = 1
@@ -35,10 +38,6 @@ no_depth_test = true
 albedo_color = Color(0, 1, 0, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_wil6e"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wil6e"]
-no_depth_test = true
-albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wil6e"]
 
@@ -131,19 +130,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
 [node name="PivotStrafe" type="Marker3D" parent="Player/PivotRot/PivotCrouch" unique_id=530741314]
 
-[node name="Camera3D" type="Camera3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe" unique_id=1338959818]
+[node name="PivotShake" type="Marker3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe" unique_id=1421381454]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/Camera3D" unique_id=1036436499]
+[node name="Camera3D" type="Camera3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PivotShake" unique_id=1338959818]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PivotShake/Camera3D" unique_id=1036436499]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_ep5s3")
 mesh = SubResource("SphereMesh_wil6e")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe" unique_id=2127305808]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2351742e-08, 0.29999995, -2.2351742e-08)
-visible = false
-material_override = SubResource("StandardMaterial3D_wil6e")
-size = Vector3(0.2, 0.6, 0.2)
+[node name="PivotSineSway" type="Marker3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe" unique_id=1765433180]
+
+[node name="PivotNoiseSway" type="Marker3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PivotSineSway" unique_id=368209848]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotNoiseSway" unique_id=873415166]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.40000004, -0.6, -0.9)
+size = Vector3(0.4, 0.4, 1.2)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotNoiseSway" unique_id=170980035]
+transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, 2.9802322e-08, -0.70000005, -0.79999995)
+size = Vector3(0.4, 0.4, 1.2)
 
 [node name="Components" type="Node3D" parent="Player" unique_id=139323464]
 
@@ -154,7 +161,7 @@ target_position = Vector3(0, 1.05, 0)
 max_results = 4
 collision_mask = 6
 
-[node name="PlayerManager" type="Node3D" parent="Player/Components" unique_id=1231610375 node_paths=PackedStringArray("gravityModule", "fpsWalkModule", "sprintModule", "jumpModule", "crouchModule", "diveModule", "strafeModule", "fpsCameraRotModule", "player", "camera", "pivotRot", "standShapeCast3D")]
+[node name="PlayerManager" type="Node3D" parent="Player/Components" unique_id=1231610375 node_paths=PackedStringArray("gravityModule", "fpsWalkModule", "sprintModule", "jumpModule", "crouchModule", "diveModule", "strafeModule", "fpsCameraRotModule", "shakeModule", "sineSwayModule", "noiseSwayModule", "player", "camera", "pivotRot", "standShapeCast3D")]
 script = ExtResource("1_2qii2")
 gravityModule = NodePath("GravityModule")
 fpsWalkModule = NodePath("FpsWalkModule")
@@ -164,8 +171,11 @@ crouchModule = NodePath("CrouchModule")
 diveModule = NodePath("DiveModule")
 strafeModule = NodePath("StrafeModule")
 fpsCameraRotModule = NodePath("FpsCameraRotModule")
+shakeModule = NodePath("ShakeModule")
+sineSwayModule = NodePath("SineSwayModule")
+noiseSwayModule = NodePath("NoiseSwayModule")
 player = NodePath("../..")
-camera = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/Camera3D")
+camera = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PivotShake/Camera3D")
 pivotRot = NodePath("../../PivotRot")
 standShapeCast3D = NodePath("../StandShapeCast3D")
 metadata/_custom_type_script = "uid://c2r7cjqdaex0e"
@@ -202,18 +212,33 @@ metadata/_custom_type_script = "uid://cuu7ebd8mwkkr"
 script = ExtResource("7_ep5s3")
 metadata/_custom_type_script = "uid://cl1dsaei4tudu"
 
+[node name="ShakeModule" type="Node" parent="Player/Components/PlayerManager" unique_id=928938912]
+script = ExtResource("10_it08m")
+metadata/_custom_type_script = "uid://v6ny4aiuuigb"
+
+[node name="SineSwayModule" type="Node" parent="Player/Components/PlayerManager" unique_id=2089644405]
+script = ExtResource("11_eny6h")
+metadata/_custom_type_script = "uid://cwqe8rb1k0vhq"
+
+[node name="NoiseSwayModule" type="Node" parent="Player/Components/PlayerManager" unique_id=18152976]
+script = ExtResource("12_q6ibj")
+metadata/_custom_type_script = "uid://bwtta1iglpx6p"
+
 [node name="PlayerMovementMapper" type="Node" parent="Player/Components" unique_id=1014660560 node_paths=PackedStringArray("manager", "player")]
 script = ExtResource("9_ep5s3")
 manager = NodePath("../PlayerManager")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://utjs8w0vpjtp"
 
-[node name="PlayerCameraMapper" type="Node" parent="Player/Components" unique_id=1472961679 node_paths=PackedStringArray("manager", "pivotRot", "pivotStrafe", "pivotCrouch")]
+[node name="PlayerCameraMapper" type="Node" parent="Player/Components" unique_id=1472961679 node_paths=PackedStringArray("manager", "pivotRot", "pivotStrafe", "pivotCrouch", "pivotShake", "pivotSineSway", "pivotNoiseSway")]
 script = ExtResource("8_2qii2")
 manager = NodePath("../PlayerManager")
 pivotRot = NodePath("../../PivotRot")
 pivotStrafe = NodePath("../../PivotRot/PivotCrouch/PivotStrafe")
 pivotCrouch = NodePath("../../PivotRot/PivotCrouch")
+pivotShake = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PivotShake")
+pivotSineSway = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PivotSineSway")
+pivotNoiseSway = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotNoiseSway")
 metadata/_custom_type_script = "uid://bnpgisg7fga1b"
 
 [node name="Environment" type="Node3D" parent="." unique_id=243767993]

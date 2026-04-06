@@ -5,7 +5,8 @@ const BASE_MOVE_SPEED: float = 4.0
 
 var inputVec: Vector2 = Vector2.ZERO
 var walkVec: Vector3 = Vector3.ZERO
-var walkSpeed: float = BASE_MOVE_SPEED
+var walkSpeed: float :
+	get: return walkVec.length_squared()
 
 
 func run(pivotRotTransform: Transform3D, canHandleInput: bool = true) -> void:
@@ -30,5 +31,5 @@ func _handleMovement(pivotRotTransform: Transform3D) -> void:
 	
 	var vecMovement: Vector3 = (inputVec.x * right + inputVec.y * forward).normalized()
 	
-	walkVec = Vector3(vecMovement.x, 0.0, vecMovement.z) * walkSpeed
+	walkVec = Vector3(vecMovement.x, 0.0, vecMovement.z) * BASE_MOVE_SPEED
 	pass

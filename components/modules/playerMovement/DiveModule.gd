@@ -9,7 +9,7 @@ const FALLING_COLLIDER_SIZE: Vector3 = Vector3.ONE
 const INITIAL_COLLIDER_HEIGHT: float = 1.0
 const FALLING_COLLIDER_HEIGHT: float = 1.5
 
-const VERTICAL_IMPULSE_STRENGTH: float = 4.0
+const VERTICAL_IMPULSE_STRENGTH: float = 4.5
 const HORIZONTAL_IMPULSE_STREGTH: float = 6.0
 
 const LERP_FACTOR: float = 8.0

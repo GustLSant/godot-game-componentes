@@ -44,6 +44,7 @@ func _ready() -> void:
 
 
 func startGame() -> void:
+	#currentLevel = load("res://backup/Levels/TestingLevel.tscn").instantiate()
 	currentLevel = load("res://levels/TestLevel_01.tscn").instantiate()
 	Nodes.mainNode.add_child(currentLevel)
 	Nodes.mainNode.move_child(currentLevel, 0)
