@@ -8,6 +8,7 @@ extends Node
 @export var pivotShake: Marker3D
 @export var pivotSineSway: Marker3D
 @export var pivotNoiseSway: Marker3D
+@export var pivotRecoil: Marker3D
 
 
 func _physics_process(_delta: float) -> void:
@@ -25,4 +26,7 @@ func _physics_process(_delta: float) -> void:
 	pivotStrafe.rotation_degrees.z = manager.strafeModule.currentCameraAngle
 	pivotStrafe.position.x = manager.strafeModule.currentPosOffset.x
 	pivotStrafe.position.y = manager.strafeModule.currentPosOffset.y
+	
+	pivotRecoil.position = manager.recoilModule.posOffset
+	pivotRecoil.rotation_degrees = manager.recoilModule.rotOffset
 	pass

@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://v6ny4aiuuigb" path="res://components/modules/ShakeModule.gd" id="10_it08m"]
 [ext_resource type="Script" uid="uid://cwqe8rb1k0vhq" path="res://components/modules/SineSwayModule.gd" id="11_eny6h"]
 [ext_resource type="Script" uid="uid://bwtta1iglpx6p" path="res://components/modules/NoiseSwayModule.gd" id="12_q6ibj"]
+[ext_resource type="Script" uid="uid://cx3ocg1nv5n51" path="res://components/modules/RecoilModule.gd" id="13_4e8fx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18gsl"]
 transparency = 1
@@ -142,13 +143,15 @@ mesh = SubResource("SphereMesh_wil6e")
 
 [node name="PivotSineSway" type="Marker3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe" unique_id=1765433180]
 
-[node name="PivotNoiseSway" type="Marker3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PivotSineSway" unique_id=368209848]
+[node name="PivotRecoil" type="Marker3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PivotSineSway" unique_id=1639938961]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotNoiseSway" unique_id=873415166]
+[node name="PivotNoiseSway" type="Marker3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotRecoil" unique_id=368209848]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotRecoil/PivotNoiseSway" unique_id=873415166]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.40000004, -0.6, -0.9)
 size = Vector3(0.4, 0.4, 1.2)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotNoiseSway" unique_id=170980035]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotRecoil/PivotNoiseSway" unique_id=170980035]
 transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, 2.9802322e-08, -0.70000005, -0.79999995)
 size = Vector3(0.4, 0.4, 1.2)
 
@@ -161,7 +164,7 @@ target_position = Vector3(0, 1.05, 0)
 max_results = 4
 collision_mask = 6
 
-[node name="PlayerManager" type="Node3D" parent="Player/Components" unique_id=1231610375 node_paths=PackedStringArray("gravityModule", "fpsWalkModule", "sprintModule", "jumpModule", "crouchModule", "diveModule", "strafeModule", "fpsCameraRotModule", "shakeModule", "sineSwayModule", "noiseSwayModule", "player", "camera", "pivotRot", "standShapeCast3D")]
+[node name="PlayerManager" type="Node3D" parent="Player/Components" unique_id=1231610375 node_paths=PackedStringArray("gravityModule", "fpsWalkModule", "sprintModule", "jumpModule", "crouchModule", "diveModule", "strafeModule", "fpsCameraRotModule", "shakeModule", "sineSwayModule", "noiseSwayModule", "recoilModule", "player", "camera", "pivotRot", "standShapeCast3D")]
 script = ExtResource("1_2qii2")
 gravityModule = NodePath("GravityModule")
 fpsWalkModule = NodePath("FpsWalkModule")
@@ -174,6 +177,7 @@ fpsCameraRotModule = NodePath("FpsCameraRotModule")
 shakeModule = NodePath("ShakeModule")
 sineSwayModule = NodePath("SineSwayModule")
 noiseSwayModule = NodePath("NoiseSwayModule")
+recoilModule = NodePath("RecoilModule")
 player = NodePath("../..")
 camera = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PivotShake/Camera3D")
 pivotRot = NodePath("../../PivotRot")
@@ -224,13 +228,17 @@ metadata/_custom_type_script = "uid://cwqe8rb1k0vhq"
 script = ExtResource("12_q6ibj")
 metadata/_custom_type_script = "uid://bwtta1iglpx6p"
 
+[node name="RecoilModule" type="Node" parent="Player/Components/PlayerManager" unique_id=312252045]
+script = ExtResource("13_4e8fx")
+metadata/_custom_type_script = "uid://cx3ocg1nv5n51"
+
 [node name="PlayerMovementMapper" type="Node" parent="Player/Components" unique_id=1014660560 node_paths=PackedStringArray("manager", "player")]
 script = ExtResource("9_ep5s3")
 manager = NodePath("../PlayerManager")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://utjs8w0vpjtp"
 
-[node name="PlayerCameraMapper" type="Node" parent="Player/Components" unique_id=1472961679 node_paths=PackedStringArray("manager", "pivotRot", "pivotStrafe", "pivotCrouch", "pivotShake", "pivotSineSway", "pivotNoiseSway")]
+[node name="PlayerCameraMapper" type="Node" parent="Player/Components" unique_id=1472961679 node_paths=PackedStringArray("manager", "pivotRot", "pivotStrafe", "pivotCrouch", "pivotShake", "pivotSineSway", "pivotNoiseSway", "pivotRecoil")]
 script = ExtResource("8_2qii2")
 manager = NodePath("../PlayerManager")
 pivotRot = NodePath("../../PivotRot")
@@ -238,7 +246,8 @@ pivotStrafe = NodePath("../../PivotRot/PivotCrouch/PivotStrafe")
 pivotCrouch = NodePath("../../PivotRot/PivotCrouch")
 pivotShake = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PivotShake")
 pivotSineSway = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PivotSineSway")
-pivotNoiseSway = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotNoiseSway")
+pivotNoiseSway = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotRecoil/PivotNoiseSway")
+pivotRecoil = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotRecoil")
 metadata/_custom_type_script = "uid://bnpgisg7fga1b"
 
 [node name="Environment" type="Node3D" parent="." unique_id=243767993]
