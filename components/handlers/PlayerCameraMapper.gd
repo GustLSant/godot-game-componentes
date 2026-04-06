@@ -9,6 +9,7 @@ extends Node
 @export var pivotSineSway: Marker3D
 @export var pivotNoiseSway: Marker3D
 @export var pivotRecoil: Marker3D
+@export var pivotLead: Marker3D
 
 
 func _physics_process(_delta: float) -> void:
@@ -29,4 +30,6 @@ func _physics_process(_delta: float) -> void:
 	
 	pivotRecoil.position = manager.recoilModule.posOffset
 	pivotRecoil.rotation_degrees = manager.recoilModule.rotOffset
+	
+	pivotLead.rotation_degrees = manager.lookLeadModule.rotOffset
 	pass

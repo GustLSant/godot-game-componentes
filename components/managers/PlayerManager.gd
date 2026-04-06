@@ -14,6 +14,7 @@ extends Node3D
 @export var sineSwayModule: SineSwayModule
 @export var noiseSwayModule: NoiseSwayModule
 @export var recoilModule: RecoilModule
+@export var lookLeadModule: LookLeadModule
 
 @export var player: CharacterBody3D
 @export var camera: Camera3D
@@ -39,13 +40,14 @@ func _physics_process(_delta: float) -> void:
 	sineSwayModule.run(fpsWalkModule.walkSpeed / 16.0, fpsWalkModule.walkSpeed / 16.0)
 	noiseSwayModule.run(0.2, 5.0)
 	recoilModule.run(1.0, 1.0, 1.0, _delta)
+	lookLeadModule.run(1.0, _delta)
 	
 	if (not diveModule.isDiving):
 		sprintModule.run(player.is_on_floor(), Settings.sprintHoldMode, fpsWalkModule.inputVec, _delta)
 		jumpModule.run(player.is_on_floor())
 		crouchModule.run(Settings.crouchHoldMode, not standShapeCast3D.is_colliding(), _delta)
 	
-	#if (Input.is_action_just_pressed('Shoot')): shakeModule.addShake(1.0)
+	if (Input.is_action_just_pressed('Shoot')): shakeModule.addShake(0.1)
 	if (Input.is_action_just_pressed('Shoot')): recoilModule.addRecoil()
 	pass
 

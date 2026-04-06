@@ -21,7 +21,7 @@ func run(currentRotaion: Vector3, xCamSensi: float, yCamSensi: float, xCamJoysti
 	pass
 
 
-func _input(event):
+func _input(event: InputEvent):
 	if event is InputEventMouseMotion:
 		_lastMouseMotion.x = event.relative.x
 		_lastMouseMotion.y = event.relative.y
