@@ -15,6 +15,7 @@ extends Node3D
 @export var noiseSwayModule: NoiseSwayModule
 @export var recoilModule: RecoilModule
 @export var lookLeadModule: LookLeadModule
+@export var movementTiltModule: MovementTiltModule
 
 @export var player: CharacterBody3D
 @export var camera: Camera3D
@@ -37,10 +38,11 @@ func _physics_process(_delta: float) -> void:
 	diveModule.run(fpsWalkModule.walkVec, player.is_on_floor())
 	
 	shakeModule.run(_delta)
-	sineSwayModule.run(fpsWalkModule.walkSpeed / 16.0, fpsWalkModule.walkSpeed / 16.0)
+	#sineSwayModule.run(fpsWalkModule.walkSpeed / 16.0, fpsWalkModule.walkSpeed / 16.0)
 	noiseSwayModule.run(0.2, 5.0)
 	recoilModule.run(1.0, 1.0, 1.0, _delta)
 	lookLeadModule.run(1.0, _delta)
+	movementTiltModule.run(fpsWalkModule.inputVec, 5.0, _delta)
 	
 	if (not diveModule.isDiving):
 		sprintModule.run(player.is_on_floor(), Settings.sprintHoldMode, fpsWalkModule.inputVec, _delta)

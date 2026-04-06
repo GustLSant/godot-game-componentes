@@ -3,7 +3,7 @@ extends Node
 
 const BASE_MOVE_SPEED: float = 4.0
 
-var inputVec: Vector2 = Vector2.ZERO
+var inputVec: Vector3 = Vector3.ZERO
 var walkVec: Vector3 = Vector3.ZERO
 var walkSpeed: float :
 	get: return walkVec.length_squared()
@@ -17,7 +17,7 @@ func run(pivotRotTransform: Transform3D, canHandleInput: bool = true) -> void:
 
 func _getMoveInputs() -> void:
 	inputVec.x = Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft")
-	inputVec.y = Input.get_action_strength("MoveBackward") - Input.get_action_strength("MoveForward")
+	inputVec.z = Input.get_action_strength("MoveBackward") - Input.get_action_strength("MoveForward")
 	pass
 
 
@@ -29,7 +29,7 @@ func _handleMovement(pivotRotTransform: Transform3D) -> void:
 	forward = forward.normalized()
 	right = right.normalized()
 	
-	var vecMovement: Vector3 = (inputVec.x * right + inputVec.y * forward).normalized()
+	var vecMovement: Vector3 = (inputVec.x * right + inputVec.z * forward).normalized()
 	
 	walkVec = Vector3(vecMovement.x, 0.0, vecMovement.z) * BASE_MOVE_SPEED
 	pass
