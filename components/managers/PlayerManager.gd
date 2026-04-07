@@ -30,24 +30,24 @@ func _ready() -> void:
 	pass
 
 
-func _physics_process(_delta: float) -> void:
-	gravityModule.run(player.is_on_floor(), _delta)
+func _physics_process(delta: float) -> void:
+	gravityModule.run(player.is_on_floor(), delta)
 	fpsWalkModule.run(pivotRot.global_transform)
-	strafeModule.run(Settings.strafeHoldMode, _delta)
-	fpsCameraRotModule.run(pivotRot.rotation_degrees, Settings.cameraSensitivity, Settings.cameraSensitivity, 200.0, 200.0, _delta)
+	strafeModule.run(Settings.strafeHoldMode, delta)
+	fpsCameraRotModule.run(pivotRot.rotation_degrees, Settings.cameraSensitivity, Settings.cameraSensitivity, 200.0, 200.0, delta)
 	diveModule.run(fpsWalkModule.walkVec, player.is_on_floor())
 	
-	shakeModule.run(_delta)
-	#sineSwayModule.run(fpsWalkModule.walkSpeed / 16.0, fpsWalkModule.walkSpeed / 16.0)
+	shakeModule.run(delta)
+	sineSwayModule.run(fpsWalkModule.walkSpeed / 16.0, fpsWalkModule.walkSpeed / 16.0, delta)
 	noiseSwayModule.run(0.2, 5.0)
-	recoilModule.run(1.0, 1.0, 1.0, _delta)
-	lookLeadModule.run(1.0, _delta)
-	movementTiltModule.run(fpsWalkModule.inputVec, 5.0, _delta)
+	recoilModule.run(1.0, 1.0, 1.0, delta)
+	lookLeadModule.run(1.0, delta)
+	movementTiltModule.run(fpsWalkModule.inputVec, 5.0, delta)
 	
 	if (not diveModule.isDiving):
-		sprintModule.run(player.is_on_floor(), Settings.sprintHoldMode, fpsWalkModule.inputVec, _delta)
+		sprintModule.run(player.is_on_floor(), Settings.sprintHoldMode, fpsWalkModule.inputVec, delta)
 		jumpModule.run(player.is_on_floor())
-		crouchModule.run(Settings.crouchHoldMode, not standShapeCast3D.is_colliding(), _delta)
+		crouchModule.run(Settings.crouchHoldMode, not standShapeCast3D.is_colliding(), delta)
 	
 	if (Input.is_action_just_pressed('Shoot')): shakeModule.addShake(0.1)
 	if (Input.is_action_just_pressed('Shoot')): recoilModule.addRecoil()
