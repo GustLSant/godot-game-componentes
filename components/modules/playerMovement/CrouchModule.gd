@@ -18,13 +18,13 @@ var heightOffset: float = 0.0
 
 
 func run(crouchHoldMode: bool, isHeadClear: bool, delta: float, canHandleInput: bool = true) -> void:
-	if (canHandleInput): _handleInput(crouchHoldMode, isHeadClear)
+	_handleInput(crouchHoldMode, isHeadClear, canHandleInput)
 	_handleCrouch(delta)
 	pass
 
 
-func _handleInput(crouchHoldMode: bool, isHeadClear: bool) -> void:
-	if (isCrouched and not isHeadClear): return
+func _handleInput(crouchHoldMode: bool, isHeadClear: bool, canHandleInput: bool) -> void:
+	if (not canHandleInput or (isCrouched and not isHeadClear)): return
 	
 	var oldCrouchState: bool = isCrouched
 	

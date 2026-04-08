@@ -11,6 +11,7 @@ extends Node
 @export var pivotRecoil: Marker3D
 @export var pivotLead: Marker3D
 @export var pivotTilt: Marker3D
+@export var camera: Camera3D
 
 
 func _physics_process(_delta: float) -> void:
@@ -22,8 +23,8 @@ func _physics_process(_delta: float) -> void:
 	pivotShake.rotation_degrees = manager.shakeModule.rotOffset
 	
 	pivotSineSway.position = manager.sineSwayModule.posOffset
-	pivotNoiseSway.position = manager.noiseSwayModule.posOffset
-	pivotNoiseSway.rotation_degrees = manager.noiseSwayModule.rotOffset
+	#pivotNoiseSway.position = manager.noiseSwayModule.posOffset
+	#pivotNoiseSway.rotation_degrees = manager.noiseSwayModule.rotOffset
 	
 	pivotStrafe.rotation_degrees.z = manager.strafeModule.currentCameraAngle
 	pivotStrafe.position.x = manager.strafeModule.currentPosOffset.x
@@ -34,4 +35,6 @@ func _physics_process(_delta: float) -> void:
 	
 	pivotLead.rotation_degrees = manager.lookLeadModule.rotOffset
 	pivotTilt.rotation_degrees = manager.movementTiltModule.rotOffset
+	
+	camera.fov = 75.0 - (15.0 * manager.aimModule.aimFactor)
 	pass

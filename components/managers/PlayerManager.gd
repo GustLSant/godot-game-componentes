@@ -17,6 +17,9 @@ extends Node3D
 @export var lookLeadModule: LookLeadModule
 @export var movementTiltModule: MovementTiltModule
 
+@export var aimModule: AimModule
+@export var shotModule: ShootModule
+
 @export var player: CharacterBody3D
 @export var camera: Camera3D
 @export var pivotRot: Node3D
@@ -27,6 +30,7 @@ func _ready() -> void:
 	crouchModule.connect("CrouchChanged", handleCrouchChanged)
 	sprintModule.connect("SprintChanged", handleSprintChanged)
 	jumpModule.connect('PlayerJumped', handlePlayerJumped)
+	shotModule.connect('Shot', handlePlayerShot)
 	pass
 
 
@@ -38,19 +42,24 @@ func _physics_process(delta: float) -> void:
 	diveModule.run(fpsWalkModule.walkVec, player.is_on_floor())
 	
 	shakeModule.run(delta)
-	sineSwayModule.run(fpsWalkModule.walkSpeed / 16.0, fpsWalkModule.walkSpeed / 16.0, delta)
+	
+	var sineSwayMultiplier: float = int(fpsWalkModule.walkSpeed > 0) * 1.0 + int(sprintModule.isSprinting) * 2.0 + int(crouchModule.isCrouched) * 0.5 + int(strafeModule.isStrafing) * 0.5
+	var sineSwayFrequency: float = fpsWalkModule.walkSpeed / fpsWalkModule.BASE_MOVE_SPEED * sineSwayMultiplier
+	var sineSwayAmplitude: float = fpsWalkModule.walkSpeed / fpsWalkModule.BASE_MOVE_SPEED * sineSwayMultiplier
+	sineSwayModule.run(sineSwayFrequency, sineSwayAmplitude, delta)
+	
 	noiseSwayModule.run(0.2, 5.0)
 	recoilModule.run(1.0, 1.0, 1.0, delta)
 	lookLeadModule.run(1.0, delta)
 	movementTiltModule.run(fpsWalkModule.inputVec, 5.0, delta)
 	
+	aimModule.run(true, delta)
+	shotModule.run(true, 0.05, delta)
+	
 	if (not diveModule.isDiving):
 		sprintModule.run(player.is_on_floor(), Settings.sprintHoldMode, fpsWalkModule.inputVec, delta)
 		jumpModule.run(player.is_on_floor())
 		crouchModule.run(Settings.crouchHoldMode, not standShapeCast3D.is_colliding(), delta)
-	
-	if (Input.is_action_just_pressed('Shoot')): shakeModule.addShake(0.1)
-	if (Input.is_action_just_pressed('Shoot')): recoilModule.addRecoil()
 	pass
 
 
@@ -66,4 +75,10 @@ func handleSprintChanged(_newState: bool) -> void:
 
 func handlePlayerJumped() -> void:
 	
+	pass
+
+
+func handlePlayerShot() -> void:
+	#shakeModule.addShake(0.1)
+	recoilModule.addRecoil()
 	pass

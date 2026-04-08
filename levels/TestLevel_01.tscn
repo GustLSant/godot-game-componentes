@@ -7,9 +7,9 @@
 [ext_resource type="Script" uid="uid://b11da8cfch8gr" path="res://components/modules/playerMovement/CrouchModule.gd" id="5_4t4h5"]
 [ext_resource type="Script" uid="uid://cuu7ebd8mwkkr" path="res://components/modules/FpsCameraRotModule.gd" id="5_rd8ns"]
 [ext_resource type="Script" uid="uid://cl1dsaei4tudu" path="res://components/modules/StrafeModule.gd" id="7_ep5s3"]
-[ext_resource type="Script" uid="uid://bnpgisg7fga1b" path="res://components/handlers/PlayerCameraMapper.gd" id="8_2qii2"]
+[ext_resource type="Script" uid="uid://bnpgisg7fga1b" path="res://components/mappers/PlayerCameraMapper.gd" id="8_2qii2"]
 [ext_resource type="Script" uid="uid://pcpnpw3f4drq" path="res://components/modules/playerMovement/DiveModule.gd" id="8_wil6e"]
-[ext_resource type="Script" uid="uid://utjs8w0vpjtp" path="res://components/handlers/PlayerMovementMapper.gd" id="9_ep5s3"]
+[ext_resource type="Script" uid="uid://utjs8w0vpjtp" path="res://components/mappers/PlayerMovementMapper.gd" id="9_ep5s3"]
 [ext_resource type="Script" uid="uid://ba1cfrnyjex1u" path="res://components/modules/GravityModule.gd" id="9_tm2wl"]
 [ext_resource type="Script" uid="uid://v6ny4aiuuigb" path="res://components/modules/ShakeModule.gd" id="10_it08m"]
 [ext_resource type="Script" uid="uid://cwqe8rb1k0vhq" path="res://components/modules/SineSwayModule.gd" id="11_eny6h"]
@@ -17,6 +17,9 @@
 [ext_resource type="Script" uid="uid://cx3ocg1nv5n51" path="res://components/modules/RecoilModule.gd" id="13_4e8fx"]
 [ext_resource type="Script" uid="uid://dpnr5yfdsklb8" path="res://components/modules/LookLeadModule.gd" id="14_imp6m"]
 [ext_resource type="Script" uid="uid://deq3l0unkdbn3" path="res://components/modules/MovementTiltModule.gd" id="15_crclv"]
+[ext_resource type="Script" uid="uid://ccfg1mm1xju5p" path="res://components/modules/AimModule.gd" id="16_phday"]
+[ext_resource type="Script" uid="uid://cngx6ly77yh7g" path="res://components/modules/ShootModule.gd" id="17_8rnfj"]
+[ext_resource type="Script" uid="uid://h25xhw0al8b0" path="res://components/mappers/PlayerArmsMapper.gd" id="19_h4jpo"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18gsl"]
 transparency = 1
@@ -143,22 +146,25 @@ visible = false
 material_override = SubResource("StandardMaterial3D_ep5s3")
 mesh = SubResource("SphereMesh_wil6e")
 
-[node name="PivotSineSway" type="Marker3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe" unique_id=1765433180]
+[node name="PosArms" type="Node3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe" unique_id=1854652475]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
 
-[node name="PivotRecoil" type="Marker3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PivotSineSway" unique_id=1639938961]
+[node name="PivotSineSway" type="Marker3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PosArms" unique_id=1765433180]
 
-[node name="PivotLead" type="Marker3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotRecoil" unique_id=2101952821]
+[node name="PivotRecoil" type="Marker3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PosArms/PivotSineSway" unique_id=1639938961]
 
-[node name="PivotNoiseSway" type="Marker3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotRecoil/PivotLead" unique_id=368209848]
+[node name="PivotLead" type="Marker3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PosArms/PivotSineSway/PivotRecoil" unique_id=2101952821]
 
-[node name="PivotTilt" type="Marker3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotRecoil/PivotLead/PivotNoiseSway" unique_id=607467971]
+[node name="PivotNoiseSway" type="Marker3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PosArms/PivotSineSway/PivotRecoil/PivotLead" unique_id=368209848]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotRecoil/PivotLead/PivotNoiseSway/PivotTilt" unique_id=873415166]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.40000004, -0.6, -0.9)
+[node name="PivotTilt" type="Marker3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PosArms/PivotSineSway/PivotRecoil/PivotLead/PivotNoiseSway" unique_id=607467971]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PosArms/PivotSineSway/PivotRecoil/PivotLead/PivotNoiseSway/PivotTilt" unique_id=873415166]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9802322e-08, 0, -0.9)
 size = Vector3(0.4, 0.4, 1.2)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotRecoil/PivotLead/PivotNoiseSway/PivotTilt" unique_id=170980035]
-transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, 2.9802322e-08, -0.70000005, -0.79999995)
+[node name="CSGBox3D2" type="CSGBox3D" parent="Player/PivotRot/PivotCrouch/PivotStrafe/PosArms/PivotSineSway/PivotRecoil/PivotLead/PivotNoiseSway/PivotTilt" unique_id=170980035]
+transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, -0.39999998, -0.100000024, -0.79999995)
 size = Vector3(0.4, 0.4, 1.2)
 
 [node name="Components" type="Node3D" parent="Player" unique_id=139323464]
@@ -170,7 +176,7 @@ target_position = Vector3(0, 1.05, 0)
 max_results = 4
 collision_mask = 6
 
-[node name="PlayerManager" type="Node3D" parent="Player/Components" unique_id=1231610375 node_paths=PackedStringArray("gravityModule", "fpsWalkModule", "sprintModule", "jumpModule", "crouchModule", "diveModule", "strafeModule", "fpsCameraRotModule", "shakeModule", "sineSwayModule", "noiseSwayModule", "recoilModule", "lookLeadModule", "movementTiltModule", "player", "camera", "pivotRot", "standShapeCast3D")]
+[node name="PlayerManager" type="Node3D" parent="Player/Components" unique_id=1231610375 node_paths=PackedStringArray("gravityModule", "fpsWalkModule", "sprintModule", "jumpModule", "crouchModule", "diveModule", "strafeModule", "fpsCameraRotModule", "shakeModule", "sineSwayModule", "noiseSwayModule", "recoilModule", "lookLeadModule", "movementTiltModule", "aimModule", "shotModule", "player", "camera", "pivotRot", "standShapeCast3D")]
 script = ExtResource("1_2qii2")
 gravityModule = NodePath("GravityModule")
 fpsWalkModule = NodePath("FpsWalkModule")
@@ -186,6 +192,8 @@ noiseSwayModule = NodePath("NoiseSwayModule")
 recoilModule = NodePath("RecoilModule")
 lookLeadModule = NodePath("LookLeadModule")
 movementTiltModule = NodePath("MovementTiltModule")
+aimModule = NodePath("AimModule")
+shotModule = NodePath("ShootModule")
 player = NodePath("../..")
 camera = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PivotShake/Camera3D")
 pivotRot = NodePath("../../PivotRot")
@@ -248,25 +256,40 @@ metadata/_custom_type_script = "uid://dpnr5yfdsklb8"
 script = ExtResource("15_crclv")
 metadata/_custom_type_script = "uid://deq3l0unkdbn3"
 
+[node name="AimModule" type="Node" parent="Player/Components/PlayerManager" unique_id=1774382068]
+script = ExtResource("16_phday")
+metadata/_custom_type_script = "uid://ccfg1mm1xju5p"
+
+[node name="ShootModule" type="Node" parent="Player/Components/PlayerManager" unique_id=671516376]
+script = ExtResource("17_8rnfj")
+metadata/_custom_type_script = "uid://cngx6ly77yh7g"
+
 [node name="PlayerMovementMapper" type="Node" parent="Player/Components" unique_id=1014660560 node_paths=PackedStringArray("manager", "player")]
 script = ExtResource("9_ep5s3")
 manager = NodePath("../PlayerManager")
 player = NodePath("../..")
 metadata/_custom_type_script = "uid://utjs8w0vpjtp"
 
-[node name="PlayerCameraMapper" type="Node" parent="Player/Components" unique_id=1472961679 node_paths=PackedStringArray("manager", "pivotRot", "pivotStrafe", "pivotCrouch", "pivotShake", "pivotSineSway", "pivotNoiseSway", "pivotRecoil", "pivotLead", "pivotTilt")]
+[node name="PlayerCameraMapper" type="Node" parent="Player/Components" unique_id=1472961679 node_paths=PackedStringArray("manager", "pivotRot", "pivotStrafe", "pivotCrouch", "pivotShake", "pivotSineSway", "pivotNoiseSway", "pivotRecoil", "pivotLead", "pivotTilt", "camera")]
 script = ExtResource("8_2qii2")
 manager = NodePath("../PlayerManager")
 pivotRot = NodePath("../../PivotRot")
 pivotStrafe = NodePath("../../PivotRot/PivotCrouch/PivotStrafe")
 pivotCrouch = NodePath("../../PivotRot/PivotCrouch")
 pivotShake = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PivotShake")
-pivotSineSway = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PivotSineSway")
-pivotNoiseSway = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotRecoil/PivotLead/PivotNoiseSway")
-pivotRecoil = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotRecoil")
-pivotLead = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotRecoil/PivotLead")
-pivotTilt = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PivotSineSway/PivotRecoil/PivotLead/PivotNoiseSway/PivotTilt")
+pivotSineSway = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PosArms/PivotSineSway")
+pivotNoiseSway = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PosArms/PivotSineSway/PivotRecoil/PivotLead/PivotNoiseSway")
+pivotRecoil = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PosArms/PivotSineSway/PivotRecoil")
+pivotLead = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PosArms/PivotSineSway/PivotRecoil/PivotLead")
+pivotTilt = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PosArms/PivotSineSway/PivotRecoil/PivotLead/PivotNoiseSway/PivotTilt")
+camera = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PivotShake/Camera3D")
 metadata/_custom_type_script = "uid://bnpgisg7fga1b"
+
+[node name="PlayerArmsMapper" type="Node" parent="Player/Components" unique_id=1682123253 node_paths=PackedStringArray("playerManager", "pivotAimPos")]
+script = ExtResource("19_h4jpo")
+playerManager = NodePath("../PlayerManager")
+pivotAimPos = NodePath("../../PivotRot/PivotCrouch/PivotStrafe/PosArms/PivotSineSway/PivotRecoil/PivotLead/PivotNoiseSway/PivotTilt")
+metadata/_custom_type_script = "uid://h25xhw0al8b0"
 
 [node name="Environment" type="Node3D" parent="." unique_id=243767993]
 
