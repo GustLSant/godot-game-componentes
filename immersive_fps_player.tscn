@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://cn5yb4uihoife"]
+
+[ext_resource type="Script" uid="uid://cuu7ebd8mwkkr" path="res://components/modules/FpsCameraRotModule.gd" id="1_xy2an"]
+[ext_resource type="Script" uid="uid://xch3di2r76ea" path="res://components/modules/playerMovement/FpsWalkModule.gd" id="2_8sb0g"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xy2an"]
+size = Vector3(1.1, 3.2, 1)
+
+[sub_resource type="GDScript" id="GDScript_xy2an"]
+script/source = "extends Node
+
+func _physics_process(delta: float) -> void:
+	$\"../Modules/FpsCameraRotModule\".run($\"../../PivotRot\".rotation_degrees, 0.3, 0.3, 1.0, 1.0, delta)
+	$\"../Modules/FpsWalkModule\".run($\"../../PivotRot\".global_transform)
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_8sb0g"]
+script/source = "extends Node
+
+
+func _physics_process(_delta: float) -> void:
+	$\"../../../PivotRot\".rotation_degrees = $\"../../Modules/FpsCameraRotModule\".targetRotation
+	pass
+"
+
+[node name="ImmersiveFpsPlayer" type="CharacterBody3D" unique_id=1260607328]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=658765557]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.050000012, 1.6, 0)
+shape = SubResource("BoxShape3D_xy2an")
+
+[node name="Body" type="Node3D" parent="." unique_id=1232145745]
+
+[node name="Head" type="CSGBox3D" parent="Body" unique_id=988421376]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 0)
+size = Vector3(0.8, 0.8, 0.8)
+
+[node name="Chest" type="CSGBox3D" parent="Body" unique_id=1891150305]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+size = Vector3(0.8, 1.2, 0.4)
+
+[node name="ArmR" type="CSGBox3D" parent="Body" unique_id=1726519525]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1.8, 0)
+visible = false
+size = Vector3(0.4, 1.2, 0.4)
+
+[node name="ArmL" type="CSGBox3D" parent="Body" unique_id=1924325411]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.8, 0)
+visible = false
+size = Vector3(0.4, 1.2, 0.4)
+
+[node name="ArmR2" type="CSGBox3D" parent="Body" unique_id=2144381939]
+transform = Transform3D(1, 0, 0, 0, -2.9802322e-08, -1, 0, 1, -2.9802322e-08, 0.40000004, 2.2, -0.6)
+size = Vector3(0.4, 1.2, 0.4)
+
+[node name="ArmL2" type="CSGBox3D" parent="Body" unique_id=1040553861]
+transform = Transform3D(0.9063079, -0.42261827, 1.8473232e-08, 0, -4.371139e-08, -1, 0.42261827, 0.9063079, -3.9615973e-08, -0.10000002, 2.1, -0.5)
+size = Vector3(0.4, 1.2, 0.4)
+
+[node name="LegR" type="CSGBox3D" parent="Body" unique_id=448453316]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19999999, 0.6, 0)
+size = Vector3(0.4, 1.2, 0.4)
+
+[node name="LegL" type="CSGBox3D" parent="Body" unique_id=1736620289]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20000005, 0.6, 0)
+size = Vector3(0.4, 1.2, 0.4)
+
+[node name="PivotRot" type="Marker3D" parent="." unique_id=243804450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+
+[node name="Camera3D" type="Camera3D" parent="PivotRot" unique_id=1900360821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6)
+
+[node name="Components" type="Node3D" parent="." unique_id=1256166811]
+
+[node name="Manager" type="Node" parent="Components" unique_id=1634988331]
+script = SubResource("GDScript_xy2an")
+
+[node name="Modules" type="Node3D" parent="Components" unique_id=2021239528]
+
+[node name="FpsCameraRotModule" type="Node" parent="Components/Modules" unique_id=225552995]
+script = ExtResource("1_xy2an")
+metadata/_custom_type_script = "uid://cuu7ebd8mwkkr"
+
+[node name="FpsWalkModule" type="Node" parent="Components/Modules" unique_id=601290669]
+script = ExtResource("2_8sb0g")
+metadata/_custom_type_script = "uid://xch3di2r76ea"
+
+[node name="Mappers" type="Node3D" parent="Components" unique_id=1948042466]
+
+[node name="CameraMapper" type="Node" parent="Components/Mappers" unique_id=1130936685]
+script = SubResource("GDScript_8sb0g")
