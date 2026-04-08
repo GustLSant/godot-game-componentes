@@ -43,9 +43,8 @@ func _playRecoilEffect() -> void:
 	_tweenRecoil.set_trans(Tween.TRANS_CUBIC)
 	_tweenRecoil.set_ease(Tween.EASE_OUT)
 	
-	_tweenRecoil.tween_property(self, "_recoilFactor", 1.0, TWEEN_ATTACK_DURATION * _durationFactor)
-	_tweenRecoil.tween_property(self, "_recoilFactor", 0.0, TWEEN_DECAY_DURATION * _durationFactor)
-	
+	_tweenRecoil.tween_property(self, "_recoilFactor", 1.0, TWEEN_ATTACK_DURATION * (1.0 - _recoilFactor)) #_durationFactor)
+	_tweenRecoil.tween_property(self, "_recoilFactor", 0.0, TWEEN_DECAY_DURATION) #_durationFactor)
 	pass
 
 
